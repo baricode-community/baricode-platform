@@ -31,7 +31,7 @@ $courses = Course::where('is_published', true)->get();
                             <div class="p-6">
                                 <h2 class="text-xl font-semibold mb-2">{{ $course->title }}</h2>
                                 <p class="text-gray-400 text-sm mb-4 line-clamp-2">{{ $course->description }}</p>
-                                <a href="#"
+                                <a href="{{ route('course', ['course' => $course]) }}"
                                     class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md transition duration-300">Lihat
                                     Kursus</a>
                             </div>
