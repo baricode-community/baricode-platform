@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Course;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,6 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory(10)->create();
+        Course::factory(20)->create();
 
         if (!User::where('email', 'test@example.com')->exists()) {
             User::factory()->create([
