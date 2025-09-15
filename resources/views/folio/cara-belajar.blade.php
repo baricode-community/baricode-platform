@@ -26,7 +26,7 @@
                 <div class="text-sm text-gray-300">💼 Proyek Portofolio</div>
             </div>
             <div class="bg-gray-800 rounded-lg p-4">
-                <div class="text-2xl font-bold text-purple-400">Hampir Selalu</div>
+                <div class="text-2xl font-bold text-purple-400">Selalu</div>
                 <div class="text-sm text-gray-300">🤝 Support Komunitas</div>
             </div>
         </div>
@@ -299,10 +299,7 @@
             <h3 class="text-2xl md:text-3xl font-bold mb-4">🚀 Siap Memulai Perjalanan Self-Learning?</h3>
             <p class="text-lg mb-6 opacity-90">Bergabunglah dengan ribuan self-learner yang sudah memulai kariernya dari sini!</p>
             <div class="space-x-4">
-                <a href="#" class="inline-block bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-                    Mulai dari Computational Thinking 🧠
-                </a>
-                <a href="#" class="inline-block border border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors">
+                <a href="{{ route('courses') }}" wire:navigate class="inline-block border border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors">
                     Lihat Semua Kursus 📚
                 </a>
             </div>
