@@ -8,6 +8,7 @@
     "require": {
         "php": "^8.2",
         "filament/filament": "^4.0",
+        "gboquizosanchez/filament-log-viewer": "^2.1",
         "laravel/folio": "^1.1",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",

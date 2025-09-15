@@ -52,6 +52,9 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
+            ->plugins([
+                \Boquizo\FilamentLogViewer\FilamentLogViewerPlugin::make()
+            ])
             ->authMiddleware([
                 Authenticate::class,
             ]);
