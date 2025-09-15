@@ -1,6 +1,6 @@
 <?php
 use function Laravel\Folio\name;
- 
+
 name('home');
 
 ?>
@@ -10,7 +10,29 @@ name('home');
 @section('title', 'Belajar Ngoding Gratis - 100% Gratis')
 
 @section('content')
-    <section class="hero text-center py-20 md:py-32 px-4 min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white">
+    <div id="welcome-modal"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 transition-opacity duration-300 opacity-0 pointer-events-none">
+        <div
+            class="bg-gray-800 rounded-lg shadow-lg p-8 m-4 max-w-lg w-full transform transition-transform duration-300 scale-95">
+            <h2 class="text-3xl font-bold text-white mb-4 text-center">Selamat Datang!</h2>
+            <p class="text-gray-400 mb-6 text-center">
+                Apakah Anda ingin tahu cara memulai belajar di sini?
+            </p>
+            <div class="flex justify-center space-x-4">
+                <a href="/cara-belajar"
+                    class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-full transition duration-300">
+                    Cara Belajar
+                </a>
+                <button id="close-modal"
+                    class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-full transition duration-300">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <section
+        class="hero text-center py-20 md:py-32 px-4 min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white">
         <div class="max-w-4xl mx-auto">
             <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4 animate-fade-in-up">
                 Belajar Ngoding Gratis 100%. <br class="hidden md:inline-block"> Bangun Proyek Bareng.
@@ -79,7 +101,8 @@ name('home');
                 <div class="text-center">
                     <div class="text-6xl mb-4 text-indigo-400">🌍</div>
                     <h3 class="text-xl font-semibold mb-2 text-white">Komunitas yang Tangguh</h3>
-                    <p class="text-gray-400">Bergabung dengan komunitas yang solid dan saling mendukung untuk tumbuh bersama.</p>
+                    <p class="text-gray-400">Bergabung dengan komunitas yang solid dan saling mendukung untuk tumbuh
+                        bersama.</p>
                 </div>
             </div>
         </div>
@@ -96,3 +119,24 @@ name('home');
         </div>
     </section>
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('welcome-modal');
+            const closeButton = document.getElementById('close-modal');
+
+            // Tampilkan modal setelah halaman selesai dimuat
+            setTimeout(() => {
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                modal.querySelector('div').classList.remove('scale-95');
+            }, 500); // Penundaan 500ms agar animasi terlihat lebih baik
+
+            // Sembunyikan modal saat tombol tutup diklik
+            closeButton.addEventListener('click', function() {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                modal.querySelector('div').classList.add('scale-95');
+            });
+        });
+    </script>
+@endpush
