@@ -56,6 +56,7 @@ class AdminPanelProvider extends PanelProvider
                 \Boquizo\FilamentLogViewer\FilamentLogViewerPlugin::make(),
                 \pxlrbt\FilamentEnvironmentIndicator\EnvironmentIndicatorPlugin::make(),
             ])
+            ->topNavigation()
             ->authMiddleware([
                 Authenticate::class,
             ]);
