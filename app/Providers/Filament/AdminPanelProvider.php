@@ -53,7 +53,8 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->plugins([
-                \Boquizo\FilamentLogViewer\FilamentLogViewerPlugin::make()
+                \Boquizo\FilamentLogViewer\FilamentLogViewerPlugin::make(),
+                \pxlrbt\FilamentEnvironmentIndicator\EnvironmentIndicatorPlugin::make(),
             ])
             ->authMiddleware([
                 Authenticate::class,
