@@ -2,10 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
+use Laravel\Folio\Folio;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Folio::path(resource_path('views/folio'))->uri('/');
+
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('home');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
