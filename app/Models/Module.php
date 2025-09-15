@@ -4,16 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\Module;
+use App\Models\Course;
 
-class Course extends Model
+class Module extends Model
 {
     use HasFactory;
 
     protected $guarded = ['id'];
 
-    public function modules()
+    public function course()
     {
-        return $this->hasMany(Module::class)->orderBy('order');
+        return $this->belongsTo(Course::class)->orderBy('order');
     }
 }
