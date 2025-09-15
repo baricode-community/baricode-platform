@@ -79,6 +79,50 @@ name('home');
         </div>
     </section>
 
+    <section class="py-20 px-4 bg-gray-900">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Kata Mereka yang Sudah Bergabung</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                    <p class="text-gray-400 italic mb-4">"Kurikulumnya terstruktur banget, dari nol jadi bisa bikin website
+                        sendiri. Komunitasnya juga supportif!"</p>
+                    <div class="flex items-center">
+                        <img src="https://via.placeholder.com/60" alt="Foto Profil Pengguna"
+                            class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <p class="font-semibold text-white">Budi Santoso</p>
+                            <p class="text-sm text-indigo-400">Junior Developer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                    <p class="text-gray-400 italic mb-4">"Bisa kolaborasi di proyek bareng itu pengalaman yang luar biasa.
+                        Sangat membantu untuk portofolio!"</p>
+                    <div class="flex items-center">
+                        <img src="https://via.placeholder.com/60" alt="Foto Profil Pengguna"
+                            class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <p class="font-semibold text-white">Siti Aisyah</p>
+                            <p class="text-sm text-indigo-400">Mahasiswa Informatika</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                    <p class="text-gray-400 italic mb-4">"Mentoringnya berkualitas. Pertanyaan apapun selalu dijawab dengan
+                        sabar dan jelas."</p>
+                    <div class="flex items-center">
+                        <img src="https://via.placeholder.com/60" alt="Foto Profil Pengguna"
+                            class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <p class="font-semibold text-white">Joko Wicaksono</p>
+                            <p class="text-sm text-indigo-400">Web Freelancer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="py-20 px-4 bg-gradient-to-r from-gray-800 to-gray-900">
         <div class="max-w-7xl mx-auto">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Apa yang Akan Kamu Dapatkan?</h2>
@@ -104,6 +148,63 @@ name('home');
                     <p class="text-gray-400">Bergabung dengan komunitas yang solid dan saling mendukung untuk tumbuh
                         bersama.</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-4 bg-gray-900">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-12">Teknologi yang Akan Kamu Kuasai</h2>
+            <div class="flex flex-wrap justify-center gap-6">
+                <span class="bg-gray-800 text-indigo-400 font-semibold py-2 px-4 rounded-full">Laravel</span>
+                <span class="bg-gray-800 text-indigo-400 font-semibold py-2 px-4 rounded-full">PHP</span>
+                <span class="bg-gray-800 text-indigo-400 font-semibold py-2 px-4 rounded-full">Tailwind CSS</span>
+                <span class="bg-gray-800 text-indigo-400 font-semibold py-2 px-4 rounded-full">JavaScript</span>
+                <span class="bg-gray-800 text-indigo-400 font-semibold py-2 px-4 rounded-full">React</span>
+                <span class="bg-gray-800 text-indigo-400 font-semibold py-2 px-4 rounded-full">Vue.js</span>
+                <span class="bg-gray-800 text-indigo-400 font-semibold py-2 px-4 rounded-full">Node.js</span>
+                <span class="bg-gray-800 text-indigo-400 font-semibold py-2 px-4 rounded-full">MySQL</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-4 bg-gray-800">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Tanya Jawab (FAQ)</h2>
+            <div class="space-y-4">
+                <details class="bg-gray-700 p-6 rounded-lg shadow-lg cursor-pointer">
+                    <summary class="flex justify-between items-center text-white font-semibold">
+                        Apakah semua materi benar-benar gratis?
+                        <svg class="w-6 h-6 text-indigo-400 transform transition-transform duration-200" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </summary>
+                    <p class="text-gray-300 mt-4">Ya, semua materi pembelajaran dan akses ke komunitas sepenuhnya gratis,
+                        tanpa biaya tersembunyi. Kami percaya pada pendidikan yang dapat diakses oleh semua orang.</p>
+                </details>
+                <details class="bg-gray-700 p-6 rounded-lg shadow-lg cursor-pointer">
+                    <summary class="flex justify-between items-center text-white font-semibold">
+                        Bagaimana cara mendaftar?
+                        <svg class="w-6 h-6 text-indigo-400 transform transition-transform duration-200" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </summary>
+                    <p class="text-gray-300 mt-4">Anda cukup menekan tombol "Daftar Sekarang" dan ikuti langkah-langkah
+                        mudah yang ada. Anda akan langsung bisa memulai petualangan ngoding Anda.</p>
+                </details>
+                <details class="bg-gray-700 p-6 rounded-lg shadow-lg cursor-pointer">
+                    <summary class="flex justify-between items-center text-white font-semibold">
+                        Apakah ada persyaratan dasar untuk bergabung?
+                        <svg class="w-6 h-6 text-indigo-400 transform transition-transform duration-200" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </summary>
+                    <p class="text-gray-300 mt-4">Tidak ada! Kami menyambut siapa saja, dari pemula yang belum pernah
+                        ngoding sampai mereka yang sudah berpengalaman. Yang penting niat untuk belajar.</p>
+                </details>
             </div>
         </div>
     </section>
