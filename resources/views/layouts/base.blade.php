@@ -71,7 +71,7 @@
             <!-- Desktop Menu -->
             <div class="hidden lg:flex lg:items-center lg:space-x-4">
                 <a href="#" class="text-gray-300 hover:text-white px-4 py-2 transition duration-300">Fitur</a>
-                <a href="#" class="text-gray-300 hover:text-white px-4 py-2 transition duration-300">Kursus</a>
+                <a href="{{ route('courses') }}" class="text-gray-300 hover:text-white px-4 py-2 transition duration-300">Kursus</a>
                 <a href="#" class="text-gray-300 hover:text-white px-4 py-2 transition duration-300">Komunitas</a>
                 <a href="#"
                     class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md ml-4 transition duration-300">Daftar
