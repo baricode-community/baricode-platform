@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Livewire\Volt\Volt;
 use Laravel\Folio\Folio;
+use Livewire\Volt\Volt;
 
 Folio::path(resource_path('views/folio'))->uri('/');
 
