@@ -57,7 +57,7 @@
 
     <header class="py-4 px-6 fixed w-full z-50 bg-gray-900 shadow-lg">
         <nav class="flex justify-between items-center max-w-7xl mx-auto">
-            <a href="#" class="text-xl font-bold text-indigo-400">Baricode Community</a>
+            <a href="/" wire:navigate class="text-xl font-bold text-indigo-400">Baricode Community</a>
 
             <!-- Hamburger Menu Button -->
             <button id="menu-toggle" class="lg:hidden text-gray-300 focus:outline-none focus:text-white">
@@ -71,7 +71,7 @@
             <!-- Desktop Menu -->
             <div class="hidden lg:flex lg:items-center lg:space-x-4">
                 <a href="#" class="text-gray-300 hover:text-white px-4 py-2 transition duration-300">Fitur</a>
-                <a href="{{ route('courses') }}" class="text-gray-300 hover:text-white px-4 py-2 transition duration-300">Kursus</a>
+                <a href="{{ route('courses') }}" wire:navigate class="text-gray-300 hover:text-white px-4 py-2 transition duration-300">Kursus</a>
                 <a href="#" class="text-gray-300 hover:text-white px-4 py-2 transition duration-300">Komunitas</a>
                 <a href="#"
                     class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md ml-4 transition duration-300">Daftar
