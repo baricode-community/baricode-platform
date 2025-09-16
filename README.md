@@ -35,7 +35,7 @@ Pastikan kamu sudah menginstal:
 
 1.  **Kloning Repositori:**
     ```bash
-    git clone [https://github.com/baricode-community/baricode-platform]([https://github.com/namapengguna/nama-proyek.git](https://github.com/baricode-community/baricode-platform))
+    git clone https://github.com/baricode-community/baricode-platform
     cd baricode-platform
     ```
 
