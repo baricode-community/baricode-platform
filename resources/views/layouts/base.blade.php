@@ -70,9 +70,8 @@
 
             <!-- Desktop Menu -->
             <div class="hidden lg:flex lg:items-center lg:space-x-4">
-                <a href="#" class="text-gray-300 hover:text-white px-4 py-2 transition duration-300">Fitur</a>
                 <a href="{{ route('courses') }}" wire:navigate class="text-gray-300 hover:text-white px-4 py-2 transition duration-300">Kursus</a>
-                <a href="#" class="text-gray-300 hover:text-white px-4 py-2 transition duration-300">Komunitas</a>
+                <a href="https://chat.whatsapp.com/Fb2ZFMIKDz7JJZyBVpzXws" class="text-gray-300 hover:text-white px-4 py-2 transition duration-300">Komunitas</a>
                 <a href="#"
                     class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md ml-4 transition duration-300">Daftar
                     Sekarang</a>
@@ -83,11 +82,9 @@
         <div id="menu"
             class="lg:hidden hidden absolute top-full left-0 w-full bg-gray-900 border-t border-gray-700 shadow-lg">
             <div class="px-6 py-4 space-y-3">
-                <a href="#"
-                    class="block text-gray-300 hover:text-white hover:bg-gray-800 px-4 py-2 rounded-md transition duration-300">Fitur</a>
-                <a href="#"
+                <a href="{{ route('courses') }}" wire:navigate
                     class="block text-gray-300 hover:text-white hover:bg-gray-800 px-4 py-2 rounded-md transition duration-300">Kursus</a>
-                <a href="#"
+                <a href="https://chat.whatsapp.com/Fb2ZFMIKDz7JJZyBVpzXws"
                     class="block text-gray-300 hover:text-white hover:bg-gray-800 px-4 py-2 rounded-md transition duration-300">Komunitas</a>
                 <div class="pt-2 border-t border-gray-700">
                     <a href="#"
