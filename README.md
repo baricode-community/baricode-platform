@@ -35,8 +35,8 @@ Pastikan kamu sudah menginstal:
 
 1.  **Kloning Repositori:**
     ```bash
-    git clone [https://github.com/namapengguna/nama-proyek.git](https://github.com/namapengguna/nama-proyek.git)
-    cd nama-proyek
+    git clone [https://github.com/baricode-community/baricode-platform]([https://github.com/namapengguna/nama-proyek.git](https://github.com/baricode-community/baricode-platform))
+    cd baricode-platform
     ```
 
 2.  **Instal Dependensi Composer dan NPM:**
@@ -63,11 +63,7 @@ Pastikan kamu sudah menginstal:
 5.  **Jalankan Server:**
     -   Jalankan server pengembangan Laravel.
     ```bash
-    php artisan serve
-    ```
-    -   Jalankan Vite untuk kompilasi aset frontend.
-    ```bash
-    npm run dev
+    composer run dev
     ```
 
 Sekarang kamu bisa mengakses proyek di `http://127.0.0.1:8000`.
