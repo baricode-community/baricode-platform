@@ -11,6 +11,7 @@ use Livewire\Volt\Component;
 new #[Layout('components.layouts.auth')] class extends Component {
     public string $name = '';
     public string $email = '';
+    public ?string $whatsapp = null;
     public string $password = '';
     public string $password_confirmation = '';
 
@@ -21,6 +22,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
     {
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
+            'whatsapp' => ['nullable', 'string', 'max:20', 'regex:/^\+?[0-9]{7,20}$/', 'unique:' . User::class],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
         ]);
@@ -61,6 +63,15 @@ new #[Layout('components.layouts.auth')] class extends Component {
             required
             autocomplete="email"
             placeholder="email@example.com"
+        />
+
+        <!-- WhatsApp Number -->
+        <flux:input
+            wire:model="whatsapp"
+            :label="__('WhatsApp Number')"
+            type="tel"
+            autocomplete="tel"
+            :placeholder="__('WhatsApp Number')"
         />
 
         <!-- Password -->
