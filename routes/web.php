@@ -18,6 +18,13 @@ Route::controller(\App\Http\Controllers\DashboardController::class)
         Route::get('/profile', 'profile')->name('profile');
     });
 
+Route::controller(\App\Http\Controllers\CourseController::class)
+    ->middleware(['auth', 'verified'])
+    ->prefix('dashboard/courses')
+    ->group(function () {
+        Route::get('/start/{course}', 'start')->name('course.start');
+    });
+
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 

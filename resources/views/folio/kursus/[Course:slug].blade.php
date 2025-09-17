@@ -33,6 +33,12 @@ name('course');
                             </div>
                     </div>
                 @endforeach
+
+                <div class="text-center mt-8">
+                    <a href="{{ route('course.start', ['course' => $course]) }}" class="inline-block bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg">
+                        Mulai Belajar Sekarang
+                    </a>
+                </div>
             </div>
         @else
             <div class="text-center text-gray-400 py-8">
