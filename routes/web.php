@@ -10,9 +10,13 @@ Folio::path(resource_path('views/folio'))->uri('/');
 //     return view('welcome');
 // })->name('home');
 
-Route::view('dashboard', 'dashboard')
+Route::controller(\App\Http\Controllers\DashboardController::class)
     ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+    ->prefix('dashboard')
+    ->group(function () {
+        Route::get('/', 'index')->name('dashboard');
+        Route::get('/profile', 'profile')->name('profile');
+    });
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
