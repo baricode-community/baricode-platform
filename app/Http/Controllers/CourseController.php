@@ -22,6 +22,7 @@ class CourseController extends Controller
             return redirect()->back()->with('error', 'Course is not published yet.');
         }
 
-        return redirect()->route('courses')->with('success', 'Course started successfully.');
+        flash()->success('You have successfully started the course!');
+        return redirect()->route('courses');
     }
 }
