@@ -72,9 +72,15 @@
             <div class="hidden lg:flex lg:items-center lg:space-x-4">
                 <a href="{{ route('courses') }}" wire:navigate class="text-gray-300 hover:text-white px-4 py-2 transition duration-300">Kursus</a>
                 <a href="https://chat.whatsapp.com/Fb2ZFMIKDz7JJZyBVpzXws" class="text-gray-300 hover:text-white px-4 py-2 transition duration-300">Komunitas</a>
-                <a href="{{ route('register') }}" wire:navigate
-                    class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md ml-4 transition duration-300">Daftar
-                    Sekarang</a>
+                
+                @if(auth()->user())
+                    <a href="{{ route('dashboard') }}" wire:navigate
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md ml-4 transition duration-300">Dashboard</a>
+                @else
+                    <a href="{{ route('login') }}" wire:navigate
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md ml-4 transition duration-300">Masuk
+                        Sekarang</a>
+                @endif
             </div>
         </nav>
 
@@ -87,9 +93,14 @@
                 <a href="https://chat.whatsapp.com/Fb2ZFMIKDz7JJZyBVpzXws"
                     class="block text-gray-300 hover:text-white hover:bg-gray-800 px-4 py-2 rounded-md transition duration-300">Komunitas</a>
                 <div class="pt-2 border-t border-gray-700">
-                    <a href="{{ route('register') }}" wire:navigate
-                        class="block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md text-center transition duration-300">Daftar
-                        Sekarang</a>
+                    @if(auth()->user())
+                        <a href="{{ route('dashboard') }}" wire:navigate
+                            class="block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md transition duration-300 text-center">Dashboard</a>
+                    @else
+                        <a href="{{ route('login') }}" wire:navigate
+                            class="block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md transition duration-300 text-center">Masuk
+                            Sekarang</a>
+                    @endif
                 </div>
             </div>
         </div>
