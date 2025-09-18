@@ -4,25 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Course;
+use App\Services\CourseService;
 
 class CourseController extends Controller
 {
+    protected $courseService;
+
+    public function __construct(CourseService $courseService)
+    {
+        $this->courseService = $courseService;
+    }
+
     public function start(Course $course)
     {
-        $context = [
-            'course_id' => $course->id,
-            'course_title' => $course->title,
-            'user_id' => auth()->id(),
-        ];
+        $userId = auth()->id();
+        $result = $this->courseService->startCourse($course, $userId);
 
-        logger()->info('Starting course', $context);
-
-        if (!$course->is_published) {
-            logger()->warning('Attempt to start unpublished course', $context);
-            return redirect()->back()->with('error', 'Course is not published yet.');
+        if (!$result) {
+            return redirect()->back();
         }
 
-        flash()->success('You have successfully started the course!');
         return redirect()->route('courses');
     }
 }
