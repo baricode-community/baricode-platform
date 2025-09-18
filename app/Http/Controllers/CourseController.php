@@ -24,6 +24,11 @@ class CourseController extends Controller
             return redirect()->back();
         }
 
-        return redirect()->route('courses');
+        return redirect()->route('course.continue', ['course' => $course->slug]);
+    }
+
+    public function continue(Course $course)
+    {
+        return view('pages.courses.continue', compact('course'));
     }
 }

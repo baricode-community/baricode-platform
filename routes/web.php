@@ -23,6 +23,7 @@ Route::controller(\App\Http\Controllers\CourseController::class)
     ->prefix('dashboard/courses')
     ->group(function () {
         Route::get('/start/{course}', 'start')->name('course.start');
+        Route::get('/continue/{course:slug}', 'continue')->name('course.continue');
     });
 
 Route::middleware(['auth'])->group(function () {
