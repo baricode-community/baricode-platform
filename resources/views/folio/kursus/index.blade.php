@@ -25,6 +25,7 @@ $categories = \App\Models\Category::with(['courses' => function($q) { $q->where(
                     @if ($category->courses->count() > 0)
                         @php $hasCourses = true; @endphp
                         <h2 class="text-2xl font-bold mb-4 mt-12">{{ $category->name }}</h2>
+                        <p class="text-gray-400 mb-8">{{ $category->description }}</p>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
                             @foreach ($category->courses as $course)
                                 <div class="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 ease-in-out">
