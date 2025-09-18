@@ -16,6 +16,12 @@ return new class extends Migration
             $table->timestamp('started_at')->nullable();
             $table->timestamp('completed_at')->nullable();
 
+            $table->boolean('is_approved')->default(false);
+            $table->unsignedBigInteger('approved_by')->nullable();
+            $table->timestamp('approved_at')->nullable();
+            $table->text('approval_notes')->nullable();
+            $table->foreign('approved_by')->references('id')->on('users')->onDelete('set null');
+
             $table->unsignedBigInteger('course_id')->default(0);
             $table->unsignedBigInteger('user_id')->default(0);
 
