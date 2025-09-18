@@ -29,8 +29,17 @@ name('course');
                             {{ $module->title }}
                         </h3>
                         <div class="ml-8 mt-2 space-y-2">
-                            <p class="text-gray-400 italic">Daftar pelajaran untuk modul ini akan segera ditambahkan.</p>
-                            </div>
+                            @if($module->lessons->count() > 0)
+                                @foreach ($module->lessons as $lesson)
+                                    <div class="flex items-center">
+                                        <span class="text-indigo-400 font-bold mr-2">{{ $loop->iteration }}.</span>
+                                        <span>{{ $lesson->title }}</span>
+                                    </div>
+                                @endforeach
+                            @else
+                                <p class="text-gray-400 italic">Daftar pelajaran untuk modul ini akan segera ditambahkan.</p>
+                            @endif
+                        </div>
                     </div>
                 @endforeach
 
