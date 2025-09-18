@@ -22,6 +22,7 @@ Route::controller(\App\Http\Controllers\CourseController::class)
     ->middleware(['auth', 'verified'])
     ->prefix('dashboard/courses')
     ->group(function () {
+        Route::get('/prepare/{course}', 'prepare')->name('course.prepare');
         Route::get('/start/{course}', 'start')->name('course.start');
         Route::get('/continue/{course:slug}', 'continue')->name('course.continue');
     });

@@ -44,8 +44,8 @@ name('course');
                 @endforeach
 
                 <div class="text-center mt-8">
-                    <a href="{{ route('course.start', ['course' => $course]) }}" class="inline-block bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg">
-                        Mulai Belajar Sekarang
+                    <a href="{{ route('course.prepare', ['course' => $course]) }}" class="inline-block bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg">
+                        Mulai Kursus
                     </a>
                 </div>
             </div>

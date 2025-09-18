@@ -14,6 +14,11 @@ class CourseController extends Controller
     {
         $this->courseService = $courseService;
     }
+    
+    public function prepare(Course $course)
+    {
+        return view('pages.courses.prepare', compact('course'));
+    }
 
     public function start(Course $course)
     {
