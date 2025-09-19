@@ -40,20 +40,25 @@
                 </ul>
             </div>
             <div class="p-8 rounded-lg shadow-lg border">
-                <ul class="space-y-4">
-                    <li class="flex justify-between items-center">
-                        <span>Belajar Laravel</span>
-                        <span class="text-sm">Progres: 50%</span>
-                    </li>
-                    <li class="flex justify-between items-center">
-                        <span>Dasar-dasar JavaScript</span>
-                        <span class="text-sm">Progres: 30%</span>
-                    </li>
-                    <li class="flex justify-between items-center">
-                        <span>UI/UX Design</span>
-                        <span class="text-sm">Progres: 70%</span>
-                    </li>
-                </ul>
+                @if($userCourses->isNotEmpty())
+                    <ul class="space-y-4">
+                        @foreach ($userCourses as $course)
+                            <li class="flex justify-between items-center">
+                                <span>{{ $course->title }}</span>
+                                <span class="text-sm">Progres: {{ $course->pivot->progress }}%</span>
+                            </li>
+                        @endforeach
+                    </ul>
+                @else
+                    <div class="text-center text-gray-500">
+                        Kamu belum mengikuti kursus apapun saat ini.
+                    </div>
+                @endif
+                <div class="mt-8 text-center">
+                    <a href="{{ route('courses') }}" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded transition">
+                        Lihat Semua Kursus
+                    </a>
+                </div>
             </div>
 
             <!-- Motivasi -->
