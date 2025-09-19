@@ -23,7 +23,7 @@
             </div>
             <div class="bg-gray-800 rounded-lg p-4">
                 <div class="text-2xl font-bold text-yellow-400">Banyak</div>
-                <div class="text-sm text-gray-300">💼 Proyek Portofolio</div>
+                <div class="text-sm text-gray-300">💼 Teman Belajar Dari 0</div>
             </div>
             <div class="bg-gray-800 rounded-lg p-4">
                 <div class="text-2xl font-bold text-purple-400">Selalu</div>
@@ -57,10 +57,13 @@
                 <div class="bg-gray-800/50 rounded-lg p-6">
                     <h4 class="font-semibold text-blue-300 mb-3">📚 Sumber Belajar yang Kami Sediakan:</h4>
                     <ul class="text-gray-300 space-y-2">
-                        <li>📖 Panduan visual dengan ilustrasi menarik</li>
-                        <li>🎮 Game puzzle untuk latihan logika</li>
                         <li>🧩 Studi kasus masalah sehari-hari</li>
+                        <li>▶️ Materi video dari YouTube yang bisa kamu akses gratis</li>
+                        <li>📝 Artikel pilihan yang mudah dipahami untuk belajar mandiri</li>
                     </ul>
+                    <p class="text-sm text-gray-400 mt-3">
+                        Semua materi bisa kamu pelajari sendiri sesuai kecepatanmu.
+                    </p>
                 </div>
             </div>
             
@@ -87,7 +90,6 @@
                     <h4 class="font-semibold text-green-300 mb-3">Materi Terstruktur</h4>
                     <ul class="text-sm text-gray-300 space-y-1">
                         <li>• Step-by-step tutorial</li>
-                        <li>• Cheatsheet downloadable</li>
                         <li>• Flowchart konsep</li>
                         <li>• Mind map materi</li>
                     </ul>
@@ -131,9 +133,9 @@
                     <h4 class="font-semibold text-indigo-300 mb-2">📚 Jalur Belajar yang Tersedia:</h4>
                     <ul class="text-sm text-gray-300 space-y-1">
                         <li>🧠 <strong>Pre-Coding:</strong> Computational Thinking, Logika Dasar</li>
-                        <li>🟢 <strong>Pemula:</strong> HTML, CSS, JavaScript Dasar</li>
-                        <li>🟡 <strong>Menengah:</strong> React, Node.js, Database</li>
-                        <li>🔴 <strong>Mahir:</strong> DevOps, Microservices, Cloud</li>
+                        <li>🟢 <strong>Pemula:</strong> HTML, CSS, JavaScript Dasar <span class="italic text-gray-400">(segera hadir)</span></li>
+                        <li>🟡 <strong>Menengah:</strong> React, Node.js, Database <span class="italic text-gray-400">(segera hadir)</span></li>
+                        <li>🔴 <strong>Mahir:</strong> DevOps, Microservices, Cloud <span class="italic text-gray-400">(segera hadir)</span></li>
                     </ul>
                 </div>
                 
