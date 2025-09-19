@@ -17,6 +17,20 @@ $categories = \App\Models\Category::with([
 
 @section('content')
     <section class="py-20 md:py-32 px-4 bg-gray-900 text-white min-h-screen">
+        <div class="max-w-3xl mx-auto mb-12 text-center">
+            <div class="bg-indigo-700/20 border border-indigo-700 rounded-lg p-6">
+                <p class="text-lg md:text-xl font-semibold mb-2">
+                    Halaman ini menampilkan semua kursus untuk pemula, menengah, dan lanjut.
+                </p>
+                <p class="text-gray-300 mb-4">
+                    Untuk mendapatkan rekomendasi kursus yang sesuai dengan kebutuhan Anda, silakan lakukan registrasi terlebih dahulu.
+                </p>
+                <a href="{{ route('login') }}"
+                   class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-md transition duration-300">
+                    Gabung Sekarang
+                </a>
+            </div>
+        </div>
         <div class="max-w-7xl mx-auto">
             <h1 class="text-4xl md:text-5xl font-bold text-center mb-8">Jelajahi Semua Kursus</h1>
             <p class="text-lg md:text-xl text-gray-400 text-center mb-16">
