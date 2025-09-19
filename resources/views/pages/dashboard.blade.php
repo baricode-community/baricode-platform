@@ -55,9 +55,23 @@
                     </div>
                 @endif
                 <div class="mt-8 text-center">
-                    <a href="{{ route('courses') }}" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded transition">
-                        Lihat Semua Kursus
-                    </a>
+                    @if(auth()->user()->level === 'pemula')
+                        <a href="{{ route('course_pemula') }}" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded transition">
+                            Lihat Kursus Pemula
+                        </a>
+                    @elseif(auth()->user()->level === 'menengah')
+                        <a href="{{ route('course_pemula') }}" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded transition">
+                            Lihat Kursus Menengah
+                        </a>
+                    @elseif(auth()->user()->level === 'lanjut')
+                        <a href="{{ route('course_pemula') }}" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded transition">
+                            Lihat Kursus Lanjutan
+                        </a>
+                    @else
+                        <a href="{{ route('courses') }}" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded transition">
+                            Lihat Semua Kursus
+                        </a>
+                    @endif
                 </div>
             </div>
 
