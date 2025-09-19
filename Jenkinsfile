@@ -14,9 +14,14 @@ pipeline {
             }
         }
 
-        stage('Git Checkout') {
+        
+        stage('Build with Node.js') {
             steps {
-                sh 'git --version'
+                nodejs('24.8.0') {
+                    sh 'node --version'
+                    sh 'npm --version'
+                    sh 'npm install'
+                }
             }
         }
 
