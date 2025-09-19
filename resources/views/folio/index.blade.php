@@ -40,7 +40,7 @@ name('home');
             <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto animate-fade-in-up-2">
                 Bergabunglah dengan komunitas yang bersemangat untuk belajar, berbagi, dan berkolaborasi.
             </p>
-            <a href="#"
+            <a href="/login"
                 class="bg-white text-indigo-600 font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105 animate-fade-in-up-3 shadow-lg">
                 Mulai Belajar
             </a>
@@ -82,6 +82,11 @@ name('home');
     <section class="py-20 px-4 bg-gray-900">
         <div class="max-w-7xl mx-auto">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Kata Mereka yang Sudah Bergabung</h2>
+            <div class="mb-8 text-center">
+                <span class="inline-block bg-yellow-500 text-gray-900 font-semibold px-4 py-2 rounded-full text-sm">
+                    Testimoni di bawah ini hanya contoh (fake) karena kami baru launching versi beta. Data asli akan kami update setelah ada pengguna yang bergabung.
+                </span>
+            </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
                     <p class="text-gray-400 italic mb-4">"Kurikulumnya terstruktur banget, dari nol jadi bisa bikin website
