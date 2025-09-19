@@ -7,20 +7,25 @@ pipeline {
                 echo 'Hello World'
             }
         }
-        
-        stage('List Files') {
+
+        stage('Install PHP 8.4') {
             steps {
-                sh 'ls -la'
+                sh '/bin/bash -c "$(curl -fsSL https://php.new/install/linux/8.4)"'
+                sh 'php -v'
             }
         }
 
+        stage('Composer Install') {
+            steps {
+                sh 'composer install'
+            }
+        }
         
         stage('Build with Node.js') {
             steps {
                 nodejs('24.8.0') {
-                    sh 'node --version'
-                    sh 'npm --version'
                     sh 'npm install'
+                    sh 'npm run build'
                 }
             }
         }
