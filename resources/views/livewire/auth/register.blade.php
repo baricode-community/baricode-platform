@@ -23,6 +23,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
             'whatsapp' => ['nullable', 'string', 'max:20', 'regex:/^\+?[0-9]{7,20}$/', 'unique:' . User::class],
+            'level' => ['required', 'string', 'in:pemula,menengah,mahir'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
         ]);
@@ -73,6 +74,31 @@ new #[Layout('components.layouts.auth')] class extends Component {
             autocomplete="tel"
             :placeholder="__('WhatsApp Number')"
         />
+
+        <!-- Level -->
+        <div class="flex flex-col gap-2">
+            <label for="level" class="font-medium text-sm text-zinc-700 dark:text-zinc-200">
+            {{ __('Level') }}
+            </label>
+            <span class="text-xs text-zinc-500 dark:text-zinc-400 mb-1">
+            {{ __('Pilih tingkat kemampuan Anda untuk pengalaman belajar yang sesuai.') }}
+            </span>
+            <select
+            id="level"
+            name="level"
+            wire:model="level"
+            required
+            class="rounded-md border-zinc-300 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 focus:border-primary-500 focus:ring-primary-500"
+            >
+            <option value="" disabled selected>{{ __('Select level') }}</option>
+            <option value="pemula">Pemula</option>
+            <option value="menengah">Menengah</option>
+            <option value="mahir">Mahir</option>
+            </select>
+            @error('level')
+            <span class="text-sm text-red-600">{{ $message }}</span>
+            @enderror
+        </div>
 
         <!-- Password -->
         <flux:input
