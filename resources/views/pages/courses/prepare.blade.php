@@ -10,11 +10,26 @@
                     <strong class="font-bold">⚠️ Peringatan:</strong> Setelah jadwal kursus ditentukan, Anda <span class="font-semibold">tidak
                         dapat mengubahnya</span> kecuali dengan menghapus progres kursus saat ini.
                 </div>
+                <p class="mt-4 text-sm text-indigo-700 dark:text-indigo-200">
+                    ⏳ <span class="font-semibold">Catatan tambahan:</span> Jika Anda tidak menentukan jam pada hari yang dipilih, maka secara default sistem akan mengatur jadwal pada hari tersebut pukul <span class="font-bold">06:00 WIB</span>.
+                </p>
             </div>
             <form action="{{ route('course.start', $course) }}" method="POST" class="space-y-8">
                 @csrf
                 <div>
                     <label class="block font-semibold mb-4 text-lg text-indigo-700 dark:text-indigo-200">🗓️ Pilih Hari & Jam Kursus</label>
+                    @if ($errors->any())
+                        <div class="mb-6">
+                            <div class="bg-red-50 border-l-4 border-red-400 text-red-800 dark:bg-red-900 dark:border-red-400 dark:text-red-200 p-4 rounded-lg shadow-sm" role="alert">
+                                <strong class="font-bold">Terjadi kesalahan:</strong>
+                                <ul class="mt-2 list-disc list-inside text-sm">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
                     <div class="grid grid-cols-1 gap-3">
                         @foreach (['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'] as $day)
                             <div class="flex items-center justify-between bg-indigo-50 dark:bg-gray-700 rounded-lg px-4 py-3 shadow-sm border border-indigo-100 dark:border-gray-600 transition hover:bg-indigo-100 dark:hover:bg-gray-600 group">
