@@ -50,19 +50,34 @@
                     <h2 class="text-2xl font-semibold mb-4">📚 Daftar Modul</h2>
                     <div class="space-y-4">
                         @foreach($modules as $module)
-                        <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                            <div class="flex items-center">
-                                @if($module->is_completed)
-                                    <span class="text-green-500 mr-3">✅</span>
-                                @else
-                                    <span class="mr-3">📝</span>
-                                @endif
-                                <span>{{ $module->title }}</span>
+                        <div class="flex flex-col gap-2 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    @if($module->is_completed)
+                                        <span class="text-green-500 mr-3">✅</span>
+                                    @else
+                                        <span class="mr-3">📝</span>
+                                    @endif
+                                    <span>{{ $module->title }}</span>
+                                </div>
                             </div>
-                            <a href="" 
-                               class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                                {{ $module->is_completed ? '🔄 Ulangi' : '▶️ Mulai' }}
-                            </a>
+                            @php
+                                $lessons = $module->lessons ?? [];
+                                // If $module->lessons is a relation, use $module->lessons()->get()
+                                if (method_exists($module, 'lessons')) {
+                                    $lessons = $module->lessons()->get();
+                                }
+                            @endphp
+                            @if(count($lessons))
+                                <div class="ml-8 mt-2 space-y-1">
+                                    @foreach($lessons as $lesson)
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-xs">{{ $lesson->is_completed ? '✅' : '📖' }}</span>
+                                            <span class="text-sm">{{ $lesson->title }}</span>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
                         </div>
                         @endforeach
                     </div>
