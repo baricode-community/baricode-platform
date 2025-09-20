@@ -1,14 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Laravel\Folio\Folio;
 use Livewire\Volt\Volt;
-
-Folio::path(resource_path('views/folio'))->uri('/');
 
 // Route::get('/', function () {
 //     return view('welcome');
 // })->name('home');
+
+Route::controller(\App\Http\Controllers\HomeController::class)->group(function () {
+    Route::get('/', 'index')->name('home');
+    Route::get('/about', 'about')->name('about');
+    Route::get('/cara-belajar', 'cara_belajar')->name('cara_belajar');
+    
+    Route::prefix('course')->group(function () {
+        Route::get('/', 'courses')->name('courses');
+        Route::get('/{course:slug}', 'course')->name('course.show');
+    });
+});
 
 Route::controller(\App\Http\Controllers\DashboardController::class)
     ->middleware(['auth', 'verified'])

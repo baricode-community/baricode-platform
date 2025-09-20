@@ -1,10 +1,3 @@
-<?php
-use function Laravel\Folio\name;
-
-name('home');
-
-?>
-
 @extends('layouts.base')
 
 @section('title', 'Belajar Ngoding Gratis - 100% Gratis')

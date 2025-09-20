@@ -1,16 +1,3 @@
-<?php
-use App\Models\Course;
-use function Laravel\Folio\name;
-
-name('courses');
-
-$categories = \App\Models\Category::with([
-    'courses' => function ($q) {
-        $q->where('is_published', true);
-    },
-])->get();
-?>
-
 @extends('layouts.base')
 
 @section('title', 'Daftar Kursus - Baricode Community')
@@ -54,7 +41,7 @@ $categories = \App\Models\Category::with([
                                     <div class="p-6">
                                         <h3 class="text-xl font-semibold mb-2">{{ $course->title }}</h3>
                                         <p class="text-gray-400 text-sm mb-4 line-clamp-2">{{ $course->description }}</p>
-                                        <a href="{{ route('course', ['course' => $course]) }}"
+                                        <a href="{{ route('course.show', $course->slug) }}"
                                             class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md transition duration-300">Lihat
                                             Kursus</a>
                                     </div>

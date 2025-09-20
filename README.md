@@ -14,7 +14,6 @@ Platform komunitas ngoding yang didedikasikan untuk menyediakan kurikulum pembel
 
 -   **Laravel**: Kerangka kerja PHP yang kuat untuk backend.
 -   **Livewire**: Kerangka kerja *full-stack* yang membuat pengembangan antarmuka dinamis menjadi mudah.
--   **Laravel Folio**: Sistem *file-based routing* yang mempercepat pembuatan halaman.
 -   **Blade**: *Template engine* Laravel yang elegan untuk tampilan frontend.
 -   **Tailwind CSS**: Kerangka kerja CSS untuk membangun antarmuka yang modern dan responsif.
 -   **MySQL**: Sistem manajemen basis data relasional.
