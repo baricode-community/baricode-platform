@@ -17,11 +17,14 @@ class CourseController extends Controller
     
     public function prepare(Course $course)
     {
+        logger()->info('Preparing course: ' . $course->slug);
         return view('pages.courses.prepare', compact('course'));
     }
 
     public function start(Course $course)
     {
+        logger()->info('Starting course: ' . $course->slug);
+
         $userId = auth()->id();
         $result = $this->courseService->startCourse($course, $userId);
 
@@ -34,6 +37,8 @@ class CourseController extends Controller
 
     public function continue(Course $course)
     {
+        logger()->info('Continuing course: ' . $course->slug);
+        
         return view('pages.courses.continue', compact('course'));
     }
 }
