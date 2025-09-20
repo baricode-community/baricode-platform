@@ -68,7 +68,6 @@
                             </div>
                             @php
                                 $lessons = $module->lessons ?? [];
-                                // If $module->lessons is a relation, use $module->lessons()->get()
                                 if (method_exists($module, 'lessons')) {
                                     $lessons = $module->lessons()->get();
                                 }
