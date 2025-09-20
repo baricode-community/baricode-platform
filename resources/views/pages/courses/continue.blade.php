@@ -13,8 +13,6 @@
                     <!-- Course Information -->
                     <div>
                         <h2 class="text-2xl font-semibold mb-4">📋 Informasi Kursus</h2>
-                        <p><strong>👨‍🏫 Instruktur:</strong> {{ $course->instructor }}</p>
-                        <p><strong>📝 Deskripsi Kursus:</strong> {{ $course->description }}</p>
                         <p><strong>🎯 Level:</strong> {{ $course->level }}</p>
                         <p><strong>🏷️ Kategori:</strong> {{ $course->category->name }}</p>
                         @if(!empty($course->category->description))
@@ -42,8 +40,7 @@
                                 <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{ $progress['percentage'] }}%"></div>
                             </div>
                         </div>
-                        <p><strong>✅ Modul Selesai:</strong> {{ $progress['completed_modules'] }}/{{ $progress['total_modules'] }}</p>
-                        <p><strong>🕒 Terakhir Akses:</strong> {{ $progress['last_accessed'] }}</p>
+                        <p><strong>✅ Modul Selesai:</strong> {{ $progress['completed_modules'] }}/{{ $course->modules()->count() }}</p>
                     </div>
                 </div>
 
@@ -67,10 +64,7 @@
                                 </div>
                             </div>
                             @php
-                                $lessons = $module->lessons ?? [];
-                                if (method_exists($module, 'lessons')) {
-                                    $lessons = $module->lessons()->get();
-                                }
+                                $lessons = $module->lessons()->get();
                             @endphp
                             @if(count($lessons))
                                 <div class="ml-8 mt-2 space-y-1">
