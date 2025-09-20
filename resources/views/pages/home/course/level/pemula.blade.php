@@ -17,7 +17,7 @@
                     <ul>
                         @forelse ($category->courses as $course)
                             <li class="mb-4 bg-gray-800 rounded-lg p-6 shadow hover:shadow-lg transition">
-                                <a href="" class="block text-xl font-bold text-blue-400 hover:underline">
+                                <a href="{{ route('course.show', $course->slug) }}" class="block text-xl font-bold text-blue-400 hover:underline">
                                     {{ $course->title }}
                                 </a>
                                 <p class="text-gray-300 mt-2">{{ Str::limit($course->description, 100) }}</p>
