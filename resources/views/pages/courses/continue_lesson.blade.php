@@ -42,7 +42,16 @@
                 </div>
             @endif
 
-            @livewire('lesson-notes', ['lesson' => $lesson])
+            <div class="mb-8">
+                <details class="mb-2">
+                    <summary class="cursor-pointer text-xl font-semibold flex items-center gap-2">
+                        📝 Simpan Catatan Pribadi di Sini
+                    </summary>
+                    <div class="mt-4">
+                        @livewire('lesson-notes', ['lesson' => $lesson])
+                    </div>
+                </details>
+            </div>
 
             <!-- Footer motivasi -->
             <div class="mt-12 text-center text-sm text-gray-400 dark:text-gray-500">
