@@ -1,16 +1,3 @@
-<?php
-use App\Models\Course;
-use function Laravel\Folio\name;
-
-name('course_pemula');
-
-$categories = \App\Models\Category::with([
-    'courses' => function ($q) {
-        $q->where('is_published', true);
-    },
-])->where('level', 'pemula')->get();
-?>
-
 @extends('layouts.base')
 
 @section('title', 'Pemula - Baricode Community')

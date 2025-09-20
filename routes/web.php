@@ -15,6 +15,13 @@ Route::controller(\App\Http\Controllers\HomeController::class)->group(function (
     Route::prefix('course')->group(function () {
         Route::get('/', 'courses')->name('courses');
         Route::get('/{course:slug}', 'course')->name('course.show');
+
+        // Kategorisasi course berdasarkan level
+        Route::prefix('level')->group(function () {
+            Route::get('/pemula', 'pemula')->name('courses.pemula');
+            Route::get('/menengah', 'menengah')->name('courses.menengah');
+            Route::get('/lanjut', 'lanjut')->name('courses.lanjut');
+        });
     });
 });
 

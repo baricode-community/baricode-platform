@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->string('level')->after('name')->default('pemula'); // Menambahkan kolom 'level' dengan default 'pemula'
+            $table->enum('level', ['pemula', 'menengah', 'lanjut'])->after('name')->default('pemula');
         });
     }
 

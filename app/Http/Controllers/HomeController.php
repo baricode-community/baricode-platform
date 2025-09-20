@@ -38,4 +38,25 @@ class HomeController extends Controller
     {
         return view('pages.home.course.show', compact('course'));
     }
+
+    public function pemula()
+    {
+        $categories = Category::where('level', 'pemula')->firstOrFail();
+
+        return view('pages.home.course.level.pemula', compact('categories'));
+    }
+
+    public function menengah()
+    {
+        $categories = Category::where('level', 'menengah')->firstOrFail();
+
+        return view('pages.home.course.level.menengah', compact('categories'));
+    }
+
+    public function lanjut()
+    {
+        $categories = Category::where('level', 'lanjut')->firstOrFail();
+
+        return view('pages.home.course.level.lanjut', compact('categories'));
+    }
 }
