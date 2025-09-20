@@ -42,6 +42,8 @@
                 </div>
             @endif
 
+            @livewire('lesson-notes', ['lesson' => $lesson])
+
             <!-- Footer motivasi -->
             <div class="mt-12 text-center text-sm text-gray-400 dark:text-gray-500">
                 🌟 {{ __('Tetap semangat belajar! Setiap langkah membawa kamu lebih dekat ke tujuan.') }}

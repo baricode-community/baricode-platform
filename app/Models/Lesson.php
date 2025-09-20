@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Module;
+use App\Models\UserNote;
 
 class Lesson extends Model
 {
@@ -15,5 +17,10 @@ class Lesson extends Model
     public function module()
     {
         return $this->belongsTo(Module::class);
+    }
+
+    public function notes()
+    {
+        return $this->hasMany(UserNote::class);
     }
 }
