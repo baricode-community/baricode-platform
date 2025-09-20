@@ -11,7 +11,7 @@
                         dapat mengubahnya</span> kecuali dengan menghapus progres kursus saat ini.
                 </div>
             </div>
-            <form action="" method="POST" class="space-y-8">
+            <form action="{{ route('course.start', $course) }}" method="POST" class="space-y-8">
                 @csrf
                 <div>
                     <label class="block font-semibold mb-4 text-lg text-indigo-700 dark:text-indigo-200">🗓️ Pilih Hari & Jam Kursus</label>
