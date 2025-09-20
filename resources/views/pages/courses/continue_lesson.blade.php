@@ -6,6 +6,13 @@
                 <a href="{{ route('course.continue', $lesson->module->course) }}" wire:navigate class="inline-flex items-center px-4 py-2 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded hover:bg-gray-300 dark:hover:bg-gray-700 transition">
                     <span class="mr-2">🔙</span> {{ __('Kembali') }}
                 </a>
+
+                <form action="{{ route('course.continue.lesson.markAsLearned', ['course' => $lesson->module->course, 'lesson' => $lesson]) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="inline-flex items-center px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition">
+                        ✅ {{ __('Telah Dipelajari') }}
+                    </button>
+                </form>
             </div>
 
             @if(isset($lesson))
