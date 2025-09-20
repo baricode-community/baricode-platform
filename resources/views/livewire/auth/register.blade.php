@@ -74,7 +74,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
             <option value="" disabled selected>{{ __('Select level') }}</option>
             <option value="pemula">Pemula</option>
             <option value="menengah">Menengah</option>
-            <option value="mahir">Mahir</option>
+            <option value="lanjut">Lanjut</option>
             </select>
             @error('level')
             <span class="text-sm text-red-600">{{ $message }}</span>
