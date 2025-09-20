@@ -14,9 +14,14 @@
                     <div>
                         <h2 class="text-2xl font-semibold mb-4">📋 Informasi Kursus</h2>
                         <p><strong>👨‍🏫 Instruktur:</strong> {{ $course->instructor }}</p>
-                        <p><strong>⏱️ Durasi:</strong> {{ $course->duration }} jam</p>
+                        <p><strong>📝 Deskripsi Kursus:</strong> {{ $course->description }}</p>
                         <p><strong>🎯 Level:</strong> {{ $course->level }}</p>
-                        <p><strong>🏷️ Kategori:</strong> {{ $course->category }}</p>
+                        <p><strong>🏷️ Kategori:</strong> {{ $course->category->name }}</p>
+                        @if(!empty($course->category->description))
+                            <p class="mt-2 text-gray-500 dark:text-gray-300">
+                                <strong>📝 Deskripsi Kategori:</strong> {{ $course->category->description }}
+                            </p>
+                        @endif
                     </div>
 
                     <!-- Progress Information -->
