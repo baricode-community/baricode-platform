@@ -71,7 +71,9 @@
                                     @foreach($lessons as $lesson)
                                         <div class="flex items-center gap-2">
                                             <span class="text-xs">{{ $lesson->is_completed ? '✅' : '📖' }}</span>
-                                            <span class="text-sm">{{ $lesson->title }}</span>
+                                            <a href="{{ route('course.continue.lesson', [$course->slug, $lesson->id]) }}" class="text-sm text-blue-600 hover:underline">
+                                                {{ $lesson->title }}
+                                            </a>
                                         </div>
                                     @endforeach
                                 </div>

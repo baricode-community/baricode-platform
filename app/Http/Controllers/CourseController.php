@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Services\CourseService;
 use App\Http\Requests\CourseStartRequest;
+use App\Models\Lesson;
 
 class CourseController extends Controller
 {
@@ -41,5 +42,12 @@ class CourseController extends Controller
         logger()->info('Continuing course: ' . $course->slug);
 
         return view('pages.courses.continue', compact('course'));
+    }
+
+    public function continue_lesson(Course $course, Lesson $lesson)
+    {
+        logger()->info('Continuing lesson: ' . $lesson->title . ' in course: ' . $course->slug);
+
+        return view('pages.courses.continue_lesson', compact('course', 'lesson'));
     }
 }
