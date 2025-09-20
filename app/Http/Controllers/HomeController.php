@@ -41,21 +41,21 @@ class HomeController extends Controller
 
     public function pemula()
     {
-        $categories = Category::where('level', 'pemula')->firstOrFail();
+        $categories = Category::where('level', 'pemula')->get();
 
         return view('pages.home.course.level.pemula', compact('categories'));
     }
 
     public function menengah()
     {
-        $categories = Category::where('level', 'menengah')->firstOrFail();
+        $categories = Category::where('level', 'menengah')->get();
 
         return view('pages.home.course.level.menengah', compact('categories'));
     }
 
     public function lanjut()
     {
-        $categories = Category::where('level', 'lanjut')->firstOrFail();
+        $categories = Category::where('level', 'lanjut')->get();
 
         return view('pages.home.course.level.lanjut', compact('categories'));
     }
