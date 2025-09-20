@@ -3,7 +3,7 @@
         <div class="max-w-4xl mx-auto">
             <!-- Tombol Kembali -->
             <div class="mb-6 flex items-center gap-2">
-                <a href="{{ route('course.continue', $lesson->module->course) }}" class="inline-flex items-center px-4 py-2 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded hover:bg-gray-300 dark:hover:bg-gray-700 transition">
+                <a href="{{ route('course.continue', $lesson->module->course) }}" wire:navigate class="inline-flex items-center px-4 py-2 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded hover:bg-gray-300 dark:hover:bg-gray-700 transition">
                     <span class="mr-2">🔙</span> {{ __('Kembali') }}
                 </a>
             </div>
