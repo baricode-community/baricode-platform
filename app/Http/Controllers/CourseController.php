@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Services\CourseService;
+use App\Http\Requests\CourseStartRequest;
 
 class CourseController extends Controller
 {
@@ -21,7 +22,7 @@ class CourseController extends Controller
         return view('pages.courses.prepare', compact('course'));
     }
 
-    public function start(Course $course)
+    public function start(Course $course, CourseStartRequest $request)
     {
         logger()->info('Starting course: ' . $course->slug);
 
@@ -38,7 +39,7 @@ class CourseController extends Controller
     public function continue(Course $course)
     {
         logger()->info('Continuing course: ' . $course->slug);
-        
+
         return view('pages.courses.continue', compact('course'));
     }
 }
