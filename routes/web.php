@@ -35,7 +35,7 @@ Route::controller(\App\Http\Controllers\DashboardController::class)
 
 Route::controller(\App\Http\Controllers\CourseController::class)
     ->middleware(['auth', 'verified'])
-    ->prefix('dashboard/courses')
+    ->prefix('courses')
     ->group(function () {
         Route::get('/prepare/{course:slug}', 'prepare')->name('course.prepare');
         Route::post('/start/{course:slug}', 'start')->name('course.start');
