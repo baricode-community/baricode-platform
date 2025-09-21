@@ -40,12 +40,12 @@
                 </ul>
             </div>
             <div class="p-8 rounded-lg shadow-lg border">
-                @if($userCourses->isNotEmpty())
+                @if($courseRecords->isNotEmpty())
                     <ul class="space-y-4">
-                        @foreach ($userCourses as $course)
+                        @foreach ($courseRecords as $record)
                             <li class="flex justify-between items-center">
-                                <span>{{ $course->title }}</span>
-                                <span class="text-sm">Progres: {{ $course->pivot->progress }}%</span>
+                                <span>{{ $record->course->title }}</span>
+                                <span class="text-sm">Progres: {{ $record->progress }}%</span>
                             </li>
                         @endforeach
                     </ul>

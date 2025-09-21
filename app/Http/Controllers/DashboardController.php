@@ -9,8 +9,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $userCourses = auth()->user()->courses;
-        return view('pages.dashboard', compact('userCourses'));
+        $courseRecords = auth()->user()->courseRecords()->where('is_finished', true)->get();
+        return view('pages.dashboard', compact('courseRecords'));
     }
 
     public function profile()

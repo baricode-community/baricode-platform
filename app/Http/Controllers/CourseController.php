@@ -27,8 +27,7 @@ class CourseController extends Controller
     {
         logger()->info('Starting course: ' . $course->slug);
 
-        $userId = auth()->id();
-        $result = $this->courseService->startCourse($course, $userId);
+        $result = $this->courseService->startCourse($course);
 
         if (!$result) {
             return redirect()->back();
