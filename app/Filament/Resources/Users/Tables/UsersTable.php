@@ -8,6 +8,7 @@ use Filament\Actions\EditAction;
 use Filament\Tables\Table;
 
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 
 class UsersTable
 {
@@ -24,7 +25,10 @@ class UsersTable
                     ->sortable(),
             ])
             ->filters([
-                //
+                SelectFilter::make('roles')
+                    ->label('Role')
+                    ->relationship('roles', 'name')
+                    ->multiple(),
             ])
             ->recordActions([
                 EditAction::make(),
