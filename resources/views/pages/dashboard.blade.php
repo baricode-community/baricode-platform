@@ -16,18 +16,14 @@
 
             <!-- Statistik -->
             <h2 class="text-2xl font-bold mb-6">📈 Statistik</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
                 <div class="p-6 rounded-lg shadow-lg text-center border">
-                    <h2 class="text-5xl font-extrabold text-indigo-600">3</h2>
+                    <h2 class="text-5xl font-extrabold text-indigo-600">{{ $courseRecords->count() }}</h2>
                     <p class="mt-2">📚 Kursus Sedang Berjalan</p>
                 </div>
                 <div class="p-6 rounded-lg shadow-lg text-center border">
-                    <h2 class="text-5xl font-extrabold text-indigo-600">5</h2>
+                    <h2 class="text-5xl font-extrabold text-indigo-600">{{ $courseRecords->where('is_finished', true)->count() }}</h2>
                     <p class="mt-2">✅ Kursus Selesai</p>
-                </div>
-                <div class="p-6 rounded-lg shadow-lg text-center border">
-                    <h2 class="text-5xl font-extrabold text-indigo-600">Sekian</h2>
-                    <p class="mt-2">📦 Jumlah Modul Diselesaikan</p>
                 </div>
             </div>
 
