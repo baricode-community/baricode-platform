@@ -7,7 +7,7 @@
                     <span class="mr-2">🔙</span> {{ __('Kembali') }}
                 </a>
 
-                <form action="{{ route('course.continue.lesson.markAsLearned', ['course' => $lesson->module->course, 'lesson' => $lesson]) }}" method="POST">
+                <form action="{{ route('course.continue.lesson.markAsLearned', ['courseRecord' => $lesson->module->course, 'lesson' => $lesson->id]) }}" method="POST">
                     @csrf
                     <button type="submit" class="inline-flex items-center px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition">
                         ✅ {{ __('Telah Dipelajari') }}

@@ -20,8 +20,8 @@ return new class extends Migration
             $table->text('approval_notes')->nullable();
             $table->foreign('approved_by')->references('id')->on('users')->onDelete('set null');
 
-            $table->unsignedBigInteger('course_id')->default(0);
-            $table->unsignedBigInteger('user_id')->default(0);
+            $table->unsignedBigInteger('course_id');
+            $table->unsignedBigInteger('user_id');
 
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

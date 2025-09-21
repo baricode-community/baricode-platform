@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class CourseService
 {
-    public function startCourse(Course $course): bool
+    public function startCourse(Course $course): CourseRecord | null
     {
         $user = auth()->user();
         $context = [
@@ -22,7 +22,7 @@ class CourseService
             logger()->warning('Attempt to start unpublished course', $context);
             flash()->warning('Kursus ini belum dipublikasikan.');
 
-            return false;
+            return null;
         }
 
         $records = $user->courseRecords()->where([
@@ -33,27 +33,29 @@ class CourseService
             logger()->warning('User already has an active course record', $context);
             flash()->warning('Anda sudah memiliki kursus aktif sebanyak 3 untuk saat ini. Selesaikan salah satu kursus sebelum memulai yang baru.');
 
-            return false;
+            return null;
         }
 
         DB::beginTransaction();
+        $result = null;
         try {
             $course = CourseRecord::create([
                 'user_id' => $user->id,
                 'course_id' => $course->id,
             ]);
+            $result = $course;
         } catch (\Exception $e) {
             logger()->error('Failed to start course', array_merge($context, ['error' => $e->getMessage()]));
             DB::rollBack();
             flash()->error('Gagal memulai kursus. Silakan coba lagi.');
 
-            return false;
+            return null;
         }
         DB::commit();
 
         flash()->success('Anda telah berhasil memulai kursus: '.$course->title);
 
-        return true;
+        return $result;
     }
 
     public function markLessonAsLearned($lesson, $userId): void

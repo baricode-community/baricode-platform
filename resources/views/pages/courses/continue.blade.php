@@ -2,24 +2,21 @@
     <div class="py-12 px-4 md:px-6 lg:px-8 bg-white text-gray-900 dark:bg-gray-900 dark:text-white min-h-screen">
         <div class="max-w-7xl mx-auto">
             <h1 class="text-3xl md:text-4xl font-bold mb-4">
-                📚 {{ $course->title }}
+                📚 {{ $courseRecord->title }}
             </h1>
             <p class="text-lg md:text-xl text-gray-400 dark:text-gray-400 mb-8">
-                ℹ️ {{ $course->description }}
+                ℹ️ {{ $courseRecord->description }}
             </p>
             
             <div class="bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white p-8 rounded-lg">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Course Information -->
+                    @php
+                        $course = $courseRecord->course;
+                    @endphp
                     <div>
                         <h2 class="text-2xl font-semibold mb-4">📋 Informasi Kursus</h2>
                         <p><strong>🎯 Level:</strong> {{ $course->category->level }}</p>
-                        <p><strong>🏷️ Kategori:</strong> {{ $course->category->name }}</p>
-                        @if(!empty($course->category->description))
-                            <p class="mt-2 text-gray-500 dark:text-gray-300">
-                                <strong>📝 Deskripsi Kategori:</strong> {{ $course->category->description }}
-                            </p>
-                        @endif
                     </div>
 
                     <!-- Progress Information -->
@@ -40,13 +37,16 @@
                                 <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{ $progress['percentage'] }}%"></div>
                             </div>
                         </div>
-                        <p><strong>✅ Modul Selesai:</strong> {{ $progress['completed_modules'] }}/{{ $course->modules()->count() }}</p>
+                        <p><strong>✅ Modul Selesai:</strong> {{ $progress['completed_modules'] }}/{{ $courseRecord->moduleRecords()->count() }}</p>
                     </div>
                 </div>
+                
+                
 
                 <!-- Course Modules -->
                 @php
-                    $modules = $course->modules()->get();
+                    $modules = $courseRecord->moduleRecords()->get();
+                    // dd($modules);
                 @endphp
                 <div class="mt-8">
                     <h2 class="text-2xl font-semibold mb-4">📚 Daftar Modul</h2>
@@ -60,19 +60,20 @@
                                     @else
                                         <span class="mr-3">📝</span>
                                     @endif
-                                    <span>{{ $module->title }}</span>
+                                    <span>{{ $module->module->title }}</span>
                                 </div>
                             </div>
                             @php
-                                $lessons = $module->lessons()->get();
+                                $lessons = $module->lessonRecords()->get();
+                                // dd($lessons);
                             @endphp
                             @if(count($lessons))
                                 <div class="ml-8 mt-2 space-y-1">
                                     @foreach($lessons as $lesson)
                                         <div class="flex items-center gap-2">
                                             <span class="text-xs">{{ $lesson->is_completed ? '✅' : '📖' }}</span>
-                                            <a href="{{ route('course.continue.lesson', [$course->slug, $lesson->id]) }}" class="text-sm text-blue-600 hover:underline">
-                                                {{ $lesson->title }}
+                                            <a href="{{ route('course.continue.lesson', [$courseRecord->id, $lesson->id]) }}" class="text-sm text-blue-600 hover:underline">
+                                                {{ $lesson->lesson->title }}
                                             </a>
                                         </div>
                                     @endforeach

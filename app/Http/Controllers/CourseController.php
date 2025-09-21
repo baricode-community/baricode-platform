@@ -7,6 +7,7 @@ use App\Models\Course;
 use App\Services\CourseService;
 use App\Http\Requests\CourseStartRequest;
 use App\Models\Lesson;
+use App\Models\CourseRecord;
 
 class CourseController extends Controller
 {
@@ -33,31 +34,31 @@ class CourseController extends Controller
             return redirect()->back();
         }
 
-        return redirect()->route('course.continue', ['course' => $course->slug]);
+        return redirect()->route('course.continue', ['course' => $result->slug]);
     }
 
-    public function continue(Course $course)
+    public function continue(CourseRecord $courseRecord)
     {
-        logger()->info('Continuing course: ' . $course->slug);
-
-        return view('pages.courses.continue', compact('course'));
+        logger()->info('Continuing course: ' . $courseRecord->slug);
+        
+        return view('pages.courses.continue', compact('courseRecord'));
     }
 
-    public function continue_lesson(Course $course, Lesson $lesson)
+    public function continue_lesson(CourseRecord $courseRecord, Lesson $lesson)
     {
-        logger()->info('Continuing lesson: ' . $lesson->title . ' in course: ' . $course->slug);
+        logger()->info('Continuing lesson: ' . $lesson->title . ' in course: ' . $courseRecord->slug);
 
-        return view('pages.courses.continue_lesson', compact('course', 'lesson'));
+        return view('pages.courses.continue_lesson', compact('courseRecord', 'lesson'));
     }
 
-    public function continue_lesson_markAsLearned(Course $course, Lesson $lesson)
+    public function continue_lesson_markAsLearned(CourseRecord $courseRecord, Lesson $lesson)
     {
-        logger()->info('Marking lesson as learned: ' . $lesson->title . ' in course: ' . $course->slug);
+        logger()->info('Marking lesson as learned: ' . $lesson->title . ' in course: ' . $courseRecord->slug);
 
         $userId = auth()->id();
         $this->courseService->markLessonAsLearned($lesson, $userId);
 
         // Redirect back to the lesson page or to the next lesson
-        return redirect()->route('course.continue.lesson', ['course' => $course->slug, 'lesson' => $lesson]);
+        return redirect()->route('course.continue.lesson', ['course' => $courseRecord->slug, 'lesson' => $lesson]);
     }
 }

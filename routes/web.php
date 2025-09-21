@@ -39,9 +39,9 @@ Route::controller(\App\Http\Controllers\CourseController::class)
     ->group(function () {
         Route::get('/prepare/{course:slug}', 'prepare')->name('course.prepare');
         Route::post('/start/{course:slug}', 'start')->name('course.start');
-        Route::get('/continue/{course:slug}', 'continue')->name('course.continue');
-        Route::get('/continue/{course:slug}/{lesson}', 'continue_lesson')->name('course.continue.lesson');
-        Route::post('/continue/{course:slug}/{lesson}', 'continue_lesson_markAsLearned')->name('course.continue.lesson.markAsLearned');
+        Route::get('/continue/{courseRecord}', 'continue')->name('course.continue');
+        Route::get('/continue/{courseRecord}/{lesson}', 'continue_lesson')->name('course.continue.lesson');
+        Route::post('/continue/{courseRecord}/{lesson}', 'continue_lesson_markAsLearned')->name('course.continue.lesson.markAsLearned');
     });
 
 Route::middleware(['auth'])->group(function () {

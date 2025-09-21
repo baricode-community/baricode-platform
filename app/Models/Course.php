@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+
 use App\Models\Category;
 use App\Models\Module;
 
@@ -22,5 +23,10 @@ class Course extends Model
     public function modules()
     {
         return $this->hasMany(Module::class)->orderBy('order');
+    }
+
+    public function courseRecords()
+    {
+        return $this->hasMany(CourseRecord::class);
     }
 }

@@ -40,7 +40,9 @@
                     <ul class="space-y-4">
                         @foreach ($courseRecords as $record)
                             <li class="flex justify-between items-center">
-                                <span>{{ $record->course->title }}</span>
+                                <a href="{{ route('course.continue', $record->id) }}" class="text-indigo-600 hover:underline">
+                                    {{ $record->course->title }}
+                                </a>
                                 <span class="text-sm">Progres: {{ $record->progress }}%</span>
                             </li>
                         @endforeach
