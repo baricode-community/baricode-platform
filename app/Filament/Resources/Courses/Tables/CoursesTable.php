@@ -5,9 +5,9 @@ namespace App\Filament\Resources\Courses\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Tables\Table;
-
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Table;
 
 class CoursesTable
 {
@@ -18,13 +18,30 @@ class CoursesTable
                 TextColumn::make('title')->label('Title')
                     ->searchable()
                     ->sortable(),
+                TextColumn::make('category.name')
+                    ->label('Category')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('category.level')
+                    ->label('Category')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('description')
                     ->label('Description')
                     ->limit(50)
-                    ->wrap()
+                    ->wrap(),
             ])
             ->filters([
-                //
+                SelectFilter::make('category_id')
+                    ->label('Category')
+                    ->relationship('category', 'name'),
+                SelectFilter::make('category.level')
+                    ->options([
+                        'pemula' => 'Pemula',
+                        'menengah' => 'Menengah',
+                        'lanjut' => 'Lanjut',
+                    ])
+                    ->label('Level'),
             ])
             ->recordActions([
                 EditAction::make(),
