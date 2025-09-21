@@ -23,15 +23,13 @@ class CourseService
             return false;
         }
 
-        // Mengecek limit peserta dan sebagainya
-        // FIXME
         $records = $user->courseRecords()->where([
             'course_id' => $course->id,
             'is_finished' => false,
         ])->get();
-        if ($records->count() > 0) {
+        if ($records->count() > 3) {
             logger()->warning('User already has an active course record', $context);
-            flash()->warning('Anda sudah memiliki catatan kursus aktif untuk kursus ini.');
+            flash()->warning('Anda sudah memiliki kursus aktif sebanyak 3 untuk saat ini. Selesaikan salah satu kursus sebelum memulai yang baru.');
             return false;
         }
 
