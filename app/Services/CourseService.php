@@ -33,6 +33,11 @@ class CourseService
             return false;
         }
 
+        $course = CourseRecord::create([
+            'user_id' => $user->id,
+            'course_id' => $course->id,
+        ]);
+
         flash()->success('Anda telah berhasil memulai kursus: ' . $course->title);
         return true;
     }

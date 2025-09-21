@@ -11,4 +11,10 @@ class CourseRecord extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    protected static function booted()
+    {
+        static::created(function (CourseRecord $courseRecord) {
+        });
+    }
 }
