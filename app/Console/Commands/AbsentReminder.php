@@ -31,10 +31,12 @@ class AbsentReminder extends Command
         CourseRecordSession::whereHas('courseRecord', function ($query) {
             $query->where('is_approved', false);
         })->get()->each(function ($session) {
-            logger()->info("Sending absent reminder for session ID: {$session->id}");
+            logger()->info("Session ID: {$session->id}");
 
             $user = $session->courseRecord->user;
             logger()->info("Reminder sent to user: {$user->whatsapp}");
+
+            
         });
     }
 }
