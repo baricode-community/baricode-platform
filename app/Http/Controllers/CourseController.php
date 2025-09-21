@@ -34,7 +34,7 @@ class CourseController extends Controller
             return redirect()->back();
         }
 
-        return redirect()->route('course.continue', ['course' => $result->slug]);
+        return redirect()->route('course.continue', ['courseRecord' => $result->id]);
     }
 
     public function continue(CourseRecord $courseRecord)
