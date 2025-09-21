@@ -25,17 +25,19 @@ class HomeController extends Controller
 
     public function courses()
     {
-        $categories = \App\Models\Category::with([
-            'courses' => function ($q) {
-                $q->where('is_published', true);
-            },
-        ])->get();
+        $categories = Category::whereHas('courses', function ($q) {
+            $q->where('is_published', true);
+        })->get();
 
         return view('pages.home.course.index', compact('categories'));
     }
 
     public function course(Course $course)
     {
+        if (! $course->is_published) {
+            abort(404);
+        }
+
         return view('pages.home.course.show', compact('course'));
     }
 
