@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('course_records', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('started_at')->nullable();
-            $table->timestamp('completed_at')->nullable();
 
             $table->boolean('is_approved')->default(false);
             $table->unsignedBigInteger('approved_by')->nullable();
