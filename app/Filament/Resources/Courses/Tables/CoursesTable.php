@@ -35,13 +35,6 @@ class CoursesTable
                 SelectFilter::make('category_id')
                     ->label('Category')
                     ->relationship('category', 'name'),
-                SelectFilter::make('category.level')
-                    ->options([
-                        'pemula' => 'Pemula',
-                        'menengah' => 'Menengah',
-                        'lanjut' => 'Lanjut',
-                    ])
-                    ->label('Level'),
             ])
             ->recordActions([
                 EditAction::make(),
