@@ -45,7 +45,7 @@
                                             @case('Kamis') <span>🌥️</span> @break
                                             @case('Jumat') <span>🌈</span> @break
                                             @case('Sabtu') <span>🎉</span> @break
-                                            @case('Minggu') <span>🛌</span> @break
+                                            @case('Ahad') <span>🛌</span> @break
                                         @endswitch
                                         <span>{{ $day }}</span>
                                     </span>

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Course;
 use App\Models\ModuleRecord;
+use App\Models\CourseRecordSession;
 
 #[ObservedBy(CourseRecordObserver::class)]
 class CourseRecord extends Model
@@ -29,6 +30,11 @@ class CourseRecord extends Model
                 ]);
             }
         });
+    }
+
+    public function courseRecordSessions()
+    {
+        return $this->hasMany(CourseRecordSession::class);
     }
 
     public function course()

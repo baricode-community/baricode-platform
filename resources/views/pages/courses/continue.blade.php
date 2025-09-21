@@ -1,22 +1,52 @@
 <x-layouts.app :title="__('Course Details')">
     <div class="py-12 px-4 md:px-6 lg:px-8 bg-white text-gray-900 dark:bg-gray-900 dark:text-white min-h-screen">
         <div class="max-w-7xl mx-auto">
+            @php
+                $course = $courseRecord->course;
+            @endphp
             <h1 class="text-3xl md:text-4xl font-bold mb-4">
-                📚 {{ $courseRecord->title }}
+                📚 {{ $course->title }}
             </h1>
             <p class="text-lg md:text-xl text-gray-400 dark:text-gray-400 mb-8">
-                ℹ️ {{ $courseRecord->description }}
+                ℹ️ {{ $course->description }}
             </p>
             
             <div class="bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white p-8 rounded-lg">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Course Information -->
-                    @php
-                        $course = $courseRecord->course;
-                    @endphp
                     <div>
                         <h2 class="text-2xl font-semibold mb-4">📋 Informasi Kursus</h2>
                         <p><strong>🎯 Level:</strong> {{ $course->category->level }}</p>
+                        @php
+                            $courseRecordSessions = $courseRecord->courseRecordSessions;
+                        @endphp
+                        @if(isset($courseRecordSessions) && count($courseRecordSessions))
+                            <div class="mt-6">
+                                <h3 class="font-semibold mb-3 flex items-center gap-2">
+                                    <span class="text-lg">🗓️</span> 
+                                    <span>Jadwal Sesi Pembelajaran</span>
+                                </h3>
+                                <ul class="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-900 rounded-lg shadow-sm">
+                                    @foreach($courseRecordSessions as $session)
+                                        <li class="py-3 px-4 flex flex-col md:flex-row md:items-center md:justify-between">
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-medium text-blue-600 dark:text-blue-400">
+                                                    {{ \Illuminate\Support\Str::ucfirst($session->getHari()) }}
+                                                </span>
+                                                <span class="text-gray-500 dark:text-gray-400 text-xs">
+                                                    (Sesi: 
+                                                    {{ $session->reminder_1 ? \Carbon\Carbon::parse($session->reminder_1)->format('H:i') : '' }},
+                                                    {{ $session->reminder_2 ? \Carbon\Carbon::parse($session->reminder_2)->format('H:i') : '' }},
+                                                    {{ $session->reminder_3 ? \Carbon\Carbon::parse($session->reminder_3)->format('H:i') : '' }}
+                                                    )
+                                                </span>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @else
+                            <p class="mt-6 text-sm text-gray-500 italic">Belum ada jadwal sesi pembelajaran.</p>
+                        @endif
                     </div>
 
                     <!-- Progress Information -->
@@ -25,8 +55,7 @@
                         @php $progress = [
                             'percentage' => 45,
                             'completed_modules' => 9,
-                            'total_modules' => 20,
-                            'last_accessed' => '2024-06-15 14:30'
+                            'total_modules' => $course->modules()->count()
                         ]; @endphp
                         <div class="mb-4">
                             <div class="flex justify-between mb-2">
@@ -37,12 +66,11 @@
                                 <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{ $progress['percentage'] }}%"></div>
                             </div>
                         </div>
-                        <p><strong>✅ Modul Selesai:</strong> {{ $progress['completed_modules'] }}/{{ $courseRecord->moduleRecords()->count() }}</p>
+                        <p><strong>✅ Modul Selesai:</strong> {{ $progress['completed_modules'] }}/{{ $progress['total_modules'] }}</p>
                     </div>
                 </div>
                 
                 
-
                 <!-- Course Modules -->
                 @php
                     $modules = $courseRecord->moduleRecords()->get();

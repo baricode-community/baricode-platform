@@ -28,7 +28,7 @@ class CourseController extends Controller
     {
         logger()->info('Starting course: ' . $course->slug);
 
-        $result = $this->courseService->startCourse($course);
+        $result = $this->courseService->startCourse($course, $request->validated());
 
         if (!$result) {
             return redirect()->back();
