@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use App\Observers\CourseRecordObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Course;
 use App\Models\ModuleRecord;
 
+#[ObservedBy(CourseRecordObserver::class)]
 class CourseRecord extends Model
 {
     /** @use HasFactory<\Database\Factories\CourseRecordFactory> */

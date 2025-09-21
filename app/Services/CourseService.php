@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Course;
 use App\Models\CourseRecord;
+use Illuminate\Support\Facades\DB;
 
 class CourseService
 {
@@ -17,9 +18,10 @@ class CourseService
         ];
 
         logger()->info('Starting course', $context);
-        if (!$course->is_published) {
+        if (! $course->is_published) {
             logger()->warning('Attempt to start unpublished course', $context);
             flash()->warning('Kursus ini belum dipublikasikan.');
+
             return false;
         }
 
@@ -30,15 +32,27 @@ class CourseService
         if ($records->count() > 3) {
             logger()->warning('User already has an active course record', $context);
             flash()->warning('Anda sudah memiliki kursus aktif sebanyak 3 untuk saat ini. Selesaikan salah satu kursus sebelum memulai yang baru.');
+
             return false;
         }
 
-        $course = CourseRecord::create([
-            'user_id' => $user->id,
-            'course_id' => $course->id,
-        ]);
+        DB::beginTransaction();
+        try {
+            $course = CourseRecord::create([
+                'user_id' => $user->id,
+                'course_id' => $course->id,
+            ]);
+        } catch (\Exception $e) {
+            logger()->error('Failed to start course', array_merge($context, ['error' => $e->getMessage()]));
+            DB::rollBack();
+            flash()->error('Gagal memulai kursus. Silakan coba lagi.');
 
-        flash()->success('Anda telah berhasil memulai kursus: ' . $course->title);
+            return false;
+        }
+        DB::commit();
+
+        flash()->success('Anda telah berhasil memulai kursus: '.$course->title);
+
         return true;
     }
 
@@ -54,6 +68,6 @@ class CourseService
         // Logika untuk menandai pelajaran sebagai telah dipelajari
         // FIXME
 
-        flash()->success('Anda telah menandai pelajaran: ' . $lesson->title . ' sebagai telah dipelajari.');
+        flash()->success('Anda telah menandai pelajaran: '.$lesson->title.' sebagai telah dipelajari.');
     }
 }
