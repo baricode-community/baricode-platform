@@ -19,7 +19,6 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->boolean('is_finished')->default(false);
             $table->foreign('course_record_id')
                 ->references('id')->on('course_records')
                 ->onDelete('cascade');

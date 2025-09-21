@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Course;
+use App\Models\ModuleRecord;
 
 class CourseRecord extends Model
 {
@@ -15,6 +18,28 @@ class CourseRecord extends Model
     protected static function booted()
     {
         static::created(function (CourseRecord $courseRecord) {
+            $modules = $courseRecord->course->modules;
+
+            foreach ($modules as $module) {
+                $courseRecord->moduleRecords()->create([
+                    'module_id' => $module->id,
+                ]);
+            }
         });
+    }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function moduleRecords()
+    {
+        return $this->hasMany(ModuleRecord::class);
     }
 }
