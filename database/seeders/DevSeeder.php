@@ -47,10 +47,11 @@ class DevSeeder extends Seeder
 
         // Membuat pengguna 'test@example.com' jika belum ada.
         if (!User::where('email', 'test@example.com')->exists()) {
-            User::factory()->create([
+            $user = User::factory()->create([
                 'name' => 'Test User',
                 'email' => 'test@example.com',
             ]);
+            $user->assignRole('admin');
         }
     }
 }
