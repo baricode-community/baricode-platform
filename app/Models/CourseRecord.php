@@ -16,7 +16,7 @@ class CourseRecord extends Model
     /** @use HasFactory<\Database\Factories\CourseRecordFactory> */
     use HasFactory;
 
-    // protected $guarded = ['id'];
+    protected $guarded = ['id'];
 
     protected static function booted()
     {
