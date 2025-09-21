@@ -18,6 +18,10 @@ class UsersTable
                 TextColumn::make('name')->label('Name')->searchable()->sortable(),
                 TextColumn::make('email')->label('Email')->searchable()->sortable(),
                 TextColumn::make('whatsapp')->label('WhatsApp')->searchable()->sortable(),
+                TextColumn::make('roles.name')
+                    ->label('Role')
+                    ->searchable()
+                    ->sortable(),
             ])
             ->filters([
                 //
