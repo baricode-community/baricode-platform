@@ -39,7 +39,15 @@ class CourseController extends Controller
 
     public function continue(CourseRecord $courseRecord)
     {
-        logger()->info('Continuing course: ' . $courseRecord->slug);
+        logger()->info('Continuing course: ' . $courseRecord->id);
+        if (env('APP_ENV') === 'local') {
+            logger()->debug('CourseRecord details' . $courseRecord->load([
+                'user',
+                'course',
+                'courseRecordSessions',
+                'moduleRecords.lessonRecords',
+            ])->toJson());
+        }
         
         return view('pages.courses.continue', compact('courseRecord'));
     }
