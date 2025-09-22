@@ -35,7 +35,7 @@ new class extends Component {
         </div>
     </div>
     <div class="flex items-center space-x-3">
-        <a href="{{ route('course.continue', $record->course->id) }}"
+        <a href="{{ route('course.continue', $record->id) }}"
             class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition">
             <span>Lanjutkan</span>
             <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
