@@ -106,9 +106,7 @@
                                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
                         <label for="terms" class="ml-2 block text-sm text-gray-900">
                             Saya setuju dengan 
-                            <a href="#" class="text-blue-600 hover:text-blue-500">Syarat dan Ketentuan</a>
-                            dan 
-                            <a href="#" class="text-blue-600 hover:text-blue-500">Kebijakan Privasi</a>
+                            <a href="{{ route('tos') }}" class="text-blue-600 hover:text-blue-500">Syarat dan Ketentuan serta Kebijakan Privasi</a>
                         </label>
                     </div>
 
