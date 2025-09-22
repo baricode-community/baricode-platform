@@ -3,7 +3,7 @@
         <div class="">
             <!-- Tombol Kembali & Mark as Learned -->
             <div class="mb-8 flex items-center gap-4">
-                <a href="{{ route('course.continue', $lesson->module->course) }}" wire:navigate
+                <a href="{{ route('course.continue', $courseRecord->id) }}" wire:navigate
                    class="inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-blue-200 to-blue-400 dark:from-blue-800 dark:to-blue-600 text-blue-900 dark:text-blue-100 rounded-lg shadow hover:scale-105 hover:from-blue-300 hover:to-blue-500 dark:hover:from-blue-700 dark:hover:to-blue-500 transition-all font-semibold">
                     <span class="mr-2 text-lg">←</span> {{ __('Kembali') }}
                 </a>
