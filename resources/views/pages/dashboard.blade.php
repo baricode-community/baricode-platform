@@ -50,21 +50,7 @@
                 @if($courseRecords->isNotEmpty())
                     <ul class="space-y-4">
                         @foreach ($courseRecords as $record)
-                            <li class="flex flex-col md:flex-row md:justify-between md:items-center gap-2 bg-indigo-50 hover:bg-indigo-100 rounded-lg px-4 py-3 transition">
-                                <div class="flex items-center gap-3">
-                                    <x-heroicon-o-academic-cap class="w-6 h-6 text-indigo-400"/>
-                                    <a href="{{ route('course.continue', $record->id) }}" class="text-indigo-700 font-semibold hover:underline text-lg">
-                                        {{ $record->course->title }}
-                                    </a>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-sm text-gray-600">Progres:</span>
-                                    <div class="w-32 bg-gray-200 rounded-full h-3">
-                                        <div class="bg-indigo-500 h-3 rounded-full transition-all duration-300" style="width: {{ $record->progress }}%"></div>
-                                    </div>
-                                    <span class="text-sm font-bold text-indigo-700">{{ $record->progress }}%</span>
-                                </div>
-                            </li>
+                            @livewire('dashboard.course-list', ['record' => $record])
                         @endforeach
                     </ul>
                 @else
