@@ -19,7 +19,7 @@ class DevSeeder extends Seeder
         User::factory(10)->create();
 
         // Membuat 5 kategori, dan untuk setiap kategori:
-        Category::factory(5)->create()->each(function ($category) {
+        Category::factory(50)->create()->each(function ($category) {
             // Membuat 3 hingga 7 course (kursus) untuk kategori ini.
             Course::factory(rand(3, 7))->create([
                 'category_id' => $category->id,
