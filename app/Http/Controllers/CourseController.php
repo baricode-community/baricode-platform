@@ -60,15 +60,4 @@ class CourseController extends Controller
 
         return view('pages.courses.continue_lesson', compact('courseRecord', 'lesson'));
     }
-
-    public function continue_lesson_markAsLearned(CourseRecord $courseRecord, Lesson $lesson)
-    {
-        logger()->info('Marking lesson as learned: ' . $lesson->title . ' in course: ' . $courseRecord->slug);
-
-        $userId = auth()->id();
-        $this->courseService->markLessonAsLearned($lesson, $userId);
-
-        // Redirect back to the lesson page or to the next lesson
-        return redirect()->route('course.continue.lesson', ['course' => $courseRecord->slug, 'lesson' => $lesson]);
-    }
 }
