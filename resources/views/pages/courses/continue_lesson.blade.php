@@ -1,18 +1,5 @@
 <x-layouts.app :title="__('Course Details')">
     <div class="">
-        <!-- Flash Messages -->
-        @if (session()->has('success'))
-            <div class="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
-                {{ session('success') }}
-            </div>
-        @endif
-        
-        @if (session()->has('error'))
-            <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
-                {{ session('error') }}
-            </div>
-        @endif
-        
         <div class="">
             <!-- Tombol Kembali & Mark as Learned -->
             <div class="mb-8 flex items-center gap-4">
@@ -24,7 +11,7 @@
                     $lessonRecord = $courseRecord->moduleRecords->first()->lessonRecords->first();
                     // dd($lesson);
                 @endphp
-                @livewire('mark-as-learned', ['lessonRecord' => $lessonRecord, 'courseRecordId' => $courseRecord->id])
+                @livewire('course.mark-as-learned', ['lessonRecord' => $lessonRecord, 'courseRecordId' => $courseRecord->id])
             </div>
 
             @if(isset($lesson))

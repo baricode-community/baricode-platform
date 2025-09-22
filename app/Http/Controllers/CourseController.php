@@ -43,10 +43,8 @@ class CourseController extends Controller
         logger()->info('Continuing course: ' . $courseRecord->id);
         if (env('APP_ENV') === 'local') {
             logger()->debug('CourseRecord details' . $courseRecord->load([
-                'user',
-                'course',
-                'courseRecordSessions',
                 'moduleRecords.lessonRecords',
+                'courseRecordSessions',
             ])->toJson());
         }
         Gate::authorize('view', $courseRecord);
