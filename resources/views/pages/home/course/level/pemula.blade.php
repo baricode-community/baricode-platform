@@ -16,12 +16,14 @@
                     <h2 class="text-2xl font-semibold mb-4">{{ $category->name }}</h2>
                     <ul>
                         @forelse ($category->courses as $course)
+                            @if ($course->is_published)
                             <li class="mb-4 bg-gray-800 rounded-lg p-6 shadow hover:shadow-lg transition">
                                 <a href="{{ route('course.show', $course->slug) }}" class="block text-xl font-bold text-blue-400 hover:underline">
                                     {{ $course->title }}
                                 </a>
                                 <p class="text-gray-300 mt-2">{{ Str::limit($course->description, 100) }}</p>
                             </li>
+                            @endif
                         @empty
                             <li class="text-gray-500">Belum ada kursus di kategori ini.</li>
                         @endforelse
