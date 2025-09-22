@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Database\Seeders\DevSeeder;
 use Database\Seeders\SpatieSeeder;
+use Database\Seeders\SettingSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,7 +18,10 @@ class DatabaseSeeder extends Seeder
     {
         DB::beginTransaction();
 
-        $this->call(SpatieSeeder::class);
+        $this->call([
+            SpatieSeeder::class,
+            SettingSeeder::class,
+        ]);
 
         if (app()->environment('local')) {
             $this->call(DevSeeder::class);
