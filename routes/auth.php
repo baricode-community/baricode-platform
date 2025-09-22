@@ -1,22 +1,24 @@
 <?php
 
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
+Route::middleware('guest')->controller(AuthController::class)
+    ->group(function () {
+        Route::get('/login', 'login')->name('auth.login');
+        Route::post('/login', 'authenticate')->name('auth.authenticate');
+        Route::get('/register', 'register')->name('auth.register');
+        Route::post('/register', 'store')->name('auth.store');
+    });
+
 Route::middleware('guest')->group(function () {
-    Volt::route('login', 'auth.login')
-        ->name('login');
-
-    Volt::route('register', 'auth.register')
-        ->name('register');
-
     Volt::route('forgot-password', 'auth.forgot-password')
         ->name('password.request');
 
     Volt::route('reset-password/{token}', 'auth.reset-password')
         ->name('password.reset');
-
 });
 
 Route::middleware('auth')->group(function () {
