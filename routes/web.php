@@ -9,6 +9,8 @@ use Livewire\Volt\Volt;
 
 Route::controller(\App\Http\Controllers\HomeController::class)->group(function () {
     Route::get('/', 'index')->name('home');
+    Route::redirect('/tos', '/terms-of-service');
+    Route::get('/terms-of-service', 'tos')->name('tos');
     Route::get('/about', 'about')->name('about');
     Route::get('/cara-belajar', 'cara_belajar')->name('cara_belajar');
     

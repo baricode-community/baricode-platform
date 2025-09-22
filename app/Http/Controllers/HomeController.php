@@ -13,6 +13,11 @@ class HomeController extends Controller
         return view('pages.home.index');
     }
 
+    public function tos()
+    {
+        return view('pages.home.tos');
+    }
+
     public function about()
     {
         return view('pages.home.about');
