@@ -7,14 +7,21 @@
         class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 transition-opacity duration-300 opacity-0 pointer-events-none">
         <div
             class="bg-gray-800 rounded-lg shadow-lg p-8 m-4 max-w-lg w-full transform transition-transform duration-300 scale-95">
-            <h2 class="text-3xl font-bold text-white mb-4 text-center">Selamat Datang!</h2>
+            <h2 class="text-3xl font-bold text-white mb-4 text-center">Selamat Datang! 🎉</h2>
             <p class="text-gray-400 mb-6 text-center">
                 Apakah Anda ingin tahu cara memulai belajar di sini?
             </p>
+            <ul class="text-gray-300 mb-6 space-y-2 text-left">
+                <li>✅ <span class="font-semibold">100% Gratis</span> – Tidak ada biaya tersembunyi!</li>
+                <li>👨‍💻 <span class="font-semibold">Mentor Berpengalaman</span> – Siap membantu kapan saja.</li>
+                <li>🤝 <span class="font-semibold">Komunitas Aktif</span> – Bertanya & diskusi bareng teman baru.</li>
+                <li>📚 <span class="font-semibold">Materi Terstruktur</span> – Mulai dari dasar hingga mahir.</li>
+                <li>🏆 <span class="font-semibold">Sertifikat</span> – Dapatkan sertifikat setelah menyelesaikan kursus.</li>
+            </ul>
             <div class="flex justify-center space-x-4">
                 <a href="/cara-belajar"
                     class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-full transition duration-300">
-                    Cara Belajar
+                    Cara Belajar 📖
                 </a>
                 <button id="close-modal"
                     class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-full transition duration-300">
