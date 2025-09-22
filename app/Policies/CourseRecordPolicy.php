@@ -21,7 +21,7 @@ class CourseRecordPolicy
      */
     public function view(User $user, CourseRecord $courseRecord): bool
     {
-        return false;
+        return $user->id === $courseRecord->user_id;
     }
 
     /**

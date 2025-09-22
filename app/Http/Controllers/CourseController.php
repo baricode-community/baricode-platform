@@ -8,6 +8,7 @@ use App\Services\CourseService;
 use App\Http\Requests\CourseStartRequest;
 use App\Models\Lesson;
 use App\Models\CourseRecord;
+use Illuminate\Support\Facades\Gate;
 
 class CourseController extends Controller
 {
@@ -48,7 +49,8 @@ class CourseController extends Controller
                 'moduleRecords.lessonRecords',
             ])->toJson());
         }
-        
+        Gate::authorize('view', $courseRecord);
+
         return view('pages.courses.continue', compact('courseRecord'));
     }
 
