@@ -1,72 +1,93 @@
 <x-layouts.app :title="__('Dashboard')">
-    <div class="py-12 px-4 md:px-6 lg:px-8 min-h-screen">
+    <div class="py-12 px-4 md:px-6 lg:px-8 min-h-screen bg-gradient-to-br from-indigo-50 via-white to-indigo-100">
         <div class="max-w-7xl mx-auto">
             <!-- Header -->
-            <div class="mb-6">
-                <h1 class="text-3xl md:text-4xl font-bold mb-4">
-                    👋 Selamat Datang, {{ auth()->user()->name }}!
-                </h1>
-                <p>
-                    Email: {{ auth()->user()->email }}
-                </p>
-                <p>
-                    Bergabung sejak: {{ auth()->user()->created_at->format('d M Y') }}
-                </p>
+            <div class="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-extrabold mb-2 flex items-center gap-2">
+                        <span class="animate-bounce">👋</span>
+                        Selamat Datang, <span class="text-indigo-600">{{ auth()->user()->name }}!</span>
+                    </h1>
+                    <div class="flex flex-col md:flex-row md:items-center gap-2 text-gray-600">
+                        <span class="flex items-center gap-1"><x-heroicon-o-envelope class="w-5 h-5"/> {{ auth()->user()->email }}</span>
+                        <span class="hidden md:inline-block">|</span>
+                        <span class="flex items-center gap-1"><x-heroicon-o-calendar class="w-5 h-5"/> Bergabung sejak: {{ auth()->user()->created_at->format('d M Y') }}</span>
+                    </div>
+                </div>
+                <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=4f46e5&color=fff&size=80" alt="Avatar" class="rounded-full shadow-lg border-4 border-indigo-200 bg-white w-20 h-20 object-cover">
             </div>
 
             <!-- Statistik -->
-            <h2 class="text-2xl font-bold mb-6">📈 Statistik</h2>
+            <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                <x-heroicon-o-chart-bar class="w-7 h-7 text-indigo-500"/> Statistik
+            </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                <div class="p-6 rounded-lg shadow-lg text-center border">
-                    <h2 class="text-5xl font-extrabold text-indigo-600">{{ $courseRecords->count() }}</h2>
-                    <p class="mt-2">📚 Kursus Sedang Berjalan</p>
+                <div class="p-8 rounded-xl shadow-xl text-center border bg-white hover:scale-105 transition-transform duration-200">
+                    <h2 class="text-5xl font-extrabold text-indigo-600 flex items-center justify-center gap-2">
+                        <x-heroicon-o-book-open class="w-10 h-10"/> {{ $courseRecords->count() }}
+                    </h2>
+                    <p class="mt-2 text-lg font-medium text-gray-700">📚 Kursus Sedang Berjalan</p>
                 </div>
-                <div class="p-6 rounded-lg shadow-lg text-center border">
-                    <h2 class="text-5xl font-extrabold text-indigo-600">{{ $courseRecords->where('is_finished', true)->count() }}</h2>
-                    <p class="mt-2">✅ Kursus Selesai</p>
+                <div class="p-8 rounded-xl shadow-xl text-center border bg-white hover:scale-105 transition-transform duration-200">
+                    <h2 class="text-5xl font-extrabold text-green-600 flex items-center justify-center gap-2">
+                        <x-heroicon-o-check-circle class="w-10 h-10"/> {{ $courseRecords->where('is_finished', true)->count() }}
+                    </h2>
+                    <p class="mt-2 text-lg font-medium text-gray-700">✅ Kursus Selesai</p>
                 </div>
             </div>
 
             <!-- Kursus yang Sedang Diikuti -->
-            <h2 class="text-2xl font-bold mb-6">🚀 Kursus yang Sedang Kamu Ikuti (Maksimal 3 Secara Bersamaan)</h2>
-            <div class="p-4 rounded-lg mb-6 border">
-                <ul class="list-disc list-inside">
-                    <li class="mb-2">Bila kamu ingin menambah kursus, silakan selesaikan salah satu kursus yang sedang diikuti.</li>
-                    <li>Bila merasa salah memilih kursus, kamu dapat menghapus progres saat ini dan memilih kursus lain.</li>
+            <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                <x-heroicon-o-rocket-launch class="w-7 h-7 text-indigo-500"/> Kursus yang Sedang Kamu Ikuti <span class="text-base font-normal text-gray-500">(Maksimal 3)</span>
+            </h2>
+            <div class="p-4 rounded-lg mb-6 border bg-indigo-50">
+                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                    <li>Bila ingin menambah kursus, selesaikan salah satu kursus yang sedang diikuti.</li>
+                    <li>Bila salah memilih kursus, kamu dapat menghapus progres saat ini dan memilih kursus lain.</li>
                 </ul>
             </div>
-            <div class="p-8 rounded-lg shadow-lg border">
+            <div class="p-8 rounded-xl shadow-xl border bg-white">
                 @if($courseRecords->isNotEmpty())
                     <ul class="space-y-4">
                         @foreach ($courseRecords as $record)
-                            <li class="flex justify-between items-center">
-                                <a href="{{ route('course.continue', $record->id) }}" class="text-indigo-600 hover:underline">
-                                    {{ $record->course->title }}
-                                </a>
-                                <span class="text-sm">Progres: {{ $record->progress }}%</span>
+                            <li class="flex flex-col md:flex-row md:justify-between md:items-center gap-2 bg-indigo-50 hover:bg-indigo-100 rounded-lg px-4 py-3 transition">
+                                <div class="flex items-center gap-3">
+                                    <x-heroicon-o-academic-cap class="w-6 h-6 text-indigo-400"/>
+                                    <a href="{{ route('course.continue', $record->id) }}" class="text-indigo-700 font-semibold hover:underline text-lg">
+                                        {{ $record->course->title }}
+                                    </a>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm text-gray-600">Progres:</span>
+                                    <div class="w-32 bg-gray-200 rounded-full h-3">
+                                        <div class="bg-indigo-500 h-3 rounded-full transition-all duration-300" style="width: {{ $record->progress }}%"></div>
+                                    </div>
+                                    <span class="text-sm font-bold text-indigo-700">{{ $record->progress }}%</span>
+                                </div>
                             </li>
                         @endforeach
                     </ul>
                 @else
-                    <div class="text-center text-gray-500">
+                    <div class="text-center text-gray-500 py-8">
+                        <x-heroicon-o-information-circle class="w-8 h-8 mx-auto mb-2 text-indigo-400"/>
                         Kamu belum mengikuti kursus apapun saat ini.
                     </div>
                 @endif
                 <div class="mt-8 text-center">
                     @if(auth()->user()->level === 'pemula')
-                        <a href="{{ route('courses.pemula') }}" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded transition">
+                        <a href="{{ route('courses.pemula') }}" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-full shadow transition">
                             Lihat Kursus Pemula
                         </a>
                     @elseif(auth()->user()->level === 'menengah')
-                        <a href="{{ route('courses.menengah') }}" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded transition">
+                        <a href="{{ route('courses.menengah') }}" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-full shadow transition">
                             Lihat Kursus Menengah
                         </a>
                     @elseif(auth()->user()->level === 'lanjut')
-                        <a href="{{ route('courses.lanjut') }}" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded transition">
+                        <a href="{{ route('courses.lanjut') }}" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-full shadow transition">
                             Lihat Kursus Lanjutan
                         </a>
                     @else
-                        <a href="{{ route('courses') }}" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded transition">
+                        <a href="{{ route('courses') }}" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-full shadow transition">
                             Lihat Semua Kursus
                         </a>
                     @endif
@@ -74,9 +95,13 @@
             </div>
 
             <!-- Motivasi -->
-            <div class="mt-12 bg-indigo-500 p-6 rounded-lg shadow-lg text-center">
+            <div class="mt-12 bg-gradient-to-r from-indigo-500 to-indigo-700 p-8 rounded-xl shadow-xl text-center relative overflow-hidden">
+                <x-heroicon-o-light-bulb class="w-12 h-12 text-yellow-300 mx-auto mb-2 animate-pulse"/>
                 <h2 class="text-2xl font-bold text-white">💡 Tetap Semangat!</h2>
-                <p class="mt-2 text-gray-200">"Belajar adalah investasi terbaik yang bisa kamu lakukan untuk masa depanmu."</p>
+                <p class="mt-2 text-indigo-100 text-lg italic">"Belajar adalah investasi terbaik yang bisa kamu lakukan untuk masa depanmu."</p>
+                <div class="absolute -bottom-8 -right-8 opacity-20">
+                    <x-heroicon-o-sparkles class="w-32 h-32 text-white"/>
+                </div>
             </div>
         </div>
     </div>
