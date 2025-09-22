@@ -4,14 +4,29 @@
 
 @section('content')
 <section class="py-20 md:py-32 px-4 bg-gray-900 text-white">
-    <div class="max-w-4xl mx-auto text-center">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">🚀 Cara Belajar Efektif di Platform Kami</h1>
-        <p class="text-lg md:text-xl text-gray-400 mb-12">
-            Ikuti panduan ini untuk memaksimalkan pengalaman belajarmu dan menjadi pengembang yang andal. 
-            💡 <strong>Kita baru launching nih!</strong>
+
+    {{-- Hero Section --}}
+    <div class="max-w-4xl mx-auto text-center mb-16">
+        <div class="flex justify-center mb-6">
+            <span class="inline-flex items-center px-4 py-2 rounded-full bg-indigo-700/30 text-indigo-200 font-semibold text-sm shadow">
+                🌟 Panduan Self-Learning Efektif
+            </span>
+        </div>
+        <h1 class="text-5xl md:text-6xl font-extrabold mb-4 leading-tight">
+            Belajar Mandiri, <span class="text-indigo-400">Jadi Developer Andal</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-300 mb-8">
+            Temukan cara belajar yang fleksibel, terstruktur, dan didukung komunitas. Mulai dari <span class="font-semibold text-indigo-300">computational thinking</span> hingga membangun portofolio nyata!
         </p>
-        
-        <!-- Stats Section -->
+        <div class="flex flex-col md:flex-row justify-center gap-4">
+            <a href="{{ route('login') }}" wire:navigate class="inline-block px-8 py-3 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition">
+                Mulai Belajar Sekarang 🚀
+            </a>
+        </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="max-w-4xl mx-auto text-center">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
             <div class="bg-gray-800 rounded-lg p-4">
                 <div class="text-2xl font-bold text-indigo-400">100%</div>
@@ -33,6 +48,34 @@
     </div>
 
     <div class="max-w-5xl mx-auto space-y-16">
+        {{-- Motivasi Mengapa Mempelajari Dunia Koding --}}
+        <div class="bg-gray-800/50 rounded-xl p-8 border border-gray-700">
+            <div class="text-center mb-8">
+                <span class="text-yellow-400 text-sm font-semibold uppercase tracking-wider">🔥 Motivasi</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Kenapa Harus Belajar Koding?</h2>
+                <p class="text-gray-300 text-lg">
+                    Dunia digital berkembang pesat. Koding bukan hanya untuk jadi programmer, tapi juga untuk melatih <span class="font-semibold text-yellow-300">problem solving</span>, <span class="font-semibold text-yellow-300">berpikir logis</span>, dan membuka banyak peluang karier masa depan.
+                </p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="text-center">
+                    <div class="text-4xl mb-3">💼</div>
+                    <h4 class="font-semibold mb-2">Peluang Karier Luas</h4>
+                    <p class="text-sm text-gray-300">Skill koding dibutuhkan di berbagai industri: teknologi, keuangan, kesehatan, hingga kreatif.</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl mb-3">🧠</div>
+                    <h4 class="font-semibold mb-2">Melatih Pola Pikir</h4>
+                    <p class="text-sm text-gray-300">Belajar koding membantu kamu berpikir sistematis, analitis, dan kreatif dalam memecahkan masalah.</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl mb-3">🌍</div>
+                    <h4 class="font-semibold mb-2">Bisa Belajar dari Mana Saja</h4>
+                    <p class="text-sm text-gray-300">Dengan internet, kamu bisa belajar koding secara mandiri tanpa batasan waktu dan tempat.</p>
+                </div>
+            </div>
+        </div>
+
         <!-- Langkah 0: Computational Thinking (NEW) -->
         <div class="bg-gradient-to-r from-blue-900/50 to-teal-900/50 rounded-2xl p-8 border border-blue-500/30">
             <div class="text-center mb-8">
