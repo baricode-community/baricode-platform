@@ -41,12 +41,6 @@ class CourseController extends Controller
     public function continue(CourseRecord $courseRecord)
     {
         logger()->info('Continuing course: ' . $courseRecord->id);
-        if (env('APP_ENV') === 'local') {
-            logger()->debug('CourseRecord details' . $courseRecord->load([
-                'moduleRecords.lessonRecords',
-                'courseRecordSessions',
-            ])->toJson());
-        }
         Gate::authorize('view', $courseRecord);
 
         return view('pages.courses.continue', compact('courseRecord'));

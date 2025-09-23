@@ -3,15 +3,19 @@
 namespace App\Observers;
 
 use App\Models\CourseRecord;
+use App\Traits\CourseRecordTrait;
 
 class CourseRecordObserver
 {
+    use CourseRecordTrait;
+
     /**
      * Handle the CourseRecord "created" event.
      */
     public function created(CourseRecord $courseRecord): void
     {
         logger()->info('CourseRecord created', ['id' => $courseRecord->id]);
+        $this->logCourseRecordDetails($courseRecord);
     }
 
     /**

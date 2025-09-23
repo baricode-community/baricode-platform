@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
-use App\Models\Category;
+use App\Models\CourseCategory;
 use App\Models\Module;
 
 class Course extends Model
@@ -15,14 +15,14 @@ class Course extends Model
 
     protected $guarded = ['id'];
 
-    public function category()
+    public function courseCategory()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(CourseCategory::class);
     }
 
-    public function modules()
+    public function courseModules()
     {
-        return $this->hasMany(Module::class)->orderBy('order');
+        return $this->hasMany(CourseModule::class)->orderBy('order');
     }
 
     public function courseRecords()

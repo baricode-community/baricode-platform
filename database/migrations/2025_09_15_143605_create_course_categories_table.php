@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('course_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->enum('level', ['pemula', 'menengah', 'lanjut'])->after('name')->default('pemula');
             $table->text('description')->nullable();
             $table->timestamps();
         });
@@ -29,7 +30,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('course_categories');
         Schema::table('courses', function (Blueprint $table) {
             $table->dropForeign(['category_id']);
             $table->dropColumn('category_id');

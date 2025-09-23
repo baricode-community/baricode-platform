@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Course;
-use App\Models\Lesson;
+use App\Models\CourseModuleLesson;
 
-class Module extends Model
+class CourseModule extends Model
 {
     use HasFactory;
 
@@ -20,6 +20,6 @@ class Module extends Model
 
     public function lessons()
     {
-        return $this->hasMany(Lesson::class)->orderBy('order');
+        return $this->hasMany(CourseModuleLesson::class)->orderBy('order');
     }
 }

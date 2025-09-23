@@ -56,6 +56,6 @@ class User extends Authenticatable
 
     public function courseRecords()
     {
-        return $this->hasMany(CourseRecord::class, 'user_id');
+        return $this->hasMany(CourseRecord::class);
     }
 }

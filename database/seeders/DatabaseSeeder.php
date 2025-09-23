@@ -9,6 +9,9 @@ use Database\Seeders\DevSeeder;
 use Database\Seeders\SpatieSeeder;
 use Database\Seeders\SettingSeeder;
 
+use Database\Seeders\CourseCategorySeeder;
+use Database\Seeders\CourseSeeder;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -25,6 +28,11 @@ class DatabaseSeeder extends Seeder
 
         if (app()->environment('local')) {
             $this->call(DevSeeder::class);
+        } else {
+            $this->call([
+                CourseCategorySeeder::class,
+                CourseSeeder::class
+            ]);
         }
 
         DB::commit();

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Module;
 use App\Models\UserNote;
 
-class Lesson extends Model
+class CourseModuleLesson extends Model
 {
     /** @use HasFactory<\Database\Factories\LessonFactory> */
     use HasFactory;

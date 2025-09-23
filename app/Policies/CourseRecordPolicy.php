@@ -4,10 +4,13 @@ namespace App\Policies;
 
 use App\Models\CourseRecord;
 use App\Models\User;
+use App\Traits\CourseRecordTrait;
 use Illuminate\Auth\Access\Response;
 
 class CourseRecordPolicy
 {
+    use CourseRecordTrait;
+
     /**
      * Determine whether the user can view any models.
      */
@@ -21,6 +24,7 @@ class CourseRecordPolicy
      */
     public function view(User $user, CourseRecord $courseRecord): bool
     {
+        $this->logCourseRecordDetails($courseRecord);
         return $user->id === $courseRecord->user_id;
     }
 
