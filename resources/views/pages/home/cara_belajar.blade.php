@@ -19,7 +19,7 @@
             Temukan cara belajar yang fleksibel, terstruktur, dan didukung komunitas. Mulai dari <span class="font-semibold text-indigo-300">computational thinking</span> hingga membangun portofolio nyata!
         </p>
         <div class="flex flex-col md:flex-row justify-center gap-4">
-            <a href="{{ route('auth.login') }}" wire:navigate class="inline-block px-8 py-3 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition">
+            <a href="{{ route('login') }}" wire:navigate class="inline-block px-8 py-3 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition">
                 Mulai Belajar Sekarang 🚀
             </a>
         </div>

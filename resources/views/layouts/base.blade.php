@@ -77,7 +77,7 @@
                     <a href="{{ route('dashboard') }}" wire:navigate
                         class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md ml-4 transition duration-300">Dashboard</a>
                 @else
-                    <a href="{{ route('auth.login') }}" wire:navigate
+                    <a href="{{ route('login') }}" wire:navigate
                         class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md ml-4 transition duration-300">Masuk
                         Sekarang</a>
                 @endif
@@ -97,7 +97,7 @@
                         <a href="{{ route('dashboard') }}" wire:navigate
                             class="block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md transition duration-300 text-center">Dashboard</a>
                     @else
-                        <a href="{{ route('auth.login') }}" wire:navigate
+                        <a href="{{ route('login') }}" wire:navigate
                             class="block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md transition duration-300 text-center">Masuk
                             Sekarang</a>
                     @endif

@@ -12,7 +12,7 @@
                 <p class="text-gray-300 mb-4">
                     Untuk mendapatkan rekomendasi kursus yang sesuai dengan kebutuhan Anda, silakan lakukan registrasi terlebih dahulu.
                 </p>
-                <a href="{{ route('auth.login') }}"
+                <a href="{{ route('login') }}"
                    class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-md transition duration-300">
                     Gabung Sekarang
                 </a>

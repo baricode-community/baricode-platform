@@ -24,7 +24,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
             'whatsapp' => ['nullable', 'string', 'max:20', 'regex:/^\+?[0-9]{7,20}$/', 'unique:' . User::class],
-            'level' => ['required', 'string', 'in:pemula,menengah,mahir'],
+            'level' => ['required', 'string', 'in:pemula,menengah,lanjut'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
         ]);

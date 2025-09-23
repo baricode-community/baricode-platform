@@ -19,7 +19,7 @@
             </h2>
             <p class="mt-2 text-center text-sm text-gray-600">
                 Atau
-                <a href="{{ route('auth.register') }}" class="font-medium text-blue-600 hover:text-blue-500 transition-colors">
+                <a href="{{ route('register') }}" class="font-medium text-blue-600 hover:text-blue-500 transition-colors">
                     buat akun baru
                 </a>
             </p>

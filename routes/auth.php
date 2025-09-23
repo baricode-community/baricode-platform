@@ -7,9 +7,9 @@ use Livewire\Volt\Volt;
 
 Route::middleware('guest')->controller(AuthController::class)
     ->group(function () {
-        Route::get('/login', 'login')->name('auth.login');
+        Route::get('/login', 'login')->name('login');
         Route::post('/login', 'authenticate')->name('auth.authenticate');
-        Route::get('/register', 'register')->name('auth.register');
+        Route::get('/register', 'register')->name('register');
         Route::post('/register', 'store')->name('auth.store');
     });
 
