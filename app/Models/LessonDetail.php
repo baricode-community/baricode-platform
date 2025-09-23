@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\CourseModule;
-use App\Models\UserNote;
+use App\Models\StudentNote;
 
 class LessonDetail extends Model
 {
@@ -21,6 +21,11 @@ class LessonDetail extends Model
 
     public function studentNotes()
     {
-        return $this->hasMany(UserNote::class);
+        return $this->hasMany(StudentNote::class, 'lesson_id');
+    }
+
+    public function lessonProgresses()
+    {
+        return $this->hasMany(LessonProgress::class, 'lesson_id');
     }
 }

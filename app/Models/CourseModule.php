@@ -22,4 +22,9 @@ class CourseModule extends Model
     {
         return $this->hasMany(LessonDetail::class,  'module_id', 'id')->orderBy('order');
     }
+
+    public function moduleProgresses()
+    {
+        return $this->hasMany(ModuleProgress::class, 'module_id');
+    }
 }

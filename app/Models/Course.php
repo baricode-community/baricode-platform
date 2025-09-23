@@ -30,4 +30,9 @@ class Course extends Model
     {
         return $this->hasMany(CourseEnrollment::class);
     }
+
+    public function courseAttendances()
+    {
+        return $this->hasMany(CourseAttendance::class);
+    }
 }

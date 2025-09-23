@@ -12,8 +12,8 @@ class CourseRecordSession extends Model
 
     protected $guarded = ['id'];
 
-    public function courseRecord()
+    public function courseEnrollment()
     {
-        return $this->belongsTo(CourseRecord::class);
+        return $this->belongsTo(CourseEnrollment::class);
     }
 }

@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Module;
-use App\Models\LessonRecord;
-
+use App\Models\CourseModule;
+use App\Models\LessonProgress;
+use App\Models\CourseEnrollment;
 
 class ModuleProgress extends Model
 {
@@ -16,7 +16,7 @@ class ModuleProgress extends Model
     {
         static::created(function (ModuleProgress $moduleProgress) {
 
-            $lessons = $moduleProgress->module->lessonDetails;
+                        $lessons = $moduleProgress->courseModule->lessonDetails;
 
             foreach ($lessons as $lesson) {
                 $moduleProgress->lessonProgresses()->create([
@@ -26,9 +26,14 @@ class ModuleProgress extends Model
         });
     }
 
-    public function module()
+    public function courseModule()
     {
-        return $this->belongsTo(CourseModule::class);
+        return $this->belongsTo(CourseModule::class, 'module_id');
+    }
+
+    public function courseEnrollment()
+    {
+        return $this->belongsTo(CourseEnrollment::class);
     }
 
     public function lessonProgresses()
