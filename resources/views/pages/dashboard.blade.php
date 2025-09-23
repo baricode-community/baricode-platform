@@ -6,7 +6,7 @@
                 <div>
                     <h1 class="text-3xl md:text-4xl font-extrabold mb-2 flex items-center gap-2">
                         <span class="animate-bounce">👋</span>
-                        Selamat Datang, <span class="text-indigo-600">{{ auth()->user()->name }}!</span>
+                        Selamat Datang
                     </h1>
                     <div class="flex flex-col md:flex-row md:items-center gap-2 text-gray-600">
                         <span class="flex items-center gap-1"><x-heroicon-o-envelope class="w-5 h-5"/> {{ auth()->user()->email }}</span>
@@ -14,7 +14,7 @@
                         <span class="flex items-center gap-1"><x-heroicon-o-calendar class="w-5 h-5"/> Bergabung sejak: {{ auth()->user()->created_at->format('d M Y') }}</span>
                     </div>
                 </div>
-                <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=4f46e5&color=fff&size=80" alt="Avatar" class="rounded-full shadow-lg border-4 border-indigo-200 bg-white w-20 h-20 object-cover">
+                <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=4f46e5&color=fff&size=80" alt="Avatar" class="rounded-full shadow-lg border-4 border-indigo-200 bg-white w-20 h-20 object-cover hidden md:block">
             </div>
 
             <!-- Statistik -->
