@@ -17,7 +17,7 @@ new class extends Component {
                 'course_record_id' => $courseRecordId,
                 'user_id' => auth()->id(),
                 'context' => [
-                    'lessonRecord' => $lessonProgress->toArray(),
+                    'lessonProgress' => $lessonProgress->toArray(),
                 ],
             ]);
         } else {
@@ -35,21 +35,21 @@ new class extends Component {
             $courseService = app(CourseService::class);
             $userId = auth()->id();
 
-            logger()->info('Marking lesson as learned: ' . $this->lessonRecord->lesson->title);
+            logger()->info('Marking lesson as learned: ' . $this->lessonProgress->lessonDetail->title);
 
-            $courseService->markLessonAsLearned($this->lessonRecord->lesson, $userId);
+            $courseService->markLessonAsLearned($this->lessonProgress->lessonDetail, $userId);
 
             // Update the lesson record status
-            $this->lessonRecord->update(['is_completed' => true]);
+            $this->lessonProgress->update(['is_completed' => true]);
 
             // Refresh the component state
-            $this->lessonRecord->refresh();
+            $this->lessonProgress->refresh();
 
             // Show success message
             session()->flash('success', 'Pelajaran telah ditandai sebagai sudah dipelajari!');
 
             // Dispatch browser event for any additional handling
-            $this->dispatch('lesson-marked-as-learned', lessonId: $this->lessonRecord->lesson->id);
+            $this->dispatch('lesson-marked-as-learned', lessonId: $this->lessonProgress->lessonDetail->id);
         } catch (\Exception $e) {
             logger()->error('Error marking lesson as learned: ' . $e->getMessage());
             session()->flash('error', 'Terjadi kesalahan saat menandai pelajaran. Silakan coba lagi.');
