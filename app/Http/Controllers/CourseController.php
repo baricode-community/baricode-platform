@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CourseEnrollment;
+use App\Models\LessonDetail;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Services\CourseService;
@@ -35,21 +37,21 @@ class CourseController extends Controller
             return redirect()->back();
         }
 
-        return redirect()->route('course.continue', ['courseRecord' => $result->id]);
+        return redirect()->route('course.continue', ['courseEnrollment' => $result->id]);
     }
 
-    public function continue(CourseRecord $courseRecord)
+    public function continue(CourseEnrollment $courseEnrollment)
     {
-        logger()->info('Continuing course: ' . $courseRecord->id);
-        Gate::authorize('view', $courseRecord);
+        logger()->info('Continuing course: ' . $courseEnrollment->id);
+        Gate::authorize('view', $courseEnrollment);
 
-        return view('pages.courses.continue', compact('courseRecord'));
+        return view('pages.courses.continue', compact('courseEnrollment'));
     }
 
-    public function continue_lesson(CourseRecord $courseRecord, Lesson $lesson)
+    public function continue_lesson(CourseEnrollment $courseEnrollment, LessonDetail $lesson)
     {
-        logger()->info('Continuing lesson: ' . $lesson->title . ' in course: ' . $courseRecord->slug);
+        logger()->info('Continuing lesson: ' . $lesson->title . ' in course: ' . $courseEnrollment->slug);
 
-        return view('pages.courses.continue_lesson', compact('courseRecord', 'lesson'));
+        return view('pages.courses.continue_lesson', compact('courseEnrollment', 'lesson'));
     }
 }

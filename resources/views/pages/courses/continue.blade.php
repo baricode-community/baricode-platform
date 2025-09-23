@@ -1,7 +1,7 @@
 <x-layouts.app :title="__('Course Details')">
     <div class="bg-gradient-to-br from-blue-50 via-white to-blue-100 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 text-gray-900 dark:text-white">
         <div class="">
-            @php $course = $courseRecord->course; @endphp
+            @php  $course = $courseEnrollment->course; @endphp
 
             <div class="mb-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
@@ -15,7 +15,7 @@
                 </div>
                 <div class="flex items-center gap-4">
                     <span class="inline-flex items-center px-3 py-1 rounded-full bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 text-sm font-semibold">
-                        🎯 Level: {{ $course->category->level }}
+                        🎯 Level: {{ $course->courseCategory->level }}
                     </span>
                 </div>
             </div>
@@ -27,14 +27,14 @@
                         <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
                             <span>📋</span> Informasi Kursus
                         </h2>
-                        @php $courseRecordSessions = $courseRecord->courseRecordSessions; @endphp
-                        @if(isset($courseRecordSessions) && count($courseRecordSessions))
+                        @php $courseEnrollmentSessions = $courseEnrollment->courseRecordSessions; @endphp
+                        @if(isset($courseEnrollmentSessions) && count($courseEnrollmentSessions))
                             <div class="mt-6">
                                 <h3 class="font-semibold mb-3 flex items-center gap-2 text-blue-600 dark:text-blue-400">
                                     <span>🗓️ Jadwal Sesi Pembelajaran</span>
                                 </h3>
                                 <ul class="divide-y divide-gray-200 dark:divide-gray-700 bg-blue-50 dark:bg-gray-900 rounded-lg shadow-sm">
-                                    @foreach($courseRecordSessions as $session)
+                                    @foreach($courseEnrollmentSessions as $session)
                                         <li class="py-3 px-4 flex flex-col md:flex-row md:items-center md:justify-between hover:bg-blue-100 dark:hover:bg-gray-800 transition">
                                             <div class="flex items-center gap-2">
                                                 <span class="font-medium text-blue-700 dark:text-blue-300">
@@ -66,7 +66,7 @@
                             $progress = [
                                 'percentage' => 45,
                                 'completed_modules' => 9,
-                                'total_modules' => $course->modules()->count()
+                                'total_modules' => $course->courseModules()->count()
                             ];
                         @endphp
                         <div class="mb-4">
@@ -88,7 +88,7 @@
                 </div>
 
                 <!-- Daftar Modul -->
-                @php $modules = $courseRecord->moduleRecords()->get(); @endphp
+                @php $modules = $courseEnrollment->moduleProgresses()->get(); @endphp
                 <div class="mt-10">
                     <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
                         <span>📚</span> Daftar Modul
@@ -103,18 +103,18 @@
                                         @else
                                             <span class="text-yellow-500 text-xl">📝</span>
                                         @endif
-                                        <span class="font-semibold text-lg">{{ $module->module->title }}</span>
+                                        <span class="font-semibold text-lg">{{ $module->module->name }}</span>
                                     </div>
                                 </div>
-                                @php $lessons = $module->lessonRecords()->get(); @endphp
+                                @php $lessons = $module->lessonProgresses()->get(); @endphp
                                 @if(count($lessons))
                                     <div class="ml-8 mt-2 space-y-1">
                                         @foreach($lessons as $lesson)
                                             <div class="flex items-center gap-2 group">
                                                 <span class="text-xs">{{ $lesson->is_completed ? '✅' : '📖' }}</span>
-                                                <a href="{{ route('course.continue.lesson', [$courseRecord->id, $lesson->id]) }}"
+                                                <a href="{{ route('course.continue.lesson', [$courseEnrollment->id, $lesson->id]) }}"
                                                    class="text-sm text-blue-700 dark:text-blue-300 group-hover:underline transition">
-                                                    {{ $lesson->lesson->title }}
+                                                    {{ $lesson->lessonDetail->title }}
                                                 </a>
                                             </div>
                                         @endforeach

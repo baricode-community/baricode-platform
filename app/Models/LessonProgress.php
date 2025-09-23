@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\ModuleRecord;
-use App\Models\Lesson;
+use App\Models\LessonDetail;
+use App\Models\ModuleProgress;
+
 
 class LessonProgress extends Model
 {
     protected $guarded = ['id'];
+    protected $table = 'lesson_progresses';
 
     protected $casts = [
         'is_completed' => 'boolean',
@@ -16,12 +18,12 @@ class LessonProgress extends Model
 
     public function moduleProgress()
     {
-        return $this->belongsTo(ModuleRecord::class);
+        return $this->belongsTo(ModuleProgress::class);
     }
 
-    public function lesson()
+    public function lessonDetail()
     {
-        return $this->belongsTo(Lesson::class);
+        return $this->belongsTo(LessonDetail::class, 'lesson_id', 'id');
     }
 
 }

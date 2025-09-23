@@ -6,15 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Module;
 use App\Models\LessonRecord;
 
+
 class ModuleProgress extends Model
 {
     protected $guarded = ['id'];
+    protected $table = 'module_progresses';
 
      protected static function booted()
     {
         static::created(function (ModuleProgress $moduleProgress) {
 
-            $lessons = $moduleProgress->module->lessons;
+            $lessons = $moduleProgress->module->lessonDetails;
 
             foreach ($lessons as $lesson) {
                 $moduleProgress->lessonProgresses()->create([
@@ -26,11 +28,11 @@ class ModuleProgress extends Model
 
     public function module()
     {
-        return $this->belongsTo(Module::class);
+        return $this->belongsTo(CourseModule::class);
     }
 
     public function lessonProgresses()
     {
-        return $this->hasMany(LessonRecord::class);
+        return $this->hasMany(LessonProgress::class);
     }
 }
