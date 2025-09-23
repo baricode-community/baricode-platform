@@ -22,6 +22,11 @@ class CourseEnrollment extends Model
 
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'is_approved' => 'boolean',
+        'approved_at' => 'datetime',
+    ];
+
     protected static function booted()
     {
         static::created(function (CourseEnrollment $courseEnrollment) {
