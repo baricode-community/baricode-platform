@@ -1,12 +1,3 @@
-<?php
-use App\Models\Course;
-
-use function Laravel\Folio\name;
-
-name('course');
-
-?>
-
 @extends('layouts.base')
 
 @section('title', $course->title)
@@ -29,8 +20,8 @@ name('course');
                             {{ $module->name }}
                         </h3>
                         <div class="ml-8 mt-2 space-y-2">
-                            @if($module->lessons->count() > 0)
-                                @foreach ($module->lessons as $lesson)
+                            @if($module->lessonDetails->count() > 0)
+                                @foreach ($module->lessonDetails as $lesson)
                                     <div class="flex items-center">
                                         <span class="text-indigo-400 font-bold mr-2">{{ $loop->iteration }}.</span>
                                         <span>{{ $lesson->title }}</span>

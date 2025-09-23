@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Course;
-use App\Models\CourseModuleLesson;
+use App\Models\LessonDetail;
 
 class CourseModule extends Model
 {    
@@ -18,8 +18,8 @@ class CourseModule extends Model
         return $this->belongsTo(Course::class)->orderBy('order');
     }
 
-    public function courseModuleLessons()
+    public function lessonDetails()
     {
-        return $this->hasMany(CourseModuleLesson::class)->orderBy('order');
+        return $this->hasMany(LessonDetail::class,  'module_id', 'id')->orderBy('order');
     }
 }
