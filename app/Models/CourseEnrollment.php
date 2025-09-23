@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
- use App\Observers\CourseEnrollmentObserver;
+use App\Observers\CourseEnrollmentObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Course;
- use App\Models\ModuleProgress;
- use App\Models\CourseRecordSession;
+use App\Models\ModuleProgress;
+use App\Models\CourseRecordSession;
 
- #[ObservedBy(CourseEnrollmentObserver::class)]
+#[ObservedBy(CourseEnrollmentObserver::class)]
 class CourseEnrollment extends Model
 {
     /** @use HasFactory<\Database\Factories\CourseEnrollmentFactory> */
@@ -34,7 +34,7 @@ class CourseEnrollment extends Model
 
     public function courseEnrollmentSessions()
     {
-    return $this->hasMany(CourseRecordSession::class);
+        return $this->hasMany(CourseRecordSession::class);
     }
 
     public function course()
@@ -49,6 +49,6 @@ class CourseEnrollment extends Model
 
     public function moduleProgresses()
     {
-    return $this->hasMany(ModuleProgress::class);
+        return $this->hasMany(ModuleProgress::class);
     }
 }

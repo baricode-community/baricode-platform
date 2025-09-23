@@ -3,14 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Database\Seeders\DevSeeder;
-use Database\Seeders\SpatieSeeder;
-use Database\Seeders\SettingSeeder;
-
-use Database\Seeders\CourseCategorySeeder;
-use Database\Seeders\CourseSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -31,8 +26,17 @@ class DatabaseSeeder extends Seeder
         } else {
             $this->call([
                 CourseCategorySeeder::class,
-                CourseSeeder::class
+                CourseSeeder::class,
             ]);
+        }
+
+        // Membuat pengguna 'test@example.com' jika belum ada.
+        if (! User::where('email', 'test@example.com')->exists()) {
+            $user = User::factory()->create([
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+            ]);
+            $user->assignRole('admin');
         }
 
         DB::commit();

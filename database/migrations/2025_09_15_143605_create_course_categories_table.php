@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('course_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('level', ['pemula', 'menengah', 'lanjut'])->after('name')->default('pemula');
+            $table->enum('level', ['pemula', 'menengah', 'lanjut'])->default('pemula');
             $table->text('description')->nullable();
             $table->timestamps();
         });
 
         Schema::table('courses', function (Blueprint $table) {
             $table->unsignedBigInteger('category_id')->nullable();
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('course_categories')->onDelete('cascade');
         });
     }
 

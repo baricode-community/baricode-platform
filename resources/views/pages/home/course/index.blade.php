@@ -25,6 +25,7 @@
             </p>
 
             @if ($categories->count() > 0)
+                @php $hasCourses = false; @endphp
                 @foreach ($categories as $category)
                     @if ($category->courses->count() > 0)
                         @php $hasCourses = true; @endphp

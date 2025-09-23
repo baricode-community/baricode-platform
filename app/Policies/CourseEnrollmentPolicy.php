@@ -2,14 +2,14 @@
 
 namespace App\Policies;
 
-use App\Models\CourseRecord;
+use App\Models\CourseEnrollment;
 use App\Models\User;
-use App\Traits\CourseRecordTrait;
+use App\Traits\CourseEnrollmentTrait;
 use Illuminate\Auth\Access\Response;
 
-class CourseRecordPolicy
+class CourseEnrollmentPolicy
 {
-    use CourseRecordTrait;
+    use CourseEnrollmentTrait;
 
     /**
      * Determine whether the user can view any models.
@@ -22,10 +22,10 @@ class CourseRecordPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, CourseRecord $courseRecord): bool
+    public function view(User $user, CourseEnrollment $courseEnrollment): bool
     {
-        $this->logCourseRecordDetails($courseRecord);
-        return $user->id === $courseRecord->user_id;
+        $this->logCourseEnrollmentDetails($courseEnrollment);
+        return $user->id === $courseEnrollment->user_id;
     }
 
     /**
@@ -39,7 +39,7 @@ class CourseRecordPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, CourseRecord $courseRecord): bool
+    public function update(User $user, CourseEnrollment $courseEnrollment): bool
     {
         return false;
     }
@@ -47,7 +47,7 @@ class CourseRecordPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, CourseRecord $courseRecord): bool
+    public function delete(User $user, CourseEnrollment $courseEnrollment): bool
     {
         return false;
     }
@@ -55,7 +55,7 @@ class CourseRecordPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, CourseRecord $courseRecord): bool
+    public function restore(User $user, CourseEnrollment $courseEnrollment): bool
     {
         return false;
     }
@@ -63,7 +63,7 @@ class CourseRecordPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, CourseRecord $courseRecord): bool
+    public function forceDelete(User $user, CourseEnrollment $courseEnrollment): bool
     {
         return false;
     }

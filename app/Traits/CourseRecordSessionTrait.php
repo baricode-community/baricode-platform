@@ -27,4 +27,11 @@ trait CourseRecordSessionTrait
 
         return $currentTime->between($startTime, $endTime);
     }
+        public function getModuleProgressesAndEnrollments()
+        {
+            return [
+                'moduleProgresses.lessonProgresses',
+                'courseEnrollmentSessions',
+            ];
+        }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Category;
+use App\Models\CourseCategory;
 use App\Models\Course;
 
 class HomeController extends Controller
@@ -30,9 +30,7 @@ class HomeController extends Controller
 
     public function courses()
     {
-        $categories = Category::whereHas('courses', function ($q) {
-            $q->where('is_published', true);
-        })->get();
+        $categories = CourseCategory::get();
 
         return view('pages.home.course.index', compact('categories'));
     }
@@ -48,21 +46,21 @@ class HomeController extends Controller
 
     public function pemula()
     {
-        $categories = Category::where('level', 'pemula')->get();
+        $categories = CourseCategory::where('level', 'pemula')->get();
 
         return view('pages.home.course.level.pemula', compact('categories'));
     }
 
     public function menengah()
     {
-        $categories = Category::where('level', 'menengah')->get();
+        $categories = CourseCategory::where('level', 'menengah')->get();
 
         return view('pages.home.course.level.menengah', compact('categories'));
     }
 
     public function lanjut()
     {
-        $categories = Category::where('level', 'lanjut')->get();
+        $categories = CourseCategory::where('level', 'lanjut')->get();
 
         return view('pages.home.course.level.lanjut', compact('categories'));
     }

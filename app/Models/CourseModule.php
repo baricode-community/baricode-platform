@@ -8,9 +8,9 @@ use App\Models\Course;
 use App\Models\CourseModuleLesson;
 
 class CourseModule extends Model
-{
+{    
+    /** @use HasFactory<\Database\Factories\CourseModuleFactory> */
     use HasFactory;
-
     protected $guarded = ['id'];
 
     public function course()
@@ -18,7 +18,7 @@ class CourseModule extends Model
         return $this->belongsTo(Course::class)->orderBy('order');
     }
 
-    public function lessons()
+    public function courseModuleLessons()
     {
         return $this->hasMany(CourseModuleLesson::class)->orderBy('order');
     }
