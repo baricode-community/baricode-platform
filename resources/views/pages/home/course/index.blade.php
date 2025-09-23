@@ -10,10 +10,11 @@
                     Halaman ini menampilkan semua kursus untuk pemula, menengah, dan lanjut.
                 </p>
                 <p class="text-gray-300 mb-4">
-                    Untuk mendapatkan rekomendasi kursus yang sesuai dengan kebutuhan Anda, silakan lakukan registrasi terlebih dahulu.
+                    Untuk mendapatkan rekomendasi kursus yang sesuai dengan kebutuhan Anda, silakan lakukan registrasi
+                    terlebih dahulu.
                 </p>
                 <a href="{{ route('login') }}"
-                   class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-md transition duration-300">
+                    class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-md transition duration-300">
                     Gabung Sekarang
                 </a>
             </div>
@@ -33,20 +34,23 @@
                         <p class="text-gray-400 mb-8">{{ $category->description }}</p>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
                             @foreach ($category->courses as $course)
-                                <div
-                                    class="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 ease-in-out">
-                                    <a href="#">
-                                        <img src="{{ $course->thumbnail ?? 'https://via.placeholder.com/600x400.png?text=Thumbnail' }}"
-                                            alt="{{ $course->title }}" class="w-full h-48 object-cover">
-                                    </a>
-                                    <div class="p-6">
-                                        <h3 class="text-xl font-semibold mb-2">{{ $course->title }}</h3>
-                                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">{{ $course->description }}</p>
-                                        <a href="{{ route('course.show', $course->slug) }}"
-                                            class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md transition duration-300">Lihat
-                                            Kursus</a>
+                                @if ($course->is_published)
+                                    <div
+                                        class="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 ease-in-out">
+                                        <a href="#">
+                                            <img src="{{ $course->thumbnail ?? 'https://via.placeholder.com/600x400.png?text=Thumbnail' }}"
+                                                alt="{{ $course->title }}" class="w-full h-48 object-cover">
+                                        </a>
+                                        <div class="p-6">
+                                            <h3 class="text-xl font-semibold mb-2">{{ $course->title }}</h3>
+                                            <p class="text-gray-400 text-sm mb-4 line-clamp-2">{{ $course->description }}
+                                            </p>
+                                            <a href="{{ route('course.show', $course->slug) }}"
+                                                class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-md transition duration-300">Lihat
+                                                Kursus</a>
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                             @endforeach
                         </div>
                     @endif
