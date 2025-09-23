@@ -70,28 +70,26 @@ class CourseService
             }
             logger()->info('Days for sessions', array_merge($context, ['days' => $days]));
 
-            // foreach ($days as $dayName => $day) {
-            //     $dayNumber = match ($dayName) {
-            //         'Ahad'   => 1,
-            //         'Senin'  => 2,
-            //         'Selasa' => 3,
-            //         'Rabu'   => 4,
-            //         'Kamis'  => 5,
-            //         'Jumat'  => 6,
-            //         'Sabtu'  => 7,
-            //         default  => null,
-            //     };
+            foreach ($days as $dayName => $day) {
+                $dayNumber = match ($dayName) {
+                    'Minggu'   => 1,
+                    'Senin'  => 2,
+                    'Selasa' => 3,
+                    'Rabu'   => 4,
+                    'Kamis'  => 5,
+                    'Jumat'  => 6,
+                    'Sabtu'  => 7
+                };
 
-            //     $courseEnrollment->courseEnrollmentSessions()->create([
-            //         'user_id' => $user->id,
-            //         'day_of_week' => $dayNumber,
-            //         'reminder_1' => $day['sesi_1'] ?? '07:00',
-            //         'reminder_2' => $day['sesi_2'] ?? null,
-            //         'reminder_3' => $day['sesi_3'] ?? null,
-            //     ]);
-            // }
+                $courseEnrollment->courseEnrollmentSessions()->create([
+                    'user_id' => $user->id,
+                    'day_of_week' => $dayNumber,
+                    'reminder_1' => $day['sesi_1'] ?? '07:00',
+                    'reminder_2' => $day['sesi_2'] ?? null,
+                    'reminder_3' => $day['sesi_3'] ?? null,
+                ]);
+            }
         } catch (\Exception $e) {
-            throw $e;
             logger()->error('Failed to start course', array_merge($context, ['error' => $e->getMessage()]));
             DB::rollBack();
             flash()->error('Gagal memulai kursus. Silakan coba lagi.');

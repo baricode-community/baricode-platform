@@ -43,7 +43,7 @@ class CourseEnrollment extends Model
 
     public function courseEnrollmentSessions()
     {
-        return $this->hasMany(CourseRecordSession::class);
+        return $this->hasMany(CourseRecordSession::class, 'course_enrollment_id', 'id')->orderBy('created_at', 'desc');
     }
 
     public function course()

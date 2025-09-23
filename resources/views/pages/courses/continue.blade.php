@@ -38,7 +38,7 @@
                                         <li class="py-3 px-4 flex flex-col md:flex-row md:items-center md:justify-between hover:bg-blue-100 dark:hover:bg-gray-800 transition">
                                             <div class="flex items-center gap-2">
                                                 <span class="font-medium text-blue-700 dark:text-blue-300">
-                                                    {{ \Illuminate\Support\Str::ucfirst($session->getHari()) }}
+                                                    {{ \Illuminate\Support\Str::ucfirst($session->getNamaHari()) }}
                                                 </span>
                                                 <span class="text-gray-500 dark:text-gray-400 text-xs">
                                                     (Sesi:
@@ -55,35 +55,6 @@
                         @else
                             <p class="mt-6 text-sm text-gray-500 italic">Belum ada jadwal sesi pembelajaran.</p>
                         @endif
-                    </div>
-
-                    <!-- Progress Belajar -->
-                    <div>
-                        <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
-                            <span>📊</span> Progress Belajar
-                        </h2>
-                        @php
-                            $progress = [
-                                'percentage' => 45,
-                                'completed_modules' => 9,
-                                'total_modules' => $course->courseModules()->count()
-                            ];
-                        @endphp
-                        <div class="mb-4">
-                            <div class="flex justify-between mb-2">
-                                <span class="font-medium">📈 Progress Keseluruhan</span>
-                                <span class="font-semibold text-blue-600 dark:text-blue-400">{{ $progress['percentage'] }}%</span>
-                            </div>
-                            <div class="w-full bg-gray-200 rounded-full h-3 dark:bg-gray-700">
-                                <div class="bg-gradient-to-r from-blue-400 to-blue-600 h-3 rounded-full transition-all duration-500" style="width: {{ $progress['percentage'] }}%"></div>
-                            </div>
-                        </div>
-                        <p class="mt-2 text-sm">
-                            <strong>✅ Modul Selesai:</strong>
-                            <span class="text-green-600 dark:text-green-400">{{ $progress['completed_modules'] }}</span>
-                            /
-                            <span class="text-gray-600 dark:text-gray-300">{{ $progress['total_modules'] }}</span>
-                        </p>
                     </div>
                 </div>
 
