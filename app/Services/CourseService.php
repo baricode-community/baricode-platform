@@ -114,8 +114,6 @@ class CourseService
         ];
 
         logger()->info('Marking lesson as learned', $context);
-        // Logika untuk menandai pelajaran sebagai telah dipelajari
-        // FIXME
 
         flash()->success('Anda telah menandai pelajaran: '.$lesson->title.' sebagai telah dipelajari.');
     }
