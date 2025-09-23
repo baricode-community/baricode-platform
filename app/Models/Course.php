@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
 use App\Models\CourseCategory;
-use App\Models\Module;
+use App\Models\CourseModule;
+use App\Models\CourseEnrollment;
 
 class Course extends Model
 {
@@ -25,8 +26,8 @@ class Course extends Model
         return $this->hasMany(CourseModule::class)->orderBy('order');
     }
 
-    public function courseRecords()
+    public function courseEnrollments()
     {
-        return $this->hasMany(CourseRecord::class);
+        return $this->hasMany(CourseEnrollment::class);
     }
 }

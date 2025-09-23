@@ -19,14 +19,14 @@ name('course');
     </div>
 
     <div class="max-w-5xl mx-auto bg-gray-800 rounded-lg shadow-xl p-8">
-        @if($course->modules->count() > 0)
+        @if($course->courseModules->count() > 0)
             <h2 class="text-2xl font-bold mb-6 text-center">Daftar Modul</h2>
             <div class="space-y-4">
-                @foreach ($course->modules as $module)
+                @foreach ($course->courseModules as $module)
                     <div class="bg-gray-700 rounded-lg p-4">
                         <h3 class="text-xl font-semibold mb-2">
                             <span class="text-indigo-400 font-bold mr-2">{{ $loop->iteration }}.</span>
-                            {{ $module->title }}
+                            {{ $module->name }}
                         </h3>
                         <div class="ml-8 mt-2 space-y-2">
                             @if($module->lessons->count() > 0)
