@@ -31,11 +31,6 @@ class ModuleProgress extends Model
         return $this->belongsTo(CourseModule::class, 'module_id');
     }
 
-    public function module()
-    {
-        return $this->courseModule();
-    }
-
     public function courseEnrollment()
     {
         return $this->belongsTo(CourseEnrollment::class);

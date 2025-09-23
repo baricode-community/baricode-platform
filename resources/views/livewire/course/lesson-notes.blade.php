@@ -1,3 +1,61 @@
+<?php
+
+namespace App\Http\Livewire;
+
+use Livewire\Volt\Component;
+use App\Models\LessonDetail;
+
+new class extends Component
+{
+    public $lessonDetail;
+    public $noteTitle = '';
+    public $noteContent = '';
+
+    protected $rules = [
+        'noteTitle' => 'required|string|max:255',
+        'noteContent' => 'required|string',
+    ];
+
+    public function mount(LessonDetail $lesson)
+    {
+        $this->lessonDetail = $lesson;
+    }
+
+    public function createNote()
+    {
+        logger()->info('Creating note', ['title' => $this->noteTitle, 'content' => $this->noteContent]);
+
+        $this->validate();
+        logger()->info('Note created successfully', ['title' => $this->noteTitle, 'content' => $this->noteContent]);
+
+        $this->lessonDetail->studentNotes()->create([
+            'title' => $this->noteTitle,
+            'note' => $this->noteContent,
+            'user_id' => auth()->id(),
+            'lesson_id' => $this->lessonDetail->id,
+        ]);
+        logger()->info('Note created in database', ['lesson_id' => $this->lessonDetail->id]);
+
+        $this->reset(['noteTitle', 'noteContent']);
+    }
+
+    public function deleteNote($noteId)
+    {
+        $note = $this->lessonDetail->studentNotes()->where('id', $noteId)->first();
+
+        if ($note) {
+            $note->delete();
+        }
+    }
+
+    public function getNotesProperty()
+    {
+        return $this->lessonDetail->studentNotes;
+    }
+}
+?>
+
+<!-- livewire.lesson-notes.blade.php -->
 <div class="bg-white rounded-xl shadow-md p-6 mb-6">
     <form wire:submit.prevent="createNote">
         <div class="mb-4">
@@ -21,7 +79,7 @@
 
     <div class="bg-white rounded-xl shadow-md p-6">
         <ul class="space-y-3">
-            @forelse($notes as $note)
+            @forelse($this->lessonDetail->studentNotes as $note)
                 <li class="border border-gray-200 rounded-lg p-4 flex justify-between items-start">
                     <div>
                         <h3 class="font-semibold text-lg mb-2">{{ $note->title }}</h3>
@@ -37,5 +95,4 @@
             @endforelse
         </ul>
     </div>
-
 </div>

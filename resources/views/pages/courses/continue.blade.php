@@ -106,10 +106,10 @@
                                         <span class="font-semibold text-lg">{{ $module->module->name ?? 'Module Name Not Available' }}</span>
                                     </div>
                                 </div>
-                                @php $lessons = $module->lessonProgresses()->get(); @endphp
-                                @if(count($lessons))
+                                @php $lessonProgresses = $module->lessonProgresses()->get(); @endphp
+                                @if(count($lessonProgresses))
                                     <div class="ml-8 mt-2 space-y-1">
-                                        @foreach($lessons as $lesson)
+                                        @foreach($lessonProgresses as $lesson)
                                             <div class="flex items-center gap-2 group">
                                                 <span class="text-xs">{{ $lesson->is_completed ? '✅' : '📖' }}</span>
                                                 <a href="{{ route('course.continue.lesson', [$courseEnrollment->id, $lesson->id]) }}"

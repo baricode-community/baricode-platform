@@ -18,7 +18,7 @@ class LessonProgress extends Model
 
     public function moduleProgress()
     {
-        return $this->belongsTo(ModuleProgress::class);
+        return $this->belongsTo(ModuleProgress::class, 'module_progress_id', 'id');
     }
 
     public function lessonDetail()

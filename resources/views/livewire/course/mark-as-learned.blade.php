@@ -2,28 +2,28 @@
 
 use Livewire\Volt\Component;
 use App\Services\CourseService;
-use App\Models\LessonRecord;
+use App\Models\LessonProgress;
 
 new class extends Component {
-    public LessonRecord $lessonRecord;
+    public LessonProgress $lessonProgress;
     public $courseRecordId;
     public $isLoading = false;
 
-    public function mount(LessonRecord $lessonRecord, $courseRecordId)
+    public function mount(LessonProgress $lessonProgress, $courseRecordId)
     {
         if (app()->environment('local')) {
-            logger()->debug('Mounting mark-as-learned component for lesson: ' . $lessonRecord->lesson->title . ', courseRecordId: ' . $courseRecordId, [
-                'lesson_id' => $lessonRecord->lesson->id,
+            logger()->debug('Mounting mark-as-learned component for lesson: ' . $lessonProgress->title . ', courseRecordId: ' . $courseRecordId, [
+                'lesson_id' => $lessonProgress->id,
                 'course_record_id' => $courseRecordId,
                 'user_id' => auth()->id(),
                 'context' => [
-                    'lessonRecord' => $lessonRecord->toArray(),
+                    'lessonRecord' => $lessonProgress->toArray(),
                 ],
             ]);
         } else {
-            logger()->info('Mounting mark-as-learned component for lesson: ' . $lessonRecord->lesson->title . ', courseRecordId: ' . $courseRecordId);
+            logger()->info('Mounting mark-as-learned component for lesson: ' . $lessonProgress->title . ', courseRecordId: ' . $courseRecordId);
         }
-        $this->lessonRecord = $lessonRecord;
+        $this->lessonProgress = $lessonProgress;
         $this->courseRecordId = $courseRecordId;
     }
 
@@ -40,7 +40,7 @@ new class extends Component {
             $courseService->markLessonAsLearned($this->lessonRecord->lesson, $userId);
 
             // Update the lesson record status
-            $this->lessonRecord->update(['is_completed' => 1]);
+            $this->lessonRecord->update(['is_completed' => true]);
 
             // Refresh the component state
             $this->lessonRecord->refresh();
@@ -61,7 +61,7 @@ new class extends Component {
 
 <div>
 
-    @if ($lessonRecord->is_completed)
+    @if ($lessonProgress->is_completed)
         <button type="button" disabled
             class="inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-gray-400 to-gray-600 text-white rounded-lg shadow font-semibold opacity-70 cursor-not-allowed">
             <span class="mr-2 text-lg">✅</span> {{ __('Sudah Dipelajari') }}

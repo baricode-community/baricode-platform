@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CourseEnrollment;
-use App\Models\LessonDetail;
+use App\Models\LessonProgress;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Services\CourseService;
@@ -49,17 +49,17 @@ class CourseController extends Controller
         $courseEnrollment->load([
             'course.courseCategory',
             'courseRecordSessions',
-            'moduleProgresses.module',
+            'moduleProgresses.courseModule',
             'moduleProgresses.lessonProgresses.lessonDetail'
         ]);
 
         return view('pages.courses.continue', compact('courseEnrollment'));
     }
 
-    public function continue_lesson(CourseEnrollment $courseEnrollment, LessonDetail $lessonDetail)
+    public function continue_lesson(CourseEnrollment $courseEnrollment, LessonProgress $lessonProgress)
     {
-        logger()->info('Continuing lesson: ' . $lessonDetail->title . ' in course: ' . $courseEnrollment->slug);
+        logger()->info('Continuing lesson: ' . $lessonProgress->id . ' in course: ' . $courseEnrollment->id);
 
-        return view('pages.courses.continue_lesson', compact('courseEnrollment', 'lessonDetail'));
+        return view('pages.courses.continue_lesson', compact('courseEnrollment', 'lessonProgress'));
     }
 }
