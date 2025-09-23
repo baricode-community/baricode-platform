@@ -45,13 +45,21 @@ class CourseController extends Controller
         logger()->info('Continuing course: ' . $courseEnrollment->id);
         Gate::authorize('view', $courseEnrollment);
 
+        // Load the necessary relationships to avoid N+1 queries and null reference errors
+        $courseEnrollment->load([
+            'course.courseCategory',
+            'courseRecordSessions',
+            'moduleProgresses.module',
+            'moduleProgresses.lessonProgresses.lessonDetail'
+        ]);
+
         return view('pages.courses.continue', compact('courseEnrollment'));
     }
 
-    public function continue_lesson(CourseEnrollment $courseEnrollment, LessonDetail $lesson)
+    public function continue_lesson(CourseEnrollment $courseEnrollment, LessonDetail $lessonDetail)
     {
-        logger()->info('Continuing lesson: ' . $lesson->title . ' in course: ' . $courseEnrollment->slug);
+        logger()->info('Continuing lesson: ' . $lessonDetail->title . ' in course: ' . $courseEnrollment->slug);
 
-        return view('pages.courses.continue_lesson', compact('courseEnrollment', 'lesson'));
+        return view('pages.courses.continue_lesson', compact('courseEnrollment', 'lessonDetail'));
     }
 }

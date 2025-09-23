@@ -7,11 +7,7 @@
                    class="inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-blue-200 to-blue-400 dark:from-blue-800 dark:to-blue-600 text-blue-900 dark:text-blue-100 rounded-lg shadow hover:scale-105 hover:from-blue-300 hover:to-blue-500 dark:hover:from-blue-700 dark:hover:to-blue-500 transition-all font-semibold">
                     <span class="mr-2 text-lg">←</span> {{ __('Kembali') }}
                 </a>
-                @php
-                    $lessonRecord = $courseEnrollment->moduleRecords->first()->lessonRecords->first();
-                    // dd($lesson);
-                @endphp
-                @livewire('course.mark-as-learned', ['lessonRecord' => $lessonRecord, 'courseRecordId' => $courseEnrollment->id])
+                @livewire('course.mark-as-learned', ['lessonDetail' => $lessonDetail, 'courseRecordId' => $courseEnrollment->id])
             </div>
 
             @if(isset($lesson))
