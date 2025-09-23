@@ -69,6 +69,40 @@
                     </div>
 
                     <div>
+                        <label for="whatsapp" class="block text-sm font-medium text-gray-700">
+                            Nomor WhatsApp
+                        </label>
+                        <div class="mt-1 relative">
+                            <input id="whatsapp" name="whatsapp" type="text" autocomplete="tel" required
+                                   value="{{ old('whatsapp') }}"
+                                   placeholder="08xxxxxxxxxx"
+                                   class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm @error('whatsapp') border-red-300 @enderror">
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H5a2 2 0 01-2-2V5zm0 10a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2zm10-10a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zm0 10a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        @error('whatsapp')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <label for="about" class="block text-sm font-medium text-gray-700">
+                            Tentang Diri Anda
+                        </label>
+                        <div class="mt-1">
+                            <textarea id="about" name="about" rows="3" required
+                                      class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm @error('about') border-red-300 @enderror"
+                                      placeholder="Ceritakan sedikit tentang diri Anda...">{{ old('about') }}</textarea>
+                        </div>
+                        @error('about')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div>
                         <label for="password" class="block text-sm font-medium text-gray-700">
                             Kata Sandi
                         </label>

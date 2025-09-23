@@ -26,6 +26,8 @@ class AuthController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'whatsapp' => ['nullable', 'string', 'max:20'],
+            'about' => ['nullable', 'string', 'max:1000'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'terms' => ['accepted', 'required'],
         ]);
@@ -34,6 +36,8 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'whatsapp' => $request->whatsapp,
+            'about' => $request->about,
             'tos_accepted_at' => now(),
         ]);
 

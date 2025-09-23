@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use App\Observers\UserObserver;
 use Spatie\Permission\Traits\HasRoles;
 
+
 #[ObservedBy([UserObserver::class])]
 class User extends Authenticatable
 {
@@ -54,8 +55,8 @@ class User extends Authenticatable
             ->implode('');
     }
 
-    public function courseRecords()
+    public function courseEnrollments()
     {
-        return $this->hasMany(CourseRecord::class);
+        return $this->hasMany(CourseEnrollment::class);
     }
 }

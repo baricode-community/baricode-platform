@@ -9,13 +9,13 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $courseRecords = auth()->user()->courseRecords()->where(['is_approved' => false])->get();
+        $courseRecords = auth()->user()->courseEnrollments()->where(['is_approved' => false])->get();
         return view('pages.dashboard', compact('courseRecords'));
     }
 
     public function profile()
     {
-        $courses = collect();
-        return view('pages.profile', compact('courses'));
+        $user = auth()->user();
+        return view('pages.profile', compact('user'));
     }
 }

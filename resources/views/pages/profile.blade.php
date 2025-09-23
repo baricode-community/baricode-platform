@@ -13,25 +13,22 @@
                     <!-- Informasi Pribadi -->
                     <div>
                         <h2 class="text-2xl font-semibold mb-4">Informasi Pribadi</h2>
-                        <p><strong>Nama:</strong> John Doe</p>
-                        <p><strong>Email:</strong> john.doe@example.com</p>
-                        <p><strong>Nomor Telepon:</strong> +62 812-3456-7890</p>
-                        <p><strong>Alamat:</strong> Jl. Contoh No. 123, Jakarta</p>
+                        <p><strong>Nama:</strong> {{ $user->name }}</p>
+                        <p><strong>Email:</strong> {{ $user->email }}</p>
+                        <p><strong>Nomor Telepon:</strong> {{ $user->whatsapp }}</p>
                     </div>
 
                     <!-- Informasi Akun -->
                     <div>
                         <h2 class="text-2xl font-semibold mb-4">Informasi Akun</h2>
-                        <p><strong>Username:</strong> johndoe</p>
-                        <p><strong>Tanggal Bergabung:</strong> 1 Januari 2023</p>
-                        <p><strong>Status Akun:</strong> Aktif</p>
+                        <p><strong>Tanggal Bergabung:</strong> {{ $user->created_at->format('d F Y') }}</p>
                     </div>
                 </div>
 
                 <div class="mt-8">
                     <h2 class="text-2xl font-semibold mb-4">Tentang Saya</h2>
                     <p class="text-gray-400 dark:text-gray-400">
-                        Halo, saya John Doe. Saya seorang pengembang web dengan pengalaman lebih dari 5 tahun. Saya suka belajar teknologi baru dan berkontribusi pada proyek open-source.
+                        {{ $user->about }}
                     </p>
                 </div>
             </div>
