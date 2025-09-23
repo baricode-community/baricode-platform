@@ -1,0 +1,73 @@
+@startuml baricode-community
+
+' === Entities ===
+class User
+class CourseCategory
+class Course
+class CourseModule
+class CourseModuleLesson
+class LessonDetail
+class CourseEnrollment
+class ModuleProgress
+class LessonProgress
+class StudentNote
+class CourseAttendance
+class CourseRecordSession
+class Setting
+
+' === Grouping for clarity ===
+package "Course Structure" {
+    class CourseCategory
+    class Course
+    class CourseModule
+    class CourseModuleLesson
+    class LessonDetail
+}
+
+package "Enrollment & Progress" {
+    class CourseEnrollment
+    class ModuleProgress
+    class LessonProgress
+    class CourseRecordSession
+}
+
+package "Attendance & Notes" {
+    class CourseAttendance
+    class StudentNote
+}
+
+class User
+class Setting
+
+' === Relations ===
+
+' Course Structure
+CourseCategory "1" -- "many" Course : courses
+Course "1" -- "many" CourseModule : courseModules
+Course "1" -- "many" CourseEnrollment : courseEnrollments
+Course "1" -- "many" CourseAttendance : attendances
+CourseModule "1" -- "many" CourseModuleLesson : courseModuleLessons
+CourseModuleLesson "many" -- "1" CourseModule : courseModule
+LessonDetail "many" -- "1" CourseModule : courseModule
+
+' Enrollment & Progress
+CourseEnrollment "many" -- "1" User : user
+CourseEnrollment "many" -- "1" Course : course
+CourseEnrollment "1" -- "many" ModuleProgress : moduleProgresses
+CourseEnrollment "1" -- "many" CourseRecordSession : courseEnrollmentSessions
+ModuleProgress "many" -- "1" CourseEnrollment : courseEnrollment
+ModuleProgress "many" -- "1" CourseModule : module
+ModuleProgress "1" -- "many" LessonProgress : lessonProgresses
+LessonProgress "many" -- "1" ModuleProgress : moduleProgress
+LessonProgress "many" -- "1" LessonDetail : lesson
+
+' Attendance & Notes
+CourseAttendance "many" -- "1" Course : course
+CourseAttendance "many" -- "1" User : student
+StudentNote "many" -- "1" User : user
+LessonDetail "1" -- "many" StudentNote : studentNotes
+
+' Record Session
+CourseRecordSession "many" -- "1" CourseEnrollment : courseEnrollment
+
+@enduml
