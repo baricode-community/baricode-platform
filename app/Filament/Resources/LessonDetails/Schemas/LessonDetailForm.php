@@ -4,6 +4,7 @@ namespace App\Filament\Resources\LessonDetails\Schemas;
 
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
@@ -13,17 +14,26 @@ class LessonDetailForm
     {
         return $schema
             ->components([
+                Select::make('module_id')
+                    ->label('Modul Kursus')
+                    ->relationship('courseModule', 'name')
+                    ->required(),
                 RichEditor::make('content')
                     ->required()
                     ->columnSpanFull(),
                 Repeater::make('references')
                     ->label('Referensi Sumber Pembelajaran')
                     ->schema([
-                        TextInput::make('name')->required(),
+                        TextInput::make('name')
+                            ->required()
+                            ->default('Referensi belajar'),
                         TextInput::make('description')->nullable(),
-                        TextInput::make('link')->url()->required(),
+                        TextInput::make('link')
+                            ->required()
+                            ->url()
+                            ->default('https://youtube.com/@barizaloka'),
                     ])
-                    ->columns(2),
+                    ->columns(3),
             ]);
     }
 }
