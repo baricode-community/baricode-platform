@@ -136,15 +136,14 @@
     <section class="py-20 px-4 bg-gray-900">
         <div class="max-w-7xl mx-auto text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-white mb-12">Teknologi yang Akan Kamu Kuasai</h2>
+            <div class="mb-8">
+                <p class="text-gray-400 text-base md:text-lg">
+                    Komunitas kami sudah berjalan beberapa bulan tanpa platform khusus. Kini, kami sedang membangun platform yang tangguh agar manfaat belajar, kolaborasi, dan networking bisa dirasakan lebih besar oleh semua anggota.
+                </p>
+            </div>
             <div class="flex flex-wrap justify-center gap-6">
                 <span class="bg-gray-800 text-indigo-400 font-semibold py-2 px-4 rounded-full">Laravel</span>
-                <span class="bg-gray-800 text-indigo-400 font-semibold py-2 px-4 rounded-full">PHP</span>
-                <span class="bg-gray-800 text-indigo-400 font-semibold py-2 px-4 rounded-full">Tailwind CSS</span>
-                <span class="bg-gray-800 text-indigo-400 font-semibold py-2 px-4 rounded-full">JavaScript</span>
-                <span class="bg-gray-800 text-indigo-400 font-semibold py-2 px-4 rounded-full">React</span>
-                <span class="bg-gray-800 text-indigo-400 font-semibold py-2 px-4 rounded-full">Vue.js</span>
-                <span class="bg-gray-800 text-indigo-400 font-semibold py-2 px-4 rounded-full">Node.js</span>
-                <span class="bg-gray-800 text-indigo-400 font-semibold py-2 px-4 rounded-full">MySQL</span>
+                <span class="bg-gray-800 text-indigo-400 font-semibold py-2 px-4 rounded-full">Flutter</span>
             </div>
         </div>
     </section>
@@ -163,6 +162,16 @@
                     </summary>
                     <p class="text-gray-300 mt-4">Ya, semua materi pembelajaran dan akses ke komunitas sepenuhnya gratis,
                         tanpa biaya tersembunyi. Kami percaya pada pendidikan yang dapat diakses oleh semua orang.</p>
+                </details>
+                <details class="bg-gray-700 p-6 rounded-lg shadow-lg cursor-pointer">
+                    <summary class="flex justify-between items-center text-white font-semibold">
+                        Apakah platform ini ramah untuk pemula?
+                        <svg class="w-6 h-6 text-indigo-400 transform transition-transform duration-200" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </summary>
+                    <p class="text-gray-300 mt-4">Sangat ramah! Semua materi dan fitur dirancang agar mudah dipahami oleh pemula, dengan dukungan komunitas yang siap membantu kapan saja.</p>
                 </details>
                 <details class="bg-gray-700 p-6 rounded-lg shadow-lg cursor-pointer">
                     <summary class="flex justify-between items-center text-white font-semibold">
@@ -185,6 +194,16 @@
                     </summary>
                     <p class="text-gray-300 mt-4">Tidak ada! Kami menyambut siapa saja, dari pemula yang belum pernah
                         ngoding sampai mereka yang sudah berpengalaman. Yang penting niat untuk belajar.</p>
+                </details>
+                <details class="bg-gray-700 p-6 rounded-lg shadow-lg cursor-pointer">
+                    <summary class="flex justify-between items-center text-white font-semibold">
+                        Apakah saya bisa berkontribusi sebagai mentor atau kontributor?
+                        <svg class="w-6 h-6 text-indigo-400 transform transition-transform duration-200" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </summary>
+                    <p class="text-gray-300 mt-4">Tentu saja! Kami sangat terbuka untuk siapa saja yang ingin berbagi ilmu atau membantu komunitas. Silakan hubungi kami untuk informasi lebih lanjut.</p>
                 </details>
             </div>
         </div>
