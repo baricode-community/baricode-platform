@@ -14,6 +14,7 @@ new class extends Component {
     {
         $this->record->delete();
         flash()->success('Kursus berhasil dihapus.');
+        return $this->redirect(request()->header('Referer'));
     }
     
 }; ?>
