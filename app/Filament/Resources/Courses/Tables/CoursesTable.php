@@ -18,12 +18,12 @@ class CoursesTable
                 TextColumn::make('title')->label('Title')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('category.name')
+                TextColumn::make('courseCategory.name')
                     ->label('Category')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('category.level')
-                    ->label('Category')
+                TextColumn::make('courseCategory.level')
+                    ->label('Category Level')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('description')
@@ -34,7 +34,7 @@ class CoursesTable
             ->filters([
                 SelectFilter::make('category_id')
                     ->label('Category')
-                    ->relationship('category', 'name'),
+                    ->relationship('courseCategory', 'name'),
             ])
             ->recordActions([
                 EditAction::make(),
