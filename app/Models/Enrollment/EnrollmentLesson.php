@@ -24,7 +24,7 @@ class EnrollmentLesson extends Model
 
     public function enrollmentLesson()
     {
-        return $this->belongsTo(CourseModuleLesson::class, 'course_module_lesson_id', 'id');
+        return $this->belongsTo(CourseModuleLesson::class, 'enrollment_lesson_id', 'id');
     }
 
 }
