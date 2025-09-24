@@ -19,8 +19,8 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->foreign('course_enrollment_id')
-                ->references('id')->on('course_enrollments')
+            $table->foreign('enrollment_id')
+                ->references('id')->on('enrollments')
                 ->onDelete('cascade');
         });
     }

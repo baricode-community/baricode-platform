@@ -13,7 +13,7 @@ return new class extends Migration
     {
     Schema::create('enrollment_modules', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_enrollment_id')->constrained('course_enrollments')->onDelete('cascade');
+            $table->foreignId('enrollment_id')->constrained('enrollments')->onDelete('cascade');
             $table->foreignId('module_id')->constrained('course_modules')->onDelete('cascade');
             $table->boolean('is_completed')->default(false);
 
