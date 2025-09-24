@@ -17,6 +17,7 @@ class LessonDetailForm
                 Select::make('module_id')
                     ->label('Modul Kursus')
                     ->relationship('courseModule', 'name')
+                    ->disabled()
                     ->required(),
                 TextInput::make('title')
                     ->required()

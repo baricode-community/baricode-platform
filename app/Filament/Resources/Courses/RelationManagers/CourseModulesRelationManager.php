@@ -52,6 +52,11 @@ class CourseModulesRelationManager extends RelationManager
                 CreateAction::make(),
             ])
             ->recordActions([
+                \Filament\Actions\Action::make('Go to Page')
+                    ->label('Go to Detail')
+                    ->color('cyan')
+                    ->url(fn ($record) => '/admin/lesson-details/' . $record->id . '/edit')
+                    ->openUrlInNewTab(),
                 EditAction::make(),
                 DeleteAction::make(),
             ])
