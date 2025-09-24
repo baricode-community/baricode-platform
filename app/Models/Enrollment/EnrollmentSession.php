@@ -1,17 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Enrollment;
 
-use App\Observers\CourseRecordSessionObserver;
 use App\Traits\CourseRecordSessionTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\CourseEnrollment;
-use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use App\Models\CourseAttendance;
 
-#[ObservedBy(CourseRecordSessionObserver::class)]
-class CourseRecordSession extends Model
+class EnrollmentSession extends Model
 {
     use HasFactory, CourseRecordSessionTrait;
 
@@ -19,7 +15,7 @@ class CourseRecordSession extends Model
 
     public function courseEnrollment()
     {
-        return $this->belongsTo(CourseEnrollment::class);
+        return $this->belongsTo(\App\Models\Enrollment\Enrollment::class, 'course_enrollment_id', 'id');
     }
 
     public function attendances()

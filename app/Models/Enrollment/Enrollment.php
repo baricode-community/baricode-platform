@@ -2,19 +2,15 @@
 
 namespace App\Models\Enrollment;
 
-use App\Observers\CourseEnrollmentObserver;
+use App\Models\Enrollment\EnrollmentSession;
 use App\Traits\CourseEnrollmentTrait;
 
-use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User\User;
 use App\Models\Course\Course;
-use App\Models\ModuleProgress;
-use App\Models\CourseRecordSession;
-use App\Models\LessonDetail;
 
-#[ObservedBy(CourseEnrollmentObserver::class)]
+
 class Enrollment extends Model
 {
     /** @use HasFactory<\Database\Factories\CourseEnrollmentFactory> */
@@ -40,9 +36,9 @@ class Enrollment extends Model
         });
     }
 
-    public function courseEnrollmentSessions()
+    public function enrolmentSessions()
     {
-        return $this->hasMany(CourseRecordSession::class, 'course_enrollment_id', 'id')->orderBy('created_at', 'desc');
+        return $this->hasMany(EnrollmentSession::class, 'course_enrollment_id', 'id')->orderBy('created_at', 'desc');
     }
 
     public function course()
@@ -52,7 +48,7 @@ class Enrollment extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function moduleProgresses()
@@ -62,6 +58,6 @@ class Enrollment extends Model
 
     public function courseRecordSessions()
     {
-        return $this->hasMany(CourseRecordSession::class);
+        return $this->hasMany(CourseRecordSession::class, 'course_enrollment_id', 'id');
     }
 }

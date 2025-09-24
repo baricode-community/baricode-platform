@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-    Schema::create('course_enrollments', function (Blueprint $table) {
+    Schema::create('enrollment_modules', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('course_enrollment_id')->constrained('course_enrollments')->onDelete('cascade');
+            $table->foreignId('module_id')->constrained('course_modules')->onDelete('cascade');
+            $table->boolean('is_completed')->default(false);
 
             $table->boolean('is_approved')->default(false);
             $table->unsignedBigInteger('approved_by')->nullable();
@@ -20,11 +23,6 @@ return new class extends Migration
             $table->text('approval_notes')->nullable();
             $table->foreign('approved_by')->references('id')->on('users')->onDelete('set null');
 
-            $table->unsignedBigInteger('course_id');
-            $table->unsignedBigInteger('user_id');
-
-            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -34,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-    Schema::dropIfExists('course_enrollments');
+    Schema::dropIfExists('enrollment_modules');
     }
 };

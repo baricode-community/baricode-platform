@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\LessonDetail;
+use App\Models\Course\LessonDetail;
 use App\Models\ModuleProgress;
 
 
-class LessonProgress extends Model
+class EnrollmentLesson extends Model
 {
     protected $guarded = ['id'];
     protected $table = 'lesson_progresses';

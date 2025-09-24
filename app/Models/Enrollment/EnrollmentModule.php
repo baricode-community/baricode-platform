@@ -3,18 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\CourseModule;
+use App\Models\Course\CourseModule;
 use App\Models\LessonProgress;
-use App\Models\CourseEnrollment;
 
-class ModuleProgress extends Model
+class EnrollmentModule extends Model
 {
     protected $guarded = ['id'];
     protected $table = 'module_progresses';
 
      protected static function booted()
     {
-        static::created(function (ModuleProgress $moduleProgress) {
+        static::created(function (EnrollmentModule $moduleProgress) {
 
                         $lessons = $moduleProgress->courseModule->lessonDetails;
 
@@ -28,12 +27,12 @@ class ModuleProgress extends Model
 
     public function courseModule()
     {
-        return $this->belongsTo(CourseModule::class, 'module_id');
+        return $this->belongsTo(CourseModule::class, 'module_id', 'id');
     }
 
     public function courseEnrollment()
     {
-        return $this->belongsTo(CourseEnrollment::class);
+        return $this->belongsTo(\App\Models\Enrollment\Enrollment::class, 'course_enrollment_id', 'id');
     }
 
     public function lessonProgresses()

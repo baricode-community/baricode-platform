@@ -56,12 +56,12 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
 
     public function courseEnrollments()
     {
-        return $this->hasMany(CourseEnrollment::class);
+        return $this->hasMany(\App\Models\Enrollment\Enrollment::class, 'user_id', 'id');
     }
 
-    public function userNote()
+    public function userNotes()
     {
-        return $this->hasMany(UserNote::class);
+        return $this->hasMany(UserNote::class, 'user_id', 'id');
     }
 
      public function canAccessPanel(Panel $panel): bool

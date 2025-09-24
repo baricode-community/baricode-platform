@@ -8,9 +8,9 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('course_record_sessions', function (Blueprint $table) {
+        Schema::create('enrollment_sessions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('course_enrollment_id');
+            $table->unsignedBigInteger('enrollment_id');
             $table->unsignedTinyInteger('day_of_week')->comment('1=Ahad, 2=Senin, 3=Selasa, 4=Rabu, 5=Kamis, 6=Jumat, 7=Sabtu');
 
             $table->time('reminder_1');

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Course\Course;
 use App\Models\Course\CourseModuleLesson;
+use App\Models\ModuleProgress;
 
 class CourseModule extends Model
 {    
@@ -15,16 +16,16 @@ class CourseModule extends Model
 
     public function course()
     {
-        return $this->belongsTo(Course::class)->orderBy('order');
+        return $this->belongsTo(Course::class, 'course_id', 'id');
     }
 
     public function courseModuleLessons()
     {
-        return $this->hasMany(CourseModuleLesson::class,  'module_id', 'id')->orderBy('order');
+        return $this->hasMany(CourseModuleLesson::class, 'module_id', 'id')->orderBy('order');
     }
 
     public function moduleProgresses()
     {
-        return $this->hasMany(ModuleProgress::class, 'module_id');
+        return $this->hasMany(ModuleProgress::class, 'module_id', 'id');
     }
 }

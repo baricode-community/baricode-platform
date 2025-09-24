@@ -18,16 +18,16 @@ class Course extends Model
 
     public function courseCategory()
     {
-        return $this->belongsTo(CourseCategory::class, 'category_id', 'id');
+        return $this->belongsTo(CourseCategory::class, 'category_id');
     }
 
     public function courseModules()
     {
-        return $this->hasMany(CourseModule::class)->orderBy('order');
+        return $this->hasMany(CourseModule::class, 'course_id', 'id')->orderBy('order');
     }
 
     public function enrollments()
     {
-        return $this->hasMany(Enrollment::class);
+        return $this->hasMany(Enrollment::class, 'course_id', 'id');
     }
 }
