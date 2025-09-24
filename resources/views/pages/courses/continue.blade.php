@@ -97,7 +97,7 @@
                                         @else
                                             <span class="text-yellow-500 text-xl">📝</span>
                                         @endif
-                                        <span class="font-semibold text-lg">{{ $module->module->name ?? 'Module Name Not Available' }}</span>
+                                        <span class="font-semibold text-lg">{{ $module->courseModule->name ?? 'Module Name Not Available' }}</span>
                                     </div>
                                 </div>
                                 @php $lessonProgresses = $module->lessonProgresses()->get(); @endphp
