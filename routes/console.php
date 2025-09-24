@@ -10,5 +10,5 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-Schedule::command(AbsentReminder::class)->everyFiveSeconds();
+// Schedule the attendance check system to run every minute
 Schedule::command(CheckSessionAttendance::class)->everyMinute();

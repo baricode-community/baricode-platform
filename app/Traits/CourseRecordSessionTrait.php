@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Models\CourseRecordSession;
 use App\Models\CourseAttendance;
+use App\Services\WhatsAppService;
 use Carbon\Carbon;
 
 trait CourseRecordSessionTrait
@@ -38,20 +39,50 @@ trait CourseRecordSessionTrait
         
         $reminders = [$this->reminder_1, $this->reminder_2, $this->reminder_3];
         
-        // Check if current time is within 5 minutes of any reminder time
+        // Check each reminder time
         foreach ($reminders as $reminder) {
             if (empty($reminder)) continue;
             
             try {
                 // Handle both H:i and H:i:s format
-                $reminderTimeString = is_string($reminder) ? $reminder : $reminder->format('H:i');
-                $reminderTime = Carbon::createFromFormat('H:i', substr($reminderTimeString, 0, 5));
-                $timeDifference = abs($currentTime->diffInMinutes($reminderTime));
+                $reminderTimeString = is_string($reminder) ? $reminder : $reminder->format('H:i:s');
+                $reminderTime = Carbon::createFromFormat('H:i:s', $reminderTimeString);
                 
-                // If within 5 minutes of reminder time
-                if ($timeDifference <= 5) {
-                    $this->createAttendanceForAllStudents();
-                    return true;
+                // Create datetime objects for comparison
+                $reminderDateTime = $currentTime->copy()->setTime($reminderTime->hour, $reminderTime->minute, $reminderTime->second);
+                $reminderEndTime = $reminderDateTime->copy()->addMinutes(5);
+                
+                // Check if current time is within the reminder time range (reminder time to +5 minutes)
+                if ($currentTime->between($reminderDateTime, $reminderEndTime)) {
+                    // Get the student from this specific session's enrollment
+                    $student = $this->courseEnrollment->user;
+                    
+                    // Check if attendance already exists for this session, student, and reminder time
+                    $existingAttendance = CourseAttendance::where('course_record_session_id', $this->id)
+                        ->where('student_id', $student->id)
+                        ->where('waktu_absensi', $reminderTimeString)
+                        ->first();
+                    
+                    if (!$existingAttendance) {
+                        // Create attendance record
+                        CourseAttendance::create([
+                            'course_id' => $this->courseEnrollment->course->id,
+                            'course_record_session_id' => $this->id,
+                            'student_id' => $student->id,
+                            'status' => CourseAttendance::STATUS_BELUM,
+                            'absent_date' => now()->format('Y-m-d'),
+                            'waktu_absensi' => $reminderTimeString,
+                            'notes' => 'Auto-generated attendance record for reminder at ' . $reminderTimeString,
+                            'created_at' => $reminderDateTime, // Set created_at to the reminder time
+                        ]);
+                        
+                        logger()->info("Created attendance for student ID: {$student->id} in session ID: {$this->id} for reminder time: {$reminderTimeString}");
+                        
+                        // Send WhatsApp notification
+                        $this->sendWhatsAppNotification($student, $reminderTimeString);
+                        
+                        return true;
+                    }
                 }
             } catch (\Exception $e) {
                 logger()->warning("Failed to parse reminder time: {$reminder}. Error: " . $e->getMessage());
@@ -63,35 +94,59 @@ trait CourseRecordSessionTrait
     }
 
     /**
-     * Create attendance records for all students enrolled in the course
+     * Send WhatsApp notification to student
      */
-    private function createAttendanceForAllStudents(): void
+    private function sendWhatsAppNotification($student, $reminderTime): void
     {
-        // Get all students enrolled in the course through course enrollments
-        $courseEnrollments = $this->courseEnrollment->course->courseEnrollments()
-            ->where('is_approved', true)
-            ->with('user')
-            ->get();
-        
-        foreach ($courseEnrollments as $enrollment) {
-            // Check if attendance already exists for this session and student
-            $existingAttendance = CourseAttendance::where('course_record_session_id', $this->id)
-                ->where('student_id', $enrollment->user->id)
-                ->first();
+        try {
+            $whatsappService = new WhatsAppService();
+            $courseName = $this->courseEnrollment->course->name ?? 'Course';
+            $studentName = $student->name ?? 'Student';
+            $phoneNumber = $student->whatsapp ?? $student->phone;
             
-            if (!$existingAttendance) {
-                CourseAttendance::create([
-                    'course_id' => $this->courseEnrollment->course->id,
-                    'course_record_session_id' => $this->id,
-                    'student_id' => $enrollment->user->id,
-                    'status' => CourseAttendance::STATUS_BELUM,
-                    'absent_date' => now()->format('Y-m-d'),
-                    'notes' => 'Auto-generated attendance record'
-                ]);
+            if ($phoneNumber) {
+                // Format phone number (ensure it starts with country code)
+                $phoneNumber = $this->formatPhoneNumber($phoneNumber);
                 
-                logger()->info("Created attendance for student ID: {$enrollment->user->id} in session ID: {$this->id}");
+                $success = $whatsappService->sendAttendanceReminder(
+                    $phoneNumber,
+                    $studentName, 
+                    $courseName,
+                    $reminderTime
+                );
+                
+                if ($success) {
+                    logger()->info("WhatsApp notification sent successfully to {$phoneNumber} for student ID: {$student->id}");
+                } else {
+                    logger()->error("Failed to send WhatsApp notification to {$phoneNumber} for student ID: {$student->id}");
+                }
+            } else {
+                logger()->warning("No phone number found for student ID: {$student->id}");
             }
+        } catch (\Exception $e) {
+            logger()->error("Error sending WhatsApp notification: " . $e->getMessage());
         }
+    }
+
+    /**
+     * Format phone number to include country code
+     */
+    private function formatPhoneNumber($phoneNumber): string
+    {
+        // Remove all non-numeric characters
+        $phoneNumber = preg_replace('/[^0-9]/', '', $phoneNumber);
+        
+        // If starts with 0, replace with +62
+        if (substr($phoneNumber, 0, 1) === '0') {
+            $phoneNumber = '62' . substr($phoneNumber, 1);
+        }
+        
+        // If doesn't start with 62, add 62
+        if (substr($phoneNumber, 0, 2) !== '62') {
+            $phoneNumber = '62' . $phoneNumber;
+        }
+        
+        return $phoneNumber;
     }
 
     /**

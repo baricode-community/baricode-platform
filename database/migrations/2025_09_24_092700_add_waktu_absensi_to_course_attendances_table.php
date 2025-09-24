@@ -12,12 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('course_attendances', function (Blueprint $table) {
-            if (!Schema::hasColumn('course_attendances', 'course_id')) {
-                $table->foreignId('course_id')->nullable()->constrained('courses')->onDelete('cascade');
-            }
-            if (!Schema::hasColumn('course_attendances', 'absent_date')) {
-                $table->date('absent_date')->nullable();
-            }
+            $table->time('waktu_absensi')->nullable()->after('status')->comment('Waktu pengingat yang memicu pembuatan absensi');
         });
     }
 
@@ -27,9 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('course_attendances', function (Blueprint $table) {
-            $table->dropForeign(['course_id']);
-            $table->dropColumn('course_id');
-            $table->dropColumn('absent_date');
+            $table->dropColumn('waktu_absensi');
         });
     }
 };

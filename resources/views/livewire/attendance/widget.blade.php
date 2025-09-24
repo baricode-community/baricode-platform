@@ -26,8 +26,9 @@ new class extends Component {
     public function loadTodayAttendance(): void
     {
         $this->todayAttendance = CourseAttendance::where('student_id', Auth::id())
-            ->where(['status' => 'Belum'])
-            ->with('course')
+            ->whereDate('absent_date', today())
+            ->with(['course', 'courseRecordSession'])
+            ->orderBy('waktu_absensi')
             ->get();
     }
 
@@ -36,22 +37,19 @@ new class extends Component {
      */
     public function checkAttendanceAvailability(): void
     {
-        $enrolledCourses = CourseEnrollment::where('user_id', Auth::id())
+        // Get pending attendances (status = 'Belum') for today
+        $pendingAttendances = CourseAttendance::where('student_id', Auth::id())
+            ->whereDate('absent_date', today())
+            ->where('status', CourseAttendance::STATUS_BELUM)
             ->with('course')
-            ->get()
-            ->pluck('course')
-            ->filter();
+            ->get();
             
-        $currentHour = Carbon::now()->hour;
+        $currentTime = Carbon::now();
+        $currentHour = $currentTime->hour;
         $isWorkingHours = $currentHour >= 7 && $currentHour <= 17;
         
-        if ($isWorkingHours && $enrolledCourses->count() > 0) {
-            $attendedCourseIds = $this->todayAttendance->pluck('course_id')->toArray();
-            
-            $this->pendingCourses = $enrolledCourses->reject(function($course) use ($attendedCourseIds) {
-                return in_array($course->id, $attendedCourseIds);
-            });
-            
+        if ($isWorkingHours && $pendingAttendances->count() > 0) {
+            $this->pendingCourses = $pendingAttendances->pluck('course')->filter();
             $this->canMarkAttendance = $this->pendingCourses->count() > 0;
         } else {
             $this->canMarkAttendance = false;
@@ -89,7 +87,12 @@ new class extends Component {
                 <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                     <div>
                         <p class="text-sm font-medium text-gray-900">{{ $attendance->course->title }}</p>
-                        <p class="text-xs text-gray-600">{{ $attendance->created_at->format('H:i') }}</p>
+                        <p class="text-xs text-gray-600">
+                            Reminder: {{ $attendance->waktu_absensi ? Carbon::parse($attendance->waktu_absensi)->format('H:i') : '-' }}
+                        </p>
+                        @if($attendance->created_at)
+                            <p class="text-xs text-gray-500">Dibuat: {{ $attendance->created_at->format('H:i') }}</p>
+                        @endif
                     </div>
                     <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium {{ $this->getStatusBadgeClass($attendance->status) }}">
                         {{ $attendance->status }}
@@ -107,7 +110,7 @@ new class extends Component {
                 <span class="text-sm font-medium">Absensi Menunggu</span>
             </div>
             <p class="text-xs text-yellow-700 mb-2">
-                {{ $pendingCourses->count() }} course belum diabsen hari ini
+                {{ $pendingCourses->count() }} absensi belum ditandai hari ini
             </p>
             <div class="space-y-1">
                 @foreach($pendingCourses->take(3) as $course)
@@ -128,7 +131,7 @@ new class extends Component {
             <!-- No Attendance -->
             <div class="text-center py-4">
                 <x-heroicon-o-clock class="mx-auto h-8 w-8 text-gray-400 mb-2"/>
-                <p class="text-sm text-gray-500 mb-2">Belum ada absensi hari ini</p>
+                <p class="text-sm text-gray-500 mb-2">Belum ada pengingat absensi hari ini</p>
                 @php
                     $currentHour = Carbon::now()->hour;
                     $isWorkingHours = $currentHour >= 7 && $currentHour <= 17;
@@ -136,15 +139,15 @@ new class extends Component {
                 @if(!$isWorkingHours)
                     <p class="text-xs text-gray-400">Waktu absensi: 07:00 - 17:00</p>
                 @else
-                    <p class="text-xs text-gray-400">Tidak ada course yang perlu diabsen</p>
+                    <p class="text-xs text-gray-400">Sistem akan membuat pengingat otomatis sesuai jadwal</p>
                 @endif
             </div>
         @else
             <!-- All Attendance Complete -->
             <div class="text-center py-2">
                 <x-heroicon-o-check-badge class="mx-auto h-8 w-8 text-green-500 mb-2"/>
-                <p class="text-sm text-green-600 font-medium">Absensi Lengkap!</p>
-                <p class="text-xs text-gray-500">Semua course sudah diabsen hari ini</p>
+                <p class="text-sm text-green-600 font-medium">Semua Absensi Sudah Diproses!</p>
+                <p class="text-xs text-gray-500">Tidak ada absensi yang perlu ditandai lagi</p>
             </div>
         @endif
     @endif

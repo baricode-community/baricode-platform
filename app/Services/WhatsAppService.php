@@ -40,7 +40,27 @@ class WhatsAppService
 
     public function sendMessage($to, $message): bool
     {
-        // Logic to send a message via WhatsApp API
-        return true; // Return true if the message was sent successfully, otherwise false
+        $data = [
+            'number' => $to,
+            'message' => $message
+        ];
+        
+        return $this->sendRequest('send-message', $data);
+    }
+
+    /**
+     * Send attendance reminder notification
+     */
+    public function sendAttendanceReminder($phoneNumber, $studentName, $courseName, $reminderTime): bool
+    {
+        $message = "🔔 *Pengingat Kelas*\n\n";
+        $message .= "Halo *{$studentName}*! 👋\n\n";
+        $message .= "⏰ Waktu untuk mengikuti kelas *{$courseName}*\n";
+        $message .= "🕐 Jam: {$reminderTime}\n\n";
+        $message .= "Jangan lupa untuk hadir tepat waktu! 📚\n";
+        $message .= "Silakan melakukan absensi sekarang.\n\n";
+        $message .= "Semangat belajar! 💪";
+        
+        return $this->sendMessage($phoneNumber, $message);
     }
 }

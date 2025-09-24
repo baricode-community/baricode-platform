@@ -19,40 +19,24 @@ class AbsentReminder extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Send attendance reminders and create attendance records for active sessions';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        logger()->info('AbsentReminder command executed');
-
-        // Mengambil semua session yang is_approved nya false
-        $sessions = CourseRecordSession::whereHas('courseEnrollment', function ($query) {
-            $query->where('is_completed', false);
-        })->get();
-
-        logger()->info('Total CourseRecordSession found: ' . $sessions->count());
-
-        foreach ($sessions as $session) {
-            logger()->info("Processing session ID: {$session->id}");
-
-            // Lalu mengecek apakah sekarang saatnya untuk belajar
-            if (!$session->checkAndCreateAttendance()) {
-                logger()->info("Not time to study for session ID: {$session->id}");
-                continue;
-            }
-
-            $user = $session->courseEnrollment->user;
-            logger()->info("Reminder sent to user: {$user->whatsapp}");
-
-            // Membuat absensi untuk user pada sesi ini
-            $session->attendances()->create([
-            'user_id' => $user->id,
-            'status' => 'absent',
-            'recorded_at' => now(),
-            ]);
+        $this->info('Checking active sessions for attendance reminders...');
+        
+        try {
+            CourseRecordSession::checkAllIncompleteSessions();
+            $this->info('Successfully processed all active sessions.');
+        } catch (\Exception $e) {
+            $this->error('Error occurred while processing sessions: ' . $e->getMessage());
+            logger()->error('AbsentReminder command failed: ' . $e->getMessage());
+            return 1;
         }
+        
+        return 0;
     }
 }

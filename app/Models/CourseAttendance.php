@@ -14,6 +14,16 @@ class CourseAttendance extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+    
+    protected $fillable = [
+        'course_id',
+        'course_record_session_id', 
+        'student_id',
+        'status',
+        'absent_date',
+        'waktu_absensi',
+        'notes'
+    ];
 
     // Konstanta untuk status absensi
     public const STATUS_MASUK = 'Masuk';
@@ -41,6 +51,12 @@ class CourseAttendance extends Model
     public function student(): BelongsTo
     {
         return $this->belongsTo(User::class, 'student_id');
+    }
+
+    // Relasi ke CourseRecordSession
+    public function courseRecordSession(): BelongsTo
+    {
+        return $this->belongsTo(CourseRecordSession::class, 'course_record_session_id');
     }
 
     // Scope untuk filter berdasarkan status
