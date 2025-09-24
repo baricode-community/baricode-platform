@@ -55,7 +55,7 @@ class CourseModulesRelationManager extends RelationManager
                 \Filament\Actions\Action::make('Go to Page')
                     ->label('Go to Detail')
                     ->color('cyan')
-                    ->url(fn ($record) => '/admin/lesson-details/' . $record->id . '/edit')
+                    ->url(fn ($record) => '/admin/lesson-details?filters[course_module_id][value]=' . $record->id)
                     ->openUrlInNewTab(),
                 EditAction::make(),
                 DeleteAction::make(),
