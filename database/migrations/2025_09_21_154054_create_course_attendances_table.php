@@ -13,19 +13,11 @@ return new class extends Migration
     {
     Schema::create('course_attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
+            $table->foreignId('course_record_session_id')->constrained('course_record_sessions')->onDelete('cascade');
             $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
-            $table->date('absent_date');
-            $table->enum('status', ['Masuk', 'Bolos', 'Izin'])->default('Masuk');
+            $table->enum('status', ['Masuk', 'Bolos', 'Izin', 'Belum'])->default('Belum');
             $table->text('notes')->nullable();
             $table->timestamps();
-
-            // Composite unique key untuk mencegah duplikasi absensi per hari
-            $table->unique(['course_id', 'student_id', 'absent_date']);
-            
-            // Index untuk performa query
-            $table->index(['course_id', 'absent_date']);
-            $table->index(['student_id', 'absent_date']);
         });
     }
 

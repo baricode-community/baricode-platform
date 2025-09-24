@@ -26,7 +26,7 @@ new class extends Component {
     public function loadTodayAttendance(): void
     {
         $this->todayAttendance = CourseAttendance::where('student_id', Auth::id())
-            ->whereDate('absent_date', Carbon::today())
+            ->where(['status' => 'Belum'])
             ->with('course')
             ->get();
     }

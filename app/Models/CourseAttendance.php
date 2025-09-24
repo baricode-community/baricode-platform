@@ -19,6 +19,7 @@ class CourseAttendance extends Model
     public const STATUS_MASUK = 'Masuk';
     public const STATUS_BOLOS = 'Bolos';
     public const STATUS_IZIN = 'Izin';
+    public const STATUS_BELUM = 'Belum';
 
     public static function getStatusOptions(): array
     {
@@ -26,6 +27,7 @@ class CourseAttendance extends Model
             self::STATUS_MASUK => 'Masuk',
             self::STATUS_BOLOS => 'Bolos',
             self::STATUS_IZIN => 'Izin',
+            self::STATUS_BELUM => 'Belum',
         ];
     }
 
@@ -67,6 +69,7 @@ class CourseAttendance extends Model
             self::STATUS_MASUK => '<span class="badge badge-success">Masuk</span>',
             self::STATUS_BOLOS => '<span class="badge badge-danger">Bolos</span>',
             self::STATUS_IZIN => '<span class="badge badge-warning">Izin</span>',
+            self::STATUS_BELUM => '<span class="badge badge-secondary">Belum</span>',
             default => '<span class="badge badge-secondary">Unknown</span>',
         };
     }
@@ -87,5 +90,11 @@ class CourseAttendance extends Model
     public function isExcused(): bool
     {
         return $this->status === self::STATUS_IZIN;
+    }
+
+    // Method untuk check apakah siswa belum absen
+    public function isNotYet(): bool
+    {
+        return $this->status === self::STATUS_BELUM;
     }
 }
