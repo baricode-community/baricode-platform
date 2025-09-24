@@ -42,6 +42,13 @@ class AbsentReminder extends Command
 
             $user = $session->courseEnrollment->user;
             logger()->info("Reminder sent to user: {$user->whatsapp}");
+
+            // Membuat absensi untuk user pada sesi ini
+            $session->attendance()->create([
+                'user_id' => $user->id,
+                'status' => 'absent',
+                'recorded_at' => now(),
+            ]);
         });
     }
 }
