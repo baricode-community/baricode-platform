@@ -12,11 +12,12 @@ Sistem absensi otomatis untuk kursus berbasis waktu sesi (dengan pengingat/remin
     * Periksa apakah hari ini sesuai dengan `day_of_week` dari sesi.
     * **Iterasi Pengingat:** Untuk setiap waktu pengingat (yang berjumlah 3 itu):
         * Jika reminder itu kosong maka skip
-        * Cek apakah waktu saat ini itu ada pada menit yang sama dengan reminder itu (contoh 22:00)
+        * Cek apakah waktu saat ini itu ada pada rentang waktu itu hingga 5 menit kemudian yang sama dengan reminder itu (contoh 22:00)
             * Cek dulu apakah ada `CourseAttendance` dengan `crated_at` nya sama dengan reminder saat ini, jika tidak:
                 * Buat catatan `CourseAttendance` baru dengan informasi berikut:
                     * `status`: `'Belum'` (atau status default lainnya)
                     * `course_record_session_id`: ID dari `CourseRecordSession` yang sedang diproses
+                    * `created_at`: Diambil dari reminder itu
                     * `student_id`: ID siswa
                     * `waktu_absensi`: Waktu pengingat yang memicu pembuatan absensi
                 * Kirim notifikasi whatsapp
