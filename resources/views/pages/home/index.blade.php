@@ -194,7 +194,7 @@
         <div class="max-w-7xl mx-auto text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-white mb-8">Siap untuk Memulai?</h2>
             <p class="text-gray-400 mb-8">Jangan lewatkan kesempatan untuk belajar dan berkembang bersama kami.</p>
-            <a href="#"
+            <a href="{{ route('register') }}" wire:navigate
                 class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105 shadow-lg">
                 Daftar Sekarang
             </a>
