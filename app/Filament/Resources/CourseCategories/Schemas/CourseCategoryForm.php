@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\CourseCategories\Schemas;
 
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
 class CourseCategoryForm
@@ -10,7 +11,7 @@ class CourseCategoryForm
     {
         return $schema
             ->components([
-                //
+                TextInput::make('name')->label('Title')->required()->maxLength(255),
             ]);
     }
 }
