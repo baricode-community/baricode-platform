@@ -175,8 +175,8 @@
                 <ul class="list-disc pl-6 text-gray-700">
                     <li>📧 Email ke akun terdaftar</li>
                     <li>📱 Notifikasi di platform</li>
-                    <li>🌐 Pengumuman di website</li>
-                    <li>📝 Update di repository</li>
+                    <li>🌐 Pengumuman di komunitas</li>
+                    <li>📝 Update di repository (<a href="https://github.com/baricode-community/baricode-platform" class="underline text-blue-600" target="_blank">GitHub</a>)</li>
                 </ul>
             </section>
 
