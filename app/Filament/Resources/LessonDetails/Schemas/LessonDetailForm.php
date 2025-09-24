@@ -18,6 +18,10 @@ class LessonDetailForm
                     ->label('Modul Kursus')
                     ->relationship('courseModule', 'name')
                     ->required(),
+                TextInput::make('title')
+                    ->required()
+                    ->label('Judul Pembelajaran')
+                    ->default('Judul Pembelajaran'),
                 RichEditor::make('content')
                     ->required()
                     ->columnSpanFull(),
