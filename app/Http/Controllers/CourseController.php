@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CourseEnrollment;
 use App\Models\Enrollment\Enrollment;
 use App\Models\LessonProgress;
+use App\Traits\CourseTrait;
 use Illuminate\Http\Request;
 use App\Models\Course\Course;
 use App\Services\CourseService;
@@ -13,14 +14,11 @@ use Illuminate\Support\Facades\Gate;
 
 class CourseController extends Controller
 {
-    protected $courseService;
+    use CourseTrait;
 
-    public function __construct(CourseService $courseService)
+    public function __construct()
     {
         logger()->info('CourseController initialized');
-
-        $this->courseService = $courseService;
-        logger()->info('CourseService injected');
     }
     
     public function prepare(Course $course)
@@ -33,13 +31,13 @@ class CourseController extends Controller
     {
         logger()->info('CourseController start method called with course ID: ' . $course->id);
 
-        $result = $this->courseService->startCourse($course, $request->validated());
+        $result = $this->startCourse($course, $request->validated());
 
         if (!$result) {
             return redirect()->back();
         }
 
-        return redirect()->route('course.continue', ['courseEnrollment' => $result->id]);
+        return redirect()->route('course.continue', ['enrollment' => $result->id]);
     }
 
     public function continue(Enrollment $enrollment)

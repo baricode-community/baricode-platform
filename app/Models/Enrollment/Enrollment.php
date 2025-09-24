@@ -3,7 +3,8 @@
 namespace App\Models\Enrollment;
 
 use App\Models\Enrollment\EnrollmentSession;
-use App\Traits\CourseEnrollmentTrait;
+use App\Models\Enrollment\EnrollmentModule;
+use App\Traits\EnrollmentTrait;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +15,7 @@ use App\Models\Course\Course;
 class Enrollment extends Model
 {
     /** @use HasFactory<\Database\Factories\CourseEnrollmentFactory> */
-    use HasFactory, CourseEnrollmentTrait;
+    use HasFactory, EnrollmentTrait;
 
     protected $guarded = ['id'];
 
@@ -22,6 +23,7 @@ class Enrollment extends Model
         'is_approved' => 'boolean',
         'approved_at' => 'datetime',
     ];
+    protected $table = 'enrollments';
 
     protected static function booted()
     {
@@ -29,16 +31,16 @@ class Enrollment extends Model
             $modules = $courseEnrollment->course->courseModules;
 
             foreach ($modules as $module) {
-                $courseEnrollment->moduleProgresses()->create([
+                $courseEnrollment->enrollmentModules()->create([
                     'module_id' => $module->id,
                 ]);
             }
         });
     }
 
-    public function enrolmentSessions()
+    public function enrollmentSessions()
     {
-        return $this->hasMany(EnrollmentSession::class, 'course_enrollment_id', 'id')->orderBy('created_at', 'desc');
+        return $this->hasMany(EnrollmentSession::class, 'enrollment_id', 'id')->orderBy('created_at', 'desc');
     }
 
     public function course()
@@ -51,13 +53,8 @@ class Enrollment extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function moduleProgresses()
+    public function enrollmentModules()
     {
-        return $this->hasMany(ModuleProgress::class, 'course_enrollment_id', 'id');
-    }
-
-    public function courseRecordSessions()
-    {
-        return $this->hasMany(CourseRecordSession::class, 'course_enrollment_id', 'id');
+        return $this->hasMany(EnrollmentModule::class, 'enrollment_id', 'id');
     }
 }

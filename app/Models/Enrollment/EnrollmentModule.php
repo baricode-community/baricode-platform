@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Enrollment;
 
+use App\Models\Enrollment\EnrollmentLesson;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Course\CourseModule;
 use App\Models\LessonProgress;
@@ -9,16 +10,15 @@ use App\Models\LessonProgress;
 class EnrollmentModule extends Model
 {
     protected $guarded = ['id'];
-    protected $table = 'module_progresses';
+    protected $table = 'enrollment_modules';
 
      protected static function booted()
     {
-        static::created(function (EnrollmentModule $moduleProgress) {
-
-                        $lessons = $moduleProgress->courseModule->lessonDetails;
+        static::created(function (EnrollmentModule $enrollmentModule) {
+            $lessons = $enrollmentModule->courseModule->courseModuleLessons()->sortBy('order');
 
             foreach ($lessons as $lesson) {
-                $moduleProgress->lessonProgresses()->create([
+                $enrollmentModule->enrollmentLessons()->create([
                     'lesson_id' => $lesson->id,
                 ]);
             }
@@ -32,11 +32,11 @@ class EnrollmentModule extends Model
 
     public function courseEnrollment()
     {
-        return $this->belongsTo(\App\Models\Enrollment\Enrollment::class, 'course_enrollment_id', 'id');
+        return $this->belongsTo(\App\Models\Enrollment\Enrollment::class, 'enrollment_module_id', 'id');
     }
 
-    public function lessonProgresses()
+    public function enrollmentLessons()
     {
-        return $this->hasMany(LessonProgress::class, 'module_progress_id', 'id');
+        return $this->hasMany(EnrollmentLesson::class, 'enrollment_module_id', 'id');
     }
 }

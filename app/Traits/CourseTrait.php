@@ -1,21 +1,18 @@
 <?php
 
-namespace App\Services;
+namespace App\Traits;
 
-use App\Models\Course;
-use App\Models\CourseEnrollment;
+use App\Models\Course\Course;
+use App\Models\Enrollment\Enrollment;
 use Illuminate\Support\Facades\DB;
 
-class CourseService
+trait CourseTrait
 {
-    public function startCourse(Course $course, array $request): CourseEnrollment | null
+    public function startCourse(Course $course, array $request): Enrollment | null
     {
         $user = auth()->user();
         if (!$user) {
-            logger()->warning('No authenticated user found when starting course', [
-                'course_id' => $course->id,
-                'course_title' => $course->title,
-            ]);
+            logger()->warning('No user. Course: '.$course->title);
             flash()->warning('Anda harus login untuk memulai kursus.');
             return null;
         }
@@ -29,9 +26,9 @@ class CourseService
             'user_id' => $user->id,
         ];
 
-        logger()->info('Starting course', $context);
+        logger()->info('Starting course: '.$course->title);
         if (! $course->is_published) {
-            logger()->warning('Attempt to start unpublished course', $context);
+            logger()->warning('Unpublished course: '.$course->title);
             flash()->warning('Kursus ini belum dipublikasikan.');
 
             return null;
@@ -40,10 +37,10 @@ class CourseService
         $records = $user->courseEnrollments()->where([
             'course_id' => $course->id,
         ])->get();
-        logger()->info('Current active course enrollments', array_merge($context, ['active_enrollments_count' => $records->count()]));
+        logger()->info('Enrollments count: '.$records->count().' Course: '.$course->title);
         
         if ($records->count() > 3) {
-            logger()->warning('User already has an active course enrollment', $context);
+            logger()->warning('Max enrollments reached. Course: '.$course->title);
             flash()->warning('Anda sudah memiliki kursus aktif sebanyak 3 untuk saat ini. Selesaikan salah satu kursus sebelum memulai yang baru.');
 
             return null;
@@ -52,15 +49,15 @@ class CourseService
         DB::beginTransaction();
         $result = null;
         try {
-            logger()->info('Creating course enrollment', $context);
+            logger()->info('Creating enrollment. Course: '.$course->title);
 
             // Membuat course enrollment
-            $courseEnrollment = CourseEnrollment::create([
+            $courseEnrollment = Enrollment::create([
                 'user_id' => $user->id,
                 'course_id' => $course->id,
             ]);
             $result = $courseEnrollment;
-            logger()->info('Course enrollment created', array_merge($context, ['course_enrollment_id' => $courseEnrollment->id]));
+            logger()->info('Enrollment created. Course: '.$course->title.' Enrollment ID: '.$courseEnrollment->id);
 
             // Membuat sessions
                
@@ -68,7 +65,7 @@ class CourseService
             if (!is_array($days)) {
                 $days = [];
             }
-            logger()->info('Days for sessions', array_merge($context, ['days' => $days]));
+            logger()->info('Sessions days: '.json_encode($days).'. Course: '.$course->title);
 
             foreach ($days as $dayName => $day) {
                 $dayNumber = match ($dayName) {
@@ -81,7 +78,7 @@ class CourseService
                     'Sabtu'  => 7
                 };
 
-                $courseEnrollment->courseEnrollmentSessions()->create([
+                $courseEnrollment->enrollmentSessions()->create([
                     'user_id' => $user->id,
                     'day_of_week' => $dayNumber,
                     'reminder_1' => $day['sesi_1'] ?? '07:00',
@@ -90,7 +87,7 @@ class CourseService
                 ]);
             }
         } catch (\Exception $e) {
-            logger()->error('Failed to start course', array_merge($context, ['error' => $e->getMessage()]));
+            logger()->error('Failed to start course: '.$course->title.' Error: '.$e->getMessage());
             DB::rollBack();
             flash()->error('Gagal memulai kursus. Silakan coba lagi.');
 
@@ -111,7 +108,7 @@ class CourseService
             'user_id' => $userId,
         ];
 
-        logger()->info('Marking lesson as learned', $context);
+        logger()->info('Lesson learned: '.$lesson->title);
 
         flash()->success('Anda telah menandai pelajaran: '.$lesson->title.' sebagai telah dipelajari.');
     }
