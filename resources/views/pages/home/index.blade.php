@@ -3,37 +3,13 @@
 @section('title', 'Belajar Ngoding Gratis - 100% Gratis')
 
 @section('content')
-    <div id="welcome-modal"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 transition-opacity duration-300 opacity-0 pointer-events-none">
-        <div
-            class="bg-gray-800 rounded-lg shadow-lg p-8 m-4 max-w-lg w-full transform transition-transform duration-300 scale-95">
-            <h2 class="text-3xl font-bold text-white mb-4 text-center">Selamat Datang! 🎉</h2>
-            <p class="text-gray-400 mb-6 text-center">
-                Apakah Anda ingin tahu cara memulai belajar di sini?
-            </p>
-            <ul class="text-gray-300 mb-6 space-y-2 text-left">
-                <li>✅ <span class="font-semibold">100% Gratis</span> – Tidak ada biaya tersembunyi!</li>
-                <li>👨‍💻 <span class="font-semibold">Mentor Berpengalaman</span> – Siap membantu kapan saja.</li>
-                <li>🤝 <span class="font-semibold">Komunitas Aktif</span> – Bertanya & diskusi bareng teman baru.</li>
-                <li>📚 <span class="font-semibold">Materi Terstruktur</span> – Mulai dari dasar hingga mahir.</li>
-                <li>🏆 <span class="font-semibold">Sertifikat</span> – Dapatkan sertifikat setelah menyelesaikan kursus.</li>
-            </ul>
-            <div class="flex justify-center space-x-4">
-                <a href="/cara-belajar"
-                    class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-full transition duration-300">
-                    Cara Belajar 📖
-                </a>
-                <button id="close-modal"
-                    class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-full transition duration-300">
-                    Tutup
-                </button>
-            </div>
-        </div>
-    </div>
-
     <section
-        class="hero text-center py-20 md:py-32 px-4 min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white">
-        <div class="max-w-4xl mx-auto">
+        class="hero text-center py-20 md:py-32 px-4 min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white relative overflow-hidden">
+        <!-- Background Image (Student Confused) -->
+        <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1200&q=80"
+            alt="Mahasiswa Bingung"
+            class="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none z-0">
+        <div class="max-w-4xl mx-auto relative z-10">
             <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4 animate-fade-in-up">
                 Belajar Ngoding Gratis 100%. <br class="hidden md:inline-block"> Bangun Proyek Bareng.
             </h1>
@@ -225,51 +201,3 @@
         </div>
     </section>
 @endsection
-
-@push('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const modal = document.getElementById('welcome-modal');
-            const closeButton = document.getElementById('close-modal');
-            const floatingButton = document.createElement('button'); // Membuat elemen tombol baru
-
-            // --- Logika Cookie (Popup Muncul Sekali per Jam) ---
-            const popupLastShown = localStorage.getItem('popupLastShown');
-            const now = new Date().getTime();
-            const oneHour = 60 * 60 * 1000; // 1 jam dalam milidetik
-
-            if (!popupLastShown || (now - popupLastShown > oneHour)) {
-                // Tampilkan modal jika belum pernah atau sudah lebih dari 1 jam
-                setTimeout(() => {
-                    modal.classList.remove('opacity-0', 'pointer-events-none');
-                    modal.querySelector('div').classList.remove('scale-95');
-                }, 500);
-
-                // Simpan timestamp saat modal ditampilkan
-                localStorage.setItem('popupLastShown', now);
-            }
-
-            // Sembunyikan modal saat tombol tutup diklik
-            closeButton.addEventListener('click', function() {
-                modal.classList.add('opacity-0', 'pointer-events-none');
-                modal.querySelector('div').classList.add('scale-95');
-            });
-
-            // --- Logika Tombol Floating (Munculkan Modal) ---
-            // Konfigurasi tombol floating
-            floatingButton.id = 'show-modal-button';
-            floatingButton.className =
-                'fixed bottom-4 right-4 z-40 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-3 rounded-full shadow-lg transition duration-300 transform hover:scale-110 focus:outline-none';
-            floatingButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                     </svg>`; // Ikon plus SVG
-            document.body.appendChild(floatingButton);
-
-            // Munculkan modal saat tombol floating diklik
-            floatingButton.addEventListener('click', function() {
-                modal.classList.remove('opacity-0', 'pointer-events-none');
-                modal.querySelector('div').classList.remove('scale-95');
-            });
-        });
-    </script>
-@endpush
