@@ -28,4 +28,9 @@ class LessonDetail extends Model
     {
         return $this->hasMany(LessonProgress::class, 'lesson_id');
     }
+
+    public function references()
+    {
+        return $this->hasMany(ReferenceLessonDetail::class, 'lesson_detail_id');
+    }
 }
