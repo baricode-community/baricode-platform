@@ -92,7 +92,7 @@
                     <p class="text-gray-400 italic mb-4">"Kurikulumnya terstruktur banget, dari nol jadi bisa bikin website
                         sendiri. Komunitasnya juga supportif!"</p>
                     <div class="flex items-center">
-                        <img src="https://via.placeholder.com/60" alt="Foto Profil Pengguna"
+                        <img src="https://ui-avatars.com/api/?name=Budi+Santoso&background=4F46E5&color=fff" alt="Foto Profil Pengguna"
                             class="w-12 h-12 rounded-full mr-4">
                         <div>
                             <p class="font-semibold text-white">Budi Santoso</p>
@@ -104,7 +104,7 @@
                     <p class="text-gray-400 italic mb-4">"Bisa kolaborasi di proyek bareng itu pengalaman yang luar biasa.
                         Sangat membantu untuk portofolio!"</p>
                     <div class="flex items-center">
-                        <img src="https://via.placeholder.com/60" alt="Foto Profil Pengguna"
+                        <img src="https://ui-avatars.com/api/?name=Siti+Aisyah&background=4F46E5&color=fff" alt="Foto Profil Pengguna"
                             class="w-12 h-12 rounded-full mr-4">
                         <div>
                             <p class="font-semibold text-white">Siti Aisyah</p>
@@ -116,7 +116,7 @@
                     <p class="text-gray-400 italic mb-4">"Mentoringnya berkualitas. Pertanyaan apapun selalu dijawab dengan
                         sabar dan jelas."</p>
                     <div class="flex items-center">
-                        <img src="https://via.placeholder.com/60" alt="Foto Profil Pengguna"
+                        <img src="https://ui-avatars.com/api/?name=Joko+Wicaksono&background=4F46E5&color=fff" alt="Foto Profil Pengguna"
                             class="w-12 h-12 rounded-full mr-4">
                         <div>
                             <p class="font-semibold text-white">Joko Wicaksono</p>

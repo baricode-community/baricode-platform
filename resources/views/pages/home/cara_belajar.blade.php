@@ -162,123 +162,123 @@
 
         <div class="md:flex md:items-center md:space-x-8">
             <div class="md:w-1/2">
-                <img src="https://via.placeholder.com/600x400.png?text=Langkah+1" alt="Langkah 1: Pilih Kursus" class="rounded-lg shadow-xl mb-6 md:mb-0">
+            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80" alt="Langkah 1: Pilih Kursus" class="rounded-lg shadow-xl mb-6 md:mb-0">
             </div>
             <div class="md:w-1/2 md:text-left">
-                <span class="text-indigo-400 text-sm font-semibold uppercase tracking-wider">🎯 Langkah 1</span>
-                <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Pilih Jalur Belajarmu</h2>
-                <p class="text-gray-300 text-lg mb-4">
-                    Kami menyediakan berbagai kursus yang terstruktur dari dasar hingga tingkat mahir. Mulai dengan kursus "Computational Thinking" atau "Pondasi Ngoding" jika kamu benar-benar pemula, atau langsung pilih topik yang kamu minati seperti Python, JavaScript, atau Laravel.
+            <span class="text-indigo-400 text-sm font-semibold uppercase tracking-wider">🎯 Langkah 1</span>
+            <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Pilih Jalur Belajarmu</h2>
+            <p class="text-gray-300 text-lg mb-4">
+                Kami menyediakan berbagai kursus yang terstruktur dari dasar hingga tingkat mahir. Mulai dengan kursus "Computational Thinking" atau "Pondasi Ngoding" jika kamu benar-benar pemula, atau langsung pilih topik yang kamu minati seperti Python, JavaScript, atau Laravel.
+            </p>
+            
+            <!-- Jalur Belajar yang Tersedia -->
+            <div class="bg-gray-800 rounded-lg p-4 mt-4">
+                <h4 class="font-semibold text-indigo-300 mb-2">📚 Jalur Belajar yang Tersedia:</h4>
+                <ul class="text-sm text-gray-300 space-y-1">
+                <li>🧠 <strong>Pre-Coding:</strong> Computational Thinking, Logika Dasar</li>
+                <li>🟢 <strong>Pemula:</strong> HTML, CSS, JavaScript Dasar <span class="italic text-gray-400">(segera hadir)</span></li>
+                <li>🟡 <strong>Menengah:</strong> React, Node.js, Database <span class="italic text-gray-400">(segera hadir)</span></li>
+                <li>🔴 <strong>Mahir:</strong> DevOps, Microservices, Cloud <span class="italic text-gray-400">(segera hadir)</span></li>
+                </ul>
+            </div>
+            
+            <div class="mt-4 p-3 bg-blue-900/30 border border-blue-500/30 rounded-lg">
+                <p class="text-sm text-blue-200">
+                💡 <strong>Tips:</strong> Ikuti assessment awal untuk mendapatkan rekomendasi jalur yang tepat untukmu!
                 </p>
-                
-                <!-- Jalur Belajar yang Tersedia -->
-                <div class="bg-gray-800 rounded-lg p-4 mt-4">
-                    <h4 class="font-semibold text-indigo-300 mb-2">📚 Jalur Belajar yang Tersedia:</h4>
-                    <ul class="text-sm text-gray-300 space-y-1">
-                        <li>🧠 <strong>Pre-Coding:</strong> Computational Thinking, Logika Dasar</li>
-                        <li>🟢 <strong>Pemula:</strong> HTML, CSS, JavaScript Dasar <span class="italic text-gray-400">(segera hadir)</span></li>
-                        <li>🟡 <strong>Menengah:</strong> React, Node.js, Database <span class="italic text-gray-400">(segera hadir)</span></li>
-                        <li>🔴 <strong>Mahir:</strong> DevOps, Microservices, Cloud <span class="italic text-gray-400">(segera hadir)</span></li>
-                    </ul>
-                </div>
-                
-                <div class="mt-4 p-3 bg-blue-900/30 border border-blue-500/30 rounded-lg">
-                    <p class="text-sm text-blue-200">
-                        💡 <strong>Tips:</strong> Ikuti assessment awal untuk mendapatkan rekomendasi jalur yang tepat untukmu!
-                    </p>
-                </div>
+            </div>
             </div>
         </div>
 
         <div class="md:flex md:flex-row-reverse md:items-center md:space-x-8">
             <div class="md:w-1/2 md:ml-8">
-                <img src="https://via.placeholder.com/600x400.png?text=Langkah+2" alt="Langkah 2: Selesaikan Setiap Modul" class="rounded-lg shadow-xl mb-6 md:mb-0">
+            <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80" alt="Langkah 2: Selesaikan Setiap Modul" class="rounded-lg shadow-xl mb-6 md:mb-0">
             </div>
             <div class="md:w-1/2 md:text-right">
-                <span class="text-indigo-400 text-sm font-semibold uppercase tracking-wider">✅ Langkah 2</span>
-                <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Selesaikan Setiap Modul Secara Mandiri</h2>
-                <p class="text-gray-300 text-lg mb-4">
-                    Setiap kursus terbagi menjadi modul-modul kecil yang mudah dicerna. Pelajari setiap video dan latihan di satu modul sebelum lanjut ke modul berikutnya. Gunakan tombol "Tandai Selesai" untuk melacak progres belajarmu di dasbor.
+            <span class="text-indigo-400 text-sm font-semibold uppercase tracking-wider">✅ Langkah 2</span>
+            <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Selesaikan Setiap Modul Secara Mandiri</h2>
+            <p class="text-gray-300 text-lg mb-4">
+                Setiap kursus terbagi menjadi modul-modul kecil yang mudah dicerna. Pelajari setiap video dan latihan di satu modul sebelum lanjut ke modul berikutnya. Gunakan tombol "Tandai Selesai" untuk melacak progres belajarmu di dasbor.
+            </p>
+            
+            <!-- Fitur Modul -->
+            <div class="bg-gray-800 rounded-lg p-4 mt-4">
+                <h4 class="font-semibold text-indigo-300 mb-2">🎬 Setiap Modul Berisi:</h4>
+                <ul class="text-sm text-gray-300 space-y-1">
+                <li>📄 Materi tertulis & cheatsheet downloadable</li>
+                <li>🧪 Self-assessment quiz untuk mengukur pemahaman</li>
+                <li>🏆 Badge setelah menyelesaikan modul</li>
+                <li>📝 Area untuk membuat catatan personal</li>
+                </ul>
+            </div>
+            
+            <div class="mt-4 p-3 bg-green-900/30 border border-green-500/30 rounded-lg">
+                <p class="text-sm text-green-200">
+                ⏱️ <strong>Belajar Fleksibel:</strong> Atur waktu belajarmu sendiri - 30 menit atau 3 jam, sesuai kenyamananmu
                 </p>
-                
-                <!-- Fitur Modul -->
-                <div class="bg-gray-800 rounded-lg p-4 mt-4">
-                    <h4 class="font-semibold text-indigo-300 mb-2">🎬 Setiap Modul Berisi:</h4>
-                    <ul class="text-sm text-gray-300 space-y-1">
-                        <li>📄 Materi tertulis & cheatsheet downloadable</li>
-                        <li>🧪 Self-assessment quiz untuk mengukur pemahaman</li>
-                        <li>🏆 Badge setelah menyelesaikan modul</li>
-                        <li>📝 Area untuk membuat catatan personal</li>
-                    </ul>
-                </div>
-                
-                <div class="mt-4 p-3 bg-green-900/30 border border-green-500/30 rounded-lg">
-                    <p class="text-sm text-green-200">
-                        ⏱️ <strong>Belajar Fleksibel:</strong> Atur waktu belajarmu sendiri - 30 menit atau 3 jam, sesuai kenyamananmu
-                    </p>
-                </div>
+            </div>
             </div>
         </div>
 
         <div class="md:flex md:items-center md:space-x-8">
             <div class="md:w-1/2">
-                <img src="https://via.placeholder.com/600x400.png?text=Langkah+3" alt="Langkah 3: Terapkan dengan Proyek" class="rounded-lg shadow-xl mb-6 md:mb-0">
+            <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80" alt="Langkah 3: Terapkan dengan Proyek Mandiri" class="rounded-lg shadow-xl mb-6 md:mb-0">
             </div>
             <div class="md:w-1/2 md:text-left">
-                <span class="text-indigo-400 text-sm font-semibold uppercase tracking-wider">🛠️ Langkah 3</span>
-                <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Terapkan dengan Proyek Mandiri</h2>
-                <p class="text-gray-300 text-lg mb-4">
-                    Teori saja tidak cukup. Di akhir setiap kursus, kamu akan menemukan proyek-proyek praktis dengan panduan lengkap. Kerjakan proyek tersebut secara mandiri untuk menguji pemahamanmu dan bangun portofolio yang bisa kamu pamerkan.
+            <span class="text-indigo-400 text-sm font-semibold uppercase tracking-wider">🛠️ Langkah 3</span>
+            <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Terapkan dengan Proyek Mandiri</h2>
+            <p class="text-gray-300 text-lg mb-4">
+                Teori saja tidak cukup. Di akhir setiap kursus, kamu akan menemukan proyek-proyek praktis dengan panduan lengkap. Kerjakan proyek tersebut secara mandiri untuk menguji pemahamanmu dan bangun portofolio yang bisa kamu pamerkan.
+            </p>
+            
+            <!-- Jenis Proyek -->
+            <div class="bg-gray-800 rounded-lg p-4 mt-4">
+                <h4 class="font-semibold text-indigo-300 mb-2">🚀 Jenis Proyek yang Akan Kamu Buat:</h4>
+                <ul class="text-sm text-gray-300 space-y-1">
+                <li>🧩 Puzzle game untuk computational thinking</li>
+                <li>🌐 Website portofolio personal</li>
+                <li>🛒 E-commerce mini dengan keranjang</li>
+                <li>📱 Aplikasi To-Do List dengan database</li>
+                <li>🎮 Game sederhana dengan JavaScript</li>
+                <li>📊 Dashboard analytics dengan chart</li>
+                </ul>
+            </div>
+            
+            <div class="mt-4 p-3 bg-purple-900/30 border border-purple-500/30 rounded-lg">
+                <p class="text-sm text-purple-200">
+                🎯 <strong>Bonus:</strong> Proyek terbaik akan ditampilkan di galeri showcase kami dengan credit ke pembuatnya!
                 </p>
-                
-                <!-- Jenis Proyek -->
-                <div class="bg-gray-800 rounded-lg p-4 mt-4">
-                    <h4 class="font-semibold text-indigo-300 mb-2">🚀 Jenis Proyek yang Akan Kamu Buat:</h4>
-                    <ul class="text-sm text-gray-300 space-y-1">
-                        <li>🧩 Puzzle game untuk computational thinking</li>
-                        <li>🌐 Website portofolio personal</li>
-                        <li>🛒 E-commerce mini dengan keranjang</li>
-                        <li>📱 Aplikasi To-Do List dengan database</li>
-                        <li>🎮 Game sederhana dengan JavaScript</li>
-                        <li>📊 Dashboard analytics dengan chart</li>
-                    </ul>
-                </div>
-                
-                <div class="mt-4 p-3 bg-purple-900/30 border border-purple-500/30 rounded-lg">
-                    <p class="text-sm text-purple-200">
-                        🎯 <strong>Bonus:</strong> Proyek terbaik akan ditampilkan di galeri showcase kami dengan credit ke pembuatnya!
-                    </p>
-                </div>
+            </div>
             </div>
         </div>
 
         <div class="md:flex md:flex-row-reverse md:items-center md:space-x-8">
             <div class="md:w-1/2 md:ml-8">
-                <img src="https://via.placeholder.com/600x400.png?text=Langkah+4" alt="Langkah 4: Berinteraksi di Komunitas" class="rounded-lg shadow-xl mb-6 md:mb-0">
+            <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=600&q=80" alt="Langkah 4: Berinteraksi di Komunitas" class="rounded-lg shadow-xl mb-6 md:mb-0">
             </div>
             <div class="md:w-1/2 md:text-right">
-                <span class="text-indigo-400 text-sm font-semibold uppercase tracking-wider">👥 Langkah 4</span>
-                <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Berinteraksi di Komunitas</h2>
-                <p class="text-gray-300 text-lg mb-4">
-                    Meski belajarnya mandiri, kamu tidak sendirian! Bergabunglah di komunitas untuk bertanya, berbagi pengalaman, dan membantu sesama. Belajar mandiri akan lebih menyenangkan dengan dukungan komunitas.
+            <span class="text-indigo-400 text-sm font-semibold uppercase tracking-wider">👥 Langkah 4</span>
+            <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Berinteraksi di Komunitas</h2>
+            <p class="text-gray-300 text-lg mb-4">
+                Meski belajarnya mandiri, kamu tidak sendirian! Bergabunglah di komunitas untuk bertanya, berbagi pengalaman, dan membantu sesama. Belajar mandiri akan lebih menyenangkan dengan dukungan komunitas.
+            </p>
+            
+            <!-- Aktivitas Komunitas -->
+            <div class="bg-gray-800 rounded-lg p-4 mt-4">
+                <h4 class="font-semibold text-indigo-300 mb-2">🌟 Aktivitas Komunitas:</h4>
+                <ul class="text-sm text-gray-300 space-y-1">
+                <li>💬 Forum diskusi bersama teman-teman di grub WhatsApp</li>
+                <li>🎪 Weekly coding challenge untuk self-learner</li>
+                <li>🎉 Monthly webinar dan workshop</li>
+                <li>📚 Resource sharing antar member</li>
+                </ul>
+            </div>
+            
+            <div class="mt-4 p-3 bg-yellow-900/30 border border-yellow-500/30 rounded-lg">
+                <p class="text-sm text-yellow-200">
+                🤝 <strong>Fun Fact:</strong> Self-learner yang aktif di komunitas lebih sukses menyelesaikan projectnya!
                 </p>
-                
-                <!-- Aktivitas Komunitas -->
-                <div class="bg-gray-800 rounded-lg p-4 mt-4">
-                    <h4 class="font-semibold text-indigo-300 mb-2">🌟 Aktivitas Komunitas:</h4>
-                    <ul class="text-sm text-gray-300 space-y-1">
-                        <li>💬 Forum diskusi bersama teman-teman di grub WhatsApp</li>
-                        <li>🎪 Weekly coding challenge untuk self-learner</li>
-                        <li>🎉 Monthly webinar dan workshop</li>
-                        <li>📚 Resource sharing antar member</li>
-                    </ul>
-                </div>
-                
-                <div class="mt-4 p-3 bg-yellow-900/30 border border-yellow-500/30 rounded-lg">
-                    <p class="text-sm text-yellow-200">
-                        🤝 <strong>Fun Fact:</strong> Self-learner yang aktif di komunitas lebih sukses menyelesaikan projectnya!
-                    </p>
-                </div>
+            </div>
             </div>
         </div>
         

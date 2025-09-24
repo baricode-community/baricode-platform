@@ -38,7 +38,7 @@
                                     <div
                                         class="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 ease-in-out">
                                         <a href="#">
-                                            <img src="{{ $course->thumbnail ?? 'https://via.placeholder.com/600x400.png?text=Thumbnail' }}"
+                                            <img src="{{ $course->thumbnail ?? 'https://ui-avatars.com/api/?name=' . urlencode($course->title) . '&background=4F46E5&color=fff' }}"
                                                 alt="{{ $course->title }}" class="w-full h-48 object-cover">
                                         </a>
                                         <div class="p-6">
