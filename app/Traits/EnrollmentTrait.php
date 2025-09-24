@@ -2,16 +2,16 @@
 
 namespace App\Traits;
 
-use App\Models\CourseEnrollment;
+use App\Models\Enrollment\Enrollment;
 
 trait EnrollmentTrait
 {
-    public function logCourseEnrollmentDetails(CourseEnrollment $courseEnrollment)
+    public function logCourseEnrollmentDetails(Enrollment $enrollment)
     {
         if (env('APP_ENV') === 'local') {
-            logger()->debug('CourseEnrollment details' . $courseEnrollment->load([
-                'moduleProgresses.lessonProgresses',
-                'courseEnrollmentSessions',
+            logger()->debug('Enrollment details' . $enrollment->load([
+                'user',
+                'enrollmentModules.enrollmentModules.enrollmentSessions',
             ])->toJson());
         }
     }

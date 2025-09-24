@@ -15,7 +15,7 @@ class EnrollmentModule extends Model
      protected static function booted()
     {
         static::created(function (EnrollmentModule $enrollmentModule) {
-            $lessons = $enrollmentModule->courseModule->courseModuleLessons()->sortBy('order');
+            $lessons = $enrollmentModule->courseModule->courseModuleLessons()->get();
 
             foreach ($lessons as $lesson) {
                 $enrollmentModule->enrollmentLessons()->create([

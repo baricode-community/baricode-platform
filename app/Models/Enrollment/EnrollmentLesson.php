@@ -2,6 +2,7 @@
 
 namespace App\Models\Enrollment;
 
+use App\Models\Course\CourseModuleLesson;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Course\LessonDetail;
 use App\Models\ModuleProgress;
@@ -10,20 +11,20 @@ use App\Models\ModuleProgress;
 class EnrollmentLesson extends Model
 {
     protected $guarded = ['id'];
-    protected $table = 'lesson_progresses';
+    protected $table = 'enrollment_lessons';
 
     protected $casts = [
         'is_completed' => 'boolean',
     ];
 
-    public function moduleProgress()
+    public function enrollmentModule()
     {
-        return $this->belongsTo(ModuleProgress::class, 'module_progress_id', 'id');
+        return $this->belongsTo(EnrollmentModule::class, 'enrollment_module_id', 'id');
     }
 
-    public function lessonDetail()
+    public function enrollmentLesson()
     {
-        return $this->belongsTo(LessonDetail::class, 'lesson_id', 'id');
+        return $this->belongsTo(CourseModuleLesson::class, 'course_module_lesson_id', 'id');
     }
 
 }
