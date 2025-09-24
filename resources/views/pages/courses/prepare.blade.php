@@ -2,21 +2,13 @@
     <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-10 border border-indigo-100 dark:border-gray-700">
             <h1 class="text-3xl font-extrabold mb-8 text-center text-indigo-700 dark:text-indigo-300 tracking-tight">📅 Konfigurasi Jadwal Kursus</h1>
             <div class="mb-8 text-center text-gray-600 dark:text-gray-300">
-                <p class="mb-2">📝 Silakan atur hari dan jam kursus sesuai kebutuhan Anda.<br>
-                    ⏰ Pastikan jadwal tidak bertabrakan dengan aktivitas lain.<br>
-                    📢 <span class="font-semibold">Catatan:</span> Anda dapat memilih lebih dari satu hari.</p>
-                <div class="bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800 dark:bg-yellow-900 dark:border-yellow-400 dark:text-yellow-200 p-4 mb-4 rounded-lg shadow-sm"
-                    role="alert">
-                    <strong class="font-bold">⚠️ Peringatan:</strong> Setelah jadwal kursus ditentukan, Anda <span class="font-semibold">tidak
-                        dapat mengubahnya</span> kecuali dengan menghapus progres kursus saat ini.
-                </div>
+                <p class="mb-2">📝 Atur hari dan jam kursus sesuai kebutuhan. Jadwal yang dipilih tidak dapat diubah setelah disimpan.</p>
                 <p class="mt-4 text-sm text-indigo-700 dark:text-indigo-200">
-                    ⏳ <span class="font-semibold">Catatan tambahan:</span> Jika Anda tidak menentukan jam pada hari yang dipilih, maka secara default sistem akan mengatur jadwal pada hari tersebut pukul <span class="font-bold">06:00 WIB</span>.
+                    ⏳ Jika jam tidak ditentukan, defaultnya adalah satu sesi saja dan pukul 06:00 WIB.
                 </p>
                 <div class="mt-4 text-sm text-green-700 dark:text-green-200">
-                    📲 Pada setiap waktu yang Anda masukkan, Anda akan menerima pesan WhatsApp sebagai pengingat untuk belajar.<br>
-                    📝 Setelah itu, Anda akan diminta melakukan absensi.<br>
-                    ⏱️ Jika absensi dilakukan lebih dari <span class="font-bold">15 menit</span> dari waktu yang ditentukan, maka akan tercatat sebagai bolos.
+                    📲 Anda akan menerima pengingat belajar via WhatsApp dan diminta untuk absensi.<br>
+                    ⏱️ Absensi lebih dari 15 menit dari waktu yang ditentukan akan tercatat sebagai bolos.
                 </div>
             </div>
             <form action="{{ route('course.start', $course) }}" method="POST" class="space-y-8">
@@ -92,6 +84,10 @@
                 </div>
             </form>
 
+            <div class="mb-8 text-center text-red-600 dark:text-red-300">
+                <p class="mb-2">⚠️ Konfigurasi ini tidak dapat diubah setelah disimpan. Jika Anda ingin mengubah jadwal, Anda harus menghapus progress belajar saat ini.</p>
+            </div>
+
             <script>
                 document.querySelectorAll('.day-checkbox').forEach(function(checkbox) {
                     checkbox.addEventListener('change', function() {
@@ -113,4 +109,24 @@
                         class="underline text-indigo-600 hover:text-indigo-800 dark:text-indigo-300 dark:hover:text-indigo-100 transition">Pusat Bantuan</a>.</p>
             </div>
         </div>
+    </div>
+    <!-- Beta Info Modal -->
+    <div x-data="{ open: true }" x-show="open" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-6 max-w-md w-full border border-indigo-200 dark:border-gray-700">
+            <div class="flex items-center space-x-3 mb-3">
+                <span class="text-2xl">🚧</span>
+                <h2 class="text-lg font-bold text-indigo-700 dark:text-indigo-200">Platform Masih Beta</h2>
+            </div>
+            <p class="text-gray-700 dark:text-gray-200 mb-4">
+                Platform ini masih dalam tahap <span class="font-semibold">beta</span>. Fitur penjadwalan dan absensi akan terus disempurnakan beberapa hari setelah launching (jadi untuk saat ini belum ada fitur mengirim pengingat untuk belajar, dan fitur absensi). Mohon maklum dan terima kasih atas kepercayaannya!
+            </p>
+            <p class="text-gray-700 dark:text-gray-200 mb-4">
+                <span class="font-semibold">Catatan tambahan:</span> Untuk saat ini, teman-teman akan selalu bisa menyimpan progress belajarnya walau di luar konfigurasi jadwal kursus yang telah teman-teman atur.<br>
+                <span class="italic text-sm text-indigo-700 dark:text-indigo-300">Aslinya, fitur ini (menyimpan progress belajar) hanya bisa dilakukan pada rentang waktu yang telah teman-teman tentukan di bagian konfigurasi waktu kursus.</span>
+            </p>
+            <button @click="open = false" class="w-full py-2 mt-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition">
+                Mengerti
+            </button>
+        </div>
+    </div>
 </x-layouts.app>

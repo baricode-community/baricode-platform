@@ -7,7 +7,7 @@ use App\Models\CourseAttendance;
 use App\Services\WhatsAppService;
 use Carbon\Carbon;
 
-trait CourseRecordSessionTrait
+trait EnrollmentSessionTrait
 {
     public function getNamaHari(): string
     {

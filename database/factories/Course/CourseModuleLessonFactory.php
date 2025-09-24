@@ -1,11 +1,11 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Course;
 
 use App\Models\Module;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class LessonDetailFactory extends Factory
+class CourseModuleLessonFactory extends Factory
 {
     public function definition(): array
     {

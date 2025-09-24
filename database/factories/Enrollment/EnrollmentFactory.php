@@ -3,21 +3,22 @@
 namespace Database\Factories;
 
 use App\Models\CourseEnrollment;
-use App\Models\User;
-use App\Models\Course;
+use App\Models\Enrollment\Enrollment;
+use App\Models\User\User;
+use App\Models\Course\Course;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\CourseEnrollment>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Enrollment\Enrollment>
  */
-class CourseEnrollmentFactory extends Factory
+class EnrollmentFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = CourseEnrollment::class;
+    protected $model = Enrollment::class;
 
     /**
      * Define the model's default state.

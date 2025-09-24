@@ -4,7 +4,7 @@ namespace App\Traits;
 
 use App\Models\CourseEnrollment;
 
-trait CourseEnrollmentTrait
+trait EnrollmentTrait
 {
     public function logCourseEnrollmentDetails(CourseEnrollment $courseEnrollment)
     {

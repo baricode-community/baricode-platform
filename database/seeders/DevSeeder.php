@@ -2,13 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Enrollment\EnrollmentSession;
+use App\Models\Course\CourseModuleLesson;
 use Illuminate\Database\Seeder;
 use App\Models\User\User;
 use App\Models\Course\CourseCategory;
 use App\Models\Course\Course;
 use App\Models\Course\CourseModule;
-use App\Models\Course\LessonDetail;
 
 class DevSeeder extends Seeder
 {
@@ -40,7 +39,7 @@ class DevSeeder extends Seeder
                 // Untuk setiap module yang baru dibuat:
                 $modules->each(function ($module) {
                     // Membuat 3 hingga 10 lesson (pelajaran) untuk module ini.
-                    EnrollmentSession::factory(rand(3, 10))->create([
+                    CourseModuleLesson::factory(rand(3, 10))->create([
                         'module_id' => $module->id,
                     ]);
                 });
