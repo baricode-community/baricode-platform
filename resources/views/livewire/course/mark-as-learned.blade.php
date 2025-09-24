@@ -28,35 +28,40 @@ new class extends Component {
     }
 
     public function markAsLearned()
-    {
-        $this->isLoading = true;
-
-        try {
-            $courseService = app(CourseService::class);
-            $userId = auth()->id();
-
-            logger()->info('Marking lesson as learned: ' . $this->lessonProgress->lessonDetail->title);
-
-            $courseService->markLessonAsLearned($this->lessonProgress->lessonDetail, $userId);
-
-            // Update the lesson record status
-            $this->lessonProgress->update(['is_completed' => true]);
-
-            // Refresh the component state
-            $this->lessonProgress->refresh();
-
-            // Show success message
-            session()->flash('success', 'Pelajaran telah ditandai sebagai sudah dipelajari!');
-
-            // Dispatch browser event for any additional handling
-            $this->dispatch('lesson-marked-as-learned', lessonId: $this->lessonProgress->lessonDetail->id);
-        } catch (\Exception $e) {
-            logger()->error('Error marking lesson as learned: ' . $e->getMessage());
-            session()->flash('error', 'Terjadi kesalahan saat menandai pelajaran. Silakan coba lagi.');
-        } finally {
-            $this->isLoading = false;
-        }
+{
+    $this->isLoading = true;
+    if (!$this->lessonProgress->moduleProgress->courseEnrollment->isWaktunyaBelajar()) {
+        logger()->info('Saat ini bukan waktunya belajar. Silakan cek jadwal Anda.');
+        flash()->warning('Saat ini bukan waktunya belajar. Silakan cek jadwal Anda.');
+        return;
     }
+
+    try {
+        $courseService = app(CourseService::class);
+        $userId = auth()->id();
+
+        logger()->info('Marking lesson as learned: ' . $this->lessonProgress->lessonDetail->title);
+
+        $courseService->markLessonAsLearned($this->lessonProgress->lessonDetail, $userId);
+
+        // Update the lesson record status
+        $this->lessonProgress->update(['is_completed' => true]);
+
+        // Refresh the component state
+        $this->lessonProgress->refresh();
+
+        // Show success message
+        session()->flash('success', 'Pelajaran telah ditandai sebagai sudah dipelajari!');
+
+        // Dispatch browser event for any additional handling
+        $this->dispatch('lesson-marked-as-learned', lessonId: $this->lessonProgress->lessonDetail->id);
+    } catch (\Exception $e) {
+        logger()->error('Error marking lesson as learned: ' . $e->getMessage());
+        session()->flash('error', 'Terjadi kesalahan saat menandai pelajaran. Silakan coba lagi.');
+    } finally {
+        $this->isLoading = false;
+    }
+}
 }; ?>
 
 <div>
@@ -80,7 +85,7 @@ new class extends Component {
                     </path>
                 </svg>
             </span>
-            <span wire:loading.remove wire:target="markAsLearned">{{ __('Belum Dipelajari') }}</span>
+            <span wire:loading.remove wire:target="markAsLearned">{{ __('Tandai sebagai Sudah Dipelajari') }}</span>
             <span wire:loading wire:target="markAsLearned">{{ __('Memproses...') }}</span>
         </button>
     @endif

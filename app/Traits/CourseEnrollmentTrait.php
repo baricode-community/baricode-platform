@@ -15,4 +15,10 @@ trait CourseEnrollmentTrait
             ])->toJson());
         }
     }
+
+    public function isWaktunyaBelajar(): bool
+    {
+        $now = now();
+        return false;
+    }
 }

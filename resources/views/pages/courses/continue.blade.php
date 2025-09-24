@@ -23,28 +23,28 @@
             <div class="bg-white/80 dark:bg-gray-800/80 shadow-xl rounded-2xl p-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <!-- Informasi Kursus -->
-                    <div>
-                        <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
-                            <span>📋</span> Informasi Kursus
+                    <div class="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
+                        <h2 class="text-2xl font-bold mb-4 flex items-center gap-2 text-blue-700 dark:text-blue-300">
+                            <span class="text-3xl">📋</span> Informasi Kursus
                         </h2>
                         @php $courseEnrollmentSessions = $courseEnrollment->courseRecordSessions; @endphp
                         @if(isset($courseEnrollmentSessions) && count($courseEnrollmentSessions))
                             <div class="mt-6">
                                 <h3 class="font-semibold mb-3 flex items-center gap-2 text-blue-600 dark:text-blue-400">
-                                    <span>🗓️ Jadwal Sesi Pembelajaran</span>
+                                    <span class="text-xl">🗓️</span> Jadwal Sesi Pembelajaran
                                 </h3>
-                                <ul class="divide-y divide-gray-200 dark:divide-gray-700 bg-blue-50 dark:bg-gray-900 rounded-lg shadow-sm">
+                                <ul class="divide-y divide-gray-200 dark:divide-gray-700 bg-blue-50 dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
                                     @foreach($courseEnrollmentSessions as $session)
-                                        <li class="py-3 px-4 flex flex-col md:flex-row md:items-center md:justify-between hover:bg-blue-100 dark:hover:bg-gray-800 transition">
-                                            <div class="flex items-center gap-2">
-                                                <span class="font-medium text-blue-700 dark:text-blue-300">
+                                        <li class="py-4 px-5 flex flex-col md:flex-row md:items-center md:justify-between hover:bg-blue-100 dark:hover:bg-gray-700 transition-all duration-200">
+                                            <div class="flex items-center gap-3">
+                                                <span class="font-semibold text-blue-700 dark:text-blue-300 text-lg">
                                                     {{ \Illuminate\Support\Str::ucfirst($session->getNamaHari()) }}
                                                 </span>
                                                 <span class="text-gray-500 dark:text-gray-400 text-xs">
                                                     (Sesi:
-                                                    {{ $session->reminder_1 ? \Carbon\Carbon::parse($session->reminder_1)->format('H:i') : '-' }},
-                                                    {{ $session->reminder_2 ? \Carbon\Carbon::parse($session->reminder_2)->format('H:i') : '-' }},
-                                                    {{ $session->reminder_3 ? \Carbon\Carbon::parse($session->reminder_3)->format('H:i') : '-' }}
+                                                    <span class="font-mono">{{ $session->reminder_1 ? \Carbon\Carbon::parse($session->reminder_1)->format('H:i') : '-' }}</span>,
+                                                    <span class="font-mono">{{ $session->reminder_2 ? \Carbon\Carbon::parse($session->reminder_2)->format('H:i') : '-' }}</span>,
+                                                    <span class="font-mono">{{ $session->reminder_3 ? \Carbon\Carbon::parse($session->reminder_3)->format('H:i') : '-' }}</span>
                                                     )
                                                 </span>
                                             </div>
@@ -53,7 +53,30 @@
                                 </ul>
                             </div>
                         @else
-                            <p class="mt-6 text-sm text-gray-500 italic">Belum ada jadwal sesi pembelajaran.</p>
+                            <p class="mt-6 text-sm text-gray-500 italic flex items-center gap-2">
+                                <span class="text-xl">😔</span> Belum ada jadwal sesi pembelajaran.
+                            </p>
+                        @endif
+                    </div>
+
+                    <!-- Status Waktu Belajar -->
+                    <div class="flex flex-col justify-center items-center h-full bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
+                        @if($courseEnrollment->isWaktunyaBelajar())
+                            <span class="inline-flex items-center px-4 py-2 rounded-full bg-blue-200 dark:bg-blue-800 text-blue-800 dark:text-blue-200 text-base font-semibold shadow">
+                                <span class="text-2xl animate-pulse">⏰</span>
+                                <span class="ml-2">Saat ini waktunya belajar!</span>
+                            </span>
+                            <p class="mt-4 text-sm text-blue-600 dark:text-blue-300 text-center">
+                                Manfaatkan waktu ini untuk menyelesaikan modul dan pelajaran yang tersedia.
+                            </p>
+                        @else
+                            <span class="inline-flex items-center px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-base font-semibold shadow">
+                                <span class="text-2xl">⏰</span>
+                                <span class="ml-2">Bukan waktu belajar saat ini.</span>
+                            </span>
+                            <p class="mt-4 text-sm text-gray-500 dark:text-gray-400 text-center">
+                                Silakan cek jadwal sesi pembelajaran untuk mengetahui waktu belajar berikutnya.
+                            </p>
                         @endif
                     </div>
                 </div>
