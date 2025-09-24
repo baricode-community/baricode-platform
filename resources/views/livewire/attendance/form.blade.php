@@ -35,7 +35,7 @@ new class extends Component {
     public function loadEnrolledCourses(): void
     {
         $this->enrolledCourses = CourseEnrollment::where('user_id', Auth::id())
-            ->with(['course.category'])
+            ->with(['course.courseCategory'])
             ->get()
             ->pluck('course')
             ->filter();
@@ -183,7 +183,23 @@ new class extends Component {
                     <x-heroicon-o-calendar-days class="w-8 h-8 text-indigo-500"/>
                     Absensi Hari Ini
                 </h1>
-                <p class="text-gray-600">{{ $currentTime->format('l, d F Y - H:i') }}</p>
+                <p class="text-gray-600">
+                    Waktu saat ini 
+                    <span id="realtime-clock">{{ $currentTime->format('l, d F Y - H:i:s') }}</span>
+                </p>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        function updateClock() {
+                            const now = new Date();
+                            const options = { weekday: 'long', year: 'numeric', month: 'long', day: '2-digit' };
+                            const dateStr = now.toLocaleDateString('id-ID', options);
+                            const timeStr = now.toLocaleTimeString('id-ID', { hour12: false });
+                            document.getElementById('realtime-clock').textContent = `${dateStr} - ${timeStr}`;
+                        }
+                        setInterval(updateClock, 1000);
+                        updateClock();
+                    });
+                </script>
             </div>
 
             <!-- Flash Messages -->
@@ -268,7 +284,11 @@ new class extends Component {
                                 Status Kehadiran <span class="text-red-500">*</span>
                             </label>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                @foreach($this->getStatusOptions() as $key => $label)
+                                @php 
+                                    $statusOptions = $this->getStatusOptions();
+                                    unset($statusOptions[App\Models\CourseAttendance::STATUS_BELUM]);
+                                @endphp
+                                @foreach($statusOptions as $key => $label)
                                     <label class="relative flex items-center p-4 border-2 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors
                                                   @if($key === App\Models\CourseAttendance::STATUS_MASUK) border-green-200 hover:border-green-300
                                                   @elseif($key === App\Models\CourseAttendance::STATUS_BOLOS) border-red-200 hover:border-red-300
@@ -332,7 +352,6 @@ new class extends Component {
                                     {{ $message }}
                                 </p> 
                             @enderror
-                            <p class="mt-1 text-sm text-gray-500">Maksimal 500 karakter</p>
                         </div>
 
                         <!-- Submit Button -->
@@ -373,8 +392,8 @@ new class extends Component {
                     <div>
                         <h4 class="font-semibold text-blue-900 mb-2">Informasi Absensi</h4>
                         <ul class="text-sm text-blue-800 space-y-1">
-                            <li>• Absensi hanya dapat dilakukan pada jam kerja (07:00 - 17:00)</li>
-                            <li>• Setiap course hanya dapat diabsen satu kali per hari</li>
+                            <li>• Absensi hanya dapat dilakukan pada selisih 15 menit setelah waktunya serta pengingat WhatsApp</li>
+                            <li>• Setiap sesi itu akan dimintakan absensinya masing-masing</li>
                             <li>• Pilih status sesuai dengan kondisi kehadiran Anda</li>
                             <li>• Catatan bersifat opsional, gunakan untuk informasi tambahan</li>
                         </ul>

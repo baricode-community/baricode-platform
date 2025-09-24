@@ -234,7 +234,7 @@ new class extends Component {
             </div>
 
             <!-- Filters -->
-            <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+            {{-- <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div>
                         <label for="month" class="block text-sm font-medium text-gray-700 mb-2">Bulan</label>
@@ -283,7 +283,7 @@ new class extends Component {
                         Reset Filter
                     </button>
                 </div>
-            </div>
+            </div> --}}
 
             <!-- Attendance Records -->
             <div class="bg-white rounded-xl shadow-lg overflow-hidden">
@@ -367,13 +367,6 @@ new class extends Component {
                         <p class="mt-1 text-sm text-gray-500">
                             Belum ada catatan absensi untuk filter yang dipilih.
                         </p>
-                        <div class="mt-6">
-                            <a href="{{ route('attendance.form') }}" 
-                               class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-medium rounded-lg">
-                                <x-heroicon-o-plus class="w-4 h-4"/>
-                                Mulai Absensi
-                            </a>
-                        </div>
                     </div>
                 @endif
             </div>
