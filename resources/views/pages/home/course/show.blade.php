@@ -20,8 +20,9 @@
                             {{ $module->name }}
                         </h3>
                         <div class="ml-8 mt-2 space-y-2">
-                            @if($module->lessonDetails->count() > 0)
-                                @foreach ($module->lessonDetails as $lesson)
+                            @php $courseModuleLessons = $module->courseModuleLessons; @endphp
+                            @if($courseModuleLessons->count() > 0)
+                                @foreach ($courseModuleLessons as $lesson)
                                     <div class="flex items-center">
                                         <span class="text-indigo-400 font-bold mr-2">{{ $loop->iteration }}.</span>
                                         <span>{{ $lesson->title }}</span>

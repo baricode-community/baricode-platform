@@ -3,11 +3,11 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\User;
-use App\Models\CourseCategory;
-use App\Models\Course;
-use App\Models\CourseModule;
-use App\Models\LessonDetail;
+use App\Models\User\User;
+use App\Models\Course\CourseCategory;
+use App\Models\Course\Course;
+use App\Models\Course\CourseModule;
+use App\Models\Course\LessonDetail;
 
 class DevSeeder extends Seeder
 {
