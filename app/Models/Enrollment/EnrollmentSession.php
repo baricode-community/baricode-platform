@@ -17,9 +17,4 @@ class EnrollmentSession extends Model
     {
         return $this->belongsTo(\App\Models\Enrollment\Enrollment::class, 'course_enrollment_id', 'id');
     }
-
-    public function attendances()
-    {
-        return $this->hasMany(CourseAttendance::class, 'course_record_session_id', 'id');
-    }
 }
