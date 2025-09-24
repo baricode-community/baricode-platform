@@ -36,6 +36,11 @@
                 </div>
             </div>
 
+            <!-- Attendance Widget -->
+            <div class="mb-12">
+                @livewire('attendance.widget')
+            </div>
+
             <!-- Kursus yang Sedang Diikuti -->
             <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
                 <x-heroicon-o-rocket-launch class="w-7 h-7 text-indigo-500"/> Kursus yang Sedang Kamu Ikuti <span class="text-base font-normal text-gray-500">(Maksimal 3)</span>

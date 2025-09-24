@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use App\Models\CourseRecordSession;
+
 trait CourseRecordSessionTrait
 {
     public function getNamaHari(): string
@@ -19,19 +21,17 @@ trait CourseRecordSessionTrait
         return $days[$this->day_of_week] ?? 'Unknown';
     }
 
-    public function isTimeToStudy(): bool
+    public function isTimeToStudy(CourseRecordSession $session): bool
     {
         $currentTime = now();
-        $startTime = $this->start_time;
-        $endTime = $this->end_time;
-
-        return $currentTime->between($startTime, $endTime);
+        return true;
     }
-        public function getModuleProgressesAndEnrollments()
-        {
-            return [
-                'moduleProgresses.lessonProgresses',
-                'courseEnrollmentSessions',
-            ];
-        }
+
+    public function getModuleProgressesAndEnrollments()
+    {
+        return [
+            'moduleProgresses.lessonProgresses',
+            'courseEnrollmentSessions',
+        ];
+    }
 }

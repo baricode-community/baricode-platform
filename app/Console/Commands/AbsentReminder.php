@@ -29,18 +29,18 @@ class AbsentReminder extends Command
         logger()->info('AbsentReminder command executed');
 
         // Mengambil semua session yang is_approved nya false
-        CourseRecordSession::whereHas('courseRecord', function ($query) {
+        CourseRecordSession::whereHas('courseEnrollment', function ($query) {
             $query->where('is_approved', false);
         })->get()->each(function ($session) {
             logger()->info("Session ID: {$session->id}");
 
             // Lalu mengecek apakah sekarang saatnya untuk belajar
-            if (!$session->isTimeToStudy()) {
+            if (!$session->isTimeToStudy($session)) {
                 logger()->info("Not time to study for session ID: {$session->id}");
                 return;
             }
 
-            $user = $session->courseRecord->user;
+            $user = $session->courseEnrollment->user;
             logger()->info("Reminder sent to user: {$user->whatsapp}");
         });
     }

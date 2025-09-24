@@ -51,6 +51,10 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/profile', 'settings.profile')->name('profile.edit');
     Volt::route('settings/password', 'settings.password')->name('password.edit');
     Volt::route('settings/appearance', 'settings.appearance')->name('appearance.edit');
+
+    // Attendance routes using Volt
+    Volt::route('attendance', 'attendance.index')->name('attendance.index');
+    Volt::route('attendance/form', 'attendance.form')->name('attendance.form');
 });
 
 require __DIR__.'/auth.php';
