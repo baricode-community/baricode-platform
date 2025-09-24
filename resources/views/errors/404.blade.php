@@ -17,9 +17,6 @@
                 class="inline-block px-6 py-3 text-lg font-semibold text-white bg-indigo-600 rounded-full hover:bg-indigo-700 transition duration-300">
                 🏠 Kembali ke Beranda
             </a>
-            <p class="mt-6 text-sm text-gray-500">
-                Jika masalah berlanjut, silakan hubungi <a href="mailto:support@example.com" class="text-indigo-400 hover:underline">tim dukungan kami</a>. 📧
-            </p>
         </div>
     </div>
 @endsection
