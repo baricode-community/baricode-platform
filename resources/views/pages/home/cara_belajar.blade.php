@@ -4,25 +4,50 @@
 
 @section('content')
 <section class="py-20 md:py-32 px-4 bg-gray-900 text-white">
-
     {{-- Hero Section --}}
-    <div class="max-w-4xl mx-auto text-center mb-16">
-        <div class="flex justify-center mb-6">
-            <span class="inline-flex items-center px-4 py-2 rounded-full bg-indigo-700/30 text-indigo-200 font-semibold text-sm shadow">
+    <div class="max-w-4xl mx-auto text-center mb-20">
+        <div class="flex justify-center mb-8">
+            <span class="inline-flex items-center px-6 py-2.5 rounded-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-bold text-base shadow-lg tracking-wide animate-pulse">
                 🌟 Panduan Self-Learning Efektif
             </span>
         </div>
-        <h1 class="text-5xl md:text-6xl font-extrabold mb-4 leading-tight">
-            Belajar Mandiri, <span class="text-indigo-400">Jadi Developer Andal</span>
+        <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent drop-shadow-lg">
+            Belajar Mandiri, <span class="text-white underline decoration-indigo-400 decoration-4 underline-offset-4">Jadi Developer Andal</span>
         </h1>
-        <p class="text-xl md:text-2xl text-gray-300 mb-8">
-            Temukan cara belajar yang fleksibel, terstruktur, dan didukung komunitas. Mulai dari <span class="font-semibold text-indigo-300">computational thinking</span> hingga membangun portofolio nyata!
+        <p class="text-2xl md:text-3xl text-gray-200 mb-10 font-light drop-shadow">
+            Temukan cara belajar <span class="font-semibold text-indigo-300">fleksibel</span>, <span class="font-semibold text-purple-300">terstruktur</span>, dan <span class="font-semibold text-pink-300">didukung komunitas</span>. Mulai dari <span class="font-semibold text-indigo-200">computational thinking</span> hingga membangun portofolio nyata!
         </p>
-        <div class="flex flex-col md:flex-row justify-center gap-4">
-            <a href="{{ route('login') }}" wire:navigate class="inline-block px-8 py-3 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition">
+        <div class="flex flex-col md:flex-row justify-center gap-6">
+            <a href="{{ route('login') }}" wire:navigate class="inline-block px-10 py-4 rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-bold text-lg shadow-xl hover:scale-105 hover:from-indigo-600 hover:to-pink-600 transition-all duration-200">
                 Mulai Belajar Sekarang 🚀
             </a>
+            <a href="#tips" class="inline-block px-10 py-4 rounded-xl border-2 border-indigo-400 text-indigo-200 font-bold text-lg hover:bg-indigo-800/30 hover:text-white transition-all duration-200 relative">
+                Lihat Tips Sukses 💡
+                <span class="absolute -top-3 -right-3 bg-yellow-400 text-gray-900 text-xs font-semibold px-2 py-0.5 rounded-full shadow-md animate-pulse">Segera Hadir</span>
+            </a>
         </div>
+    </div>
+    
+    <div class="max-w-5xl mx-auto text-center mb-20">
+        <div class="relative mb-10">
+            <svg class="absolute left-0 top-1/2 -translate-y-1/2 w-16 h-16 text-indigo-700 opacity-30 -z-10" fill="none" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="48" stroke="currentColor" stroke-width="4" />
+            </svg>
+            <p class="text-2xl md:text-3xl text-gray-200 italic font-medium drop-shadow">
+                Kami hadir sebagai solusi <span class="text-indigo-300 font-bold">brain root</span>, terlalu banyak tutorial dan course apalagi semenjak adanya AI sehingga tidak jarang kita merasa bingung mulai dari mana.
+            </p>
+            <svg class="absolute right-0 top-1/2 -translate-y-1/2 w-16 h-16 text-pink-700 opacity-30 -z-10" fill="none" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="48" stroke="currentColor" stroke-width="4" />
+            </svg>
+        </div>
+        <div class="flex justify-center mb-8">
+            <span class="inline-flex items-center px-6 py-2.5 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 text-white font-bold text-base shadow-lg tracking-wide animate-bounce">
+                ✨ Temukan Konsistensi Belajarmu Bersama Kami! ✨
+            </span>
+        </div>
+        <p class="text-lg md:text-xl text-gray-300 font-light">
+            Dengan <span class="font-semibold text-indigo-300">kurikulum terstruktur</span> dan <span class="font-semibold text-purple-300">dukungan komunitas</span>, kami bantu kamu fokus dan mencapai tujuan belajarmu.
+        </p>
     </div>
 
     <!-- Stats Section -->
@@ -144,16 +169,21 @@
                 <div class="grid md:grid-cols-2 gap-6">
                     <div>
                         <ul class="text-gray-300 space-y-2">
-                            <li>📅 <strong>Personal Learning Path:</strong> Jalur belajar yang disesuaikan dengan goalmu</li>
                             <li>⏰ <strong>Flexible Schedule:</strong> Belajar kapan saja, di mana saja</li>
                             <li>📊 <strong>Progress Tracking:</strong> Dashboard untuk monitor kemajuan</li>
                         </ul>
                     </div>
                     <div>
                         <ul class="text-gray-300 space-y-2">
-                            <li>🔄 <strong>Repeat System:</strong> Ulangi materi sebanyak yang kamu mau</li>
+                            <li>
+                                🔄 <strong>Repeat System:</strong> Ulangi materi sebanyak yang kamu mau
+                                <span class="ml-2 inline-block bg-yellow-400 text-gray-900 text-xs font-semibold px-2 py-0.5 rounded-full shadow-md">Segera Hadir</span>
+                            </li>
                             <li>📝 <strong>Note Taking:</strong> Catat hal penting langsung di platform</li>
-                            <li>🎯 <strong>Self Assessment:</strong> Quiz untuk mengukur pemahaman sendiri</li>
+                            <li>
+                                🎯 <strong>Self Assessment:</strong> Quiz untuk mengukur pemahaman sendiri
+                                <span class="ml-2 inline-block bg-yellow-400 text-gray-900 text-xs font-semibold px-2 py-0.5 rounded-full shadow-md">Segera Hadir</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -205,8 +235,6 @@
             <div class="bg-gray-800 rounded-lg p-4 mt-4">
                 <h4 class="font-semibold text-indigo-300 mb-2">🎬 Setiap Modul Berisi:</h4>
                 <ul class="text-sm text-gray-300 space-y-1">
-                <li>📄 Materi tertulis & cheatsheet downloadable</li>
-                <li>🧪 Self-assessment quiz untuk mengukur pemahaman</li>
                 <li>🏆 Badge setelah menyelesaikan modul</li>
                 <li>📝 Area untuk membuat catatan personal</li>
                 </ul>
@@ -226,7 +254,10 @@
             </div>
             <div class="md:w-1/2 md:text-left">
             <span class="text-indigo-400 text-sm font-semibold uppercase tracking-wider">🛠️ Langkah 3</span>
-            <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4">Terapkan dengan Proyek Mandiri</h2>
+            <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4 flex items-center gap-3">
+                Terapkan dengan Proyek Mandiri
+                <span class="inline-block bg-yellow-400 text-gray-900 text-xs font-semibold px-2 py-0.5 rounded-full shadow-md animate-pulse">Segera Hadir</span>
+            </h2>
             <p class="text-gray-300 text-lg mb-4">
                 Teori saja tidak cukup. Di akhir setiap kursus, kamu akan menemukan proyek-proyek praktis dengan panduan lengkap. Kerjakan proyek tersebut secara mandiri untuk menguji pemahamanmu dan bangun portofolio yang bisa kamu pamerkan.
             </p>
@@ -267,10 +298,7 @@
             <div class="bg-gray-800 rounded-lg p-4 mt-4">
                 <h4 class="font-semibold text-indigo-300 mb-2">🌟 Aktivitas Komunitas:</h4>
                 <ul class="text-sm text-gray-300 space-y-1">
-                <li>💬 Forum diskusi bersama teman-teman di grub WhatsApp</li>
-                <li>🎪 Weekly coding challenge untuk self-learner</li>
-                <li>🎉 Monthly webinar dan workshop</li>
-                <li>📚 Resource sharing antar member</li>
+                    <li>💬 Forum diskusi bersama teman-teman di grub WhatsApp</li>
                 </ul>
             </div>
             
