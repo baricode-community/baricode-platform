@@ -13,6 +13,11 @@
                 <p class="mt-4 text-sm text-indigo-700 dark:text-indigo-200">
                     ⏳ <span class="font-semibold">Catatan tambahan:</span> Jika Anda tidak menentukan jam pada hari yang dipilih, maka secara default sistem akan mengatur jadwal pada hari tersebut pukul <span class="font-bold">06:00 WIB</span>.
                 </p>
+                <div class="mt-4 text-sm text-green-700 dark:text-green-200">
+                    📲 Pada setiap waktu yang Anda masukkan, Anda akan menerima pesan WhatsApp sebagai pengingat untuk belajar.<br>
+                    📝 Setelah itu, Anda akan diminta melakukan absensi.<br>
+                    ⏱️ Jika absensi dilakukan lebih dari <span class="font-bold">15 menit</span> dari waktu yang ditentukan, maka akan tercatat sebagai bolos.
+                </div>
             </div>
             <form action="{{ route('course.start', $course) }}" method="POST" class="space-y-8">
                 @csrf
