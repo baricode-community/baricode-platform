@@ -26,11 +26,13 @@ class AbsentReminder extends Command
      */
     public function handle()
     {
-        $this->info('Checking active sessions for attendance reminders...');
+        $this->info(string: 'Checking active sessions for attendance reminders...');
+        logger()->info('AbsentReminder command started.');
         
         try {
             CourseRecordSession::checkAllIncompleteSessions();
             $this->info('Successfully processed all active sessions.');
+            logger()->info('AbsentReminder command completed successfully.');
         } catch (\Exception $e) {
             $this->error('Error occurred while processing sessions: ' . $e->getMessage());
             logger()->error('AbsentReminder command failed: ' . $e->getMessage());

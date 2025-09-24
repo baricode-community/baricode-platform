@@ -29,8 +29,9 @@ trait CourseRecordSessionTrait
      */
     public function checkAndCreateAttendance(): bool
     {
-        $currentTime = now();
+        $currentTime = now('Asia/Jakarta');
         $currentDayOfWeek = $currentTime->dayOfWeek == 0 ? 1 : $currentTime->dayOfWeek + 1; // 0 (Sun) => 1 (Ahad), 1-6 => 2-7
+        logger()->info("Checking session ID: {$this->id} for attendance creation at " . $currentTime->toDateTimeString());
         
         // Check if today matches the session day
         if ($this->day_of_week !== $currentDayOfWeek) {
