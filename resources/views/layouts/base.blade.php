@@ -58,13 +58,7 @@
     <header class="py-4 px-6 fixed w-full z-50 bg-gray-900 shadow-lg">
         <nav class="flex justify-between items-center max-w-7xl mx-auto">
             <a href="/" wire:navigate class="flex items-center space-x-2 text-xl font-bold text-indigo-400 hover:text-indigo-300 transition duration-300">
-                <svg class="w-7 h-7 mr-2" viewBox="0 0 32 32" fill="none">
-                    <circle cx="16" cy="16" r="16" fill="#6366F1"/>
-                    <path d="M10 16l6 6 6-6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M16 10v12" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
                 <span>Baricode Community</span>
-                <span class="ml-3 px-2 py-1 text-xs font-semibold bg-yellow-400 text-gray-900 rounded shadow animate-pulse">Beta Version</span>
             </a>
 
             <!-- Hamburger Menu Button -->
