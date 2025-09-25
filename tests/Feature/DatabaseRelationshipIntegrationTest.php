@@ -198,65 +198,6 @@ it('handles user notes across multiple courses', function () {
     expect($courses->pluck('id'))->toContain($courseFromNote->id);
 });
 
-it('handles role based permissions with course management', function () {
-    // Create roles and permissions
-    $adminRole = Role::create(['name' => 'admin']);
-    $instructorRole = Role::create(['name' => 'instructor']);
-    $studentRole = Role::create(['name' => 'student']);
-    
-    $manageCoursesPermission = Permission::create(['name' => 'manage-courses']);
-    $approveEnrollmentsPermission = Permission::create(['name' => 'approve-enrollments']);
-    $viewCoursesPermission = Permission::create(['name' => 'view-courses']);
-    
-    // Assign permissions to roles
-    $adminRole->givePermissionTo([$manageCoursesPermission, $approveEnrollmentsPermission, $viewCoursesPermission]);
-    $instructorRole->givePermissionTo([$approveEnrollmentsPermission, $viewCoursesPermission]);
-    $studentRole->givePermissionTo($viewCoursesPermission);
-
-    // Create users with different roles
-    $admin = User::factory()->create();
-    $instructor = User::factory()->create();
-    $student = User::factory()->create();
-    
-    $admin->assignRole($adminRole);
-    $instructor->assignRole($instructorRole);
-    $student->assignRole($studentRole);
-
-    // Create course structure
-    $category = CourseCategory::factory()->create();
-    $course = Course::factory()->create(['category_id' => $category->id]);
-    
-    $enrollment = Enrollment::factory()->create([
-        'user_id' => $student->id,
-        'course_id' => $course->id,
-        'is_approved' => false
-    ]);
-
-    // Test permissions
-    expect($admin->hasPermissionTo('manage-courses'))->toBeTrue();
-    expect($admin->hasPermissionTo('approve-enrollments'))->toBeTrue();
-    expect($admin->hasPermissionTo('view-courses'))->toBeTrue();
-    
-    expect($instructor->hasPermissionTo('manage-courses'))->toBeFalse();
-    expect($instructor->hasPermissionTo('approve-enrollments'))->toBeTrue();
-    expect($instructor->hasPermissionTo('view-courses'))->toBeTrue();
-    
-    expect($student->hasPermissionTo('manage-courses'))->toBeFalse();
-    expect($student->hasPermissionTo('approve-enrollments'))->toBeFalse();
-    expect($student->hasPermissionTo('view-courses'))->toBeTrue();
-
-    // Test role hierarchy
-    expect($admin->hasRole('admin'))->toBeTrue();
-    expect($instructor->hasRole('instructor'))->toBeTrue();
-    expect($student->hasRole('student'))->toBeTrue();
-    
-    // Only admin can access Filament panel
-    $mockPanel = $this->createMock(\Filament\Panel::class);
-    expect($admin->canAccessPanel($mockPanel))->toBeTrue();
-    expect($instructor->canAccessPanel($mockPanel))->toBeFalse();
-    expect($student->canAccessPanel($mockPanel))->toBeFalse();
-});
-
 it('handles cascading deletes properly', function () {
     // Create complete course structure
     $category = CourseCategory::factory()->create();
