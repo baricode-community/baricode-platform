@@ -3,7 +3,7 @@
         <div class="">
             @php  $course = $enrollment->course; @endphp
 
-            <div class="mb-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div class="mb-10 flex flex-col p-2 md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                     <h1 class="text-4xl font-extrabold mb-2 flex items-center gap-2">
                         <span class="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-full p-2">📚</span>
@@ -102,7 +102,7 @@
                                         @else
                                             <span class="text-yellow-500 text-xl">📝</span>
                                         @endif
-                                        <span class="font-semibold text-lg">{{ $module->courseModule->name ?? 'Module Name Not Available' }}</span>
+                                        <span class="font-semibold text-lg">{{ $module->module->name ?? 'Module Name Not Available' }}</span>
                                     </div>
                                 </div>
                                 @php $enrollmentLessons = $module->enrollmentLessons()->get(); @endphp

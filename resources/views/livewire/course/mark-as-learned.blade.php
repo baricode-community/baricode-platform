@@ -23,7 +23,7 @@ new class extends Component {
         $this->enrollmentLesson->save();
 
         flash()->success('Pelajaran berhasil ditandai sebagai sudah dipelajari!');
-        $this->emit('lessonMarkedAsLearned', $this->enrollmentId);
+        $this->isLoading = false;
     }
 }; ?>
 

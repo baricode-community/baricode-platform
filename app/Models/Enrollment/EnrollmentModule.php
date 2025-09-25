@@ -38,6 +38,11 @@ class EnrollmentModule extends Model
         return $this->belongsTo(Enrollment::class, 'enrollment_id', 'id');
     }
 
+    public function module()
+    {
+        return $this->belongsTo(CourseModule::class, 'module_id', 'id');
+    }
+
     public function enrollmentLessons()
     {
         return $this->hasMany(EnrollmentLesson::class, 'enrollment_module_id', 'id');
