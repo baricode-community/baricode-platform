@@ -28,6 +28,9 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
+            'whatsapp' => fake()->optional()->phoneNumber(),
+            'about' => fake()->optional()->paragraph(1),
+            'level' => fake()->randomElement(['pemula', 'menengah', 'mahir']),
             'remember_token' => Str::random(10),
         ];
     }

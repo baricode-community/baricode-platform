@@ -52,12 +52,9 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/password', 'settings.password')->name('password.edit');
     Volt::route('settings/appearance', 'settings.appearance')->name('appearance.edit');
 
-    // Attendance routes using Volt
-    Volt::route('attendance', 'attendance.index')->name('attendance.index');
-    Volt::route('attendance/form', 'attendance.form')->name('attendance.form');
-
     // Admin routes for course management
     Route::prefix('admin')->name('admin.')->middleware('roles:admin')->group(function () {
+        Volt::route('users', 'admin.user-management')->name('users');
         Volt::route('courses', 'admin.course-management')->name('courses');
         Volt::route('categories', 'admin.category-management')->name('categories');
         Volt::route('modules', 'admin.module-management')->name('modules');

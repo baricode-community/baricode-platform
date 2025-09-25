@@ -40,6 +40,7 @@ class AuthController extends Controller
             'about' => $request->about,
             'tos_accepted_at' => now(),
         ]);
+        $user->assignRole('student');
 
         event(new Registered($user));
 
