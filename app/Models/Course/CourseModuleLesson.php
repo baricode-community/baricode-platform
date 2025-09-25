@@ -24,6 +24,10 @@ class CourseModuleLesson extends Model
 
     public function userNotes()
     {
+        if (auth()->check()) {
+            return $this->hasMany(UserNote::class, 'lesson_id', 'id')
+                ->where('user_id', auth()->id());
+        }
         return $this->hasMany(UserNote::class, 'lesson_id', 'id');
     }
 }
