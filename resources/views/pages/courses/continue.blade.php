@@ -108,7 +108,7 @@
                                                 <span class="text-xs">{{ $lesson->is_completed ? '✅' : '📖' }}</span>
                                                 <a href="{{ route('course.continue.lesson', [$enrollment->id, $lesson->id]) }}"
                                                    class="text-sm text-blue-700 dark:text-blue-300 group-hover:underline transition">
-                                                    {{ $lesson->lessonDetail->title }}
+                                                    {{ $lesson->lesson->title }}
                                                 </a>
                                             </div>
                                         @endforeach

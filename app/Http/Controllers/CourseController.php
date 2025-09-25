@@ -43,16 +43,6 @@ class CourseController extends Controller
     public function continue(Enrollment $enrollment)
     {
         logger()->info('Continuing course: ' . $enrollment->id);
-
-        // Load the necessary relationships to avoid N+1 queries and null reference errors
-        $enrollment->load([
-            'course.courseCategory',
-            'course.courseModules.courseModuleLessons',
-            'enrollmentModules.enrollmentLessons.lessonProgresses' => function ($query) use ($enrollment) {
-                $query->where('user_id', $enrollment->user_id);
-            },
-        ]);
-
         return view('pages.courses.continue', compact('enrollment'));
     }
 
@@ -60,6 +50,6 @@ class CourseController extends Controller
     {
         logger()->info('Continuing lesson: ' . $lessonProgress->id . ' in course: ' . $enrollment->id);
 
-        return view('pages.courses.continue_lesson', compact('courseEnrollment', 'lessonProgress'));
+        return view('pages.courses.continue_lesson', compact('enrollment', 'lessonProgress'));
     }
 }

@@ -19,6 +19,11 @@ class EnrollmentLesson extends Model
         'is_completed' => 'boolean',
     ];
 
+    public function lesson()
+    {
+        return $this->belongsTo(CourseModuleLesson::class, 'lesson_id', 'id');
+    }
+
     public function enrollmentModule()
     {
         return $this->belongsTo(EnrollmentModule::class, 'enrollment_module_id', 'id');
