@@ -118,7 +118,7 @@
                 <h2 class="text-lg font-bold text-indigo-700 dark:text-indigo-200">Platform Masih Beta</h2>
             </div>
             <p class="text-gray-700 dark:text-gray-200 mb-4">
-                Platform ini masih dalam tahap <span class="font-semibold">beta</span>. Fitur penjadwalan dan absensi akan terus disempurnakan beberapa hari setelah launching (jadi untuk saat ini belum ada fitur mengirim pengingat untuk belajar, dan fitur absensi). Mohon maklum dan terima kasih atas kepercayaannya!
+                Platform ini masih dalam tahap <span class="font-semibold">beta</span>. Fitur penjadwalan dan absensi akan terus disempurnakan beberapa hari setelah launching (jadi untuk saat ini belum ada fitur mengirim pengingat untuk belajar, dan fitur absensi). Mohon maaf dan terima kasih atas kepercayaannya!
             </p>
             <p class="text-gray-700 dark:text-gray-200 mb-4">
                 <span class="font-semibold">Catatan tambahan:</span> Untuk saat ini, teman-teman akan selalu bisa menyimpan progress belajarnya walau di luar konfigurasi jadwal kursus yang telah teman-teman atur.<br>
