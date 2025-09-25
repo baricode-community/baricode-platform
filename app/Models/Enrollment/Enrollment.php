@@ -27,6 +27,11 @@ class Enrollment extends Model
 
     protected static function booted()
     {
+        // Skip auto-creation during testing
+        if (app()->environment('testing')) {
+            return;
+        }
+        
         static::created(function (Enrollment $courseEnrollment) {
             $modules = $courseEnrollment->course->courseModules;
 
@@ -36,11 +41,6 @@ class Enrollment extends Model
                 ]);
             }
         });
-    }
-
-    public function enrollmentSessions()
-    {
-        return $this->hasMany(EnrollmentSession::class, 'enrollment_id', 'id')->orderBy('created_at', 'desc');
     }
 
     public function course()

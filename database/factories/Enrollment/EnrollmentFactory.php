@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Enrollment;
 
 use App\Models\CourseEnrollment;
 use App\Models\Enrollment\Enrollment;

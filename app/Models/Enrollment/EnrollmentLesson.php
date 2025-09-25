@@ -4,12 +4,14 @@ namespace App\Models\Enrollment;
 
 use App\Models\Course\CourseModuleLesson;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Course\LessonDetail;
 use App\Models\ModuleProgress;
 
 
 class EnrollmentLesson extends Model
 {
+    use HasFactory;
     protected $guarded = ['id'];
     protected $table = 'enrollment_lessons';
 
@@ -24,7 +26,7 @@ class EnrollmentLesson extends Model
 
     public function enrollmentLesson()
     {
-        return $this->belongsTo(CourseModuleLesson::class, 'enrollment_lesson_id', 'id');
+        return $this->belongsTo(CourseModuleLesson::class, 'lesson_id', 'id');
     }
 
 }
