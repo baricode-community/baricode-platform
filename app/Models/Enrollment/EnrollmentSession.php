@@ -2,13 +2,12 @@
 
 namespace App\Models\Enrollment;
 
-use App\Traits\CourseRecordSessionTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class EnrollmentSession extends Model
 {
-    use HasFactory, CourseRecordSessionTrait;
+    use HasFactory;
 
     protected $guarded = ['id'];
 

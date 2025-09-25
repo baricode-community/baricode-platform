@@ -48,9 +48,10 @@ class CourseController extends Controller
         // Load the necessary relationships to avoid N+1 queries and null reference errors
         $enrollment->load([
             'course.courseCategory',
-            'courseRecordSessions',
-            'moduleProgresses.courseModule',
-            'moduleProgresses.lessonProgresses.lessonDetail'
+            'course.courseModules.courseModuleLessons',
+            'enrollmentModules.enrollmentLessons.lessonProgresses' => function ($query) use ($enrollment) {
+                $query->where('user_id', $enrollment->user_id);
+            },
         ]);
 
         return view('pages.courses.continue', compact('enrollment'));

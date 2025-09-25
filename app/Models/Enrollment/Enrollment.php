@@ -57,4 +57,9 @@ class Enrollment extends Model
     {
         return $this->hasMany(EnrollmentModule::class, 'enrollment_id', 'id');
     }
+
+    public function enrollmentSessions()
+    {
+        return $this->hasMany(EnrollmentSession::class, 'enrollment_id', 'id');
+    }
 }

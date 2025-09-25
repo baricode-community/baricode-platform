@@ -87,6 +87,7 @@ trait CourseTrait
                 ]);
             }
         } catch (\Exception $e) {
+            throw $e;
             logger()->error('Failed to start course: '.$course->title.' Error: '.$e->getMessage());
             DB::rollBack();
             flash()->error('Gagal memulai kursus. Silakan coba lagi.');
