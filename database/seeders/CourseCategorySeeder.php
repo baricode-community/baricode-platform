@@ -13,29 +13,29 @@ class CourseCategorySeeder extends Seeder
     public function run(): void
     {
         // Untuk pemula yang baru belajar ngoding
-        CourseCategory::create(['name' => 'Cara Kerja Komputer']);
-        CourseCategory::create(['name' => 'Dasar Pemrograman']);
-        CourseCategory::create(['name' => 'Algoritma & Logika']);
+        CourseCategory::create(['name' => 'Cara Kerja Komputer', 'level' => 'pemula']);
+        CourseCategory::create(['name' => 'Dasar Pemrograman', 'level' => 'pemula']);
+        CourseCategory::create(['name' => 'Algoritma & Logika', 'level' => 'pemula']);
 
         // Untuk tingkat menengah
-        CourseCategory::create(['name' => 'Pemrograman Web Dasar']);
-        CourseCategory::create(['name' => 'Pemrograman Mobile Dasar']);
-        CourseCategory::create(['name' => 'Pemrograman Berorientasi Objek']);
-        CourseCategory::create(['name' => 'Database & Penyimpanan']);
-        CourseCategory::create(['name' => 'Framework']);
-        CourseCategory::create(['name' => 'Version Control (Git)']);
+        CourseCategory::create(['name' => 'Pemrograman Web Dasar', 'level' => 'menengah']);
+        CourseCategory::create(['name' => 'Pemrograman Mobile Dasar', 'level' => 'menengah']);
+        CourseCategory::create(['name' => 'Pemrograman Berorientasi Objek', 'level' => 'menengah']);
+        CourseCategory::create(['name' => 'Database & Penyimpanan', 'level' => 'menengah']);
+        CourseCategory::create(['name' => 'Framework', 'level' => 'menengah']);
+        CourseCategory::create(['name' => 'UI/UX Design', 'level' => 'menengah']);
+        CourseCategory::create(['name' => 'Version Control (Git)', 'level' => 'menengah']);
 
         // Untuk tingkat mahir
-        CourseCategory::create(['name' => 'Pengembangan API']);
-        CourseCategory::create(['name' => 'DevOps & Deployment']);
-        CourseCategory::create(['name' => 'Testing & Debugging']);
+        CourseCategory::create(['name' => 'Pengembangan API', 'level' => 'lanjut']);
+        CourseCategory::create(['name' => 'DevOps & Deployment', 'level' => 'lanjut']);
+        CourseCategory::create(['name' => 'Testing & Debugging', 'level' => 'lanjut']);
 
         // Saran tambahan kategori
-        CourseCategory::create(['name' => 'Keamanan Aplikasi']);
-        CourseCategory::create(['name' => 'Cloud Computing']);
-        CourseCategory::create(['name' => 'UI/UX Design']);
-        CourseCategory::create(['name' => 'Machine Learning Dasar']);
-        CourseCategory::create(['name' => 'Data Science']);
-        CourseCategory::create(['name' => 'Open Source Contribution']);
+        CourseCategory::create(['name' => 'Keamanan Aplikasi', 'level' => 'lanjut']);
+        CourseCategory::create(['name' => 'Cloud Computing', 'level' => 'lanjut']);
+        CourseCategory::create(['name' => 'Machine Learning Dasar', 'level' => 'lanjut']);
+        CourseCategory::create(['name' => 'Data Science', 'level' => 'lanjut']);
+        CourseCategory::create(['name' => 'Open Source Contribution', 'level' => 'lanjut']);
     }
 }

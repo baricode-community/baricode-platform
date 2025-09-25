@@ -15,6 +15,7 @@ class CourseModuleLesson extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+    protected $table = 'course_module_lessons';
 
     public function courseModule()
     {
