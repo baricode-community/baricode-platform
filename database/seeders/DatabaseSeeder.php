@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         } else {
             $this->call([
                 CourseCategorySeeder::class,
-                CourseSeeder::class,
+                CaraKerjaKomputerSeeder::class,
             ]);
         }
 

@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\Course\Course;
 use Illuminate\Database\Seeder;
 
-class CourseSeeder extends Seeder
+class CaraKerjaKomputerSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,7 +17,7 @@ class CourseSeeder extends Seeder
             'slug' => 'introduction-to-how-computers-work',
             'description' => 'Pelajari dasar-dasar cara kerja komputer, termasuk perangkat keras dan perangkat lunak yang membentuk sistem komputer modern.',
             'is_published' => true,
-            'category_id' => 1, // Asumsikan kategori 'Cara Kerja Komputer' memiliki ID 1
+            'category_id' => 1,
         ]);
 
         $modules = [
