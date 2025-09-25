@@ -231,7 +231,7 @@ new class extends Component {
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center gap-1">
                                     <span class="text-sm font-medium text-gray-900">{{ $lesson->order }}</span>
-                                    <div class="flex flex-col gap-1">
+                                    {{-- <div class="flex flex-col gap-1">
                                         <button 
                                             wire:click="moveUp({{ $lesson->id }})"
                                             class="text-gray-400 hover:text-gray-600 transition-colors"
@@ -248,7 +248,7 @@ new class extends Component {
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                             </svg>
                                         </button>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
