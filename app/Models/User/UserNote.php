@@ -9,6 +9,7 @@ use App\Models\Course\LessonDetail;
 class UserNote extends Model
 {
     protected $guarded = [ 'id' ];
+    protected $table = 'user_notes';
 
     public function user()
     {

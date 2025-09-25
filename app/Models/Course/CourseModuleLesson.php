@@ -25,14 +25,4 @@ class CourseModuleLesson extends Model
     {
         return $this->hasMany(UserNote::class, 'lesson_id', 'id');
     }
-
-    public function lessonProgresses()
-    {
-        return $this->hasMany(LessonProgress::class, 'lesson_id', 'id');
-    }
-
-    public function references()
-    {
-        return $this->hasMany(ReferenceLessonDetail::class, 'lesson_detail_id', 'id');
-    }
 }
