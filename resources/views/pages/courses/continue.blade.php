@@ -27,7 +27,7 @@
                         <h2 class="text-2xl font-bold mb-4 flex items-center gap-2 text-blue-700 dark:text-blue-300">
                             <span class="text-3xl">📋</span> Informasi Kursus
                         </h2>
-                        @php $enrollmentSessions = $enrollment->courseRecordSessions; @endphp
+                        @php $enrollmentSessions = $enrollment->enrollmentSessions; @endphp
                         @if(isset($enrollmentSessions) && count($enrollmentSessions))
                             <div class="mt-6">
                                 <h3 class="font-semibold mb-3 flex items-center gap-2 text-blue-600 dark:text-blue-400">
@@ -70,13 +70,18 @@
                                 Manfaatkan waktu ini untuk menyelesaikan modul dan pelajaran yang tersedia.
                             </p>
                         @else
-                            <span class="inline-flex items-center px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-base font-semibold shadow">
-                                <span class="text-2xl">⏰</span>
-                                <span class="ml-2">Bukan waktu belajar saat ini.</span>
-                            </span>
-                            <p class="mt-4 text-sm text-gray-500 dark:text-gray-400 text-center">
-                                Silakan cek jadwal sesi pembelajaran untuk mengetahui waktu belajar berikutnya.
-                            </p>
+                            <div class="flex flex-col items-center">
+                                <span class="inline-flex items-center px-4 py-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-base font-semibold shadow">
+                                    <span class="text-2xl">⏰</span>
+                                    <span class="ml-2">Bukan waktu belajar saat ini.</span>
+                                </span>
+                                <p class="mt-4 text-sm text-gray-500 dark:text-gray-400 text-center">
+                                    Silakan cek jadwal sesi pembelajaran untuk mengetahui waktu belajar berikutnya.
+                                </p>
+                                <div class="mt-6 px-4 py-2 rounded bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 text-sm font-semibold text-center">
+                                    Segera Hadir Fitur Ini
+                                </div>
+                            </div>
                         @endif
                     </div>
                 </div>
