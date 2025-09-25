@@ -1,7 +1,7 @@
 <x-layouts.app :title="__('Course Details')">
     <div class="bg-gradient-to-br from-blue-50 via-white to-blue-100 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 text-gray-900 dark:text-white">
         <div class="">
-            @php  $course = $courseEnrollment->course; @endphp
+            @php  $course = $enrollment->course; @endphp
 
             <div class="mb-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
@@ -27,14 +27,14 @@
                         <h2 class="text-2xl font-bold mb-4 flex items-center gap-2 text-blue-700 dark:text-blue-300">
                             <span class="text-3xl">📋</span> Informasi Kursus
                         </h2>
-                        @php $courseEnrollmentSessions = $courseEnrollment->courseRecordSessions; @endphp
-                        @if(isset($courseEnrollmentSessions) && count($courseEnrollmentSessions))
+                        @php $enrollmentSessions = $enrollment->courseRecordSessions; @endphp
+                        @if(isset($enrollmentSessions) && count($enrollmentSessions))
                             <div class="mt-6">
                                 <h3 class="font-semibold mb-3 flex items-center gap-2 text-blue-600 dark:text-blue-400">
                                     <span class="text-xl">🗓️</span> Jadwal Sesi Pembelajaran
                                 </h3>
                                 <ul class="divide-y divide-gray-200 dark:divide-gray-700 bg-blue-50 dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden">
-                                    @foreach($courseEnrollmentSessions as $session)
+                                    @foreach($enrollmentSessions as $session)
                                         <li class="py-4 px-5 flex flex-col md:flex-row md:items-center md:justify-between hover:bg-blue-100 dark:hover:bg-gray-700 transition-all duration-200">
                                             <div class="flex items-center gap-3">
                                                 <span class="font-semibold text-blue-700 dark:text-blue-300 text-lg">
@@ -61,7 +61,7 @@
 
                     <!-- Status Waktu Belajar -->
                     <div class="flex flex-col justify-center items-center h-full bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6">
-                        @if($courseEnrollment->isWaktunyaBelajar())
+                        @if($enrollment->isWaktunyaBelajar())
                             <span class="inline-flex items-center px-4 py-2 rounded-full bg-blue-200 dark:bg-blue-800 text-blue-800 dark:text-blue-200 text-base font-semibold shadow">
                                 <span class="text-2xl animate-pulse">⏰</span>
                                 <span class="ml-2">Saat ini waktunya belajar!</span>
@@ -82,7 +82,7 @@
                 </div>
 
                 <!-- Daftar Modul -->
-                @php $modules = $courseEnrollment->moduleProgresses()->get(); @endphp
+                @php $modules = $enrollment->enrollmentModules()->get(); @endphp
                 <div class="mt-10">
                     <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">
                         <span>📚</span> Daftar Modul
@@ -100,13 +100,13 @@
                                         <span class="font-semibold text-lg">{{ $module->courseModule->name ?? 'Module Name Not Available' }}</span>
                                     </div>
                                 </div>
-                                @php $lessonProgresses = $module->lessonProgresses()->get(); @endphp
+                                @php $lessonProgresses = $module->enrollmentLessons()->get(); @endphp
                                 @if(count($lessonProgresses))
                                     <div class="ml-8 mt-2 space-y-1">
                                         @foreach($lessonProgresses as $lesson)
                                             <div class="flex items-center gap-2 group">
                                                 <span class="text-xs">{{ $lesson->is_completed ? '✅' : '📖' }}</span>
-                                                <a href="{{ route('course.continue.lesson', [$courseEnrollment->id, $lesson->id]) }}"
+                                                <a href="{{ route('course.continue.lesson', [$enrollment->id, $lesson->id]) }}"
                                                    class="text-sm text-blue-700 dark:text-blue-300 group-hover:underline transition">
                                                     {{ $lesson->lessonDetail->title }}
                                                 </a>

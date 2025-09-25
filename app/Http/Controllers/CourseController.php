@@ -43,7 +43,6 @@ class CourseController extends Controller
     public function continue(Enrollment $enrollment)
     {
         logger()->info('Continuing course: ' . $enrollment->id);
-        Gate::authorize('view', $enrollment);
 
         // Load the necessary relationships to avoid N+1 queries and null reference errors
         $enrollment->load([
