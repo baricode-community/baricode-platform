@@ -17,7 +17,7 @@
                         <span>📖</span> {{ $enrollmentLesson->lesson->title }}
                     </h1>
                     <div class="prose dark:prose-invert max-w-none text-lg leading-relaxed">
-                        {!! $enrollmentLesson->lesson->content !!}
+                        {!! Str::markdown($enrollmentLesson->lesson->content) !!}
                     </div>
                 </div>
             @else
