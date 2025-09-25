@@ -5,11 +5,11 @@ namespace App\Http\Livewire;
 use Livewire\Volt\Component;
 use App\Models\Course\CourseModuleLesson;
 
-new class extends Component
-{
+new class extends Component {
     public $lesson;
     public $noteTitle = '';
     public $noteContent = '';
+    public $editingNoteId = null;
 
     protected $rules = [
         'noteTitle' => 'required|string|max:255',
@@ -23,10 +23,7 @@ new class extends Component
 
     public function createNote()
     {
-        logger()->info('Creating note', ['title' => $this->noteTitle, 'content' => $this->noteContent]);
-
         $this->validate();
-        logger()->info('Note created successfully', ['title' => $this->noteTitle, 'content' => $this->noteContent]);
 
         $this->lesson->userNotes()->create([
             'title' => $this->noteTitle,
@@ -34,9 +31,38 @@ new class extends Component
             'user_id' => auth()->id(),
             'lesson_id' => $this->lesson->id,
         ]);
-        logger()->info('Note created in database', ['lesson_id' => $this->lesson->id]);
 
         $this->reset(['noteTitle', 'noteContent']);
+    }
+
+    public function editNote($noteId)
+    {
+        $note = $this->lesson->userNotes()->where('id', $noteId)->first();
+        if ($note) {
+            $this->editingNoteId = $note->id;
+            $this->noteTitle = $note->title;
+            $this->noteContent = $note->note;
+        }
+    }
+
+    public function updateNote()
+    {
+        $this->validate();
+
+        $note = $this->lesson->userNotes()->where('id', $this->editingNoteId)->first();
+        if ($note) {
+            $note->update([
+                'title' => $this->noteTitle,
+                'note' => $this->noteContent,
+            ]);
+        }
+
+        $this->reset(['noteTitle', 'noteContent', 'editingNoteId']);
+    }
+
+    public function cancelEdit()
+    {
+        $this->reset(['noteTitle', 'noteContent', 'editingNoteId']);
     }
 
     public function deleteNote($noteId)
@@ -50,14 +76,14 @@ new class extends Component
 
     public function getNotesProperty()
     {
-        return $this->lessonDetail->studentNotes;
+        return $this->lesson->userNotes;
     }
-}
+};
 ?>
 
 <!-- livewire.lesson-notes.blade.php -->
 <div class="bg-white rounded-xl shadow-md p-6 mb-6">
-    <form wire:submit.prevent="createNote">
+    <form wire:submit.prevent="{{ $editingNoteId ? 'updateNote' : 'createNote' }}">
         <div class="mb-4">
             <label class="block text-gray-700 font-semibold mb-2">Judul</label>
             <input type="text" wire:model.defer="noteTitle"
@@ -74,7 +100,17 @@ new class extends Component
                 <span class="text-red-500 text-xs">{{ $message }}</span>
             @enderror
         </div>
-        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Tambah Catatan</button>
+        <div class="flex space-x-2">
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                {{ $editingNoteId ? 'Update Catatan' : 'Tambah Catatan' }}
+            </button>
+            @if ($editingNoteId)
+                <button type="button" wire:click="cancelEdit"
+                    class="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500">
+                    Batal
+                </button>
+            @endif
+        </div>
     </form>
 
     <div class="bg-white rounded-xl shadow-md p-6">
@@ -86,9 +122,18 @@ new class extends Component
                         <p class="text-gray-700 dark:text-gray-300">{{ $note->note }}</p>
                         <span class="text-xs text-gray-400">{{ $note->created_at->format('d M Y, H:i') }}</span>
                     </div>
-                    <button wire:click="deleteNote({{ $note->id }})" class="ml-4 text-red-500 hover:text-red-700 text-sm">
-                        Hapus
-                    </button>
+                    <div class="flex flex-col space-y-1 ml-4">
+                        <button wire:click="editNote({{ $note->id }})"
+                            class="text-blue-500 hover:text-blue-700 text-sm">
+                            Edit
+                        </button>
+                        <button wire:click="deleteNote({{ $note->id }})"
+                            onclick="return confirm('Apakah Anda yakin ingin menghapus catatan ini?')"
+                            class="text-red-500 hover:text-red-700 text-sm">
+                            Hapus
+                        </button>
+
+                    </div>
                 </li>
             @empty
                 <li class="text-gray-500">Belum ada catatan untuk pelajaran ini.</li>
