@@ -57,7 +57,7 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('attendance/form', 'attendance.form')->name('attendance.form');
 
     // Admin routes for course management
-    Route::prefix('admin')->name('admin.')->group(function () {
+    Route::prefix('admin')->name('admin.')->middleware('roles:admin')->group(function () {
         Volt::route('courses', 'admin.course-management')->name('courses');
         Volt::route('categories', 'admin.category-management')->name('categories');
         Volt::route('modules', 'admin.module-management')->name('modules');
