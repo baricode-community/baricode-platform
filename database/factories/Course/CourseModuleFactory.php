@@ -17,6 +17,7 @@ class CourseModuleFactory extends Factory
     public function definition(): array
     {
         return [
+            'course_id' => \App\Models\Course\Course::factory(),
             'name' => fake()->unique()->words(rand(2, 4), true),
             'order' => $this->faker->unique()->numberBetween(1, 1000)
         ];

@@ -55,6 +55,24 @@ Route::middleware(['auth'])->group(function () {
     // Attendance routes using Volt
     Volt::route('attendance', 'attendance.index')->name('attendance.index');
     Volt::route('attendance/form', 'attendance.form')->name('attendance.form');
+
+    // Admin routes for course management
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Volt::route('courses', 'admin.course-management')->name('courses');
+        Volt::route('categories', 'admin.category-management')->name('categories');
+        Volt::route('modules', 'admin.module-management')->name('modules');
+        Volt::route('lessons', 'admin.lesson-management')->name('lessons');
+        
+        // Individual course module management
+        Route::get('courses/{course}/modules', function ($courseId) {
+            return view('livewire.admin.course-modules', ['courseId' => $courseId]);
+        })->name('course.modules');
+        
+        // Individual module lesson management
+        Route::get('modules/{module}/lessons', function ($moduleId) {
+            return view('livewire.admin.module-lessons', ['moduleId' => $moduleId]);
+        })->name('module.lessons');
+    });
 });
 
 require __DIR__.'/auth.php';
