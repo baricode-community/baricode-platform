@@ -42,7 +42,7 @@ Route::controller(\App\Http\Controllers\CourseController::class)
         Route::get('/prepare/{course:slug}', 'prepare')->name('course.prepare');
         Route::post('/start/{course:slug}', 'start')->name('course.start');
         Route::get('/continue/{enrollment}', 'continue')->name('course.continue');
-        Route::get('/continue/{enrollment}/{enrollmentLesson}', 'continue_lesson')->name('course.continue.lesson');
+        Route::get('/continue/lesson/{enrollmentLesson}', 'continue_lesson')->name('course.continue.lesson');
     });
 
 Route::middleware(['auth'])->group(function () {

@@ -100,15 +100,15 @@
                                         <span class="font-semibold text-lg">{{ $module->courseModule->name ?? 'Module Name Not Available' }}</span>
                                     </div>
                                 </div>
-                                @php $lessonProgresses = $module->enrollmentLessons()->get(); @endphp
-                                @if(count($lessonProgresses))
+                                @php $enrollmentLessons = $module->enrollmentLessons()->get(); @endphp
+                                @if(count($enrollmentLessons))
                                     <div class="ml-8 mt-2 space-y-1">
-                                        @foreach($lessonProgresses as $lesson)
+                                        @foreach($enrollmentLessons as $enrollmentLesson)
                                             <div class="flex items-center gap-2 group">
-                                                <span class="text-xs">{{ $lesson->is_completed ? '✅' : '📖' }}</span>
-                                                <a href="{{ route('course.continue.lesson', [$enrollment->id, $lesson->id]) }}"
+                                                <span class="text-xs">{{ $enrollmentLesson->is_completed ? '✅' : '📖' }}</span>
+                                                <a href="{{ route('course.continue.lesson', [$enrollmentLesson]) }}"
                                                    class="text-sm text-blue-700 dark:text-blue-300 group-hover:underline transition">
-                                                    {{ $lesson->lesson->title }}
+                                                    {{ $enrollmentLesson->lesson->title }}
                                                 </a>
                                             </div>
                                         @endforeach

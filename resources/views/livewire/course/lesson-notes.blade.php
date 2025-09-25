@@ -3,11 +3,11 @@
 namespace App\Http\Livewire;
 
 use Livewire\Volt\Component;
-use App\Models\LessonDetail;
+use App\Models\Course\CourseModuleLesson;
 
 new class extends Component
 {
-    public $lessonDetail;
+    public $lesson;
     public $noteTitle = '';
     public $noteContent = '';
 
@@ -16,9 +16,9 @@ new class extends Component
         'noteContent' => 'required|string',
     ];
 
-    public function mount(LessonDetail $lesson)
+    public function mount(CourseModuleLesson $courseModuleLesson)
     {
-        $this->lessonDetail = $lesson;
+        $this->lesson = $courseModuleLesson;
     }
 
     public function createNote()
@@ -28,20 +28,20 @@ new class extends Component
         $this->validate();
         logger()->info('Note created successfully', ['title' => $this->noteTitle, 'content' => $this->noteContent]);
 
-        $this->lessonDetail->studentNotes()->create([
+        $this->lesson->userNotes()->create([
             'title' => $this->noteTitle,
             'note' => $this->noteContent,
             'user_id' => auth()->id(),
-            'lesson_id' => $this->lessonDetail->id,
+            'lesson_id' => $this->lesson->id,
         ]);
-        logger()->info('Note created in database', ['lesson_id' => $this->lessonDetail->id]);
+        logger()->info('Note created in database', ['lesson_id' => $this->lesson->id]);
 
         $this->reset(['noteTitle', 'noteContent']);
     }
 
     public function deleteNote($noteId)
     {
-        $note = $this->lessonDetail->studentNotes()->where('id', $noteId)->first();
+        $note = $this->lesson->userNotes()->where('id', $noteId)->first();
 
         if ($note) {
             $note->delete();
@@ -79,7 +79,7 @@ new class extends Component
 
     <div class="bg-white rounded-xl shadow-md p-6">
         <ul class="space-y-3">
-            @forelse($this->lessonDetail->studentNotes as $note)
+            @forelse($this->lesson->userNotes as $note)
                 <li class="border border-gray-200 rounded-lg p-4 flex justify-between items-start">
                     <div>
                         <h3 class="font-semibold text-lg mb-2">{{ $note->title }}</h3>

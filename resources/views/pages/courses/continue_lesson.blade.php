@@ -3,21 +3,21 @@
         <div class="">
             <!-- Tombol Kembali & Mark as Learned -->
             <div class="mb-8 flex items-center gap-4">
-                <a href="{{ route('course.continue', $courseEnrollment->id) }}" wire:navigate
+                <a href="{{ route('course.continue', $enrollment->id) }}" wire:navigate
                    class="inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-blue-200 to-blue-400 dark:from-blue-800 dark:to-blue-600 text-blue-900 dark:text-blue-100 rounded-lg shadow hover:scale-105 hover:from-blue-300 hover:to-blue-500 dark:hover:from-blue-700 dark:hover:to-blue-500 transition-all font-semibold">
                     <span class="mr-2 text-lg">←</span> {{ __('Kembali') }}
                 </a>
-                @livewire('course.mark-as-learned', ['lessonProgress' => $lessonProgress, 'courseRecordId' => $courseEnrollment->id])
+                @livewire('course.mark-as-learned', ['enrollmentLesson' => $enrollmentLesson, 'enrollmentId' => $enrollment->id])
             </div>
 
-            @if(isset($lessonProgress))
+            @if(isset($enrollmentLesson) && $enrollmentLesson->lesson)
                 <!-- Judul & Konten Lesson -->
                 <div class="mb-10">
                     <h1 class="text-4xl font-extrabold mb-6 flex items-center gap-3 text-blue-800 dark:text-blue-200 drop-shadow">
-                        <span>📖</span> {{ $lessonProgress->lessonDetail->title }}
+                        <span>📖</span> {{ $enrollmentLesson->lesson->title }}
                     </h1>
                     <div class="prose dark:prose-invert max-w-none text-lg leading-relaxed">
-                        {!! $lessonProgress->lessonDetail->content !!}
+                        {!! $enrollmentLesson->lesson->content !!}
                     </div>
                 </div>
             @else
@@ -33,7 +33,7 @@
                         📝 <span>Simpan Catatan Pribadi di Sini</span>
                     </summary>
                     <div class="mt-4 p-4 rounded-lg bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800 shadow-inner">
-                        @livewire('course.lesson-notes', ['lesson' => $lessonProgress->lessonDetail])
+                        @livewire('course.lesson-notes', ['courseModuleLesson' => $enrollmentLesson->lesson])
                     </div>
                 </details>
             </div>

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\CourseEnrollment;
 use App\Models\Enrollment\Enrollment;
-use App\Models\LessonProgress;
+use App\Models\Enrollment\EnrollmentLesson;
+use App\Models\Enrollment\EnrollmentSession;
+use App\Models\Enrollment\LessonProgress;
 use App\Traits\CourseTrait;
 use Illuminate\Http\Request;
 use App\Models\Course\Course;
@@ -46,10 +48,12 @@ class CourseController extends Controller
         return view('pages.courses.continue', compact('enrollment'));
     }
 
-    public function continue_lesson(Enrollment $enrollment, LessonProgress $lessonProgress)
+    public function continue_lesson(EnrollmentLesson $enrollmentLesson)
     {
-        logger()->info('Continuing lesson: ' . $lessonProgress->id . ' in course: ' . $enrollment->id);
+        $enrollment = $enrollmentLesson->enrollmentModule->enrollment;
+        logger()->info('Continuing lesson: ' . $enrollmentLesson->id . ' in course: ' . $enrollment->id);
+        // dd($enrollmentLesson->lesson);
 
-        return view('pages.courses.continue_lesson', compact('enrollment', 'lessonProgress'));
+        return view('pages.courses.continue_lesson', compact('enrollment', 'enrollmentLesson'));
     }
 }

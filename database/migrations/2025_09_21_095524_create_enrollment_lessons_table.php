@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('enrollment_module_id')->constrained('enrollment_modules')->onDelete('cascade');
             $table->foreignId('lesson_id')->constrained('course_module_lessons')->onDelete('cascade');
             $table->boolean('is_completed')->default(false);
+            $table->dateTime('completed_at')->nullable();
             $table->timestamps();
         });
     }

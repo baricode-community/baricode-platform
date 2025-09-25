@@ -100,17 +100,4 @@ trait CourseTrait
 
         return $result;
     }
-
-    public function markLessonAsLearned($lesson, $userId): void
-    {
-        $context = [
-            'lesson_id' => $lesson->id,
-            'lesson_title' => $lesson->title,
-            'user_id' => $userId,
-        ];
-
-        logger()->info('Lesson learned: '.$lesson->title);
-
-        flash()->success('Anda telah menandai pelajaran: '.$lesson->title.' sebagai telah dipelajari.');
-    }
 }
