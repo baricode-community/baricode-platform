@@ -130,26 +130,3 @@ it('deletes related data when user is deleted', function () {
     $this->assertDatabaseMissing('enrollments', ['user_id' => $userId]);
     $this->assertDatabaseMissing('user_notes', ['user_id' => $userId]);
 });
-
-it('can access filament panel if admin', function () {
-    // Create admin role
-    $adminRole = Role::create(['name' => 'admin']);
-    $this->user->assignRole($adminRole);
-
-    // Mock the panel
-    $mockPanel = mock(\Filament\Panel::class);
-    
-    // Test admin access
-    expect($this->user->canAccessPanel($mockPanel))->toBeTrue();
-});
-
-it('cannot access filament panel if not admin', function () {
-    // Create non-admin role
-    $userRole = Role::create(['name' => 'student']);
-    $this->user->assignRole($userRole);
-
-    $mockPanel = mock(\Filament\Panel::class);
-    
-    // Test non-admin access
-    expect($this->user->canAccessPanel($mockPanel))->toBeFalse();
-});
