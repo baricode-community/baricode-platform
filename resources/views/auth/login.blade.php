@@ -55,7 +55,7 @@
                             Kata Sandi
                         </label>
                         <div class="mt-1 relative">
-                            <input id="password" name="password" type="password" autocomplete="current-password" required
+                            <input id="password" name="password" autocomplete="current-password" required
                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm @error('password') border-red-300 @enderror">
                             <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
                                 <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
