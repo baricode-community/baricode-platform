@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use App\Models\User\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
@@ -9,6 +9,8 @@ use Livewire\Volt\Component;
 new class extends Component {
     public string $name = '';
     public string $email = '';
+    public string $whatsapp = '';
+    public string $about = '';
 
     /**
      * Mount the component.
@@ -37,6 +39,8 @@ new class extends Component {
                 'max:255',
                 Rule::unique(User::class)->ignore($user->id)
             ],
+            'whatsapp' => ['nullable', 'string', 'max:20'],
+            'about' => ['nullable', 'string', 'max:50000'],
         ]);
 
         $user->fill($validated);
@@ -97,6 +101,8 @@ new class extends Component {
                     </div>
                 @endif
             </div>
+
+            <flux:input wire:model="whatsapp" :label="__('WhatsApp Number')" type="text" autocomplete="whatsapp" />
 
             <div class="flex items-center gap-4">
                 <div class="flex items-center justify-end">

@@ -94,10 +94,11 @@
                             Tentang Diri Anda
                         </label>
                         <div class="mt-1">
-                            <textarea id="about" name="about" rows="3" required
+                            <textarea id="about" name="about" rows="3" required maxlength="50000"
                                       class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm @error('about') border-red-300 @enderror"
                                       placeholder="Ceritakan sedikit tentang diri Anda...">{{ old('about') }}</textarea>
                         </div>
+                        <p class="mt-1 text-xs text-gray-500">Maksimal 50.000 huruf</p>
                         @error('about')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
