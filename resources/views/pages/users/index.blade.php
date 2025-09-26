@@ -1,13 +1,13 @@
 <x-layouts.app :title="__('Daftar Pengguna')">
-    <div class="py-12 px-4 md:px-6 lg:px-8 min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
+    <div class="">
         <div class="max-w-7xl mx-auto">
             <!-- Header -->
             <div class="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                    <h1 class="text-3xl md:text-4xl font-extrabold mb-2 dark:text-slate-900">
+                    <h1 class="text-3xl md:text-4xl font-extrabold mb-2 dark:text-slate-200">
                         Daftar Pengguna
                     </h1>
-                    <p class="text-gray-600">
+                    <p class="text-gray-600 dark:text-slate-400">
                         Semua pengguna yang telah bergabung di platform ini.
                     </p>
                 </div>
