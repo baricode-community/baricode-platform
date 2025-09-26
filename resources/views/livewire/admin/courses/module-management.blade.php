@@ -100,38 +100,6 @@ new class extends Component {
         flash('Modul berhasil dihapus!', 'success');
     }
     
-    public function moveUp($moduleId)
-    {
-        $module = CourseModule::findOrFail($moduleId);
-        $previousModule = CourseModule::where('course_id', $module->course_id)
-            ->where('order', '<', $module->order)
-            ->orderBy('order', 'desc')
-            ->first();
-            
-        if ($previousModule) {
-            $tempOrder = $module->order;
-            $module->update(['order' => $previousModule->order]);
-            $previousModule->update(['order' => $tempOrder]);
-            flash('Urutan modul berhasil diubah!', 'success');
-        }
-    }
-    
-    public function moveDown($moduleId)
-    {
-        $module = CourseModule::findOrFail($moduleId);
-        $nextModule = CourseModule::where('course_id', $module->course_id)
-            ->where('order', '>', $module->order)
-            ->orderBy('order', 'asc')
-            ->first();
-            
-        if ($nextModule) {
-            $tempOrder = $module->order;
-            $module->update(['order' => $nextModule->order]);
-            $nextModule->update(['order' => $tempOrder]);
-            flash('Urutan modul berhasil diubah!', 'success');
-        }
-    }
-    
     public function updatedSearch()
     {
         $this->resetPage();
@@ -236,24 +204,6 @@ new class extends Component {
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center gap-1">
                                     <span class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ $module->order }}</span>
-                                    <div class="flex flex-col gap-1">
-                                        <button 
-                                            wire:click="moveUp({{ $module->id }})"
-                                            class="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
-                                            title="Naik">
-                                            <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
-                                            </svg>
-                                        </button>
-                                        <button 
-                                            wire:click="moveDown({{ $module->id }})"
-                                            class="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
-                                            title="Turun">
-                                            <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                                            </svg>
-                                        </button>
-                                    </div>
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
