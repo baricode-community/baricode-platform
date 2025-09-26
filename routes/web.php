@@ -57,7 +57,8 @@ Route::controller(AdminController::class)
     ->middleware(['auth', 'roles:admin'])
     ->prefix('admin')
     ->group(function () {
-        Route::get('/', 'index')->name('admin.dashboard');
+        Route::get('/', 'index')->name('admin');
+        
         Volt::route('users', 'admin.courses.user-management')->name('admin.users');
         Volt::route('courses', 'admin.courses.course-management')->name('admin.courses');
         Volt::route('categories', 'admin.courses.category-management')->name('admin.courses.categories');

@@ -262,7 +262,7 @@ new class extends Component {
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex items-center justify-end gap-2">
                                     <a 
-                                        href="{{ route('admin.module.lessons', $module->id) }}"
+                                        href="{{ route('admin.courses.lessons', $module->id) }}"
                                         class="text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300 transition-colors" 
                                         title="Kelola Pelajaran">
                                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

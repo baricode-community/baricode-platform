@@ -1,4 +1,4 @@
-<x-layouts.app :title="__('Admin Dashboard')">
+<x-layouts.app :title="__('Admin')">
     <div class="max-w-7xl mx-auto">
         <!-- Header -->
         <div class="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -50,7 +50,7 @@
             <x-heroicon-o-wrench-screwdriver class="w-7 h-7 text-indigo-500 dark:text-indigo-400" /> Menu Admin & Konfigurasi
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            <a href="{{ route('admin.dashboard') }}" class="block p-6 rounded-xl shadow-lg border bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition">
+            <a href="{{ route('admin.users') }}" class="block p-6 rounded-xl shadow-lg border bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition">
                 <div class="flex items-center gap-3 mb-2">
                     <x-heroicon-o-users class="w-7 h-7 text-indigo-500" />
                     <span class="font-semibold text-lg dark:text-white">Manajemen Pengguna</span>
@@ -64,28 +64,28 @@
                 </div>
                 <p class="text-gray-600 dark:text-gray-300">Tambah, edit, atau hapus kursus.</p>
             </a>
-            <a href="{{ route('admin.dashboard') }}" class="block p-6 rounded-xl shadow-lg border bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition">
+            <a href="{{ route('admin') }}" class="block p-6 rounded-xl shadow-lg border bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition">
                 <div class="flex items-center gap-3 mb-2">
                     <x-heroicon-o-document-text class="w-7 h-7 text-yellow-500" />
                     <span class="font-semibold text-lg dark:text-white">Manajemen Artikel</span>
                 </div>
                 <p class="text-gray-600 dark:text-gray-300">Kelola artikel dan konten edukasi.</p>
             </a>
-            <a href="{{ route('admin.dashboard') }}" class="block p-6 rounded-xl shadow-lg border bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition">
+            <a href="{{ route('admin') }}" class="block p-6 rounded-xl shadow-lg border bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition">
                 <div class="flex items-center gap-3 mb-2">
                     <x-heroicon-o-cog-6-tooth class="w-7 h-7 text-gray-500" />
                     <span class="font-semibold text-lg dark:text-white">Konfigurasi Platform</span>
                 </div>
                 <p class="text-gray-600 dark:text-gray-300">Atur pengaturan umum platform.</p>
             </a>
-            <a href="{{ route('admin.dashboard') }}" class="block p-6 rounded-xl shadow-lg border bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition">
+            <a href="{{ route('admin') }}" class="block p-6 rounded-xl shadow-lg border bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition">
                 <div class="flex items-center gap-3 mb-2">
                     <x-heroicon-o-clipboard-document-list class="w-7 h-7 text-red-500" />
                     <span class="font-semibold text-lg dark:text-white">Log Aktivitas</span>
                 </div>
                 <p class="text-gray-600 dark:text-gray-300">Pantau aktivitas dan log sistem.</p>
             </a>
-            <a href="{{ route('admin.dashboard') }}" class="block p-6 rounded-xl shadow-lg border bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition">
+            <a href="{{ route('admin') }}" class="block p-6 rounded-xl shadow-lg border bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition">
                 <div class="flex items-center gap-3 mb-2">
                     <x-heroicon-o-lifebuoy class="w-7 h-7 text-blue-500" />
                     <span class="font-semibold text-lg dark:text-white">Bantuan & Dukungan</span>

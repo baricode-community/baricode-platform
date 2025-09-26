@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
+
 <head>
     @include('partials.head')
 </head>
+
 <body class="min-h-screen bg-white dark:bg-zinc-800">
 
     <!-- Sidebar -->
@@ -12,22 +14,20 @@
         <!-- Main Navigation -->
         <flux:navlist variant="outline">
             <flux:navlist.group :heading="__('Platform')" class="grid">
-                <flux:navlist.item
-                    icon="home"
-                    :href="route('dashboard')"
-                    :current="request()->routeIs('dashboard')"
-                    wire:navigate
-                >
+                <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')"
+                    wire:navigate>
                     {{ __('Dashboard') }}
                 </flux:navlist.item>
-                <flux:navlist.item
-                    icon="home"
-                    :href="route('users')"
-                    :current="request()->routeIs('users')"
-                    wire:navigate
-                >
+                <flux:navlist.item icon="home" :href="route('users')" :current="request()->routeIs('users')"
+                    wire:navigate>
                     {{ __('Pengguna Lain') }}
                 </flux:navlist.item>
+                @if (auth()->user()->hasRole('admin'))
+                    <flux:navlist.item icon="shield-check" :href="route('admin')" :current="request()->routeIs('admin')"
+                        wire:navigate>
+                        {{ __('Halaman Admin') }}
+                    </flux:navlist.item>
+                @endif
             </flux:navlist.group>
         </flux:navlist>
 
@@ -42,11 +42,8 @@
 
         <!-- Desktop User Menu -->
         <flux:dropdown class="hidden lg:block" position="bottom" align="start">
-            <flux:profile
-                :name="auth()->user()->name"
-                :initials="auth()->user()->initials()"
-                icon:trailing="chevrons-up-down"
-            />
+            <flux:profile :name="auth()->user()->name" :initials="auth()->user()->initials()"
+                icon:trailing="chevrons-up-down" />
 
             <flux:menu class="w-[220px]">
                 <!-- User Info -->
@@ -54,7 +51,8 @@
                     <div class="p-0 text-sm font-normal">
                         <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
                             <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-lg">
-                                <span class="flex h-full w-full items-center justify-center rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
+                                <span
+                                    class="flex h-full w-full items-center justify-center rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
                                     {{ auth()->user()->initials() }}
                                 </span>
                             </span>
@@ -70,11 +68,7 @@
 
                 <!-- Settings -->
                 <flux:menu.radio.group>
-                    <flux:menu.item
-                        :href="route('profile.edit')"
-                        icon="cog"
-                        wire:navigate
-                    >
+                    <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>
                         {{ __('Settings') }}
                     </flux:menu.item>
                 </flux:menu.radio.group>
@@ -84,13 +78,8 @@
                 <!-- Logout -->
                 <form method="POST" action="{{ route('logout') }}" class="w-full">
                     @csrf
-                    <flux:menu.item
-                        as="button"
-                        type="submit"
-                        icon="arrow-right-start-on-rectangle"
-                        class="w-full"
-                        data-test="logout-button"
-                    >
+                    <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full"
+                        data-test="logout-button">
                         {{ __('Log Out') }}
                     </flux:menu.item>
                 </form>
@@ -105,10 +94,7 @@
         <flux:spacer />
 
         <flux:dropdown position="top" align="end">
-            <flux:profile
-                :initials="auth()->user()->initials()"
-                icon-trailing="chevron-down"
-            />
+            <flux:profile :initials="auth()->user()->initials()" icon-trailing="chevron-down" />
 
             <flux:menu>
                 <!-- User Info -->
@@ -116,7 +102,8 @@
                     <div class="p-0 text-sm font-normal">
                         <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
                             <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-lg">
-                                <span class="flex h-full w-full items-center justify-center rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
+                                <span
+                                    class="flex h-full w-full items-center justify-center rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
                                     {{ auth()->user()->initials() }}
                                 </span>
                             </span>
@@ -132,11 +119,7 @@
 
                 <!-- Settings -->
                 <flux:menu.radio.group>
-                    <flux:menu.item
-                        :href="route('profile.edit')"
-                        icon="cog"
-                        wire:navigate
-                    >
+                    <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>
                         {{ __('Settings') }}
                     </flux:menu.item>
                 </flux:menu.radio.group>
@@ -146,13 +129,8 @@
                 <!-- Logout -->
                 <form method="POST" action="{{ route('logout') }}" class="w-full">
                     @csrf
-                    <flux:menu.item
-                        as="button"
-                        type="submit"
-                        icon="arrow-right-start-on-rectangle"
-                        class="w-full"
-                        data-test="logout-button"
-                    >
+                    <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full"
+                        data-test="logout-button">
                         {{ __('Log Out') }}
                     </flux:menu.item>
                 </form>
@@ -165,4 +143,5 @@
 
     @fluxScripts
 </body>
+
 </html>
