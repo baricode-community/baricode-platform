@@ -9,7 +9,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::where(['email_verified_at' => null])->get();
         return view('pages.users.index', compact('users'));
     }
 }
