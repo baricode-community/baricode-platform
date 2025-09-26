@@ -8,10 +8,10 @@
                     Selamat Datang
                 </h1>
                 <div class="flex flex-col md:flex-row md:items-center gap-2 text-gray-600">
-                    <span class="flex items-center gap-1"><x-heroicon-o-envelope class="w-5 h-5" />
+                    <span class="flex items-center gap-1 dark:text-slate-200"><x-heroicon-o-envelope class="w-5 h-5" />
                         {{ auth()->user()->email }}</span>
                     <span class="hidden md:inline-block">|</span>
-                    <span class="flex items-center gap-1"><x-heroicon-o-calendar class="w-5 h-5" /> Bergabung sejak:
+                    <span class="flex items-center gap-1 dark:text-slate-200"><x-heroicon-o-calendar class="w-5 h-5 dark:text-red-500" /> Bergabung sejak:
                         {{ auth()->user()->created_at->format('d M Y') }}</span>
                 </div>
             </div>
