@@ -35,6 +35,13 @@ Route::controller(\App\Http\Controllers\DashboardController::class)
         Route::get('/profile', 'profile')->name('profile');
     });
 
+Route::controller(\App\Http\Controllers\UserController::class)
+    ->middleware(['auth', 'verified'])
+    ->prefix('users')
+    ->group(function () {
+        Route::get('/', 'index')->name('users');
+    });
+
 Route::controller(\App\Http\Controllers\CourseController::class)
     ->middleware(['auth', 'verified'])
     ->prefix('courses')

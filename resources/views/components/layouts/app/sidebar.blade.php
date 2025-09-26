@@ -20,6 +20,14 @@
                 >
                     {{ __('Dashboard') }}
                 </flux:navlist.item>
+                <flux:navlist.item
+                    icon="home"
+                    :href="route('users')"
+                    :current="request()->routeIs('users')"
+                    wire:navigate
+                >
+                    {{ __('Pengguna Lain') }}
+                </flux:navlist.item>
             </flux:navlist.group>
         </flux:navlist>
 
