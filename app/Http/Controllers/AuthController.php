@@ -36,7 +36,7 @@ class AuthController extends Controller
         if (!WhatsAppService::isValidNumber($whatsapp)) {
             return back()->withErrors([
                 'whatsapp' => 'Nomor WhatsApp tidak valid.',
-            ])->onlyInput('whatsapp');
+            ]);
         }
 
         $user = User::create([
