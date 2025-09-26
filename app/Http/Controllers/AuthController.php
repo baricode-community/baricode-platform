@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User\User;
+use App\Services\WhatsAppService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +32,12 @@ class AuthController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'terms' => ['accepted', 'required'],
         ]);
+        $whatsapp = $request->input('whatsapp');
+        if (!WhatsAppService::isValidNumber($whatsapp)) {
+            return back()->withErrors([
+                'whatsapp' => 'Nomor WhatsApp tidak valid.',
+            ])->onlyInput('whatsapp');
+        }
 
         $user = User::create([
             'name' => $request->name,

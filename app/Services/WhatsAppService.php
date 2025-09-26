@@ -2,23 +2,14 @@
 
 namespace App\Services;
 
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
 class WhatsAppService
 {
-    private $apiUrl;
-    /**
-     * Create a new class instance.
-     */
-    public function __construct()
-    {
-        logger()->info('WhatsAppService initialized.');
+    private static $apiUrl = 'https://api.starsender.online/api/';
 
-        // Initialize any required properties or services here
-        $this->apiUrl = 'https://api.starsender.online/api/';
-    }
-
-    private function sendRequest($endpoint, $data): bool
+    private static function sendRequest($endpoint, $data): Response
     {
         logger()->info('Sending request to WhatsApp API', [
             'endpoint' => $endpoint,
@@ -27,7 +18,7 @@ class WhatsAppService
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
             'Authorization' => env('WHATSAPP_API_KEY'),
-        ])->post($this->apiUrl . $endpoint, $data);
+        ])->post(self::$apiUrl . $endpoint, $data);
 
         logger()->info('WhatsApp API response received', [
             'endpoint' => $endpoint,
@@ -35,23 +26,30 @@ class WhatsAppService
             'response' => $response->body(),
         ]);
 
-        return $response->successful();
+        return $response;
     }
 
-    public function sendMessage($to, $message): bool
+    public static function isValidNumber($number): bool
+    {
+        $data = ['number' => $number];
+        $response = self::sendRequest('check-number', $data);
+        return $response->json()['data']['status'];
+    }
+
+    public static function sendMessage($to, $message)
     {
         $data = [
             'number' => $to,
             'message' => $message
         ];
         
-        return $this->sendRequest('send-message', $data);
+        return self::sendRequest('send-message', $data);
     }
 
     /**
      * Send attendance reminder notification
      */
-    public function sendAttendanceReminder($phoneNumber, $studentName, $courseName, $reminderTime): bool
+    public static function sendAttendanceReminder($phoneNumber, $studentName, $courseName, $reminderTime): bool
     {
         $message = "🔔 *Pengingat Kelas*\n\n";
         $message .= "Halo *{$studentName}*! 👋\n\n";
@@ -61,6 +59,6 @@ class WhatsAppService
         $message .= "Silakan melakukan absensi sekarang.\n\n";
         $message .= "Semangat belajar! 💪";
         
-        return $this->sendMessage($phoneNumber, $message);
+        return self::sendMessage($phoneNumber, $message);
     }
 }
