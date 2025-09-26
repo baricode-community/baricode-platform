@@ -235,7 +235,7 @@ new class extends Component {
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex items-center justify-end gap-2">
                                     <a 
-                                        href="{{ route('admin.course.modules', $course->id) }}"
+                                        href="{{ route('admin.courses.modules', $course->id) }}"
                                         class="text-green-600 hover:text-green-800 transition-colors" 
                                         title="Kelola Modul">
                                         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
