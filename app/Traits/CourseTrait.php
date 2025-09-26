@@ -20,11 +20,13 @@ trait CourseTrait
         if (!is_array($request)) {
             $request = [];
         }
-        $context = [
-            'course_id' => $course->id,
-            'course_title' => $course->title,
-            'user_id' => $user->id,
-        ];
+        // Pastikan tidak ada course enrollment yang belum disetujui, jadi tidak boleh duplikat
+        if ($user->courseEnrollments()->where(['course_id' => $course->id, 'is_approved' => false])->exists()) {
+            logger()->warning('User already enrolled. Course: '.$course->title);
+            flash()->warning('Anda sudah memulai di kursus ini. Silahkan selesaikan kursus tersebut terlebih dahulu.');
+
+            return null;
+        }
 
         logger()->info('Starting course: '.$course->title);
         if (! $course->is_published) {
@@ -87,7 +89,6 @@ trait CourseTrait
                 ]);
             }
         } catch (\Exception $e) {
-            throw $e;
             logger()->error('Failed to start course: '.$course->title.' Error: '.$e->getMessage());
             DB::rollBack();
             flash()->error('Gagal memulai kursus. Silakan coba lagi.');
