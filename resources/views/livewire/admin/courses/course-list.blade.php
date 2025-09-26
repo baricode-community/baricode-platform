@@ -335,28 +335,6 @@ new class extends Component {
                                             @error('slug') <span class="text-red-500 dark:text-red-400 text-xs">{{ $message }}</span> @enderror
                                         </div>
                                         
-                                        <div>
-                                            <label for="price" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Harga (Rp)</label>
-                                            <input 
-                                                wire:model="price"
-                                                type="number" 
-                                                id="price"
-                                                min="0"
-                                                class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-100">
-                                            @error('price') <span class="text-red-500 dark:text-red-400 text-xs">{{ $message }}</span> @enderror
-                                        </div>
-                                        
-                                        <div>
-                                            <label for="duration_hours" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Durasi (Jam)</label>
-                                            <input 
-                                                wire:model="duration_hours"
-                                                type="number" 
-                                                id="duration_hours"
-                                                min="0"
-                                                class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-100">
-                                            @error('duration_hours') <span class="text-red-500 dark:text-red-400 text-xs">{{ $message }}</span> @enderror
-                                        </div>
-                                        
                                         <div class="md:col-span-2">
                                             <label for="description" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Deskripsi</label>
                                             <textarea 
