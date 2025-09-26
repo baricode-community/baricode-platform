@@ -97,6 +97,7 @@ return [
 
     'middleware' => [
         'web',
+        'roles:admin',
         \Opcodes\LogViewer\Http\Middleware\AuthorizeLogViewer::class,
     ],
 
