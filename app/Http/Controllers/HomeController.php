@@ -41,7 +41,7 @@ class HomeController extends Controller
     {
         logger()->info('HomeController courses method called');
 
-        $categories = CourseCategory::get();
+        $categories = CourseCategory::get()->sortBy('name');
         logger()->info('Fetched ' . $categories->count() . ' course categories.');
         return view('pages.home.course.index', compact('categories'));
     }
