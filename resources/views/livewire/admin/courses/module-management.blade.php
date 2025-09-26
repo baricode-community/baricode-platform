@@ -157,7 +157,7 @@ new class extends Component {
         ];
     }
 }; ?>
-<div class="dark:bg-gray-900 dark:text-gray-100">
+<div class="">
     <div class="flex justify-between items-center mb-6">
         <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100">Manajemen Modul</h2>
         <button 
@@ -174,21 +174,21 @@ new class extends Component {
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
         <div class="relative">
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg class="h-5 w-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="h-5 w-5 text-gray-400 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
             </div>
             <input 
                 wire:model.live.debounce.300ms="search"
                 type="text" 
-                class="block w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-100" 
+                class="block w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-400" 
                 placeholder="Cari modul...">
         </div>
         
         <div>
             <select 
                 wire:model.live="courseFilter"
-                class="block w-full py-2 px-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-100">
+                class="block w-full py-2 px-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-900 dark:text-gray-100">
                 <option value="">Semua Kursus</option>
                 @foreach($courses as $course)
                     <option value="{{ $course->id }}">{{ $course->title }}</option>
@@ -198,10 +198,10 @@ new class extends Component {
     </div>
 
     <!-- Modules Table -->
-    <div class="bg-white dark:bg-gray-800 shadow-sm rounded-lg overflow-hidden">
+    <div class="bg-white dark:bg-gray-900 shadow-sm rounded-lg overflow-auto">
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead class="bg-gray-50 dark:bg-gray-700">
+                <thead class="bg-gray-50 dark:bg-gray-800">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Modul</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Kursus</th>
@@ -210,9 +210,9 @@ new class extends Component {
                         <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Aksi</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                <tbody class="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
                     @forelse($modules as $module)
-                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-800">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div>
                                     <div class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ $module->name }}</div>
@@ -291,7 +291,7 @@ new class extends Component {
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
+                            <td colspan="5" class="px-6 py-8 text-center text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-900">
                                 <div class="flex flex-col items-center">
                                     <svg class="h-12 w-12 text-gray-300 dark:text-gray-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path>
@@ -306,7 +306,7 @@ new class extends Component {
         </div>
         
         <!-- Pagination -->
-        <div class="px-6 py-3 border-t border-gray-200 dark:border-gray-700">
+        <div class="px-6 py-3 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
             {{ $modules->links() }}
         </div>
     </div>
@@ -319,9 +319,9 @@ new class extends Component {
                 <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" wire:click="$set('showModal', false)"></div>
 
                 <!-- Modal panel -->
-                <div class="relative bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <div class="relative bg-white dark:bg-gray-900 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:w-full sm:max-w-lg">
                     <form wire:submit.prevent="save">
-                        <div class="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                        <div class="bg-white dark:bg-gray-900 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <div class="sm:flex sm:items-start">
                                 <div class="w-full">
                                     <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-gray-100 mb-4">
@@ -335,7 +335,7 @@ new class extends Component {
                                                 wire:model="name"
                                                 type="text" 
                                                 id="name"
-                                                class="mt-1 block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-900 dark:text-gray-100">
+                                                class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-400">
                                             @error('name') <span class="text-red-500 dark:text-red-400 text-xs">{{ $message }}</span> @enderror
                                         </div>
                                         
@@ -344,7 +344,7 @@ new class extends Component {
                                             <select 
                                                 wire:model="course_id"
                                                 id="course_id"
-                                                class="mt-1 block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-900 dark:text-gray-100">
+                                                class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-100">
                                                 <option value="">Pilih Kursus</option>
                                                 @foreach($courses as $course)
                                                     <option value="{{ $course->id }}">{{ $course->title }}</option>
@@ -360,7 +360,7 @@ new class extends Component {
                                                 type="number" 
                                                 id="order"
                                                 min="1"
-                                                class="mt-1 block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-900 dark:text-gray-100">
+                                                class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-100">
                                             @error('order') <span class="text-red-500 dark:text-red-400 text-xs">{{ $message }}</span> @enderror
                                         </div>
                                         
@@ -370,7 +370,7 @@ new class extends Component {
                                                 wire:model="description"
                                                 id="description"
                                                 rows="3"
-                                                class="mt-1 block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-900 dark:text-gray-100"
+                                                class="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-400"
                                                 placeholder="Deskripsi modul (opsional)"></textarea>
                                             @error('description') <span class="text-red-500 dark:text-red-400 text-xs">{{ $message }}</span> @enderror
                                         </div>
@@ -379,7 +379,7 @@ new class extends Component {
                             </div>
                         </div>
                         
-                        <div class="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                        <div class="bg-gray-50 dark:bg-gray-800 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                             <button 
                                 type="submit"
                                 class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
@@ -388,7 +388,7 @@ new class extends Component {
                             <button 
                                 type="button"
                                 wire:click="$set('showModal', false)"
-                                class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 dark:border-gray-700 shadow-sm px-4 py-2 bg-white dark:bg-gray-900 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                                class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 dark:border-gray-600 shadow-sm px-4 py-2 bg-white dark:bg-gray-900 text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                                 Batal
                             </button>
                         </div>
