@@ -25,9 +25,6 @@
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Tentang Diri
                                 </th>
-                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Level
-                                </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Bergabung Sejak
                                 </th>
@@ -46,10 +43,7 @@
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-500">{{ Str::limit($user->about, 10) }}</div>
-                                    </td>
-                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-500">{{ $user->level }}</div>
+                                        <div class="text-sm text-gray-500">{{ Str::limit($user->about, 30) }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         {{ $user->created_at->format('d M Y') }}
