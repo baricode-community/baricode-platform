@@ -108,12 +108,14 @@
                             Kata Sandi
                         </label>
                         <div class="mt-1 relative">
-                            <input id="password" name="password" autocomplete="new-password" required
+                            <input id="password" name="password" type="password" autocomplete="new-password" required
                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm @error('password') border-red-300 @enderror">
                             <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                                </svg>
+                                <span id="password-toggle" class="cursor-pointer">
+                                    <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zM3 19v-6a9 9 0 0118 0v6a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path>
+                                    </svg>
+                                </span>
                             </div>
                         </div>
                         @error('password')
@@ -126,12 +128,14 @@
                             Konfirmasi Kata Sandi
                         </label>
                         <div class="mt-1 relative">
-                            <input id="password_confirmation" name="password_confirmation" autocomplete="new-password" required
+                            <input id="password_confirmation" name="password_confirmation" type="password" autocomplete="new-password" required
                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                             <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
+                                 <span id="password-confirm-toggle" class="cursor-pointer">
+                                    <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zM3 19v-6a9 9 0 0118 0v6a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path>
+                                    </svg>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -160,5 +164,27 @@
             </div>
         </div>
     </div>
+    <script>
+        const passwordInput = document.getElementById('password');
+        const passwordToggle = document.getElementById('password-toggle');
+        const passwordConfirmInput = document.getElementById('password_confirmation');
+        const passwordConfirmToggle = document.getElementById('password-confirm-toggle');
+
+        passwordToggle.addEventListener('click', function () {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+            } else {
+                passwordInput.type = 'password';
+            }
+        });
+
+        passwordConfirmToggle.addEventListener('click', function () {
+            if (passwordConfirmInput.type === 'password') {
+                passwordConfirmInput.type = 'text';
+            } else {
+                passwordConfirmInput.type = 'password';
+            }
+        });
+    </script>
 </body>
 </html>

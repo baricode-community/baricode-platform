@@ -55,12 +55,15 @@
                             Kata Sandi
                         </label>
                         <div class="mt-1 relative">
-                            <input id="password" name="password" autocomplete="current-password" required
+                            <input id="password" name="password" type="password" autocomplete="current-password" required
                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm @error('password') border-red-300 @enderror">
                             <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                                </svg>
+                                 <span id="password-toggle" class="cursor-pointer">
+                                    <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7 2.27-3.943-1.521-7-4.458-7 3.069 0 6.859 3.057 9.13 7-2.27 3.943-6.064 7-9.13 7-3.069 0-6.859-3.057-9.13-7 2.27-3.943 6.059-7 9.13-7z" />
+                                    </svg>
+                                </span>
                             </div>
                         </div>
                         @error('password')
@@ -99,5 +102,19 @@
             </div>
         </div>
     </div>
+    <script>
+        const passwordInput = document.getElementById('password');
+        const passwordToggle = document.getElementById('password-toggle');
+
+        passwordToggle.addEventListener('click', function () {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            const icon = passwordToggle.querySelector('svg');
+            icon.innerHTML = type === 'password' ? 
+                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7 2.27-3.943-1.521-7-4.458-7 3.069 0 6.859 3.057 9.13 7-2.27 3.943-6.064 7-9.13 7-3.069 0-6.859-3.057-9.13-7 2.27-3.943 6.059-7 9.13-7z" />' :
+                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0022 12c0-5.523-4.477-10-10-10A10.048 10.048 0 001.875 5.175m11.9 17.65a12.015 12.015 0 01-1.624-3.753M15.75 10.5a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z" />';
+        });
+    </script>
 </body>
 </html>
