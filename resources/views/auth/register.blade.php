@@ -74,7 +74,7 @@
                             Nomor WhatsApp
                         </label>
                         <div class="mt-1 relative">
-                            <input id="whatsapp" name="whatsapp" type="text" autocomplete="tel" required
+                            <input id="whatsapp" name="whatsapp" type="text" autocomplete="tel"
                                    value="{{ old('whatsapp') }}"
                                    placeholder="08xxxxxxxxxx"
                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm @error('whatsapp') border-red-300 @enderror">
