@@ -25,7 +25,11 @@ class UserForm
                 TextInput::make('email_verified_at')
                     ->label('Email Terverifikasi Pada')
                     ->disabled(),
-                TextInput::make('password')->label('Kata Sandi')->password()->required()
+                TextInput::make('password')
+                    ->password()
+                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                    ->dehydrated(fn ($state) => filled($state))
+                    ->required(fn (string $context): bool => $context === 'create')
             ]);
     }
 }
