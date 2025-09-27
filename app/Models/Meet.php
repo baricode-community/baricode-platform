@@ -15,11 +15,13 @@ class Meet extends Model
         'title',
         'youtube_link',
         'description',
-        'scheduled_at'
+        'scheduled_at',
+        'is_finished'
     ];
     
     protected $casts = [
         'scheduled_at' => 'datetime',
+        'is_finished' => 'boolean',
     ];
     
     /**

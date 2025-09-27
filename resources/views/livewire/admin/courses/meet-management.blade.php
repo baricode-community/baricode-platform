@@ -24,6 +24,7 @@ new #[Layout('components.layouts.app')] class extends Component {
     public $youtube_link = '';
     public $description = '';
     public $scheduled_at = '';
+    public $is_finished = false;
     
     // Participants management
     public $availableUsers = [];
@@ -74,9 +75,10 @@ new #[Layout('components.layouts.app')] class extends Component {
         $meet = Meet::findOrFail($meetId);
         $this->editingMeet = $meetId;
         $this->title = $meet->title;
-        $this->youtube_link = $meet->youtube_link;
+        $this->youtube_link = $meet->youtube_link ?? '';
         $this->description = $meet->description ?? '';
         $this->scheduled_at = $meet->scheduled_at ? $meet->scheduled_at->format('Y-m-d\TH:i') : '';
+        $this->is_finished = $meet->is_finished;
         $this->showEditForm = true;
     }
 
@@ -97,16 +99,17 @@ new #[Layout('components.layouts.app')] class extends Component {
     {
         $this->validate([
             'title' => 'required|string|max:255',
-            'youtube_link' => 'required|url',
+            'youtube_link' => 'nullable|url',
             'description' => 'nullable|string',
             'scheduled_at' => 'nullable|date|after:now'
         ]);
 
         Meet::create([
             'title' => $this->title,
-            'youtube_link' => $this->youtube_link,
+            'youtube_link' => $this->youtube_link ?: null,
             'description' => $this->description ?: null,
             'scheduled_at' => $this->scheduled_at ? \Carbon\Carbon::parse($this->scheduled_at) : null,
+            'is_finished' => $this->is_finished,
         ]);
 
         $this->closeForm();
@@ -117,7 +120,7 @@ new #[Layout('components.layouts.app')] class extends Component {
     {
         $this->validate([
             'title' => 'required|string|max:255',
-            'youtube_link' => 'required|url',
+            'youtube_link' => 'nullable|url',
             'description' => 'nullable|string',
             'scheduled_at' => 'nullable|date'
         ]);
@@ -126,9 +129,10 @@ new #[Layout('components.layouts.app')] class extends Component {
         
         $meet->update([
             'title' => $this->title,
-            'youtube_link' => $this->youtube_link,
+            'youtube_link' => $this->youtube_link ?: null,
             'description' => $this->description ?: null,
             'scheduled_at' => $this->scheduled_at ? \Carbon\Carbon::parse($this->scheduled_at) : null,
+            'is_finished' => $this->is_finished,
         ]);
 
         $this->closeForm();
@@ -160,6 +164,7 @@ new #[Layout('components.layouts.app')] class extends Component {
         $this->youtube_link = '';
         $this->description = '';
         $this->scheduled_at = '';
+        $this->is_finished = false;
         $this->editingMeet = null;
         $this->resetValidation();
     }
@@ -228,6 +233,7 @@ new #[Layout('components.layouts.app')] class extends Component {
                     <thead class="bg-gray-50">
                         <tr>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Scheduled</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Participants</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
@@ -244,6 +250,17 @@ new #[Layout('components.layouts.app')] class extends Component {
                                         @endif
                                     </div>
                                 </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    @if($meet->is_finished)
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                            Selesai
+                                        </span>
+                                    @else
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                            Aktif
+                                        </span>
+                                    @endif
+                                </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                     {{ $meet->scheduled_at ? $meet->scheduled_at->format('d M Y, H:i') : 'Not scheduled' }}
                                 </td>
@@ -253,13 +270,15 @@ new #[Layout('components.layouts.app')] class extends Component {
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
-                                    <a href="{{ $meet->youtube_link }}" target="_blank" 
-                                       class="text-green-600 hover:text-green-900">
-                                        <svg class="w-4 h-4 inline" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M4.25 5.5a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 00.75-.75v-3.5a.75.75 0 011.5 0v3.5A2.25 2.25 0 0112.75 17h-8.5A2.25 2.25 0 012 14.75v-8.5A2.25 2.25 0 014.25 4h5a.75.75 0 010 1.5h-5z" clip-rule="evenodd"/>
-                                            <path fill-rule="evenodd" d="M6.194 12.753a.75.75 0 001.06.053L16.5 4.44v2.81a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.553l-9.056 8.194a.75.75 0 00-.053 1.06z" clip-rule="evenodd"/>
-                                        </svg>
-                                    </a>
+                                    @if($meet->youtube_link)
+                                        <a href="{{ $meet->youtube_link }}" target="_blank" 
+                                           class="text-green-600 hover:text-green-900">
+                                            <svg class="w-4 h-4 inline" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M4.25 5.5a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 00.75-.75v-3.5a.75.75 0 011.5 0v3.5A2.25 2.25 0 0112.75 17h-8.5A2.25 2.25 0 012 14.75v-8.5A2.25 2.25 0 014.25 4h5a.75.75 0 010 1.5h-5z" clip-rule="evenodd"/>
+                                                <path fill-rule="evenodd" d="M6.194 12.753a.75.75 0 001.06.053L16.5 4.44v2.81a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.553l-9.056 8.194a.75.75 0 00-.053 1.06z" clip-rule="evenodd"/>
+                                            </svg>
+                                        </a>
+                                    @endif
                                     <button wire:click="openParticipantsModal({{ $meet->id }})" 
                                             class="text-blue-600 hover:text-blue-900">
                                         <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -282,7 +301,7 @@ new #[Layout('components.layouts.app')] class extends Component {
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                                <td colspan="5" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
                                     Tidak ada meet yang ditemukan.
                                 </td>
                             </tr>
@@ -317,9 +336,10 @@ new #[Layout('components.layouts.app')] class extends Component {
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">YouTube Link</label>
+                                <label class="block text-sm font-medium text-gray-700">YouTube Link (Optional)</label>
                                 <input wire:model="youtube_link" type="url" 
-                                       class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500">
+                                       class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500"
+                                       placeholder="https://www.youtube.com/watch?v=...">
                                 @error('youtube_link') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                             </div>
 
@@ -335,6 +355,15 @@ new #[Layout('components.layouts.app')] class extends Component {
                                 <input wire:model="scheduled_at" type="datetime-local" 
                                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500">
                                 @error('scheduled_at') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                            </div>
+
+                            <div>
+                                <label class="flex items-center space-x-3">
+                                    <input wire:model="is_finished" type="checkbox" 
+                                           class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200">
+                                    <span class="text-sm font-medium text-gray-700">Meet Sudah Selesai</span>
+                                </label>
+                                @error('is_finished') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                             </div>
                         </div>
 
