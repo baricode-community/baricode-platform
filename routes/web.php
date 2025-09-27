@@ -53,6 +53,25 @@ Route::controller(\App\Http\Controllers\CourseController::class)
         Route::get('/continue/lesson/{enrollmentLesson}', 'continue_lesson')->name('course.continue.lesson');
     });
 
+// Meet routes - API-style endpoints
+Route::controller(\App\Http\Controllers\MeetController::class)
+    ->prefix('api/meets')
+    ->group(function () {
+        Route::get('/', 'index')->name('meets.index');
+        Route::get('/{meet}', 'show')->name('meets.show');
+        
+        Route::middleware(['auth', 'verified'])->group(function () {
+            Route::post('/{meet}/join', 'join')->name('meets.join');
+            Route::delete('/{meet}/leave', 'leave')->name('meets.leave');
+        });
+        
+        Route::middleware(['auth', 'roles:admin'])->group(function () {
+            Route::post('/', 'store')->name('meets.store');
+            Route::put('/{meet}', 'update')->name('meets.update');
+            Route::delete('/{meet}', 'destroy')->name('meets.destroy');
+        });
+    });
+
 Route::controller(AdminController::class)
     ->middleware(['auth', 'roles:admin'])
     ->prefix('admin')
@@ -64,6 +83,7 @@ Route::controller(AdminController::class)
         Volt::route('categories', 'admin.courses.category-management')->name('admin.courses.categories');
         Volt::route('modules', 'admin.courses.module-management')->name('admin.courses.modules');
         Volt::route('lessons', 'admin.courses.lesson-management')->name('admin.courses.lessons');
+        Volt::route('meets', 'admin.courses.meet-management')->name('admin.meets');
 
         // Individual course module management
         Route::get('courses/{course}/modules', function ($courseId) {

@@ -65,6 +65,13 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
         return $this->hasMany(UserNote::class, 'user_id', 'id');
     }
 
+    public function meets()
+    {
+        return $this->belongsToMany(\App\Models\Meet::class, 'meet_user')
+                    ->withPivot('joined_at')
+                    ->withTimestamps();
+    }
+
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->hasRole('admin');
