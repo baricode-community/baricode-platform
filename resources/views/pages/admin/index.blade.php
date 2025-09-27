@@ -64,6 +64,13 @@
                 </div>
                 <p class="text-gray-600 dark:text-gray-300">Tambah, edit, atau hapus kursus.</p>
             </a>
+            <a href="{{ route('admin.meets') }}" class="block p-6 rounded-xl shadow-lg border bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition">
+                <div class="flex items-center gap-3 mb-2">
+                    <x-heroicon-o-video-camera class="w-7 h-7 text-purple-500" />
+                    <span class="font-semibold text-lg dark:text-white">Manajemen Meet</span>
+                </div>
+                <p class="text-gray-600 dark:text-gray-300">Kelola meet online dan peserta.</p>
+            </a>
             <a href="{{ route('admin') }}" class="block p-6 rounded-xl shadow-lg border bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition">
                 <div class="flex items-center gap-3 mb-2">
                     <x-heroicon-o-document-text class="w-7 h-7 text-yellow-500" />
