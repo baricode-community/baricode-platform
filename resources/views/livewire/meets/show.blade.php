@@ -56,12 +56,19 @@ new #[Layout('components.layouts.app')] class extends Component {
         session()->flash('success', 'Berhasil keluar dari meet!');
     }
 
-    public function openYoutube()
+    public function openMeetLink()
     {
         if (auth()->check() && $this->meet->isParticipant(auth()->user())) {
-            return redirect()->away($this->meet->youtube_link);
+            // Prioritize meet_link over youtube_link
+            $link = $this->meet->meet_link ?: $this->meet->youtube_link;
+            
+            if ($link) {
+                return redirect()->away($link);
+            } else {
+                session()->flash('error', 'Link meet tidak tersedia.');
+            }
         } else {
-            session()->flash('error', 'Anda harus bergabung dengan meet terlebih dahulu untuk mengakses link YouTube.');
+            session()->flash('error', 'Anda harus bergabung dengan meet terlebih dahulu untuk mengakses link meet.');
         }
     }
 }; ?>
@@ -137,14 +144,13 @@ new #[Layout('components.layouts.app')] class extends Component {
             <div class="flex flex-col sm:flex-row gap-4 mb-8">
                 @auth
                     @if ($meet->isParticipant(auth()->user()))
-                        @if ($meet->youtube_link)
-                            <button wire:click="openYoutube"
-                                class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800 transition-colors">
-                                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M2 6a2 2 0 012-2h6l2 2h6a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
+                        @if ($meet->meet_link || $meet->youtube_link)
+                            <button wire:click="openMeetLink"
+                                class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 transition-colors">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-2M7 9l3 3 3-3m4 4V9a4 4 0 00-8 0v3"/>
                                 </svg>
-                                Buka YouTube
+                                Masuk ke Meet
                             </button>
                         @endif
 

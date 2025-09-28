@@ -22,6 +22,7 @@ new #[Layout('components.layouts.app')] class extends Component {
     // Form properties
     public $title = '';
     public $youtube_link = '';
+    public $meet_link = '';
     public $description = '';
     public $scheduled_at = '';
     public $is_finished = false;
@@ -76,6 +77,7 @@ new #[Layout('components.layouts.app')] class extends Component {
         $this->editingMeet = $meetId;
         $this->title = $meet->title;
         $this->youtube_link = $meet->youtube_link ?? '';
+        $this->meet_link = $meet->meet_link ?? '';
         $this->description = $meet->description ?? '';
         $this->scheduled_at = $meet->scheduled_at ? $meet->scheduled_at->format('Y-m-d\TH:i') : '';
         $this->is_finished = $meet->is_finished;
@@ -100,6 +102,7 @@ new #[Layout('components.layouts.app')] class extends Component {
         $this->validate([
             'title' => 'required|string|max:255',
             'youtube_link' => 'nullable|url',
+            'meet_link' => 'nullable|url',
             'description' => 'nullable|string',
             'scheduled_at' => 'nullable|date|after:now'
         ]);
@@ -107,6 +110,7 @@ new #[Layout('components.layouts.app')] class extends Component {
         Meet::create([
             'title' => $this->title,
             'youtube_link' => $this->youtube_link ?: null,
+            'meet_link' => $this->meet_link ?: null,
             'description' => $this->description ?: null,
             'scheduled_at' => $this->scheduled_at ? \Carbon\Carbon::parse($this->scheduled_at) : null,
             'is_finished' => $this->is_finished,
@@ -121,6 +125,7 @@ new #[Layout('components.layouts.app')] class extends Component {
         $this->validate([
             'title' => 'required|string|max:255',
             'youtube_link' => 'nullable|url',
+            'meet_link' => 'nullable|url',
             'description' => 'nullable|string',
             'scheduled_at' => 'nullable|date'
         ]);
@@ -130,6 +135,7 @@ new #[Layout('components.layouts.app')] class extends Component {
         $meet->update([
             'title' => $this->title,
             'youtube_link' => $this->youtube_link ?: null,
+            'meet_link' => $this->meet_link ?: null,
             'description' => $this->description ?: null,
             'scheduled_at' => $this->scheduled_at ? \Carbon\Carbon::parse($this->scheduled_at) : null,
             'is_finished' => $this->is_finished,
@@ -162,6 +168,7 @@ new #[Layout('components.layouts.app')] class extends Component {
     {
         $this->title = '';
         $this->youtube_link = '';
+        $this->meet_link = '';
         $this->description = '';
         $this->scheduled_at = '';
         $this->is_finished = false;
@@ -270,12 +277,21 @@ new #[Layout('components.layouts.app')] class extends Component {
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                    @if($meet->meet_link)
+                                        <a href="{{ $meet->meet_link }}" target="_blank" 
+                                           class="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300"
+                                           title="Link Meet">
+                                            <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-2M7 9l3 3 3-3m4 4V9a4 4 0 00-8 0v3"/>
+                                            </svg>
+                                        </a>
+                                    @endif
                                     @if($meet->youtube_link)
                                         <a href="{{ $meet->youtube_link }}" target="_blank" 
-                                           class="text-green-600 dark:text-green-400 hover:text-green-900 dark:hover:text-green-300">
+                                           class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300"
+                                           title="YouTube Link">
                                             <svg class="w-4 h-4 inline" fill="currentColor" viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd" d="M4.25 5.5a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 00.75-.75v-3.5a.75.75 0 011.5 0v3.5A2.25 2.25 0 0112.75 17h-8.5A2.25 2.25 0 012 14.75v-8.5A2.25 2.25 0 014.25 4h5a.75.75 0 010 1.5h-5z" clip-rule="evenodd"/>
-                                                <path fill-rule="evenodd" d="M6.194 12.753a.75.75 0 001.06.053L16.5 4.44v2.81a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.553l-9.056 8.194a.75.75 0 00-.053 1.06z" clip-rule="evenodd"/>
+                                                <path d="M2 6a2 2 0 012-2h6l2 2h6a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
                                             </svg>
                                         </a>
                                     @endif
@@ -336,7 +352,15 @@ new #[Layout('components.layouts.app')] class extends Component {
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">YouTube Link (Nanti Saat Selesai)</label>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Link Meet (Zoom, Google Meet, dll)</label>
+                                <input wire:model="meet_link" type="url" 
+                                       class="mt-1 block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-900 dark:text-gray-100"
+                                       placeholder="https://zoom.us/j/... atau https://meet.google.com/...">
+                                @error('meet_link') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">YouTube Link (Untuk Rekaman Setelah Selesai)</label>
                                 <input wire:model="youtube_link" type="url" 
                                        class="mt-1 block w-full border border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-900 dark:text-gray-100"
                                        placeholder="https://www.youtube.com/watch?v=...">

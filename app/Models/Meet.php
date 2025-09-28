@@ -14,6 +14,7 @@ class Meet extends Model
     protected $fillable = [
         'title',
         'youtube_link',
+        'meet_link',
         'description',
         'scheduled_at',
         'is_finished'

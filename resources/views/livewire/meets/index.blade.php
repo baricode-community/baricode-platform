@@ -98,6 +98,31 @@ new #[Layout('components.layouts.app')] class extends Component {
         $meet->users()->detach($user->id);
         session()->flash('success', 'Berhasil keluar dari meet!');
     }
+
+    public function openMeetLink($meetId)
+    {
+        if (!auth()->check()) {
+            $this->redirect(route('login'), navigate: true);
+            return;
+        }
+
+        $meet = Meet::findOrFail($meetId);
+        $user = auth()->user();
+
+        if (!$meet->isParticipant($user)) {
+            session()->flash('error', 'Anda harus bergabung dengan meet terlebih dahulu untuk mengakses link meet.');
+            return;
+        }
+
+        // Prioritize meet_link over youtube_link
+        $link = $meet->meet_link ?: $meet->youtube_link;
+        
+        if ($link) {
+            return redirect()->away($link);
+        } else {
+            session()->flash('error', 'Link meet tidak tersedia.');
+        }
+    }
 }; ?>
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -228,7 +253,17 @@ new #[Layout('components.layouts.app')] class extends Component {
                             </span>
                         @else
                             @auth
-                                @if (!$meet->isParticipant(auth()->user()))
+                                @if ($meet->isParticipant(auth()->user()))
+                                    @if($meet->meet_link || $meet->youtube_link)
+                                        <button wire:click="openMeetLink({{ $meet->id }})" 
+                                                class="px-4 py-2 text-sm font-medium text-white bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 rounded-md transition-colors">
+                                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-2M7 9l3 3 3-3m4 4V9a4 4 0 00-8 0v3"/>
+                                            </svg>
+                                            Masuk
+                                        </button>
+                                    @endif
+                                @else
                                     <button wire:click="joinMeet({{ $meet->id }})" 
                                             class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-800 rounded-md transition-colors">
                                         Gabung
