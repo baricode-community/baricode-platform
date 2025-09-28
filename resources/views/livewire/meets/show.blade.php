@@ -45,6 +45,12 @@ new #[Layout('components.layouts.app')] class extends Component {
             return;
         }
 
+        // Mengecek apakah meet belum selesai
+        if ($this->meet->is_finished) {
+            session()->flash('error', 'Meet sudah selesai. Anda tidak bisa keluar sekarang.');
+            return;
+        }
+
         $this->meet->users()->detach($user->id);
         $this->meet->load('users'); // Refresh the relationship
         session()->flash('success', 'Berhasil keluar dari meet!');
@@ -146,15 +152,22 @@ new #[Layout('components.layouts.app')] class extends Component {
                                 Buka YouTube
                             </button>
                         @endif
-                        
-                        <button wire:click="leaveMeet"
-                            class="inline-flex items-center justify-center px-6 py-3 border border-red-300 text-base font-medium rounded-md text-red-700 bg-red-50 hover:bg-red-100 dark:border-red-700 dark:text-red-200 dark:bg-red-900 dark:hover:bg-red-800 transition-colors">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                            </svg>
-                            Keluar dari Meet
-                        </button>
+
+                        @if ($meet->is_finished)
+                            <div
+                                class="bg-gray-50 border border-gray-200 text-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 px-4 py-3 rounded-md mb-4 sm:mb-0">
+                                Meet telah selesai.
+                            </div>
+                        @else
+                            <button wire:click="leaveMeet"
+                                class="inline-flex items-center justify-center px-6 py-3 border border-red-300 text-base font-medium rounded-md text-red-700 bg-red-50 hover:bg-red-100 dark:border-red-700 dark:text-red-200 dark:bg-red-900 dark:hover:bg-red-800 transition-colors">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                </svg>
+                                Keluar dari Meet
+                            </button>
+                        @endif
                     @else
                         <button wire:click="joinMeet"
                             class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-800 transition-colors">
