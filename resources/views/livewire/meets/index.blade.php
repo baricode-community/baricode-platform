@@ -228,12 +228,7 @@ new #[Layout('components.layouts.app')] class extends Component {
                             </span>
                         @else
                             @auth
-                                @if ($meet->isParticipant(auth()->user()))
-                                    <button wire:click="leaveMeet({{ $meet->id }})" 
-                                            class="px-4 py-2 text-sm font-medium text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900 hover:bg-red-100 dark:hover:bg-red-800 rounded-md transition-colors">
-                                        Keluar
-                                    </button>
-                                @else
+                                @if (!$meet->isParticipant(auth()->user()))
                                     <button wire:click="joinMeet({{ $meet->id }})" 
                                             class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-800 rounded-md transition-colors">
                                         Gabung
