@@ -137,12 +137,7 @@ new #[Layout('components.layouts.app')] class extends Component {
             <div class="flex flex-col sm:flex-row gap-4 mb-8">
                 @auth
                     @if ($meet->isParticipant(auth()->user()))
-                        @if (!$meet->youtube_link)
-                            <div
-                                class="bg-yellow-50 border border-yellow-200 text-yellow-600 dark:bg-yellow-900 dark:border-yellow-700 dark:text-yellow-200 px-4 py-3 rounded-md mb-4 sm:mb-0">
-                                Link YouTube belum tersedia.
-                            </div>
-                        @else
+                        @if ($meet->youtube_link)
                             <button wire:click="openYoutube"
                                 class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800 transition-colors">
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
