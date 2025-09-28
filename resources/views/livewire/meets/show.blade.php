@@ -144,13 +144,23 @@ new #[Layout('components.layouts.app')] class extends Component {
             <div class="flex flex-col sm:flex-row gap-4 mb-8">
                 @auth
                     @if ($meet->isParticipant(auth()->user()))
-                        @if ($meet->meet_link || $meet->youtube_link)
+                        @if ($meet->meet_link)
                             <button wire:click="openMeetLink"
                                 class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 transition-colors">
                                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-2M7 9l3 3 3-3m4 4V9a4 4 0 00-8 0v3"/>
                                 </svg>
                                 Masuk ke Meet
+                            </button>
+                        @endif
+
+                        @if ($meet->youtube_link)
+                            <button wire:click="openMeetLink"
+                                class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800 transition-colors">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-2M7 9l3 3 3-3m4 4V9a4 4 0 00-8 0v3"/>
+                                </svg>
+                                Masuk ke YouTube
                             </button>
                         @endif
 
