@@ -12,7 +12,7 @@
                         {{ Str::limit(auth()->user()->name, 15) }}
                     </span>
                     <span class="hidden md:inline-block">|</span>
-                    <span class="flex items-center gap-1"><x-heroicon-o-calendar class="w-5 h-5 text-gray-600 dark:text-red-400" /> Bergabung sejak:
+                    <span class="flex items-center gap-1">Bergabung sejak:
                         {{ auth()->user()->created_at->format('d M Y') }}</span>
                 </div>
             </div>
