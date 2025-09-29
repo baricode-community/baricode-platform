@@ -8,11 +8,11 @@
                     Selamat Datang
                 </h1>
                 <div class="flex flex-col md:flex-row md:items-center gap-2 text-gray-600 dark:text-gray-300">
-                    <span class="flex items-center gap-1">
+                    <span class="flex items-center gap-1"><x-heroicon-o-user class="w-5 h-5" />
                         {{ Str::limit(auth()->user()->name, 15) }}
                     </span>
                     <span class="hidden md:inline-block">|</span>
-                    <span class="flex items-center gap-1">Bergabung sejak:
+                    <span class="flex items-center gap-1"><x-heroicon-o-calendar class="w-5 h-5 text-gray-600 dark:text-red-400" /> Bergabung sejak:
                         {{ auth()->user()->created_at->format('d M Y') }}</span>
                 </div>
             </div>
