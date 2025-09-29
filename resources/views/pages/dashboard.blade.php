@@ -8,7 +8,7 @@
                     Selamat Datang
                 </h1>
                 <div class="flex flex-col md:flex-row md:items-center gap-2 text-gray-600 dark:text-gray-300">
-                    <span class="flex items-center gap-1"><x-heroicon-o-user class="w-5 h-5" />
+                    <span class="flex items-center gap-1">
                         {{ Str::limit(auth()->user()->name, 15) }}
                     </span>
                     <span class="hidden md:inline-block">|</span>
