@@ -44,6 +44,7 @@ class CourseController extends Controller
 
     public function continue(Enrollment $enrollment)
     {
+        Gate::authorize('view', $enrollment);
         logger()->info('Continuing course: ' . $enrollment->id);
         return view('pages.courses.continue', compact('enrollment'));
     }
