@@ -86,11 +86,9 @@ php artisan test --coverage
   ✓ it has proper user attributes                 0.06s  
   ✓ it generates correct initials                 0.05s  
   ✓ it deletes related data when user is deleted 0.07s  
-  ✓ it can access filament panel if admin        0.06s  
-  ✓ it cannot access filament panel if not admin 0.04s  
 
-  Tests:    12 passed (24 assertions)
-  Duration: 1.22s
+  Tests:    10 passed (22 assertions)
+  Duration: 1.12s
 ```
 
 ## 🔧 Yang Telah Diperbaiki
@@ -139,7 +137,6 @@ database/factories/
 - ✅ User attributes validation (name, email, phone, etc)
 - ✅ Initials generation method
 - ✅ Cascading deletes verification
-- ✅ Filament panel access control
 - ✅ Email domain filtering
 - ✅ Password encryption
 - ✅ Unique email constraints
