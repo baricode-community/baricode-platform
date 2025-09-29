@@ -21,7 +21,7 @@ class EnrollmentPolicy
      */
     public function view(User $user, Enrollment $enrollment): bool
     {
-        logger()->info('Authorization check for user ID: ' . $user->id . ' on enrollment ID: ' . $enrollment->id);
+        logger()->info('Authorization check for user ID: ' . $user->id . ' on enrollment user ID: ' . $enrollment->user_id);
         return $user->id === $enrollment->user_id;
     }
 
