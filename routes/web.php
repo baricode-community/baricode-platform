@@ -15,6 +15,8 @@ Route::controller(\App\Http\Controllers\HomeController::class)->group(function (
     Route::get('/about', 'about')->name('about');
     Route::get('/cara-belajar', 'cara_belajar')->name('cara_belajar');
 
+    Route::get('/profile/{user}', 'profile')->name('profile_user');
+
     Route::prefix('courses')->group(function () {
         Route::get('/', 'courses')->name('courses');
         Route::get('/{course:slug}', 'course')->name('course.show');

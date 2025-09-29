@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User\User;
 use Illuminate\Http\Request;
 use App\Models\Course\CourseCategory;
 use App\Models\Course\Course;
@@ -35,6 +36,12 @@ class HomeController extends Controller
     {
         logger()->info('HomeController cara_belajar method called');
         return view('pages.home.cara_belajar');
+    }
+
+    public function profile(User $user)
+    {
+        logger()->info('HomeController profile method called for user ID: ' . $user->id);
+        return view('pages.home.profile', compact('user'));
     }
 
     public function courses()
