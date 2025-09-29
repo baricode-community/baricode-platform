@@ -9,3 +9,4 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::command('backup:run')->at('00:00');
+Schedule::command('baricode:cleanup-soft-deleted')->at('00:00');
