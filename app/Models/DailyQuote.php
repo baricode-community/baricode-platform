@@ -13,9 +13,24 @@ class DailyQuote extends Model
     protected $guarded = ['id'];
     protected $table = 'daily_quotes';
 
+    protected $fillable = [
+        'quote_text',
+        'category',
+        'whatsapp_group_id',
+        'is_active',
+    ];
+
     protected $casts = [
         'is_active' => 'boolean',
     ];
+
+    /**
+     * Get the WhatsApp Group that owns this quote
+     */
+    public function whatsappGroup()
+    {
+        return $this->belongsTo(WhatsAppGroup::class, 'whatsapp_group_id');
+    }
 
     /**
      * Scope untuk quote yang aktif
@@ -28,9 +43,14 @@ class DailyQuote extends Model
     /**
      * Get random quote jika tidak ada quote hari ini
      */
-    public static function getRandomQuote()
+    public static function getRandomQuote($whatsappGroupId = null)
     {
         $query = self::active();
+        
+        if ($whatsappGroupId) {
+            $query->where('whatsapp_group_id', $whatsappGroupId);
+        }
+        
         return $query->inRandomOrder()->first();
     }
 
@@ -40,7 +60,8 @@ class DailyQuote extends Model
     public function getFormattedQuoteAttribute()
     {
         $date = Carbon::now()->format('d M Y');
-        $description = "Hai, aku robot yang akan mengirimkan quote harian kita\n";
+        $groupName = $this->whatsappGroup ? $this->whatsappGroup->name : 'Baricode Community';
+        $description = "Hai, aku robot dari {$groupName} yang akan mengirimkan quote harian kita\n";
         $quote = '"' . $this->quote_text . '"'. ' (' . $date . ')';
         return $description . $quote;
     }

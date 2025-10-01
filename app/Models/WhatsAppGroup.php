@@ -28,4 +28,12 @@ class WhatsAppGroup extends Model
     {
         return $this->belongsTo(\App\Models\User\User::class, 'created_by');
     }
+
+    /**
+     * Get all daily quotes for this group
+     */
+    public function dailyQuotes()
+    {
+        return $this->hasMany(DailyQuote::class, 'whatsapp_group_id');
+    }
 }

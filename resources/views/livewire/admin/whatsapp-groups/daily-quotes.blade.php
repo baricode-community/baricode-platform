@@ -3,25 +3,48 @@
 use Livewire\Volt\Component;
 use Livewire\Volt\Attributes\Layout;
 use App\Models\DailyQuote;
+use App\Models\WhatsAppGroup;
 
 new #[Layout('layouts.app')] class extends Component {
     public $quotes = [];
+    public $whatsappGroups = [];
     public $confirmingDelete = null;
 
     // Untuk form create/edit
     public $quote_text;
-    public $category;
+    public $whatsapp_group_id;
     public $editingId = null;
     public $showForm = false;
 
+    // Filter berdasarkan group
+    public $selectedGroupFilter = null;
+
     public function mount(): void
     {
+        $this->loadWhatsAppGroups();
         $this->loadQuotes();
+    }
+
+    public function loadWhatsAppGroups(): void
+    {
+        $this->whatsappGroups = WhatsAppGroup::where('is_active', true)->get()->toArray();
     }
 
     public function loadQuotes(): void
     {
-        $this->quotes = DailyQuote::all()->toArray();
+        $query = DailyQuote::with('whatsappGroup');
+        
+        if ($this->selectedGroupFilter) {
+            $query->where('whatsapp_group_id', $this->selectedGroupFilter);
+        }
+        
+        $this->quotes = $query->get()->toArray();
+    }
+
+    public function filterByGroup($groupId = null): void
+    {
+        $this->selectedGroupFilter = $groupId;
+        $this->loadQuotes();
     }
 
     public function create(): void
@@ -33,19 +56,19 @@ new #[Layout('layouts.app')] class extends Component {
     public function store(): void
     {
         $this->validate([
-            'quote_text' => 'required|string|max:255',
-            'category' => 'nullable|string|max:255',
+            'quote_text' => 'required|string|max:500',
+            'whatsapp_group_id' => 'required|exists:whatsapp_groups,id',
         ]);
 
         if ($this->editingId) {
             DailyQuote::find($this->editingId)?->update([
                 'quote_text' => $this->quote_text,
-                'category' => $this->category,
+                'whatsapp_group_id' => $this->whatsapp_group_id,
             ]);
         } else {
             DailyQuote::create([
                 'quote_text' => $this->quote_text,
-                'category' => $this->category,
+                'whatsapp_group_id' => $this->whatsapp_group_id,
             ]);
         }
 
@@ -59,8 +82,8 @@ new #[Layout('layouts.app')] class extends Component {
         $quote = DailyQuote::find($id);
         if ($quote) {
             $this->editingId = $quote->id;
-            $this->quote_text = $quote->quote_text;  // ✅ Diperbaiki
-            $this->category = $quote->category;      // ✅ Diperbaiki
+            $this->quote_text = $quote->quote_text;
+            $this->whatsapp_group_id = $quote->whatsapp_group_id;
             $this->showForm = true;
         }
     }
@@ -80,7 +103,7 @@ new #[Layout('layouts.app')] class extends Component {
     public function resetForm(): void
     {
         $this->quote_text = '';
-        $this->category = '';
+        $this->whatsapp_group_id = null;
         $this->editingId = null;
     }
 };
@@ -93,7 +116,17 @@ new #[Layout('layouts.app')] class extends Component {
         Daily Quotes
     </h2>
 
-    <div class="mb-6 flex justify-end">
+    {{-- Filter dan tombol tambah --}}
+    <div class="mb-6 flex flex-wrap gap-4 justify-between items-center">
+        <div class="flex gap-3 items-center">
+            <label class="text-sm font-medium text-gray-700 dark:text-gray-300">Filter berdasarkan grup:</label>
+            <select wire:model.live="selectedGroupFilter" wire:change="filterByGroup($event.target.value)"
+                class="px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none dark:bg-gray-700 dark:text-white dark:border-gray-600">
+                @foreach ($whatsappGroups as $group)
+                    <option value="{{ $group['id'] }}">{{ $group['name'] }}</option>
+                @endforeach
+            </select>
+        </div>
         <button wire:click="create"
             class="px-5 py-2.5 bg-indigo-600 text-white font-medium rounded-lg shadow hover:bg-indigo-700 transition">
             + Tambah Quote
@@ -105,11 +138,15 @@ new #[Layout('layouts.app')] class extends Component {
         @forelse ($quotes as $quote)
             <div
                 class="p-5 rounded-xl shadow-md bg-white dark:bg-gray-800 flex justify-between items-start hover:shadow-lg transition">
-                <div class="space-y-1">
+                <div class="space-y-2 flex-1">
                     <h3 class="font-semibold text-xl dark:text-white">"{{ $quote['quote_text'] }}"</h3>
-                    <p class="text-gray-600 dark:text-gray-300 text-sm">{{ $quote['category'] ?? '-' }}</p>
+                    <div class="flex flex-wrap gap-2 text-sm text-gray-600 dark:text-gray-300">
+                        <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full">
+                            {{ $quote['whatsapp_group']['name'] }}
+                        </span>
+                    </div>
                 </div>
-                <div class="flex gap-2">
+                <div class="flex gap-2 ml-4">
                     <button wire:click="edit({{ $quote['id'] }})"
                         class="px-3 py-1.5 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition">
                         Edit
@@ -121,7 +158,16 @@ new #[Layout('layouts.app')] class extends Component {
                 </div>
             </div>
         @empty
-            <p class="text-gray-500 dark:text-gray-400 text-center py-10">Belum ada quote harian.</p>
+            <div class="text-center py-12">
+                <x-heroicon-o-chat-bubble-left-ellipsis class="w-16 h-16 text-gray-400 mx-auto mb-4" />
+                <p class="text-gray-500 dark:text-gray-400 text-lg">
+                    @if($selectedGroupFilter)
+                        Belum ada quote untuk grup yang dipilih.
+                    @else
+                        Belum ada quote harian.
+                    @endif
+                </p>
+            </div>
         @endforelse
     </div>
 
@@ -130,21 +176,36 @@ new #[Layout('layouts.app')] class extends Component {
         <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 transition">
             <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg w-full max-w-md animate-fadeIn">
                 <h4 class="text-xl font-bold mb-4 dark:text-white">{{ $editingId ? 'Edit Quote' : 'Tambah Quote' }}</h4>
-                <form wire:submit.prevent="store" class="space-y-3">
+                <form wire:submit.prevent="store" class="space-y-4">
+                    {{-- Pilihan WhatsApp Group --}}
                     <div>
-                        <textarea wire:model="quote_text" placeholder="Isi quote" name="quote_text"
-                            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none dark:bg-gray-700 dark:text-white"></textarea>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            WhatsApp Group <span class="text-red-500">*</span>
+                        </label>
+                        <select wire:model="whatsapp_group_id" 
+                            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none dark:bg-gray-700 dark:text-white dark:border-gray-600">
+                            <option value="">Pilih WhatsApp Group</option>
+                            @foreach ($whatsappGroups as $group)
+                                <option value="{{ $group['id'] }}">{{ $group['name'] }}</option>
+                            @endforeach
+                        </select>
+                        @error('whatsapp_group_id')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    {{-- Quote Text --}}
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Isi Quote <span class="text-red-500">*</span>
+                        </label>
+                        <textarea wire:model="quote_text" placeholder="Masukkan quote inspiratif..." name="quote_text" rows="4"
+                            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none dark:bg-gray-700 dark:text-white dark:border-gray-600 resize-none"></textarea>
                         @error('quote_text')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div>
-                        <input type="text" wire:model="category" placeholder="Kategori (opsional)"
-                            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none dark:bg-gray-700 dark:text-white">
-                        @error('category')
-                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
+
                     <div class="flex gap-2 justify-end pt-2">
                         <button type="submit"
                             class="px-5 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
