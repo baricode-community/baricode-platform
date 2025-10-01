@@ -69,7 +69,8 @@ Route::middleware(['auth', 'roles:admin'])
         Volt::route('meets', 'admin.courses.meet-management')->name('admin.meets');
         Volt::route('users', 'admin.courses.user-management')->name('admin.users');
         Volt::route('whatsapp-groups', 'admin.whatsapp-groups.index')->name('admin.whatsapp-groups');
-        
+        Volt::route('/whatsapp-groups/daily-quotes', 'admin.whatsapp-groups.daily-quotes')->name('admin.whatsapp-groups.daily-quotes');
+
         // New structured course management routes
         Route::prefix('course-management')->group(function () {
             // Course Categories
