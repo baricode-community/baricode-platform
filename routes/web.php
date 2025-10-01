@@ -61,11 +61,10 @@ Route::middleware(['web'])->group(function () {
     Volt::route('meets/{meet}', 'meets.show')->name('meets.show');
 });
 
-Route::controller(AdminController::class)
-    ->middleware(['auth', 'roles:admin'])
+Route::middleware(['auth', 'roles:admin'])
     ->prefix('admin')
     ->group(function () {
-        Route::get('/', 'index')->name('admin');
+        Volt::route('/', 'admin.index')->name('admin.index');
         
         // New structured course management routes
         Route::prefix('course-management')->group(function () {
@@ -89,6 +88,7 @@ Route::controller(AdminController::class)
         
         // Legacy Volt routes (keep for backward compatibility)
         Volt::route('users', 'admin.courses.user-management')->name('admin.users');
+        Volt::route('whatsapp-groups', 'admin.whatsapp-groups.index')->name('admin.whatsapp-groups');
         // Volt::route('courses', 'admin.courses.course-management')->name('admin.courses.old');
         // Volt::route('categories', 'admin.courses.category-management')->name('admin.courses.categories.old');
         // Volt::route('modules', 'admin.courses.module-management')->name('admin.courses.modules.old');

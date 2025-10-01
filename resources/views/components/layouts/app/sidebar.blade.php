@@ -27,7 +27,7 @@
                     {{ __('Pengguna Lain') }}
                 </flux:navlist.item>
                 @if (auth()->user()->hasRole('admin'))
-                    <flux:navlist.item icon="shield-check" :href="route('admin')" :current="request()->routeIs('admin')"
+                    <flux:navlist.item icon="shield-check" :href="route('admin.index')" :current="request()->routeIs('admin.*')"
                         wire:navigate>
                         {{ __('Halaman Admin') }}
                     </flux:navlist.item>

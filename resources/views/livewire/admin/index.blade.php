@@ -1,4 +1,24 @@
-<x-layouts.app :title="__('Admin')">
+<?php
+
+use Livewire\Volt\Component;
+use App\Models\User\User;
+use App\Models\Course\Course;
+use Livewire\Volt\Attributes\Layout;
+
+new
+#[Layout('layouts.app')]
+class extends Component {
+    public $users_count;
+    public $courses_count;
+
+    public function mount()
+    {
+        $this->users_count = User::where('email_verified_at', '!=', null)->count();
+        $this->courses_count = Course::where('is_published', true)->count();
+    }
+}; ?>
+
+<div>
     <div class="max-w-7xl mx-auto">
         <!-- Header -->
         <div class="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -71,33 +91,12 @@
                 </div>
                 <p class="text-gray-600 dark:text-gray-300">Kelola meet online dan peserta.</p>
             </a>
-            <a href="{{ route('admin') }}" class="block p-6 rounded-xl shadow-lg border bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition">
+            <a href="{{ route('admin.whatsapp-groups') }}" class="block p-6 rounded-xl shadow-lg border bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-green-900/30 transition">
                 <div class="flex items-center gap-3 mb-2">
-                    <x-heroicon-o-document-text class="w-7 h-7 text-yellow-500" />
-                    <span class="font-semibold text-lg dark:text-white">Manajemen Artikel</span>
+                    <x-heroicon-o-chat-bubble-left-right class="w-7 h-7 text-green-500" />
+                    <span class="font-semibold text-lg dark:text-white">Manajemen Grup WhatsApp</span>
                 </div>
-                <p class="text-gray-600 dark:text-gray-300">Kelola artikel dan konten edukasi.</p>
-            </a>
-            <a href="{{ route('admin') }}" class="block p-6 rounded-xl shadow-lg border bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition">
-                <div class="flex items-center gap-3 mb-2">
-                    <x-heroicon-o-cog-6-tooth class="w-7 h-7 text-gray-500" />
-                    <span class="font-semibold text-lg dark:text-white">Konfigurasi Platform</span>
-                </div>
-                <p class="text-gray-600 dark:text-gray-300">Atur pengaturan umum platform.</p>
-            </a>
-            <a href="{{ route('admin') }}" class="block p-6 rounded-xl shadow-lg border bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition">
-                <div class="flex items-center gap-3 mb-2">
-                    <x-heroicon-o-clipboard-document-list class="w-7 h-7 text-red-500" />
-                    <span class="font-semibold text-lg dark:text-white">Log Aktivitas</span>
-                </div>
-                <p class="text-gray-600 dark:text-gray-300">Pantau aktivitas dan log sistem.</p>
-            </a>
-            <a href="{{ route('admin') }}" class="block p-6 rounded-xl shadow-lg border bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition">
-                <div class="flex items-center gap-3 mb-2">
-                    <x-heroicon-o-lifebuoy class="w-7 h-7 text-blue-500" />
-                    <span class="font-semibold text-lg dark:text-white">Bantuan & Dukungan</span>
-                </div>
-                <p class="text-gray-600 dark:text-gray-300">Kelola tiket bantuan dan FAQ.</p>
+                <p class="text-gray-600 dark:text-gray-300">Kelola grup WhatsApp komunitas.</p>
             </a>
         </div>
 
@@ -111,4 +110,4 @@
             </div>
         </div>
     </div>
-</x-layouts.app>
+</div>
