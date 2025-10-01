@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('daily_quotes', function (Blueprint $table) {
             $table->id();
             $table->text('quote_text');
-            $table->string('category')->default('basic');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

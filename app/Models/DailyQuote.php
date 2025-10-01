@@ -24,26 +24,13 @@ class DailyQuote extends Model
     {
         return $query->where('is_active', true);
     }
-
-    /**
-     * Scope untuk quote berdasarkan kategori
-     */
-    public function scopeCategory($query, $category)
-    {
-        return $query->where('category', $category);
-    }
-
+    
     /**
      * Get random quote jika tidak ada quote hari ini
      */
-    public static function getRandomQuote($category = null)
+    public static function getRandomQuote()
     {
         $query = self::active();
-
-        if ($category) {
-            $query->category($category);
-        }
-
         return $query->inRandomOrder()->first();
     }
 
@@ -54,7 +41,7 @@ class DailyQuote extends Model
     {
         $date = Carbon::now()->format('d M Y');
         $description = "Hai, aku robot yang akan mengirimkan quote harian kita\n";
-        $quote = '"' . $this->quote_text . '"' . ($this->author ? ' - ' . $this->author : '') . ' (' . $date . ')';
+        $quote = '"' . $this->quote_text . '"'. ' (' . $date . ')';
         return $description . $quote;
     }
 }
