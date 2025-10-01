@@ -98,6 +98,13 @@ class extends Component {
                 </div>
                 <p class="text-gray-600 dark:text-gray-300">Kelola grup WhatsApp komunitas.</p>
             </a>
+            <a href="{{ route('admin.whatsapp-groups.daily-quotes') }}" class="block p-6 rounded-xl shadow-lg border bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-yellow-50 dark:hover:bg-yellow-900/30 transition"> 
+                <div class="flex items-center gap-3 mb-2">
+                    <x-heroicon-o-annotation class="w-7 h-7 text-yellow-500" />
+                    <span class="font-semibold text-lg dark:text-white">Manajemen Quote Harian</span>
+                </div>
+                <p class="text-gray-600 dark:text-gray-300">Kelola kutipan motivasi harian untuk komunitas.</p>
+            </a>
         </div>
 
         <!-- Motivasi Admin -->
