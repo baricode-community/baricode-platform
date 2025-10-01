@@ -38,7 +38,7 @@ class WhatsAppGroupDailyQuote extends Command
             // Implement the actual sending logic here
 
             if ($group->dailyQuotes()->exists()) {
-                $quote = $group->dailyQuotes()->latest()->first();
+                $quote = $group->dailyQuotes()->inRandomOrder()->first();
                 WhatsAppService::sendGroupMessage($group->group_id, $quote->getFormattedQuoteAttribute());
             }
         }
