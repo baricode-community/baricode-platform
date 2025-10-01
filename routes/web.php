@@ -65,6 +65,10 @@ Route::middleware(['auth', 'roles:admin'])
     ->prefix('admin')
     ->group(function () {
         Volt::route('/', 'admin.index')->name('admin.index');
+
+        Volt::route('meets', 'admin.courses.meet-management')->name('admin.meets');
+        Volt::route('users', 'admin.courses.user-management')->name('admin.users');
+        Volt::route('whatsapp-groups', 'admin.whatsapp-groups.index')->name('admin.whatsapp-groups');
         
         // New structured course management routes
         Route::prefix('course-management')->group(function () {
@@ -85,15 +89,6 @@ Route::middleware(['auth', 'roles:admin'])
             Route::resource('course-module-lessons', \App\Http\Controllers\Admin\CourseModuleLessonController::class, ['as' => 'admin']);
             Route::post('course-modules/{courseModule}/lessons/reorder', [\App\Http\Controllers\Admin\CourseModuleLessonController::class, 'reorder'])->name('admin.course-module-lessons.reorder');
         });
-        
-        // Legacy Volt routes (keep for backward compatibility)
-        Volt::route('users', 'admin.courses.user-management')->name('admin.users');
-        Volt::route('whatsapp-groups', 'admin.whatsapp-groups.index')->name('admin.whatsapp-groups');
-        // Volt::route('courses', 'admin.courses.course-management')->name('admin.courses.old');
-        // Volt::route('categories', 'admin.courses.category-management')->name('admin.courses.categories.old');
-        // Volt::route('modules', 'admin.courses.module-management')->name('admin.courses.modules.old');
-        // Volt::route('lessons', 'admin.courses.lesson-management')->name('admin.courses.lessons.old');
-        Volt::route('meets', 'admin.courses.meet-management')->name('admin.meets');
 
         // Individual course module management (legacy)
         Route::get('courses/{course}/modules', function ($courseId) {
