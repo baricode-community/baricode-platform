@@ -10,3 +10,7 @@ Artisan::command('inspire', function () {
 
 Schedule::command('backup:run')->at('00:00');
 Schedule::command('baricode:cleanup-soft-deleted')->at('00:00');
+
+// WhatsApp Group Management Commands
+Schedule::command('whatsapp-groups:send-daily-quotes')->dailyAt('15:00');
+Schedule::command('whatsapp-groups:send-daily-quotes')->dailyAt('06:00');

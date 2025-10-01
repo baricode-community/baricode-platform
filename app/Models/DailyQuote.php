@@ -61,8 +61,8 @@ class DailyQuote extends Model
     {
         $date = Carbon::now()->format('d M Y');
         $groupName = $this->whatsappGroup ? $this->whatsappGroup->name : 'Baricode Community';
-        $description = "Hai, aku robot dari {$groupName} yang akan mengirimkan quote harian kita\n";
-        $quote = '"' . $this->quote_text . '"'. ' (' . $date . ')';
+        $description = "🌟 Hai, aku robot dari *{$groupName}* yang akan mengirimkan quote harian kita:\n\n";
+        $quote = "❝ {$this->quote_text} ❞\n\n📅 " . Carbon::now()->format('d M Y H:i:s');
         return $description . $quote;
     }
 }

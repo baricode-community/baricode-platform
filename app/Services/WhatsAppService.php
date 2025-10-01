@@ -29,6 +29,18 @@ class WhatsAppService
         return $response;
     }
 
+    public static function sendGroupMessage($groupId, $message)
+    {
+        // dd($groupId, $message);
+        $data = [
+            'To' => $groupId,
+            'Body' => $message,
+            'MessageType' => 'text',
+        ];
+        
+        return self::sendRequest('send/grup', $data);
+    }
+
     public static function isValidNumber($number): bool
     {
         $data = ['number' => $number];
@@ -44,21 +56,5 @@ class WhatsAppService
         ];
         
         return self::sendRequest('send-message', $data);
-    }
-
-    /**
-     * Send attendance reminder notification
-     */
-    public static function sendAttendanceReminder($phoneNumber, $studentName, $courseName, $reminderTime): bool
-    {
-        $message = "🔔 *Pengingat Kelas*\n\n";
-        $message .= "Halo *{$studentName}*! 👋\n\n";
-        $message .= "⏰ Waktu untuk mengikuti kelas *{$courseName}*\n";
-        $message .= "🕐 Jam: {$reminderTime}\n\n";
-        $message .= "Jangan lupa untuk hadir tepat waktu! 📚\n";
-        $message .= "Silakan melakukan absensi sekarang.\n\n";
-        $message .= "Semangat belajar! 💪";
-        
-        return self::sendMessage($phoneNumber, $message);
     }
 }

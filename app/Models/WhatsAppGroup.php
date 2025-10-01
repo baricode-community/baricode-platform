@@ -22,14 +22,6 @@ class WhatsAppGroup extends Model
     ];
 
     /**
-     * Get the user who created this group
-     */
-    public function creator()
-    {
-        return $this->belongsTo(\App\Models\User\User::class, 'created_by');
-    }
-
-    /**
      * Get all daily quotes for this group
      */
     public function dailyQuotes()
