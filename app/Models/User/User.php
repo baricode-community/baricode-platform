@@ -83,4 +83,9 @@ class User extends Authenticatable implements MustVerifyEmail
                     ->withPivot('joined_at')
                     ->withTimestamps();
     }
+
+    public function personalTubes()
+    {
+        return $this->hasMany(\App\Models\PersonalTube::class, 'user_id', 'id');
+    }
 }
