@@ -88,4 +88,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(\App\Models\PersonalTube::class, 'user_id', 'id');
     }
+
+    public function personalFlashCards()
+    {
+        return $this->hasMany(\App\Models\PersonalFlashCard::class, 'user_id', 'id');
+    }
 }
