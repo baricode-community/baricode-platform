@@ -26,6 +26,10 @@
                     wire:navigate>
                     {{ __('YouTube Pribadi') }}
                 </flux:navlist.item>
+                <flux:navlist.item icon="play" :href="route('flashcard.index')" :current="request()->routeIs('flashcard.*')"
+                    wire:navigate>
+                    {{ __('Flashcard Pribadi') }}
+                </flux:navlist.item>
                 <flux:navlist.item icon="home" :href="route('users')" :current="request()->routeIs('users')"
                     wire:navigate>
                     {{ __('Pengguna Lain') }}
