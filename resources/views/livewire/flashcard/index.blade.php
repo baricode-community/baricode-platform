@@ -11,6 +11,7 @@ new #[Layout('layouts.app')] class extends Component {
     public string $search = '';
     public string $newFront = '';
     public string $newBack = '';
+    public ?bool $isSkipped = null;
 
     // Play mode properties
     public array $shuffledCards = [];
@@ -29,6 +30,7 @@ new #[Layout('layouts.app')] class extends Component {
         $this->editId = $card->id;
         $this->newFront = $card->front;
         $this->newBack = $card->back;
+        $this->isSkipped = $card->is_skipped;
         $this->showAddCardModal = true;
     }
 
@@ -43,6 +45,7 @@ new #[Layout('layouts.app')] class extends Component {
         $this->validate([
             'newFront' => 'required|string',
             'newBack' => 'required|string',
+            'isSkipped' => 'boolean|nullable',
         ]);
 
         if ($this->editId) {
@@ -50,6 +53,7 @@ new #[Layout('layouts.app')] class extends Component {
             $card->update([
                 'front' => $this->newFront,
                 'back' => $this->newBack,
+                'is_skipped' => $this->isSkipped ?? false,
             ]);
             session()->flash('message', 'Flashcard berhasil diperbarui!');
         } else {
@@ -57,6 +61,7 @@ new #[Layout('layouts.app')] class extends Component {
                 'user_id' => auth()->id(),
                 'front' => $this->newFront,
                 'back' => $this->newBack,
+                'is_skipped' => $this->isSkipped ?? false,
             ]);
             session()->flash('message', 'Flashcard berhasil ditambahkan!');
         }
@@ -74,7 +79,10 @@ new #[Layout('layouts.app')] class extends Component {
 
     public function startPlayMode(): void
     {
-        $cards = PersonalFlashCard::where('user_id', auth()->id())
+        $cards = PersonalFlashCard::where([
+            'user_id' => auth()->id(),
+            'is_skipped' => false,
+        ])
             ->get()
             ->toArray();
 
@@ -229,12 +237,6 @@ new #[Layout('layouts.app')] class extends Component {
                     <!-- Card Content -->
                     <div class="p-5">
                         <div class="flex items-start justify-between mb-3">
-                            <div class="flex-1">
-                                <span
-                                    class="text-xs font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-2 py-1 rounded-lg">
-                                    Flashcard
-                                </span>
-                            </div>
                             <div class="flex gap-1">
                                 <button wire:click="openEditCardModal({{ $card->id }})"
                                     class="p-1.5 text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20">
@@ -267,10 +269,15 @@ new #[Layout('layouts.app')] class extends Component {
                             </div>
                         </div>
 
-                        <div class="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
+                        <div class="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
                             <span class="text-xs text-gray-400 dark:text-gray-500">
                                 {{ $card->created_at->diffForHumans() }}
                             </span>
+                            @if ($card->is_skipped)
+                                <span class="text-xs text-yellow-700 dark:text-yellow-400 ml-2">
+                                    Tidak muncul di mode main
+                                </span>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -356,6 +363,17 @@ new #[Layout('layouts.app')] class extends Component {
                         placeholder="Jawaban atau definisi"></textarea>
                     @error('newBack')
                         <span class="text-red-500 text-xs mt-1">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="flex items-center">
+                    <input type="checkbox" id="isSkipped" wire:model="isSkipped"
+                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                    <label for="isSkipped" class="ml-2 block text-sm text-gray-700 dark:text-gray-200">
+                        Tandai sebagai "Lewati" (tidak akan muncul di mode main)
+                    </label>
+                    @error('isSkipped')
+                        <span class="text-red-500 text-xs mt-1 ml-4">{{ $message }}</span>
                     @enderror
                 </div>
             </div>
