@@ -434,8 +434,7 @@ new #[Layout('layouts.app')] class extends Component {
                     <!-- Flashcard -->
                     <div class="relative mb-8">
                         <div class="bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl shadow-2xl p-8 min-h-[300px] 
-                                flex items-center justify-center cursor-pointer transition-all duration-300 hover:shadow-3xl"
-                            wire:click="toggleCard">
+                                flex items-center justify-center cursor-pointer transition-all duration-300 hover:shadow-3xl">
                             <div class="text-center text-white">
                                 <div class="text-lg leading-relaxed">
                                     @if ($showBack)
