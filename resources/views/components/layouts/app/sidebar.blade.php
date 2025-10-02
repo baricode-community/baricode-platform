@@ -22,10 +22,6 @@
                     wire:navigate>
                     {{ __('Meet') }}
                 </flux:navlist.item>
-                <flux:navlist.item icon="play" :href="route('tube.index')" :current="request()->routeIs('tube.*')"
-                    wire:navigate>
-                    {{ __('YouTube Pribadi') }}
-                </flux:navlist.item>
                 <flux:navlist.item icon="play" :href="route('flashcard.index')" :current="request()->routeIs('flashcard.*')"
                     wire:navigate>
                     {{ __('Flashcard Pribadi') }}
