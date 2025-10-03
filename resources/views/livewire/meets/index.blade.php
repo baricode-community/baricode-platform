@@ -260,7 +260,7 @@ new #[Layout('components.layouts.app')] class extends Component {
                                             Masuk
                                         </button>
                                     @endif
-                                @else
+                                @elseif ($meet->is_finished)
                                     <button wire:click="joinMeet({{ $meet->id }})" 
                                             class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-800 rounded-md transition-colors">
                                         Gabung
