@@ -63,7 +63,7 @@ new class extends Component {
             'description' => $this->description,
             'thumbnail' => $thumbnailPath,
             'is_published' => $this->is_published,
-            'course_category_id' => $this->courseCategory->id
+            'category_id' => $this->courseCategory->id
         ]);
 
         $this->showCreateModal = false;
