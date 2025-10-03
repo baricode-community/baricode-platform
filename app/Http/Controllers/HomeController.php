@@ -20,6 +20,12 @@ class HomeController extends Controller
         return view('pages.home.index');
     }
 
+    public function super_app()
+    {
+        logger()->info('HomeController super_app method called');
+        return view('pages.home.super-app');
+    }
+
     public function tos()
     {
         logger()->info('HomeController tos method called');
