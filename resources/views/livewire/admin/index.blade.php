@@ -77,7 +77,7 @@ class extends Component {
                 </div>
                 <p class="text-gray-600 dark:text-gray-300">Kelola data pengguna, peran, dan akses.</p>
             </a>
-            <a href="{{ route('admin.course-categories.index') }}" class="block p-6 rounded-xl shadow-lg border bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-green-900/30 transition">
+            <a href="{{ route('admin.courses.index') }}" class="block p-6 rounded-xl shadow-lg border bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-green-50 dark:hover:bg-green-900/30 transition">
                 <div class="flex items-center gap-3 mb-2">
                     <x-heroicon-o-academic-cap class="w-7 h-7 text-green-500" />
                     <span class="font-semibold text-lg dark:text-white">Kelola Kursus Lengkap</span>
