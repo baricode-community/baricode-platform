@@ -16,6 +16,10 @@ class Course extends Model
 
     protected $guarded = ['id'];
 
+    protected $casts = [
+        'is_published' => 'boolean',
+    ];
+
     public function courseCategory()
     {
         return $this->belongsTo(CourseCategory::class, 'category_id');
