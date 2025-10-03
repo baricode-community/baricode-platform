@@ -6,7 +6,7 @@ use Livewire\WithPagination;
 use Livewire\Volt\Component;
 use Livewire\Attributes\Layout;
 
-new #[Layout('components.layouts.app')] class extends Component {
+new #[Layout('layouts.blank')] class extends Component {
     use WithPagination;
 
     public $search = '';
