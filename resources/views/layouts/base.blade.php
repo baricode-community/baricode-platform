@@ -109,7 +109,11 @@
     </header>
 
     <main>
-        @yield('content')
+        @if ($slot->isEmpty())
+            @yield('content')
+        @else
+            {{ $slot }}
+        @endif
     </main>
 
     <footer class="bg-gray-800 text-center text-gray-400 py-8">

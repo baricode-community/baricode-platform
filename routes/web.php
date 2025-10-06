@@ -77,7 +77,9 @@ require __DIR__.'/auth.php';
 require __DIR__.'/admin/basic.php';
 require __DIR__.'/admin/courses.php';
 require __DIR__.'/admin/users.php';
+require __DIR__.'/admin/blog.php';
 
+require __DIR__.'/blog.php';
 require __DIR__.'/ai.php';
 require __DIR__.'/tube.php';
 require __DIR__.'/flashcard.php';
