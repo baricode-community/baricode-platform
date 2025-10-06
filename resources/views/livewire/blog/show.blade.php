@@ -48,7 +48,7 @@ new #[Layout('layouts.base')] class extends Component {
 
 ?>
 
-<div>
+<div class="py-20">
     {{-- Hero Section --}}
     <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-16">
         <div class="container mx-auto px-4">
