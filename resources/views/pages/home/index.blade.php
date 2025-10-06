@@ -7,8 +7,7 @@
         class="hero text-center py-20 md:py-32 px-4 min-h-screen flex items-center justify-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white relative overflow-hidden">
         <!-- Background Image (Student Confused) -->
         <img src="https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1200&q=80"
-            alt="Mahasiswa Bingung"
-            class="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none z-0">
+            alt="Mahasiswa Bingung" class="absolute inset-0 w-full h-full object-cover opacity-30 pointer-events-none z-0">
         <div class="max-w-4xl mx-auto relative z-10">
             <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4 animate-fade-in-up">
                 Belajar Ngoding Gratis 100%. <br class="hidden md:inline-block"> Bangun Proyek Bareng.
@@ -60,7 +59,8 @@
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Kata Mereka yang Sudah Bergabung</h2>
             <div class="mb-8 text-center">
                 <span class="inline-block bg-yellow-500 text-gray-900 font-semibold px-4 py-2 rounded-full text-sm">
-                    Testimoni di bawah ini hanya contoh (fake) karena kami baru launching versi beta. Data asli akan kami update setelah ada pengguna yang bergabung.
+                    Testimoni di bawah ini hanya contoh (fake) karena kami baru launching versi beta. Data asli akan kami
+                    update setelah ada pengguna yang bergabung.
                 </span>
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -68,8 +68,8 @@
                     <p class="text-gray-400 italic mb-4">"Kurikulumnya terstruktur banget, dari nol jadi bisa bikin website
                         sendiri. Komunitasnya juga supportif!"</p>
                     <div class="flex items-center">
-                        <img src="https://ui-avatars.com/api/?name=Budi+Santoso&background=4F46E5&color=fff" alt="Foto Profil Pengguna"
-                            class="w-12 h-12 rounded-full mr-4">
+                        <img src="https://ui-avatars.com/api/?name=Budi+Santoso&background=4F46E5&color=fff"
+                            alt="Foto Profil Pengguna" class="w-12 h-12 rounded-full mr-4">
                         <div>
                             <p class="font-semibold text-white">Budi Santoso</p>
                             <p class="text-sm text-indigo-400">Junior Developer</p>
@@ -80,8 +80,8 @@
                     <p class="text-gray-400 italic mb-4">"Bisa kolaborasi di proyek bareng itu pengalaman yang luar biasa.
                         Sangat membantu untuk portofolio!"</p>
                     <div class="flex items-center">
-                        <img src="https://ui-avatars.com/api/?name=Siti+Aisyah&background=4F46E5&color=fff" alt="Foto Profil Pengguna"
-                            class="w-12 h-12 rounded-full mr-4">
+                        <img src="https://ui-avatars.com/api/?name=Siti+Aisyah&background=4F46E5&color=fff"
+                            alt="Foto Profil Pengguna" class="w-12 h-12 rounded-full mr-4">
                         <div>
                             <p class="font-semibold text-white">Siti Aisyah</p>
                             <p class="text-sm text-indigo-400">Mahasiswa Informatika</p>
@@ -92,8 +92,8 @@
                     <p class="text-gray-400 italic mb-4">"Mentoringnya berkualitas. Pertanyaan apapun selalu dijawab dengan
                         sabar dan jelas."</p>
                     <div class="flex items-center">
-                        <img src="https://ui-avatars.com/api/?name=Joko+Wicaksono&background=4F46E5&color=fff" alt="Foto Profil Pengguna"
-                            class="w-12 h-12 rounded-full mr-4">
+                        <img src="https://ui-avatars.com/api/?name=Joko+Wicaksono&background=4F46E5&color=fff"
+                            alt="Foto Profil Pengguna" class="w-12 h-12 rounded-full mr-4">
                         <div>
                             <p class="font-semibold text-white">Joko Wicaksono</p>
                             <p class="text-sm text-indigo-400">Web Freelancer</p>
@@ -138,13 +138,27 @@
             <h2 class="text-3xl md:text-4xl font-bold text-white mb-12">Teknologi yang Akan Kamu Kuasai</h2>
             <div class="mb-8">
                 <p class="text-gray-400 text-base md:text-lg">
-                    Komunitas kami sudah berjalan beberapa bulan tanpa platform khusus. Kini, kami sedang membangun platform yang tangguh agar manfaat belajar, kolaborasi, dan networking bisa dirasakan lebih besar oleh semua anggota.
+                    Komunitas kami sudah berjalan beberapa bulan tanpa platform khusus. Kini, kami sedang membangun platform
+                    yang tangguh agar manfaat belajar, kolaborasi, dan networking bisa dirasakan lebih besar oleh semua
+                    anggota.
                 </p>
             </div>
             <div class="flex flex-wrap justify-center gap-6">
                 <span class="bg-gray-800 text-indigo-400 font-semibold py-2 px-4 rounded-full">Laravel</span>
                 <span class="bg-gray-800 text-indigo-400 font-semibold py-2 px-4 rounded-full">Flutter</span>
             </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-4 bg-gray-900">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-8">Baca Artikel & Blog Terbaru</h2>
+            <p class="text-gray-400 mb-8">Dapatkan insight, tips, dan cerita inspiratif seputar dunia ngoding dan komunitas
+                kami.</p>
+            <a href="{{ route('blog.index') }}" wire:navigate
+                class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105 shadow-lg">
+                Kunjungi Blog
+            </a>
         </div>
     </section>
 
@@ -171,7 +185,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
                     </summary>
-                    <p class="text-gray-300 mt-4">Sangat ramah! Semua materi dan fitur dirancang agar mudah dipahami oleh pemula, dengan dukungan komunitas yang siap membantu kapan saja.</p>
+                    <p class="text-gray-300 mt-4">Sangat ramah! Semua materi dan fitur dirancang agar mudah dipahami oleh
+                        pemula, dengan dukungan komunitas yang siap membantu kapan saja.</p>
                 </details>
                 <details class="bg-gray-700 p-6 rounded-lg shadow-lg cursor-pointer">
                     <summary class="flex justify-between items-center text-white font-semibold">
@@ -203,7 +218,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
                     </summary>
-                    <p class="text-gray-300 mt-4">Tentu saja! Kami sangat terbuka untuk siapa saja yang ingin berbagi ilmu atau membantu komunitas. Silakan hubungi kami untuk informasi lebih lanjut.</p>
+                    <p class="text-gray-300 mt-4">Tentu saja! Kami sangat terbuka untuk siapa saja yang ingin berbagi ilmu
+                        atau membantu komunitas. Silakan hubungi kami untuk informasi lebih lanjut.</p>
                 </details>
             </div>
         </div>

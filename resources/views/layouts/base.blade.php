@@ -109,7 +109,7 @@
     </header>
 
     <main>
-        @if ($slot->isEmpty())
+        @if (!isset($slot))
             @yield('content')
         @else
             {{ $slot }}
