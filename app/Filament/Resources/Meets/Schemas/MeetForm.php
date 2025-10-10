@@ -14,8 +14,8 @@ class MeetForm
         return $schema
             ->components([
                 TextInput::make('title')->label('Title')->required()->maxLength(255),
-                TextInput::make('youtube_link')->label('Youtube Link')->required()->maxLength(255),
-                TextInput::make('meet_link')->label('Meet Link')->required()->maxLength(255),
+                TextInput::make('youtube_link')->label('Youtube Link')->maxLength(255),
+                TextInput::make('meet_link')->label('Meet Link')->maxLength(255),
                 Select::make('is_finished')
                     ->label('Apakah Pertemuan Telah Selesai?')
                     ->options([
