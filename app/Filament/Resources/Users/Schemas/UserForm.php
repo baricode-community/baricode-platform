@@ -22,6 +22,7 @@ class UserForm
                     ->required()
                     ->maxLength(255)
                     ->dehydrated(fn ($state) => filled($state))
+                    ->visibleOn('create')
             ]);
     }
 }
