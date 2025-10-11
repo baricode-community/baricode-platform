@@ -77,10 +77,6 @@ new #[Layout('layouts.base')] class extends Component {
                         <x-heroicon-o-clock class="w-5 h-5" />
                         <span>{{ $blog->reading_time }} menit baca</span>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <x-heroicon-o-eye class="w-5 h-5" />
-                        <span>{{ number_format(rand(50, 1000)) }} views</span>
-                    </div>
                 </div>
             </div>
         </div>
@@ -100,7 +96,7 @@ new #[Layout('layouts.base')] class extends Component {
 
             {{-- Content --}}
             <article class="prose prose-lg max-w-none dark:prose-invert prose-headings:text-gray-900 dark:prose-headings:text-white prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-a:text-indigo-600 dark:prose-a:text-indigo-400 prose-strong:text-gray-900 dark:prose-strong:text-white prose-code:text-indigo-600 dark:prose-code:text-indigo-400 prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800">
-                {!! nl2br(e($blog->content)) !!}
+                {!! $blog->content !!}
             </article>
 
             {{-- Share Buttons --}}
