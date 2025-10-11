@@ -10,7 +10,7 @@ use Livewire\Volt\Volt;
 
 Route::controller(\App\Http\Controllers\HomeController::class)->group(function () {
     Route::get('/', 'index')->name('home');
-    Route::get('/super-app', 'super_app')->name('home.super-app');
+    Route::get('/platform', 'super_app')->name('home.super-app');
     Route::redirect('/tos', '/terms-of-service');
     Route::get('/terms-of-service', 'tos')->name('tos');
     Route::get('/about', 'about')->name('about');
