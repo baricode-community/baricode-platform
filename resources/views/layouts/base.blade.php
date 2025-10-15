@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Komunitas Ngoding - 100% Gratis')</title>
+    
+    <meta name="description" content="@yield('description', 'Bergabunglah dengan komunitas ngoding kami untuk belajar, berbagi, dan berkembang bersama. 100% gratis!')">
+    <meta name="keywords" content="komunitas ngoding, belajar ngoding, coding gratis, pemrograman, developer, web development, programming community">
+    <meta name="author" content="Baricode Community">
+
     <link rel="icon" type="image/png" href="{{ asset('favicon.svg') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @fluxAppearance
