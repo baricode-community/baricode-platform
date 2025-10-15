@@ -144,7 +144,15 @@ new #[Layout('layouts.meet')] class extends Component {
                                     <div class="w-3 h-3 bg-amber-500 rounded-full animate-ping"></div>
                                     Akan Datang
                                 </span>
-                            @else
+                            @elseif (!$meet->scheduled_at)
+                                <span class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-emerald-100 via-teal-100 to-green-100 dark:from-emerald-900 dark:via-teal-900 dark:to-green-900 text-emerald-800 dark:text-emerald-200 font-bold text-lg shadow-lg animate-pulse">
+                                    <div class="w-3 h-3 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full animate-ping"></div>
+                                    <svg class="w-5 h-5 text-emerald-500 dark:text-emerald-300 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    Belum Dijadwalkan
+                                </span>
+                            @endif
                                 <span class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200 font-bold text-lg shadow-lg animate-pulse">
                                     <div class="w-3 h-3 bg-emerald-500 rounded-full animate-ping"></div>
                                     Sedang Berlangsung
