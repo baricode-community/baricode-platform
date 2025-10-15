@@ -152,7 +152,7 @@ new #[Layout('layouts.meet')] class extends Component {
                                     </svg>
                                     Belum Dijadwalkan
                                 </span>
-                            @endif
+                            @else
                                 <span class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200 font-bold text-lg shadow-lg animate-pulse">
                                     <div class="w-3 h-3 bg-emerald-500 rounded-full animate-ping"></div>
                                     Sedang Berlangsung
