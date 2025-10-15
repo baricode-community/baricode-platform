@@ -74,7 +74,7 @@
             <div class="hidden lg:flex lg:items-center lg:space-x-4">
                 <a href="{{ route('meets.index') }}" wire:navigate class="text-gray-300 hover:text-white px-4 py-2 transition duration-300">Jadwal Pertemuan</a>
                 {{-- <a href="{{ route('cara_belajar') }}" wire:navigate class="text-gray-300 hover:text-white px-4 py-2 transition duration-300">Cara Belajar</a> --}}
-                <a href="https://chat.whatsapp.com/Fb2ZFMIKDz7JJZyBVpzXws" class="text-gray-300 hover:text-white px-4 py-2 transition duration-300">Komunitas whatsapp</a>
+                <a href="https://chat.whatsapp.com/Fb2ZFMIKDz7JJZyBVpzXws" class="text-gray-300 hover:text-white px-4 py-2 transition duration-300">Komunitas WhatsApp</a>
                 
                 @if(auth()->user())
                     <a href="{{ route('dashboard') }}" wire:navigate
@@ -96,7 +96,7 @@
                 {{-- <a href="{{ route('cara_belajar') }}" wire:navigate
                     class="block text-gray-300 hover:text-white hover:bg-gray-800 px-4 py-2 rounded-md transition duration-300">Cara Belajar</a> --}}
                 <a href="https://chat.whatsapp.com/Fb2ZFMIKDz7JJZyBVpzXws"
-                    class="block text-gray-300 hover:text-white hover:bg-gray-800 px-4 py-2 rounded-md transition duration-300">Komunitas whatsapp</a>
+                    class="block text-gray-300 hover:text-white hover:bg-gray-800 px-4 py-2 rounded-md transition duration-300">Komunitas WhatsApp</a>
                 <div class="pt-2 border-t border-gray-700">
                     @if(auth()->user())
                         <a href="{{ route('dashboard') }}" wire:navigate
