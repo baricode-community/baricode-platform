@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Meets\Schemas;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
 
 class MeetForm
@@ -16,21 +17,18 @@ class MeetForm
                 TextInput::make('title')->label('Title')->required()->maxLength(255),
                 TextInput::make('youtube_link')->label('Youtube Link')->maxLength(255),
                 TextInput::make('meet_link')->label('Meet Link')->maxLength(255),
-                Select::make('is_finished')
+                Toggle::make('is_finished')
                     ->label('Apakah Pertemuan Telah Selesai?')
-                    ->options([
-                        0 => 'Tidak',
-                        1 => 'Iya',
-                    ]),
-                TextInput::make('description')->label('Description')->required()->maxLength(65535),
+                    ->inline(false)
+                    ->default(false),
+                TextInput::make('description')->label('Description')->maxLength(65535),
                 DateTimePicker::make('scheduled_at')->label('Scheduled At')->format('d/m/Y'),
                 Select::make('user_id')
                     ->label('Peserta')
                     ->relationship('users', 'name')
                     ->multiple()
                     ->searchable()
-                    ->preload()
-                    ->required(),
+                    ->preload(),
             ]);
     }
 }
