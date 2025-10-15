@@ -8,7 +8,6 @@
     
     <meta name="description" content="@yield('description', 'Bergabunglah dengan komunitas ngoding kami untuk belajar, berbagi, dan berkembang bersama. 100% gratis!')">
     <meta name="keywords" content="komunitas ngoding, belajar ngoding, coding gratis, pemrograman, developer, web development, programming community">
-    <meta name="image" content="{{ $image ?? asset('favicon.svg') }}" />
     <meta name="author" content="Baricode Community">
 
     <link rel="icon" type="image/png" href="{{ asset('favicon.svg') }}">
