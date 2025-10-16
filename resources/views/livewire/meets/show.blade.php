@@ -177,25 +177,33 @@ new #[Layout('layouts.meet')] class extends Component {
                                     </button>
                                 @endif
                                 @if (!$meet->is_finished)
-                                    <button wire:click="leaveMeet" class="group relative overflow-hidden bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 dark:from-red-600 dark:to-pink-700 dark:hover:from-red-700 dark:hover:to-pink-800 text-white font-bold py-4 px-8 rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-300 dark:focus:ring-red-600">
+                                    <button wire:click="leaveMeet" class="group relative overflow-hidden bg-gradient-to-r from-red-500 via-pink-500 to-purple-600 hover:from-red-600 hover:via-pink-600 hover:to-purple-700 dark:from-red-700 dark:via-pink-700 dark:to-purple-800 text-white font-bold py-4 px-8 rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-300 dark:focus:ring-red-600">
                                         <span class="relative z-10 flex items-center justify-center text-lg">
-                                            <svg class="w-6 h-6 mr-3 group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"></svg>
+                                            <svg class="w-6 h-6 mr-3 group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                                             </svg>
-                                            Keluar dari Meet
+                                            <span class="font-bold bg-gradient-to-r from-red-200 via-pink-200 to-purple-200 bg-clip-text text-transparent drop-shadow-lg">
+                                                Keluar dari Meet
+                                            </span>
                                         </span>
                                         <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300 dark:bg-gray-900"></div>
+                                        <span class="absolute top-0 left-0 w-2 h-2 bg-red-400 rounded-full animate-ping"></span>
+                                        <span class="absolute bottom-0 right-0 w-2 h-2 bg-pink-400 rounded-full animate-ping delay-200"></span>
                                     </button>
                                 @endif
                             @else
-                                <button wire:click="joinMeet" class="group relative overflow-hidden bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 dark:from-indigo-600 dark:to-purple-700 dark:hover:from-indigo-700 dark:hover:to-purple-800 text-white font-bold py-4 px-8 rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 dark:focus:ring-indigo-600"></button>
-                                    <span class="relative z-10 flex items-center justify-center text-lg"></span>
-                                        <svg class="w-6 h-6 mr-3 group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"></svg>
+                                <button wire:click="joinMeet" class="group relative overflow-hidden bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 dark:from-indigo-600 dark:to-purple-700 dark:hover:from-indigo-700 dark:hover:to-purple-800 text-white font-bold py-4 px-8 rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 dark:focus:ring-indigo-600">
+                                    <span class="relative z-10 flex items-center justify-center text-lg">
+                                        <svg class="w-6 h-6 mr-3 group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                                         </svg>
-                                        Bergabung dengan Meet
+                                        <span class="font-bold bg-gradient-to-r from-indigo-300 via-purple-300 to-blue-300 bg-clip-text text-transparent drop-shadow-lg">
+                                            Bergabung dengan Meet
+                                        </span>
                                     </span>
                                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300 dark:bg-gray-900"></div>
+                                    <span class="absolute top-0 left-0 w-2 h-2 bg-indigo-400 rounded-full animate-ping"></span>
+                                    <span class="absolute bottom-0 right-0 w-2 h-2 bg-purple-400 rounded-full animate-ping delay-200"></span>
                                 </button>
                             @endif
                         @else
