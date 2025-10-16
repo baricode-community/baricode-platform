@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fc5cce1193df67065b1eded243fdd0d1",
+    "content-hash": "0dd08458f93d90a957553e2fc995120f",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -6018,6 +6018,82 @@
                 }
             ],
             "time": "2022-12-17T21:53:22+00:00"
+        },
+        {
+            "name": "shuvroroy/filament-spatie-laravel-backup",
+            "version": "v3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/shuvroroy/filament-spatie-laravel-backup.git",
+                "reference": "ad42031b8edb3d2d4867b06b597e5a6452e9bb20"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/shuvroroy/filament-spatie-laravel-backup/zipball/ad42031b8edb3d2d4867b06b597e5a6452e9bb20",
+                "reference": "ad42031b8edb3d2d4867b06b597e5a6452e9bb20",
+                "shasum": ""
+            },
+            "require": {
+                "filament/filament": "^4.0",
+                "php": "^8.2",
+                "spatie/laravel-backup": "^8.0|^9.0",
+                "spatie/laravel-package-tools": "^1.9"
+            },
+            "require-dev": {
+                "larastan/larastan": "^3.0",
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^8.1.1||^7.10.0",
+                "orchestra/testbench": "^9.0||^10.0",
+                "pestphp/pest": "^2.0||^3.0",
+                "pestphp/pest-plugin-arch": "^2.0||^3.0",
+                "pestphp/pest-plugin-laravel": "^2.0||^3.0",
+                "phpstan/extension-installer": "^1.4",
+                "phpstan/phpstan": "^2.1",
+                "phpstan/phpstan-deprecation-rules": "^2.0",
+                "phpstan/phpstan-phpunit": "^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "ShuvroRoy\\FilamentSpatieLaravelBackup\\FilamentSpatieLaravelBackupServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ShuvroRoy\\FilamentSpatieLaravelBackup\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Shuvro Roy",
+                    "email": "shuvro.nsu.cse@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "This plugin is built on top of Spatie's Laravel-backup package",
+            "homepage": "https://github.com/shuvroroy/filament-spatie-laravel-backup",
+            "keywords": [
+                "filament",
+                "filament-spatie-laravel-backup",
+                "laravel-backup"
+            ],
+            "support": {
+                "issues": "https://github.com/shuvroroy/filament-spatie-laravel-backup/issues",
+                "source": "https://github.com/shuvroroy/filament-spatie-laravel-backup/tree/v3.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://www.buymeacoffee.com/shuvroroy",
+                    "type": "buy_me_a_coffee"
+                }
+            ],
+            "time": "2025-10-04T17:28:14+00:00"
         },
         {
             "name": "spatie/db-dumper",
