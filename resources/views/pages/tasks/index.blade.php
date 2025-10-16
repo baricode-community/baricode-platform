@@ -65,10 +65,26 @@
                                     @endif
                                 </div>
 
+                                <!-- Assignment Title (if exists) -->
+                                @if($assignment->title)
+                                    <div class="mb-2">
+                                        <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
+                                            📌 {{ $assignment->title }}
+                                        </span>
+                                    </div>
+                                @endif
+
                                 <!-- Task Title -->
                                 <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
                                     {{ $assignment->task->title }}
                                 </h3>
+
+                                <!-- Assignment Description (if different from task) -->
+                                @if($assignment->description)
+                                    <p class="text-sm text-blue-600 dark:text-blue-400 mb-2 italic">
+                                        "{{ Str::limit($assignment->description, 80) }}"
+                                    </p>
+                                @endif
 
                                 <!-- Task Description -->
                                 <p class="text-sm text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
@@ -95,7 +111,7 @@
 
                                 <!-- Actions -->
                                 <div class="flex gap-2">
-                                    <a href="{{ route('tasks.show', $assignment->task->id) }}" 
+                                    <a href="{{ route('tasks.show', ['id' => $assignment->task->id, 'assignmentId' => $assignment->id]) }}" 
                                        class="flex-1 text-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
                                         Lihat Detail
                                     </a>

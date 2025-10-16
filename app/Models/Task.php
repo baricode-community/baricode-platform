@@ -73,6 +73,14 @@ class Task extends Model
     }
 
     /**
+     * Get user's assignments for this task
+     */
+    public function userAssignments(User $user)
+    {
+        return $this->assignments()->where('user_id', $user->id);
+    }
+
+    /**
      * Get user's submissions for this task
      */
     public function userSubmissions(User $user)
@@ -82,6 +90,7 @@ class Task extends Model
 
     /**
      * Check if user can still submit (based on max_submissions_per_user)
+     * Now checks across all assignments for this user
      */
     public function userCanSubmit(User $user): bool
     {
@@ -89,7 +98,24 @@ class Task extends Model
             return false;
         }
 
+        // Count total submissions across all assignments
         $submissionCount = $this->userSubmissions($user)->count();
+        
+        // Count total assignments for this user on this task
+        $assignmentCount = $this->userAssignments($user)->count();
+        
+        // Total allowed submissions = max_submissions_per_user * assignment count
+        $maxAllowedSubmissions = $this->max_submissions_per_user * $assignmentCount;
+        
+        return $submissionCount < $maxAllowedSubmissions;
+    }
+
+    /**
+     * Check if specific assignment can still receive submission
+     */
+    public function assignmentCanSubmit(TaskAssignment $assignment): bool
+    {
+        $submissionCount = $assignment->submissions()->count();
         return $submissionCount < $this->max_submissions_per_user;
     }
 }

@@ -23,6 +23,73 @@
                 </div>
             @endif
 
+            <!-- Assignment Selector (if multiple assignments) -->
+            @if($assignments->count() > 1)
+                <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6 mb-6">
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0">
+                            <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-semibold text-blue-900 dark:text-blue-200 mb-2">
+                                Anda Memiliki {{ $assignments->count() }} Assignment untuk Task Ini
+                            </h3>
+                            <p class="text-sm text-blue-800 dark:text-blue-300 mb-4">
+                                Pilih assignment yang ingin Anda kerjakan:
+                            </p>
+                            <div class="grid gap-3">
+                                @foreach($assignments as $ass)
+                                    <a href="{{ route('tasks.show', ['id' => $task->id, 'assignmentId' => $ass->id]) }}" 
+                                       class="block p-4 rounded-lg border-2 transition-all {{ $ass->id === $assignment->id ? 'border-blue-600 bg-blue-100 dark:bg-blue-900/40' : 'border-gray-200 dark:border-gray-700 hover:border-blue-400' }}">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex-1">
+                                                <div class="flex items-center gap-2 mb-1">
+                                                    @if($ass->title)
+                                                        <span class="font-semibold text-gray-900 dark:text-white">
+                                                            {{ $ass->title }}
+                                                        </span>
+                                                    @else
+                                                        <span class="font-semibold text-gray-900 dark:text-white">
+                                                            Assignment #{{ $ass->id }}
+                                                        </span>
+                                                    @endif
+                                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium
+                                                        @if($ass->status === 'pending') bg-yellow-100 text-yellow-800
+                                                        @elseif($ass->status === 'in_progress') bg-blue-100 text-blue-800
+                                                        @elseif($ass->status === 'completed') bg-green-100 text-green-800
+                                                        @else bg-gray-100 text-gray-800
+                                                        @endif">
+                                                        {{ ucfirst($ass->status) }}
+                                                    </span>
+                                                </div>
+                                                @if($ass->description)
+                                                    <p class="text-sm text-gray-600 dark:text-gray-400">{{ $ass->description }}</p>
+                                                @endif
+                                                <div class="flex items-center gap-4 mt-2 text-xs text-gray-500 dark:text-gray-400">
+                                                    <span>{{ $ass->submissions()->count() }}/{{ $task->max_submissions_per_user }} submissions</span>
+                                                    @if($ass->due_date)
+                                                        <span>Due: {{ $ass->due_date->format('d M Y') }}</span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            @if($ass->id === $assignment->id)
+                                                <div class="ml-4">
+                                                    <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                                                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                                                    </svg>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             <!-- Task Header -->
             <div class="bg-white dark:bg-gray-800 shadow-xl rounded-lg overflow-hidden mb-6">
                 <div class="p-6 md:p-8">
@@ -132,8 +199,27 @@
                     <div class="p-6 md:p-8">
                         <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">✍️ Submit Pengerjaan</h2>
                         
+                        @if($assignment->title || $assignment->description)
+                            <div class="mb-4 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800">
+                                <p class="text-sm font-semibold text-purple-900 dark:text-purple-200 mb-1">
+                                    Submitting untuk: 
+                                    @if($assignment->title)
+                                        <span class="font-bold">{{ $assignment->title }}</span>
+                                    @else
+                                        <span class="font-bold">Assignment #{{ $assignment->id }}</span>
+                                    @endif
+                                </p>
+                                @if($assignment->description)
+                                    <p class="text-sm text-purple-800 dark:text-purple-300">{{ $assignment->description }}</p>
+                                @endif
+                            </div>
+                        @endif
+                        
                         <form action="{{ route('tasks.submit', $task->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            
+                            <!-- Hidden field untuk assignment_id -->
+                            <input type="hidden" name="assignment_id" value="{{ $assignment->id }}">
                             
                             <div class="mb-6">
                                 <label for="submission_content" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -189,8 +275,13 @@
                         <div>
                             <h3 class="text-lg font-semibold text-yellow-900 dark:text-yellow-200">Tidak Dapat Submit</h3>
                             <p class="text-yellow-800 dark:text-yellow-300">
-                                Anda telah mencapai batas maksimal submission untuk tugas ini ({{ $task->max_submissions_per_user }} submission).
+                                Assignment ini telah mencapai batas maksimal submission ({{ $task->max_submissions_per_user }} submission).
                             </p>
+                            @if($assignments->count() > 1)
+                                <p class="text-yellow-700 dark:text-yellow-400 text-sm mt-2">
+                                    Coba pilih assignment lain di atas jika masih ada yang bisa di-submit.
+                                </p>
+                            @endif
                         </div>
                     </div>
                 </div>

@@ -44,10 +44,10 @@ Route::controller(\App\Http\Controllers\TaskController::class)
     ->prefix('tasks')
     ->group(function () {
         Route::get('/', 'index')->name('tasks.index');
-        Route::get('/submissions', 'submissions')->name('tasks.submissions');
-        Route::get('/{id}', 'show')->name('tasks.show');
-        Route::post('/{id}/submit', 'submit')->name('tasks.submit');
         Route::get('/submission/{id}', 'viewSubmission')->name('tasks.submission.view');
+        Route::get('/submissions', 'submissions')->name('tasks.submissions');
+        Route::get('/{id}/{assignmentId?}', 'show')->name('tasks.show');
+        Route::post('/{id}/submit', 'submit')->name('tasks.submit');
     });
 
 Route::controller(\App\Http\Controllers\UserController::class)

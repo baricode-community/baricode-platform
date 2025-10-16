@@ -10,16 +10,20 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\DissociateAction;
 use Filament\Actions\DissociateBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\Action;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Repeater;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Filament\Notifications\Notification;
+use App\Models\User;
 
 class AssignmentsRelationManager extends RelationManager
 {
@@ -29,13 +33,24 @@ class AssignmentsRelationManager extends RelationManager
     {
         return $schema
             ->components([
-                Select::make('user_id')
-                    ->label('User')
+                Select::make('user_ids')
+                    ->label('Users')
+                    ->multiple()
                     ->relationship('user', 'name')
                     ->required()
                     ->searchable()
                     ->preload()
-                    ->helperText('Pilih user yang akan mengerjakan tugas ini'),
+                    ->helperText('Pilih satu atau lebih user. Jika pilih multiple, semua akan dapat assignment yang sama.'),
+                
+                TextInput::make('title')
+                    ->label('Judul Assignment')
+                    ->maxLength(255)
+                    ->helperText('Opsional: Judul untuk membedakan assignment ini dari yang lain'),
+                
+                Textarea::make('description')
+                    ->label('Deskripsi Assignment')
+                    ->rows(3)
+                    ->helperText('Opsional: Deskripsi khusus untuk assignment ini'),
                 
                 DateTimePicker::make('due_date')
                     ->label('Deadline')
@@ -64,6 +79,12 @@ class AssignmentsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('user.name')
             ->columns([
+                TextColumn::make('title')
+                    ->label('Judul Assignment')
+                    ->searchable()
+                    ->placeholder('(No title)')
+                    ->toggleable(),
+                
                 TextColumn::make('user.name')
                     ->label('User')
                     ->searchable()
@@ -118,14 +139,78 @@ class AssignmentsRelationManager extends RelationManager
             ])
             ->headerActions([
                 CreateAction::make()
-                    ->mutateFormDataUsing(function (array $data): array {
-                        $data['assigned_by'] = auth()->id();
-                        $data['assigned_at'] = now();
-                        return $data;
+                    ->using(function (array $data, $livewire) {
+                        $task = $livewire->ownerRecord;
+                        $userIds = is_array($data['user_ids']) ? $data['user_ids'] : [$data['user_ids']];
+                        
+                        $createdAssignments = [];
+                        foreach ($userIds as $userId) {
+                            $assignment = $task->assignments()->create([
+                                'user_id' => $userId,
+                                'title' => $data['title'] ?? null,
+                                'description' => $data['description'] ?? null,
+                                'due_date' => $data['due_date'] ?? null,
+                                'status' => $data['status'] ?? 'pending',
+                                'notes' => $data['notes'] ?? null,
+                                'assigned_by' => auth()->id(),
+                                'assigned_at' => now(),
+                            ]);
+                            $createdAssignments[] = $assignment;
+                        }
+                        
+                        if (count($createdAssignments) > 1) {
+                            Notification::make()
+                                ->success()
+                                ->title('Assignments Berhasil Dibuat')
+                                ->body("Berhasil membuat " . count($createdAssignments) . " assignment(s)")
+                                ->send();
+                        }
+                        
+                        // Return first assignment untuk Filament
+                        return $createdAssignments[0] ?? null;
                     }),
             ])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()
+                    ->form([
+                        Select::make('user_id')
+                            ->label('User')
+                            ->relationship('user', 'name')
+                            ->required()
+                            ->searchable()
+                            ->preload()
+                            ->disabled()
+                            ->helperText('User tidak bisa diubah saat edit. Hapus dan buat assignment baru jika perlu ganti user.'),
+                        
+                        TextInput::make('title')
+                            ->label('Judul Assignment')
+                            ->maxLength(255)
+                            ->helperText('Opsional: Judul untuk membedakan assignment ini dari yang lain'),
+                        
+                        Textarea::make('description')
+                            ->label('Deskripsi Assignment')
+                            ->rows(3)
+                            ->helperText('Opsional: Deskripsi khusus untuk assignment ini'),
+                        
+                        DateTimePicker::make('due_date')
+                            ->label('Deadline')
+                            ->helperText('Kapan tugas ini harus selesai? (Opsional)'),
+                        
+                        Select::make('status')
+                            ->label('Status')
+                            ->options([
+                                'pending' => 'Pending',
+                                'in_progress' => 'Dalam Pengerjaan',
+                                'completed' => 'Selesai',
+                                'cancelled' => 'Dibatalkan',
+                            ])
+                            ->required(),
+                        
+                        Textarea::make('notes')
+                            ->label('Catatan')
+                            ->rows(3)
+                            ->helperText('Catatan atau instruksi tambahan untuk user ini'),
+                    ]),
                 DeleteAction::make(),
             ])
             ->toolbarActions([

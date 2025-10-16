@@ -32,23 +32,38 @@ class TaskController extends Controller
     /**
      * Show a specific task detail
      */
-    public function show($id)
+    public function show($id, $assignmentId = null)
     {
         $user = auth()->user();
         
-        // Find assignment for this user
-        $assignment = TaskAssignment::with(['task', 'submissions.reviewer'])
+        // Get all assignments for this user and task
+        $assignments = TaskAssignment::with(['task', 'submissions.reviewer'])
             ->where('task_id', $id)
             ->where('user_id', $user->id)
-            ->firstOrFail();
+            ->get();
+        
+        if ($assignments->isEmpty()) {
+            abort(404, 'Task not assigned to you');
+        }
+        
+        // If specific assignment requested, find it
+        if ($assignmentId) {
+            $assignment = $assignments->firstWhere('id', $assignmentId);
+            if (!$assignment) {
+                abort(404, 'Assignment not found');
+            }
+        } else {
+            // Default to first assignment
+            $assignment = $assignments->first();
+        }
         
         $task = $assignment->task;
         
-        // Check if user can still submit
-        $canSubmit = $task->userCanSubmit($user);
-        $submissionsCount = $task->userSubmissions($user)->count();
+        // Check if this specific assignment can still submit
+        $canSubmit = $task->assignmentCanSubmit($assignment);
+        $submissionsCount = $assignment->submissions()->count();
         
-        return view('pages.tasks.show', compact('assignment', 'task', 'canSubmit', 'submissionsCount'));
+        return view('pages.tasks.show', compact('assignment', 'assignments', 'task', 'canSubmit', 'submissionsCount'));
     }
 
     /**
@@ -58,23 +73,25 @@ class TaskController extends Controller
     {
         $user = auth()->user();
         
-        // Validate the task assignment
-        $assignment = TaskAssignment::where('task_id', $id)
+        // Validate request first
+        $validated = $request->validate([
+            'assignment_id' => 'required|exists:task_assignments,id',
+            'submission_content' => 'required|string',
+            'files.*' => 'nullable|file|max:20480', // 20MB max per file
+        ]);
+        
+        // Validate the task assignment belongs to user
+        $assignment = TaskAssignment::where('id', $validated['assignment_id'])
+            ->where('task_id', $id)
             ->where('user_id', $user->id)
             ->firstOrFail();
         
         $task = $assignment->task;
         
-        // Check if user can submit
-        if (!$task->userCanSubmit($user)) {
-            return redirect()->back()->with('error', 'Anda sudah mencapai batas maksimal submission untuk tugas ini.');
+        // Check if this specific assignment can still submit
+        if (!$task->assignmentCanSubmit($assignment)) {
+            return redirect()->back()->with('error', 'Assignment ini sudah mencapai batas maksimal submission.');
         }
-        
-        // Validate request
-        $validated = $request->validate([
-            'submission_content' => 'required|string',
-            'files.*' => 'nullable|file|max:20480', // 20MB max per file
-        ]);
         
         // Handle file uploads
         $filePaths = [];
@@ -96,7 +113,7 @@ class TaskController extends Controller
             'submitted_at' => now(),
         ]);
         
-        return redirect()->route('tasks.show', $task->id)
+        return redirect()->route('tasks.show', ['id' => $task->id, 'assignmentId' => $assignment->id])
             ->with('success', 'Submission berhasil dikirim! Menunggu review dari admin.');
     }
 
