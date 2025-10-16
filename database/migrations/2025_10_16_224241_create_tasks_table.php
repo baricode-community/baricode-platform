@@ -16,11 +16,10 @@ return new class extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->text('content')->nullable();
-
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('assigned_by')->constrained('users')->onDelete('set null')->nullable();
-            $table->timestamp('approved_at')->nullable();
-
+            $table->boolean('is_active')->default(true);
+            $table->integer('max_submissions_per_user')->default(1);
+            $table->json('attachments')->nullable();
+            $table->text('instructions')->nullable();
             $table->timestamps();
         });
     }

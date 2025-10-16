@@ -11,17 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('tasks', function (Blueprint $table) {
-            // Remove old columns that are no longer needed
-            $table->dropForeign(['assigned_by']);
-            $table->dropColumn(['assigned_by', 'approved_at']);
-            
-            // Add new columns
-            $table->boolean('is_active')->default(true)->after('content');
-            $table->integer('max_submissions_per_user')->default(1)->after('is_active');
-            $table->json('attachments')->nullable()->after('max_submissions_per_user');
-            $table->text('instructions')->nullable()->after('attachments');
-        });
+        // Migration ini tidak diperlukan lagi karena create_tasks_table sudah benar
+        // Tapi kita biarkan kosong agar tidak error jika sudah dijalankan
     }
 
     /**
@@ -29,13 +20,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('tasks', function (Blueprint $table) {
-            // Restore old columns
-            $table->foreignId('assigned_by')->constrained('users')->onDelete('set null')->nullable();
-            $table->timestamp('approved_at')->nullable();
-            
-            // Remove new columns
-            $table->dropColumn(['is_active', 'max_submissions_per_user', 'attachments', 'instructions']);
-        });
+        // Tidak ada yang perlu di-rollback
     }
 };
