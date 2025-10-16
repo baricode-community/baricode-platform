@@ -55,8 +55,8 @@
             <!-- Tugas Mingguan -->
             <div class="bg-gray-800/60 rounded-xl p-6 text-center shadow-lg">
                 <div class="text-4xl mb-3">📆</div>
-                <h4 class="font-semibold mb-2 text-yellow-300">Tugas Mingguan</h4>
-                <p class="text-sm text-gray-300">Dapatkan challenge atau tugas mingguan untuk menguji pemahamanmu dan membuat belajar lebih menantang.</p>
+                <h4 class="font-semibold mb-2 text-yellow-300">Tugas Menarik</h4>
+                <p class="text-sm text-gray-300">Dapatkan challenge atau tugas menarik untuk menguji pemahamanmu dan membuat belajar lebih menantang.</p>
             </div>
         </div>
     </div>

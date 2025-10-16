@@ -74,6 +74,11 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
         return $this->hasMany(\App\Models\Enrollment\Enrollment::class, 'user_id', 'id');
     }
 
+    public function tasks()
+    {
+        return $this->hasMany(\App\Models\Task::class, 'user_id', 'id');
+    }
+
     public function userNotes()
     {
         return $this->hasMany(UserNote::class, 'user_id', 'id');

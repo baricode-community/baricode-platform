@@ -39,6 +39,13 @@ Route::controller(\App\Http\Controllers\DashboardController::class)
         Route::get('/profile', 'profile')->name('profile');
     });
 
+Route::controller(\App\Http\Controllers\TaskController::class)
+    ->middleware(['auth', 'verified'])
+    ->prefix('tasks')
+    ->group(function () {
+        Route::get('/', 'index')->name('tasks.index');
+    });
+
 Route::controller(\App\Http\Controllers\UserController::class)
     ->middleware(['auth', 'verified'])
     ->prefix('users')
