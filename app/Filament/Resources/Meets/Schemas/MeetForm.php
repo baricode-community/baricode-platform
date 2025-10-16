@@ -24,8 +24,7 @@ class MeetForm
                 TextInput::make('description')->label('Description')->maxLength(65535),
                 DateTimePicker::make('scheduled_at')
                     ->label('Scheduled At')
-                    ->seconds(false)
-                    ->format('d/m/Y'),
+                    ->seconds(false),
                 Select::make('user_id')
                     ->label('Peserta')
                     ->relationship('users', 'name')
