@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 use Livewire\Volt\Component;
+use App\Services\WhatsAppService;
 
 new class extends Component {
     public string $name = '';
@@ -39,7 +40,16 @@ new class extends Component {
                 'max:255',
                 Rule::unique(User::class)->ignore($user->id)
             ],
-            'whatsapp' => ['nullable', 'string', 'max:20'],
+            'whatsapp' => [
+                'nullable',
+                'string',
+                'unique:users,whatsapp',
+                function ($attribute, $value, $fail) {
+                    if ($value && !WhatsAppService::isValidNumber($value)) {
+                        $fail('Nomor WhatsApp tidak terdaftar di WhatsApp.');
+                    }
+                },
+            ],
             'about' => ['nullable', 'string', 'max:50000'],
         ]);
 

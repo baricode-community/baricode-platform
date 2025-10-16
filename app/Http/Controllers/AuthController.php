@@ -33,7 +33,7 @@ class AuthController extends Controller
                 'unique:users,whatsapp',
                 function ($attribute, $value, $fail) {
                     if ($value && !WhatsAppService::isValidNumber($value)) {
-                        $fail('Nomor WhatsApp tidak terdaftar di WhatsApp (contoh: 08123456789).');
+                        $fail('Nomor WhatsApp tidak terdaftar di WhatsApp.');
                     }
                 },
             ],
