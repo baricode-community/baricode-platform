@@ -60,14 +60,6 @@ class TaskForm
 
                 \Filament\Schemas\Components\Section::make('Pengaturan')
                     ->schema([
-                        Select::make('user_id')
-                            ->label('Pembuat Tugas')
-                            ->relationship('user', 'name')
-                            ->required()
-                            ->default(auth()->id())
-                            ->searchable()
-                            ->preload(),
-                        
                         Toggle::make('is_active')
                             ->label('Aktif')
                             ->default(true)
