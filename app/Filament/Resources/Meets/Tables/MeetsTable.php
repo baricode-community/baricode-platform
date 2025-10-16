@@ -18,7 +18,7 @@ class MeetsTable
         return $table
             ->columns([
                 TextColumn::make('title')->label('Nama Pertemuan')->searchable()->sortable(),
-                TextColumn::make('description')->label('Deskripsi')->searchable()->sortable(),
+                TextColumn::make('description')->label('Deskripsi')->limit(30)->searchable()->sortable(),
                 TextColumn::make('date')->label('Tanggal')->date()->sortable(),
                 TextColumn::make('created_at')->label('Dibuat Pada')->dateTime()->sortable(),
             ])

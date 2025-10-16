@@ -131,6 +131,60 @@ new #[Layout('layouts.meet')] class extends Component {
         <p class="mt-2 text-gray-600 dark:text-gray-400">Bergabunglah dengan meet online untuk belajar bersama!</p>
     </div>
 
+    <!-- Meet Mendatang Section -->
+    @php
+        $upcomingMeet = $this->meets()->where('scheduled_at', '>', now())->sortBy('scheduled_at')->first();
+    @endphp
+    <!-- Meet Mendatang -->
+    <div class="mb-8">
+        <h2 class="text-xl font-semibold text-indigo-700 dark:text-indigo-400 mb-2">Meet Mendatang</h2>
+        @if($upcomingMeet)
+            <div class="bg-indigo-50 dark:bg-indigo-900 border border-indigo-200 dark:border-indigo-700 rounded-lg p-4 flex flex-col md:flex-row items-start md:items-center gap-4">
+                <div class="flex-1">
+                    <h3 class="text-lg font-bold text-indigo-800 dark:text-indigo-200">{{ $upcomingMeet->title }}</h3>
+                    @if($upcomingMeet->scheduled_at)
+                        <div class="text-sm text-indigo-700 dark:text-indigo-300 mt-1">
+                            Jadwal: {{ $upcomingMeet->scheduled_at->format('d/m/Y H:i') }}
+                        </div>
+                    @endif
+                    @if($upcomingMeet->description)
+                        <p class="text-indigo-700 dark:text-indigo-300 mt-2">{{ $upcomingMeet->description }}</p>
+                    @endif
+                </div>
+                <div class="flex gap-2">
+                    <a href="{{ route('meets.show', $upcomingMeet) }}" 
+                       class="px-4 py-2 text-sm font-medium rounded-md bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-800 transition-colors">
+                        Detail
+                    </a>
+                    @auth
+                        @if ($upcomingMeet->isParticipant(auth()->user()))
+                            @if($upcomingMeet->meet_link || $upcomingMeet->youtube_link)
+                                <button wire:click="openMeetLink({{ $upcomingMeet->id }})" 
+                                        class="px-4 py-2 text-sm font-medium text-white bg-green-600 hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 rounded-md transition-colors">
+                                    Masuk
+                                </button>
+                            @endif
+                        @else
+                            <button wire:click="joinMeet({{ $upcomingMeet->id }})" 
+                                    class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-800 rounded-md transition-colors">
+                                Gabung
+                            </button>
+                        @endif
+                    @else
+                        <a href="{{ route('login') }}" 
+                           class="px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-800 rounded-md transition-colors">
+                            Login
+                        </a>
+                    @endauth
+                </div>
+            </div>
+        @else
+            <div class="bg-yellow-50 dark:bg-yellow-900 border border-yellow-200 dark:border-yellow-700 rounded-lg p-4 text-yellow-800 dark:text-yellow-200">
+                Meet Mendatang Belum Ditentukan
+            </div>
+        @endif
+    </div>
+
     <!-- Search and Sort Controls -->
     <div class="bg-white dark:bg-gray-900 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
         <div class="flex flex-col sm:flex-row gap-4">

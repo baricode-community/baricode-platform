@@ -22,7 +22,10 @@ class MeetForm
                     ->inline(false)
                     ->default(false),
                 TextInput::make('description')->label('Description')->maxLength(65535),
-                DateTimePicker::make('scheduled_at')->label('Scheduled At')->format('d/m/Y'),
+                DateTimePicker::make('scheduled_at')
+                    ->label('Scheduled At')
+                    ->seconds(false)
+                    ->format('d/m/Y'),
                 Select::make('user_id')
                     ->label('Peserta')
                     ->relationship('users', 'name')
