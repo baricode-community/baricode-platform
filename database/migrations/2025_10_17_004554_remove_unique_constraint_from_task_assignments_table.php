@@ -11,16 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('task_assignments', function (Blueprint $table) {
-            // Drop unique constraint untuk allow multiple assignments per user pada task yang sama
-            $table->dropUnique(['task_id', 'user_id']);
-            
-            // Add title untuk membedakan assignments
-            $table->string('title')->nullable()->after('task_id');
-            
-            // Add description untuk assignment specifics
-            $table->text('description')->nullable()->after('title');
-        });
+        // Migration ini tidak diperlukan lagi karena create_task_assignments_table
+        // sudah dibuat tanpa unique constraint dan sudah include title & description
     }
 
     /**
@@ -28,12 +20,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('task_assignments', function (Blueprint $table) {
-            // Restore unique constraint
-            $table->unique(['task_id', 'user_id']);
-            
-            // Remove added columns
-            $table->dropColumn(['title', 'description']);
-        });
+        // Tidak ada yang perlu di-rollback
     }
 };

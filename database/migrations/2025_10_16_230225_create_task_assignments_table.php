@@ -20,10 +20,12 @@ return new class extends Migration
             $table->timestamp('due_date')->nullable();
             $table->enum('status', ['pending', 'in_progress', 'completed', 'cancelled'])->default('pending');
             $table->text('notes')->nullable();
+            $table->string('title')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
 
-            // Prevent duplicate assignments for the same user and task
-            $table->unique(['task_id', 'user_id']);
+            // NO unique constraint - allow multiple assignments for same user and task
+            // This enables scenarios like revisions, levels, versions, etc.
         });
     }
 
