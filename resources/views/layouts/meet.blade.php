@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Komunitas Ngoding - 100% Gratis')</title>
-    
-    <meta name="description" content="{{ $meet->description ?? 'Bergabunglah dengan komunitas ngoding kami untuk belajar, berbagi, dan berkembang bersama. 100% gratis!' }}">
+
+    <meta name="description" content="{{ $meet->description ?? 'Kami mengadakan pertemuan rutin untuk belajar dan berbagi ilmu pemrograman secara gratis di komunitas kami.' }}">
     <meta name="keywords" content="komunitas ngoding, belajar ngoding, coding gratis, pemrograman, developer, web development, programming community">
 
     <link rel="icon" type="image/png" href="{{ asset('favicon.svg') }}">
