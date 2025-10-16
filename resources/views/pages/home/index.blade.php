@@ -15,9 +15,9 @@
             <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto animate-fade-in-up-2">
                 Bergabunglah dengan komunitas yang bersemangat untuk belajar, berbagi, dan berkolaborasi.
             </p>
-            <a href="{{ route('login') }}" wire:navigate
+            <a href="{{ route('cara_belajar') }}" wire:navigate
                 class="bg-white text-indigo-600 font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105 animate-fade-in-up-3 shadow-lg">
-                Mulai Belajar
+                Cara Belajar
             </a>
         </div>
     </section>

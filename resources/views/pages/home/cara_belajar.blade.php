@@ -27,6 +27,39 @@
             </a>
         </div>
     </div>
+
+    {{-- Ragam Mode Belajar di Sini --}}
+    <div class="max-w-5xl mx-auto mb-20">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            Ragam Mode Belajar di Sini
+        </h2>
+        <div class="grid md:grid-cols-4 gap-8">
+            <!-- Belajar Mandiri -->
+            <div class="bg-gray-800/60 rounded-xl p-6 text-center shadow-lg">
+                <div class="text-4xl mb-3">🧑‍💻</div>
+                <h4 class="font-semibold mb-2 text-indigo-300">Belajar Mandiri</h4>
+                <p class="text-sm text-gray-300">Akses materi kapan saja, belajar sesuai kecepatanmu sendiri. Cocok untuk yang suka fleksibilitas.</p>
+            </div>
+            <!-- Meet Sesuai Permintaan -->
+            <div class="bg-gray-800/60 rounded-xl p-6 text-center shadow-lg">
+                <div class="text-4xl mb-3">🤝</div>
+                <h4 class="font-semibold mb-2 text-purple-300">Meet Sesuai Permintaan</h4>
+                <p class="text-sm text-gray-300">Sesi live atau meet bareng mentor & teman jika banyak permintaan. Diskusi langsung, tanya jawab, dan sharing pengalaman.</p>
+            </div>
+            <!-- Diskusi Komunitas -->
+            <div class="bg-gray-800/60 rounded-xl p-6 text-center shadow-lg">
+                <div class="text-4xl mb-3">💬</div>
+                <h4 class="font-semibold mb-2 text-pink-300">Diskusi Komunitas</h4>
+                <p class="text-sm text-gray-300">Gabung forum komunitas, tanya jawab, dan saling support. Belajar bareng jadi lebih seru dan tidak merasa sendirian.</p>
+            </div>
+            <!-- Tugas Mingguan -->
+            <div class="bg-gray-800/60 rounded-xl p-6 text-center shadow-lg">
+                <div class="text-4xl mb-3">📆</div>
+                <h4 class="font-semibold mb-2 text-yellow-300">Tugas Mingguan</h4>
+                <p class="text-sm text-gray-300">Dapatkan challenge atau tugas mingguan untuk menguji pemahamanmu dan membuat belajar lebih menantang.</p>
+            </div>
+        </div>
+    </div>
     
     <div class="max-w-5xl mx-auto text-center mb-20">
         <div class="relative mb-10">
