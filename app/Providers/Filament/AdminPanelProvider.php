@@ -58,8 +58,7 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->plugins([
-                FilamentSpatieLaravelBackupPlugin::make(),
-                \Boquizo\FilamentLogViewer\FilamentLogViewerPlugin::make()
+                FilamentSpatieLaravelBackupPlugin::make()
             ]);
     }
 }
