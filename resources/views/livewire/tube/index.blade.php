@@ -2,17 +2,26 @@
 
 use Livewire\Volt\Component;
 use Livewire\Volt\Attributes\Layout;
+use Livewire\WithPagination;
 use App\Models\PersonalTube;
 
 new #[Layout('layouts.app')] class extends Component {
+    use WithPagination;
+
     public bool $showAddTubeModal = false;
     public bool $showVideoModal = false;
     public ?PersonalTube $selectedVideo = null;
-    public ?int $editId = null; // untuk simpan id saat edit
+    public ?int $editId = null;
     public string $search = '';
     public string $newTitle = '';
     public string $newDescription = '';
     public string $newUrl = '';
+
+    // Reset pagination saat search berubah
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
 
     public function openAddTubeModal(): void
     {
@@ -57,7 +66,6 @@ new #[Layout('layouts.app')] class extends Component {
         ]);
 
         if ($this->editId) {
-            // update
             $tube = PersonalTube::where('user_id', auth()->id())->findOrFail($this->editId);
             $tube->update([
                 'title' => $this->newTitle,
@@ -66,7 +74,6 @@ new #[Layout('layouts.app')] class extends Component {
             ]);
             session()->flash('message', 'Video berhasil diperbarui!');
         } else {
-            // tambah baru
             PersonalTube::create([
                 'user_id' => auth()->id(),
                 'title' => $this->newTitle,
@@ -93,12 +100,13 @@ new #[Layout('layouts.app')] class extends Component {
 
         if ($this->search) {
             $query->where(function ($q) {
-                $q->where('title', 'like', '%' . $this->search . '%')->orWhere('description', 'like', '%' . $this->search . '%');
+                $q->where('title', 'like', '%' . $this->search . '%')
+                  ->orWhere('description', 'like', '%' . $this->search . '%');
             });
         }
 
         return [
-            'tubes' => $query->get(),
+            'tubes' => $query->paginate(5),
         ];
     }
 }; ?>
@@ -187,7 +195,7 @@ new #[Layout('layouts.app')] class extends Component {
                                     class="p-1.5 text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M11 5h2m-1 0v2m-6 8l6-6 6 6" />
+                                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                     </svg>
                                 </button>
                                 <button wire:click="deleteTube({{ $tube->id }})"
@@ -243,6 +251,13 @@ new #[Layout('layouts.app')] class extends Component {
                 </div>
             @endforelse
         </div>
+
+        <!-- Pagination -->
+        @if ($tubes->hasPages())
+            <div class="mt-8">
+                {{ $tubes->links() }}
+            </div>
+        @endif
     </div>
 
     <!-- Modal Tambah/Edit Video -->
@@ -272,7 +287,7 @@ new #[Layout('layouts.app')] class extends Component {
                     class="w-14 h-14 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mb-4">
                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="{{ $editId ? 'M5 13l4 4L19 7' : 'M12 4v16m8-8H4' }}" />
+                            d="{{ $editId ? 'M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z' : 'M12 4v16m8-8H4' }}" />
                     </svg>
                 </div>
                 <h3 class="text-2xl font-bold text-gray-900 dark:text-white">
