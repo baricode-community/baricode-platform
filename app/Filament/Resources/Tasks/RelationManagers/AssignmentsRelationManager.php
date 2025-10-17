@@ -23,7 +23,7 @@ use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Filament\Notifications\Notification;
-use App\Models\User;
+use App\Models\User\User;
 
 class AssignmentsRelationManager extends RelationManager
 {
@@ -36,7 +36,11 @@ class AssignmentsRelationManager extends RelationManager
                 Select::make('user_ids')
                     ->label('Users')
                     ->multiple()
-                    ->relationship('user', 'name')
+                    ->options(function () {
+                        return User::whereNull('deleted_at')
+                            ->orderBy('name')
+                            ->pluck('name', 'id');
+                    })
                     ->required()
                     ->searchable()
                     ->preload()
@@ -141,6 +145,17 @@ class AssignmentsRelationManager extends RelationManager
                 CreateAction::make()
                     ->using(function (array $data, $livewire) {
                         $task = $livewire->ownerRecord;
+                        
+                        // Check if user_ids exists and is not empty
+                        if (!isset($data['user_ids']) || empty($data['user_ids'])) {
+                            Notification::make()
+                                ->danger()
+                                ->title('Error')
+                                ->body('Please select at least one user.')
+                                ->send();
+                            return null;
+                        }
+                        
                         $userIds = is_array($data['user_ids']) ? $data['user_ids'] : [$data['user_ids']];
                         
                         $createdAssignments = [];
