@@ -234,7 +234,7 @@ new #[Layout('layouts.meet')] class extends Component {
                     </div>
                     <div class="prose prose-lg dark:prose-invert max-w-none">
                         <div class="text-gray-700 dark:text-gray-200 leading-relaxed bg-gradient-to-r from-gray-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-6 border border-gray-200 dark:border-gray-600">
-                            {!! nl2br(e($meet->description)) !!}
+                            {!! $meet->description !!}
                         </div>
                     </div>
                 </div>
