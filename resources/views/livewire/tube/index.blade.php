@@ -328,6 +328,9 @@ new #[Layout('layouts.app')] class extends Component {
                     <label class="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-200">
                         URL YouTube <span class="text-red-500">*</span>
                     </label>
+                    <small class="block text-xs text-gray-400 mb-2">
+                        Contoh: https://www.youtube.com/watch?v=pw8_8g0X9kM
+                    </small>
                     <input type="url" wire:model="newUrl"
                         class="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all duration-200"
                         placeholder="https://www.youtube.com/watch?v=XXXXXX">
