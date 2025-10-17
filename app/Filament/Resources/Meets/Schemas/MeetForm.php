@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Meets\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -21,7 +22,7 @@ class MeetForm
                     ->label('Apakah Pertemuan Telah Selesai?')
                     ->inline(false)
                     ->default(false),
-                TextInput::make('description')->label('Description')->maxLength(65535),
+                RichEditor::make('description')->label('Description')->maxLength(65535),
                 DateTimePicker::make('scheduled_at')
                     ->label('Scheduled At')
                     ->seconds(false),
