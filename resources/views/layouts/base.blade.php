@@ -9,6 +9,7 @@
     <meta name="description" content="@yield('description', 'Bergabunglah dengan komunitas ngoding kami untuk belajar, berbagi, dan berkembang bersama. 100% gratis!')">
     <meta name="keywords" content="komunitas ngoding, belajar ngoding, coding gratis, pemrograman, developer, web development, programming community">
     <meta name="author" content="Baricode Community">
+    <meta name="google-site-verification" content="R2vSo871GB_nw-Ld72Zu-wZTrcdJJfvtyxIDnQIBRBg" />
 
     <link rel="icon" type="image/png" href="{{ asset('favicon.svg') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
