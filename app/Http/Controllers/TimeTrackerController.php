@@ -15,11 +15,7 @@ class TimeTrackerController extends Controller
 
     public function show(TimeTrackerProject $project): View
     {
-        // Ensure the project belongs to the authenticated user
-        if ($project->user_id !== auth()->id()) {
-            abort(403, 'Unauthorized access to this project.');
-        }
-
+        // Authorization handled by route policy
         return view('time-tracker.show', [
             'project' => $project
         ]);
