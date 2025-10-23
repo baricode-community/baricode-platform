@@ -2,6 +2,7 @@
 
 namespace App\Livewire\TimeTracker;
 
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 use App\Models\TimeTrackerTask;
 use App\Models\TimeTrackerEntry;
@@ -12,6 +13,7 @@ class TimeEntryTracker extends Component
     public $taskId;
     public $currentEntry = null;
     public $currentDuration = 0;
+    #[Validate('string|max:255')]
     public $note = '';
 
     public function mount($taskId)
