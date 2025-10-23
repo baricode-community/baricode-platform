@@ -14,6 +14,7 @@ class TaskManager extends Component
     public $showModal = false;
     public $editMode = false;
     public $taskId = null;
+    public $isProjectCompleted = false;
 
     #[Validate('required|string|max:255')]
     public $title = '';
@@ -28,18 +29,35 @@ class TaskManager extends Component
     public function mount($projectId = null)
     {
         $this->projectId = $projectId;
+        $this->checkProjectStatus();
     }
 
     #[On('project-selected')]
     public function setProject($projectId)
     {
         $this->projectId = $projectId;
+        $this->checkProjectStatus();
+    }
+
+    public function checkProjectStatus()
+    {
+        if ($this->projectId) {
+            $project = TimeTrackerProject::find($this->projectId);
+            $this->isProjectCompleted = $project ? $project->is_completed : false;
+        }
     }
 
     public function openCreateModal()
     {
         if (!$this->projectId) {
             session()->flash('error', 'Please select a project first.');
+            return;
+        }
+
+        // Check if project is completed
+        $project = TimeTrackerProject::find($this->projectId);
+        if ($project && $project->is_completed) {
+            session()->flash('error', 'Cannot create tasks in a completed project. Please mark the project as incomplete first.');
             return;
         }
 
@@ -53,6 +71,12 @@ class TaskManager extends Component
         
         if ($task->user_id !== auth()->id()) {
             abort(403);
+        }
+
+        // Prevent editing completed tasks
+        if ($task->is_completed) {
+            session()->flash('error', 'Cannot edit a completed task. Please mark it as incomplete first.');
+            return;
         }
 
         $this->taskId = $task->id;
@@ -96,6 +120,14 @@ class TaskManager extends Component
 
             $this->dispatch('task-updated');
         } else {
+            // Check if project is completed before creating new task
+            $project = TimeTrackerProject::find($this->projectId);
+            if ($project && $project->is_completed) {
+                session()->flash('error', 'Cannot create tasks in a completed project.');
+                $this->closeModal();
+                return;
+            }
+
             TimeTrackerTask::create([
                 'project_id' => $this->projectId,
                 'user_id' => auth()->id(),
@@ -116,6 +148,12 @@ class TaskManager extends Component
         
         if ($task->user_id !== auth()->id()) {
             abort(403);
+        }
+
+        // Prevent deleting completed tasks
+        if ($task->is_completed) {
+            session()->flash('error', 'Cannot delete a completed task. Please mark it as incomplete first.');
+            return;
         }
 
         // Check if task has saved entries
@@ -150,8 +188,10 @@ class TaskManager extends Component
     #[On('task-updated')]
     #[On('task-deleted')]
     #[On('time-entry-saved')]
+    #[On('project-updated')]
     public function refreshTasks()
     {
+        $this->checkProjectStatus();
         // Trigger re-render
     }
 

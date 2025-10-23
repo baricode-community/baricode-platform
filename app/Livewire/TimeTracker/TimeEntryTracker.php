@@ -33,6 +33,13 @@ class TimeEntryTracker extends Component
 
     public function start()
     {
+        // Check if task is completed
+        $task = TimeTrackerTask::findOrFail($this->taskId);
+        if ($task->is_completed) {
+            session()->flash('error', 'Cannot track time on a completed task.');
+            return;
+        }
+
         // Stop any other running entries for this user
         TimeTrackerEntry::where('user_id', auth()->id())
             ->where('is_running', true)
