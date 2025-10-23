@@ -107,11 +107,6 @@ class ProjectManager extends Component
         $this->dispatch('project-updated');
     }
 
-    public function selectProject($projectId)
-    {
-        $this->dispatch('project-selected', projectId: $projectId);
-    }
-
     public function closeModal()
     {
         $this->showModal = false;

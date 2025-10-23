@@ -1,4 +1,29 @@
-<div class="mb-8">
+@extends('components.layouts.app')
+
+@section('title', $project->title . ' - Pelacak Waktu')
+
+@section('content')
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Breadcrumb -->
+    <nav class="mb-6">
+        <ol class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+            <li>
+                <a href="{{ route('time-tracker.index') }}" class="hover:text-blue-600 dark:hover:text-blue-400 flex items-center">
+                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    Pelacak Waktu
+                </a>
+            </li>
+            <li>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                </svg>
+            </li>
+            <li class="text-gray-900 dark:text-gray-100 font-medium">{{ $project->title }}</li>
+        </ol>
+    </nav>
+
     <!-- Active Timer Alert -->
     @php
         $runningEntry = \App\Models\TimeTrackerEntry::where('user_id', auth()->id())
@@ -22,7 +47,7 @@
                             <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            <span class="font-semibold text-green-800 dark:text-green-200">Timer Running</span>
+                            <span class="font-semibold text-green-800 dark:text-green-200">Timer Berjalan</span>
                         </div>
                         <div class="mt-1 text-sm text-gray-700 dark:text-gray-300">
                             <span class="font-medium">{{ $runningEntry->task->project->title }}</span>
@@ -54,15 +79,16 @@
                         ">00:00:00</span>
                     </div>
                     
-                    <button 
-                        wire:click="$dispatch('scroll-to-task', { taskId: {{ $runningEntry->task_id }} })"
-                        class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-sm rounded-lg transition flex items-center space-x-1">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                        </svg>
-                        <span>View Task</span>
-                    </button>
+                    @if($runningEntry->task->project_id !== $project->id)
+                        <a href="{{ route('time-tracker.show', $runningEntry->task->project_id) }}"
+                           class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-sm rounded-lg transition flex items-center space-x-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                            <span>Lihat Task</span>
+                        </a>
+                    @endif
                 </div>
             </div>
             
@@ -77,49 +103,7 @@
         </div>
     @endif
 
-    <!-- Projects Section -->
-    <div class="mb-8">
-        @livewire('time-tracker.project-manager')
-    </div>
-
-    <!-- Tasks Section - Only show when project is selected -->
-    @if($selectedProjectId)
-        <div class="transition-all duration-300 ease-in-out" 
-             x-data 
-             x-init="$el.scrollIntoView({ behavior: 'smooth', block: 'start' })">
-            
-            <!-- Divider with selected project info -->
-            <div class="mb-6 flex items-center">
-                <div class="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
-                <div class="mx-4 flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                    <span>Selected Project Tasks</span>
-                </div>
-                <div class="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
-            </div>
-
-            <!-- Tasks Manager -->
-            <div class="animate-fadeIn">
-                @livewire('time-tracker.task-manager', ['projectId' => $selectedProjectId], 'task-manager-'.$selectedProjectId)
-            </div>
-        </div>
-    @endif
-    <style>
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fadeIn {
-            animation: fadeIn 0.5s ease-out;
-        }
-    </style>
+    <!-- Task Manager for this project -->
+    @livewire('time-tracker.task-manager', ['projectId' => $project->id])
 </div>
+@endsection

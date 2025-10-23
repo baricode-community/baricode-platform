@@ -40,17 +40,17 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" />
                     </svg>
-                    Stop
+                    Berhenti
                 </button>
 
                 <!-- Discard Button -->
                 <button wire:click="discard" 
-                        onclick="return confirm('Are you sure you want to discard this time entry?')"
+                        onclick="return confirm('Apakah Anda yakin ingin membuang entri waktu ini?')"
                         class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition flex items-center">
                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>
-                    Discard
+                    Buang
                 </button>
             @else
                 <!-- Play Button -->
@@ -60,7 +60,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    Start
+                    Mulai
                 </button>
             @endif
         </div>
@@ -70,28 +70,28 @@
     @if($isRunning)
         <div class="mt-3">
             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Note
+                Catatan
             </label>
             <textarea 
                 wire:model.blur="note" 
                 wire:change="updateNote"
                 rows="2"
                 maxlength="255"
-                placeholder="Add notes about what you're working on..."
+                placeholder="Tambahkan catatan tentang apa yang sedang Anda kerjakan..."
                 class="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 text-sm resize-none"></textarea>
-            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Your note will be saved with this time entry</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Catatan Anda akan disimpan bersama entri waktu ini</p>
         </div>
     @endif
 
     <!-- Time Entries History -->
     @if($task->entries()->where('stopped_at', '!=', null)->count() > 0)
         <div class="mt-4 border-t border-gray-200 dark:border-gray-700 pt-3">
-            <h4 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Time Entries:</h4>
+            <h4 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Entri Waktu:</h4>
             <div class="space-y-2">
                 @foreach($task->entries()->where('stopped_at', '!=', null)->latest()->get() as $entry)
                     <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-2">
                         <div class="flex justify-between items-center text-xs text-gray-600 dark:text-gray-400">
-                            <span>{{ $entry->started_at->format('M d, Y H:i') }} - {{ $entry->stopped_at->format('H:i') }}</span>
+                            <span>{{ $entry->started_at->format('d M Y H:i') }} - {{ $entry->stopped_at->format('H:i') }}</span>
                             <span class="font-mono font-semibold">{{ $entry->formatted_duration }}</span>
                         </div>
                         @if($entry->note)
