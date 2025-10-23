@@ -1,4 +1,4 @@
-<div class="">
+<div class="mb-8">
     <!-- Projects Section -->
     <div class="mb-8">
         @livewire('time-tracker.project-manager')
