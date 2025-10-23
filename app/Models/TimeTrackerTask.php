@@ -53,7 +53,7 @@ class TimeTrackerTask extends Model
 
     public function getTotalDurationAttribute(): int
     {
-        return $this->entries()->sum('duration');
+        return abs($this->entries()->sum('duration'));
     }
 
     public function getFormattedTotalDurationAttribute(): string

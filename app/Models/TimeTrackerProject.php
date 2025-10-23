@@ -49,7 +49,7 @@ class TimeTrackerProject extends Model
 
     public function getFormattedTotalDurationAttribute(): string
     {
-        $seconds = $this->total_duration;
+        $seconds = abs($this->total_duration);
         $hours = floor($seconds / 3600);
         $minutes = floor(($seconds % 3600) / 60);
         $secs = $seconds % 60;

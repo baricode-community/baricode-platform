@@ -49,10 +49,10 @@ class TimeTrackerEntry extends Model
     public function getCurrentDuration(): int
     {
         if ($this->is_running) {
-            return now()->diffInSeconds($this->started_at);
+            return abs(now()->diffInSeconds($this->started_at));
         }
         
-        return $this->duration;
+        return abs($this->duration);
     }
 
     public function getFormattedDurationAttribute(): string
