@@ -3,11 +3,13 @@
 namespace App\Livewire\TimeTracker;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 use App\Models\TimeTrackerProject;
 use Livewire\Attributes\Validate;
 
 class ProjectManager extends Component
 {
+    use WithPagination;
     public $showModal = false;
     public $editMode = false;
     public $projectId = null;
@@ -118,17 +120,17 @@ class ProjectManager extends Component
 
     public function updatedSearch()
     {
-        // Trigger re-render when search changes
+        $this->resetPage();
     }
 
     public function updatedFilterStatus()
     {
-        // Trigger re-render when filter changes
+        $this->resetPage();
     }
 
     public function updatedSortBy()
     {
-        // Trigger re-render when sort changes
+        $this->resetPage();
     }
 
     public function render()
@@ -174,7 +176,7 @@ class ProjectManager extends Component
                 break;
         }
 
-        $projects = $query->get();
+        $projects = $query->paginate(5);
 
         return view('livewire.time-tracker.project-manager', [
             'projects' => $projects,

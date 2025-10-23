@@ -212,6 +212,13 @@
         @endforelse
     </div>
 
+    <!-- Pagination -->
+    @if($projects->hasPages())
+        <div class="mt-6">
+            {{ $projects->links() }}
+        </div>
+    @endif
+
     <!-- Modal -->
     @if($showModal)
         <div class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm overflow-y-auto h-full w-full z-50 flex items-center justify-center p-4" 
