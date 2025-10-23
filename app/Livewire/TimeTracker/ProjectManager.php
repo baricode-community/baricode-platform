@@ -171,7 +171,7 @@ class ProjectManager extends Component
                 break;
         }
 
-        $projects = $query->paginate(5);
+        $projects = $query->paginate(50);
 
         return view('livewire.time-tracker.project-manager', [
             'projects' => $projects,
