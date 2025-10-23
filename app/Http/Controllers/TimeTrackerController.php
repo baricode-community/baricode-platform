@@ -16,9 +16,6 @@ class TimeTrackerController extends Controller
 
     public function show(TimeTrackerProject $project): View
     {
-        // Authorization handled by route policy
-        Gate::authorize('view', $project);
-
         return view('time-tracker.show', [
             'project' => $project
         ]);
