@@ -25,6 +25,13 @@ class ProjectManager extends Component
     public $filterStatus = 'all'; // all, completed, active
     public $sortBy = 'created_desc'; // created_desc, created_asc, updated_desc, updated_asc, title_asc, title_desc
 
+    // Delete confirmation
+    public $showDeleteModal = false;
+    public $deleteProjectId = null;
+    public $deleteProjectTitle = '';
+    public $deleteHasTasks = false;
+    public $deleteTaskCount = 0;
+
     public function openCreateModal()
     {
         $this->reset(['title', 'description', 'projectId', 'editMode']);
@@ -89,6 +96,7 @@ class ProjectManager extends Component
     {
         $project = TimeTrackerProject::where('id', $projectId)
             ->where('user_id', auth()->id())
+            ->withCount('tasks')
             ->first();
         
         if (!$project) {
@@ -96,9 +104,46 @@ class ProjectManager extends Component
             return;
         }
 
+        // Check if project has tasks
+        if ($project->tasks_count > 0) {
+            // Open confirmation modal with warning
+            $this->deleteProjectId = $project->id;
+            $this->deleteProjectTitle = $project->title;
+            $this->deleteHasTasks = true;
+            $this->deleteTaskCount = $project->tasks_count;
+            $this->showDeleteModal = true;
+            return;
+        }
+
+        // If no tasks, delete directly after browser confirm
+        $this->confirmDelete($projectId);
+    }
+
+    public function confirmDelete($projectId)
+    {
+        $project = TimeTrackerProject::where('id', $projectId)
+            ->where('user_id', auth()->id())
+            ->first();
+        
+        if (!$project) {
+            session()->flash('error', 'Proyek tidak ditemukan atau Anda tidak memiliki akses.');
+            $this->closeDeleteModal();
+            return;
+        }
+
         $project->delete();
-        session()->flash('success', 'Proyek berhasil dihapus.');
+        session()->flash('success', 'Proyek "' . $project->title . '" berhasil dihapus.');
+        $this->closeDeleteModal();
         $this->dispatch('project-deleted');
+    }
+
+    public function closeDeleteModal()
+    {
+        $this->showDeleteModal = false;
+        $this->deleteProjectId = null;
+        $this->deleteProjectTitle = '';
+        $this->deleteHasTasks = false;
+        $this->deleteTaskCount = 0;
     }
 
     public function toggleCompletion($projectId)

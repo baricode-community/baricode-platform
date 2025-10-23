@@ -45,20 +45,6 @@
         </div>
     @endif
 
-    @if (session()->has('success'))
-        <div class="bg-green-50 border-l-4 border-green-500 text-green-700 px-4 py-3 rounded-lg relative mb-4 shadow-sm"
-            role="alert">
-            <div class="flex items-center">
-                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                        clip-rule="evenodd" />
-                </svg>
-                <span class="block sm:inline">{{ session('success') }}</span>
-            </div>
-        </div>
-    @endif
-
     <!-- Search, Filter, and Sort Controls -->
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-5 mb-6">
         <div class="flex flex-col lg:flex-row gap-4">
@@ -222,7 +208,6 @@
                         </button>
                         <!-- Delete Button -->
                         <button wire:click.stop="delete({{ $project->id }})"
-                            onclick="return confirm('Apakah Anda yakin ingin menghapus proyek ini?')"
                             class="p-2 text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/30 rounded-lg transition-colors flex items-center"
                             title="Hapus">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -368,6 +353,106 @@
                         </button>
                     </div>
                 </form>
+            </div>
+        </div>
+    @endif
+
+    <!-- Delete Confirmation Modal -->
+    @if ($showDeleteModal)
+        <div class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm overflow-y-auto h-full w-full z-50 flex items-center justify-center p-4"
+            wire:click="closeDeleteModal" 
+            x-data 
+            x-init="document.body.style.overflow = 'hidden'"
+            x-destroy="document.body.style.overflow = 'auto'">
+            <div class="relative w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-2xl transform transition-all" 
+                 wire:click.stop
+                 x-data
+                 x-init="$el.animate([
+                    { opacity: 0, transform: 'scale(0.9)' },
+                    { opacity: 1, transform: 'scale(1)' }
+                 ], { duration: 200, easing: 'ease-out' })">
+                
+                <!-- Modal Header -->
+                <div class="bg-gradient-to-r from-red-500 to-red-600 dark:from-red-600 dark:to-red-700 px-6 py-4 rounded-t-2xl">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-xl font-bold text-white flex items-center">
+                            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                            </svg>
+                            Konfirmasi Penghapusan
+                        </h3>
+                        <button wire:click="closeDeleteModal" 
+                                class="text-white hover:text-red-100 transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="p-6">
+                    <!-- Warning Icon -->
+                    <div class="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-10 h-10 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                    </div>
+
+                    <div class="text-center mb-6">
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">
+                            Apakah Anda yakin?
+                        </h4>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            Anda akan menghapus proyek:
+                        </p>
+                        <p class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+                            "{{ $deleteProjectTitle }}"
+                        </p>
+
+                        @if($deleteHasTasks)
+                            <div class="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500 p-4 mb-4 text-left">
+                                <div class="flex items-start">
+                                    <svg class="w-5 h-5 text-yellow-600 dark:text-yellow-400 mr-2 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <div>
+                                        <p class="font-semibold text-yellow-800 dark:text-yellow-200 mb-1">
+                                            ⚠️ Perhatian!
+                                        </p>
+                                        <p class="text-sm text-yellow-700 dark:text-yellow-300">
+                                            Proyek ini memiliki <strong>{{ $deleteTaskCount }} tugas</strong>.
+                                            Semua tugas dan data terkait akan ikut terhapus secara permanen!
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                            Tindakan ini <strong class="text-red-600 dark:text-red-400">tidak dapat dibatalkan</strong>.
+                        </p>
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <div class="flex justify-end space-x-3">
+                        <button type="button" 
+                                wire:click="closeDeleteModal"
+                                class="px-5 py-2.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 font-medium transition-colors">
+                            <svg class="w-5 h-5 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                            Batal
+                        </button>
+                        <button wire:click="confirmDelete({{ $deleteProjectId }})"
+                                class="px-5 py-2.5 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-200 flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                            Ya, Hapus Proyek
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     @endif
