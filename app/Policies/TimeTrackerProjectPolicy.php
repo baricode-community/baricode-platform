@@ -21,10 +21,6 @@ class TimeTrackerProjectPolicy
      */
     public function view(User $user, TimeTrackerProject $project): bool
     {
-        dd([
-            'user_id' => $user->id,
-            'project_user_id' => $project->user_id
-        ]);
         return $project->user_id === $user->id;
     }
 

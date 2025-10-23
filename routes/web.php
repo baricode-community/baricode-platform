@@ -63,7 +63,9 @@ Route::controller(\App\Http\Controllers\TimeTrackerController::class)
     ->group(function () {
         Route::get('/', 'index')->name('time-tracker.index');
         Route::get('/projects/{project}', 'show')
-            ->name('time-tracker.show');
+            ->name('time-tracker.show')
+            ->whereNumber('project')
+            ->can('view', 'project');
     });
 
 Route::controller(\App\Http\Controllers\CourseController::class)
