@@ -9,12 +9,16 @@
         <div class="flex items-center space-x-4">
             <!-- Timer Display -->
             <div class="flex items-center text-2xl font-mono font-bold text-gray-900 dark:text-gray-100" 
-                 x-data="{ duration: {{ $currentDuration }} }" 
+                 x-data="{ 
+                     duration: {{ $currentDuration }},
+                     timer: null
+                 }" 
                  x-init="
                      @if($isRunning)
-                     setInterval(() => { duration++; $wire.call('refreshTimer'); }, 1000)
+                     timer = setInterval(() => { duration++; }, 1000)
                      @endif
-                 ">
+                 "
+                 x-on:destroy="if(timer) clearInterval(timer)">
                 <svg class="w-6 h-6 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -104,14 +108,3 @@
         </div>
     @endif
 </div>
-
-@script
-<script>
-    // Auto-refresh timer every second when running
-    @if($isRunning)
-        setInterval(() => {
-            $wire.$refresh();
-        }, 1000);
-    @endif
-</script>
-@endscript
