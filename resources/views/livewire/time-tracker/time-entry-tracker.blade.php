@@ -62,15 +62,41 @@
         </div>
     </div>
 
+    <!-- Note Input (Only shown when timer is running) -->
+    @if($isRunning)
+        <div class="mt-3">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Note
+            </label>
+            <textarea 
+                wire:model.blur="note" 
+                wire:change="updateNote"
+                rows="2"
+                placeholder="Add notes about what you're working on..."
+                class="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 text-sm resize-none"></textarea>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Your note will be saved with this time entry</p>
+        </div>
+    @endif
+
     <!-- Time Entries History -->
     @if($task->entries()->where('stopped_at', '!=', null)->count() > 0)
         <div class="mt-4 border-t border-gray-200 dark:border-gray-700 pt-3">
             <h4 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Time Entries:</h4>
             <div class="space-y-2">
                 @foreach($task->entries()->where('stopped_at', '!=', null)->latest()->get() as $entry)
-                    <div class="flex justify-between items-center text-xs text-gray-600 dark:text-gray-400">
-                        <span>{{ $entry->started_at->format('M d, Y H:i') }} - {{ $entry->stopped_at->format('H:i') }}</span>
-                        <span class="font-mono font-semibold">{{ $entry->formatted_duration }}</span>
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-2">
+                        <div class="flex justify-between items-center text-xs text-gray-600 dark:text-gray-400">
+                            <span>{{ $entry->started_at->format('M d, Y H:i') }} - {{ $entry->stopped_at->format('H:i') }}</span>
+                            <span class="font-mono font-semibold">{{ $entry->formatted_duration }}</span>
+                        </div>
+                        @if($entry->note)
+                            <div class="mt-1 text-xs text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-600 rounded px-2 py-1">
+                                <svg class="w-3 h-3 inline mr-1 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                                </svg>
+                                {{ $entry->note }}
+                            </div>
+                        @endif
                     </div>
                 @endforeach
             </div>

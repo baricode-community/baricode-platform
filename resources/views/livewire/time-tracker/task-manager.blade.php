@@ -151,14 +151,24 @@
                                     </h4>
                                     <div class="space-y-2">
                                         @foreach($task->entries()->latest()->get() as $entry)
-                                            <div class="flex justify-between items-center text-sm text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-900/50 px-3 py-2 rounded">
-                                                <span class="flex items-center">
-                                                    <svg class="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                                    </svg>
-                                                    {{ $entry->started_at->format('M d, Y H:i') }} - {{ $entry->stopped_at ? $entry->stopped_at->format('H:i') : 'Running' }}
-                                                </span>
-                                                <span class="font-mono font-bold text-purple-600 dark:text-purple-400">{{ $entry->formatted_duration }}</span>
+                                            <div class="bg-gray-50 dark:bg-gray-900/50 px-3 py-2 rounded">
+                                                <div class="flex justify-between items-center text-sm text-gray-600 dark:text-gray-400">
+                                                    <span class="flex items-center">
+                                                        <svg class="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                        </svg>
+                                                        {{ $entry->started_at->format('M d, Y H:i') }} - {{ $entry->stopped_at ? $entry->stopped_at->format('H:i') : 'Running' }}
+                                                    </span>
+                                                    <span class="font-mono font-bold text-purple-600 dark:text-purple-400">{{ $entry->formatted_duration }}</span>
+                                                </div>
+                                                @if($entry->note)
+                                                    <div class="mt-2 text-xs text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded px-2 py-1">
+                                                        <svg class="w-3 h-3 inline mr-1 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                                                        </svg>
+                                                        {{ $entry->note }}
+                                                    </div>
+                                                @endif
                                             </div>
                                         @endforeach
                                     </div>

@@ -12,6 +12,7 @@ class TimeEntryTracker extends Component
     public $taskId;
     public $currentEntry = null;
     public $currentDuration = 0;
+    public $note = '';
 
     public function mount($taskId)
     {
@@ -28,6 +29,14 @@ class TimeEntryTracker extends Component
 
         if ($this->currentEntry) {
             $this->currentDuration = $this->currentEntry->getCurrentDuration();
+            $this->note = $this->currentEntry->note ?? '';
+        }
+    }
+
+    public function updateNote()
+    {
+        if ($this->currentEntry && $this->currentEntry->is_running) {
+            $this->currentEntry->update(['note' => $this->note]);
         }
     }
 
@@ -54,17 +63,22 @@ class TimeEntryTracker extends Component
             'user_id' => auth()->id(),
             'started_at' => now(),
             'is_running' => true,
+            'note' => '',
         ]);
 
+        $this->note = '';
         $this->dispatch('timer-started');
     }
 
     public function stop()
     {
         if ($this->currentEntry) {
+            // Save the note before stopping
+            $this->currentEntry->update(['note' => $this->note]);
             $this->currentEntry->stop();
             $this->currentEntry = null;
             $this->currentDuration = 0;
+            $this->note = '';
             $this->dispatch('timer-stopped');
             $this->dispatch('time-entry-saved');
         }
@@ -76,6 +90,7 @@ class TimeEntryTracker extends Component
             $this->currentEntry->delete();
             $this->currentEntry = null;
             $this->currentDuration = 0;
+            $this->note = '';
             $this->dispatch('timer-discarded');
         }
     }

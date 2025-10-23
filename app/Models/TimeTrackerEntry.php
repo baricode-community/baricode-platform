@@ -15,6 +15,7 @@ class TimeTrackerEntry extends Model
         'stopped_at',
         'duration',
         'is_running',
+        'note',
     ];
 
     protected $casts = [
