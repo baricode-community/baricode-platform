@@ -67,15 +67,18 @@ class TaskManager extends Component
 
     public function openEditModal($taskId)
     {
-        $task = TimeTrackerTask::findOrFail($taskId);
+        $task = TimeTrackerTask::where('id', $taskId)
+            ->where('user_id', auth()->id())
+            ->first();
         
-        if ($task->user_id !== auth()->id()) {
-            abort(403);
+        if (!$task) {
+            session()->flash('error', 'Tugas tidak ditemukan atau Anda tidak memiliki akses.');
+            return;
         }
 
         // Prevent editing completed tasks
         if ($task->is_completed) {
-            session()->flash('error', 'Cannot edit a completed task. Please mark it as incomplete first.');
+            session()->flash('error', 'Tugas yang selesai tidak dapat diedit. Tandai sebagai belum selesai terlebih dahulu.');
             return;
         }
 
@@ -106,10 +109,14 @@ class TaskManager extends Component
         }
 
         if ($this->editMode) {
-            $task = TimeTrackerTask::findOrFail($this->taskId);
+            $task = TimeTrackerTask::where('id', $this->taskId)
+                ->where('user_id', auth()->id())
+                ->first();
             
-            if ($task->user_id !== auth()->id()) {
-                abort(403);
+            if (!$task) {
+                session()->flash('error', 'Tugas tidak ditemukan atau Anda tidak memiliki akses.');
+                $this->closeModal();
+                return;
             }
 
             $task->update([
@@ -118,12 +125,13 @@ class TaskManager extends Component
                 'estimated_duration' => $estimatedDuration,
             ]);
 
+            session()->flash('success', 'Tugas berhasil diperbarui.');
             $this->dispatch('task-updated');
         } else {
             // Check if project is completed before creating new task
             $project = TimeTrackerProject::find($this->projectId);
             if ($project && $project->is_completed) {
-                session()->flash('error', 'Cannot create tasks in a completed project.');
+                session()->flash('error', 'Tidak dapat membuat tugas di proyek yang sudah selesai.');
                 $this->closeModal();
                 return;
             }
@@ -136,6 +144,7 @@ class TaskManager extends Component
                 'estimated_duration' => $estimatedDuration,
             ]);
 
+            session()->flash('success', 'Tugas berhasil dibuat.');
             $this->dispatch('task-created');
         }
 
@@ -144,37 +153,45 @@ class TaskManager extends Component
 
     public function delete($taskId)
     {
-        $task = TimeTrackerTask::findOrFail($taskId);
+        $task = TimeTrackerTask::where('id', $taskId)
+            ->where('user_id', auth()->id())
+            ->first();
         
-        if ($task->user_id !== auth()->id()) {
-            abort(403);
+        if (!$task) {
+            session()->flash('error', 'Tugas tidak ditemukan atau Anda tidak memiliki akses.');
+            return;
         }
 
         // Prevent deleting completed tasks
         if ($task->is_completed) {
-            session()->flash('error', 'Cannot delete a completed task. Please mark it as incomplete first.');
+            session()->flash('error', 'Tidak dapat menghapus tugas yang sudah selesai. Tandai sebagai belum selesai terlebih dahulu.');
             return;
         }
 
         // Check if task has saved entries
         if ($task->entries()->count() > 0) {
-            session()->flash('error', 'Cannot delete task with time entries.');
+            session()->flash('error', 'Tidak dapat menghapus tugas yang memiliki entri waktu.');
             return;
         }
 
         $task->delete();
+        session()->flash('success', 'Tugas berhasil dihapus.');
         $this->dispatch('task-deleted');
     }
 
     public function toggleCompletion($taskId)
     {
-        $task = TimeTrackerTask::findOrFail($taskId);
+        $task = TimeTrackerTask::where('id', $taskId)
+            ->where('user_id', auth()->id())
+            ->first();
         
-        if ($task->user_id !== auth()->id()) {
-            abort(403);
+        if (!$task) {
+            session()->flash('error', 'Tugas tidak ditemukan atau Anda tidak memiliki akses.');
+            return;
         }
 
         $task->toggleCompletion();
+        session()->flash('success', 'Status tugas berhasil diperbarui.');
         $this->dispatch('task-updated');
     }
 

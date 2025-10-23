@@ -33,10 +33,13 @@ class ProjectManager extends Component
 
     public function openEditModal($projectId)
     {
-        $project = TimeTrackerProject::findOrFail($projectId);
+        $project = TimeTrackerProject::where('id', $projectId)
+            ->where('user_id', auth()->id())
+            ->first();
         
-        if ($project->user_id !== auth()->id()) {
-            abort(403);
+        if (!$project) {
+            session()->flash('error', 'Proyek tidak ditemukan atau Anda tidak memiliki akses.');
+            return;
         }
 
         $this->projectId = $project->id;
@@ -51,10 +54,14 @@ class ProjectManager extends Component
         $this->validate();
 
         if ($this->editMode) {
-            $project = TimeTrackerProject::findOrFail($this->projectId);
+            $project = TimeTrackerProject::where('id', $this->projectId)
+                ->where('user_id', auth()->id())
+                ->first();
             
-            if ($project->user_id !== auth()->id()) {
-                abort(403);
+            if (!$project) {
+                session()->flash('error', 'Proyek tidak ditemukan atau Anda tidak memiliki akses.');
+                $this->closeModal();
+                return;
             }
 
             $project->update([
@@ -62,6 +69,7 @@ class ProjectManager extends Component
                 'description' => $this->description,
             ]);
 
+            session()->flash('success', 'Proyek berhasil diperbarui.');
             $this->dispatch('project-updated');
         } else {
             TimeTrackerProject::create([
@@ -70,6 +78,7 @@ class ProjectManager extends Component
                 'description' => $this->description,
             ]);
 
+            session()->flash('success', 'Proyek berhasil dibuat.');
             $this->dispatch('project-created');
         }
 
@@ -78,22 +87,29 @@ class ProjectManager extends Component
 
     public function delete($projectId)
     {
-        $project = TimeTrackerProject::findOrFail($projectId);
+        $project = TimeTrackerProject::where('id', $projectId)
+            ->where('user_id', auth()->id())
+            ->first();
         
-        if ($project->user_id !== auth()->id()) {
-            abort(403);
+        if (!$project) {
+            session()->flash('error', 'Proyek tidak ditemukan atau Anda tidak memiliki akses.');
+            return;
         }
 
         $project->delete();
+        session()->flash('success', 'Proyek berhasil dihapus.');
         $this->dispatch('project-deleted');
     }
 
     public function toggleCompletion($projectId)
     {
-        $project = TimeTrackerProject::findOrFail($projectId);
+        $project = TimeTrackerProject::where('id', $projectId)
+            ->where('user_id', auth()->id())
+            ->first();
         
-        if ($project->user_id !== auth()->id()) {
-            abort(403);
+        if (!$project) {
+            session()->flash('error', 'Proyek tidak ditemukan atau Anda tidak memiliki akses.');
+            return;
         }
 
         $result = $project->toggleCompletion();
