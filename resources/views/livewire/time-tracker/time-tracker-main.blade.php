@@ -1,23 +1,47 @@
-<div>
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <!-- Projects List -->
-        <div class="lg:col-span-1">
-            @livewire('time-tracker.project-manager')
-        </div>
-
-        <!-- Tasks and Time Tracker -->
-        <div class="lg:col-span-2">
-            @if($selectedProjectId)
-                @livewire('time-tracker.task-manager', ['projectId' => $selectedProjectId], 'task-manager-'.$selectedProjectId)
-            @else
-                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8 text-center">
-                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                    </svg>
-                    <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-gray-100">No project selected</h3>
-                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Select a project from the list to view tasks and start tracking time.</p>
-                </div>
-            @endif
-        </div>
+<div class="">
+    <!-- Projects Section -->
+    <div class="mb-8">
+        @livewire('time-tracker.project-manager')
     </div>
+
+    <!-- Tasks Section - Only show when project is selected -->
+    @if($selectedProjectId)
+        <div class="transition-all duration-300 ease-in-out" 
+             x-data 
+             x-init="$el.scrollIntoView({ behavior: 'smooth', block: 'start' })">
+            
+            <!-- Divider with selected project info -->
+            <div class="mb-6 flex items-center">
+                <div class="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
+                <div class="mx-4 flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                    <span>Selected Project Tasks</span>
+                </div>
+                <div class="flex-grow border-t border-gray-300 dark:border-gray-600"></div>
+            </div>
+
+            <!-- Tasks Manager -->
+            <div class="animate-fadeIn">
+                @livewire('time-tracker.task-manager', ['projectId' => $selectedProjectId], 'task-manager-'.$selectedProjectId)
+            </div>
+        </div>
+    @endif
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out;
+        }
+    </style>
 </div>
