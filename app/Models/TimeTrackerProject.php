@@ -25,6 +25,7 @@ class TimeTrackerProject extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
+        'user_id' => 'integer',
     ];
 
     public function user(): BelongsTo
