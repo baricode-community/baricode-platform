@@ -57,6 +57,13 @@ Route::controller(\App\Http\Controllers\UserController::class)
         Route::get('/', 'index')->name('users');
     });
 
+Route::controller(\App\Http\Controllers\TimeTrackerController::class)
+    ->middleware(['auth', 'verified'])
+    ->prefix('time-tracker')
+    ->group(function () {
+        Route::get('/', 'index')->name('time-tracker.index');
+    });
+
 Route::controller(\App\Http\Controllers\CourseController::class)
     ->middleware(['auth', 'verified'])
     ->prefix('courses')
