@@ -18,6 +18,11 @@ class ProjectManager extends Component
     #[Validate('nullable|string')]
     public $description = '';
 
+    // Search, Filter, and Sort
+    public $search = '';
+    public $filterStatus = 'all'; // all, completed, active
+    public $sortBy = 'created_desc'; // created_desc, created_asc, updated_desc, updated_asc, title_asc, title_desc
+
     public function openCreateModal()
     {
         $this->reset(['title', 'description', 'projectId', 'editMode']);
@@ -111,12 +116,65 @@ class ProjectManager extends Component
         $this->reset(['title', 'description', 'projectId', 'editMode']);
     }
 
+    public function updatedSearch()
+    {
+        // Trigger re-render when search changes
+    }
+
+    public function updatedFilterStatus()
+    {
+        // Trigger re-render when filter changes
+    }
+
+    public function updatedSortBy()
+    {
+        // Trigger re-render when sort changes
+    }
+
     public function render()
     {
-        $projects = TimeTrackerProject::where('user_id', auth()->id())
-            ->withCount('tasks')
-            ->latest()
-            ->get();
+        $query = TimeTrackerProject::where('user_id', auth()->id())
+            ->withCount('tasks');
+
+        // Search
+        if ($this->search) {
+            $query->where(function($q) {
+                $q->where('title', 'like', '%' . $this->search . '%')
+                  ->orWhere('description', 'like', '%' . $this->search . '%');
+            });
+        }
+
+        // Filter by completion status
+        if ($this->filterStatus === 'completed') {
+            $query->where('is_completed', true);
+        } elseif ($this->filterStatus === 'active') {
+            $query->where('is_completed', false);
+        }
+
+        // Sorting
+        switch ($this->sortBy) {
+            case 'created_asc':
+                $query->oldest();
+                break;
+            case 'updated_desc':
+                $query->orderBy('updated_at', 'desc');
+                break;
+            case 'updated_asc':
+                $query->orderBy('updated_at', 'asc');
+                break;
+            case 'title_asc':
+                $query->orderBy('title', 'asc');
+                break;
+            case 'title_desc':
+                $query->orderBy('title', 'desc');
+                break;
+            case 'created_desc':
+            default:
+                $query->latest();
+                break;
+        }
+
+        $projects = $query->get();
 
         return view('livewire.time-tracker.project-manager', [
             'projects' => $projects,
