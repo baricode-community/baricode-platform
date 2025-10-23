@@ -1,10 +1,56 @@
 <div>
     <!-- Header -->
     <div class="bg-gradient-to-r from-green-500 to-emerald-600 dark:from-green-600 dark:to-emerald-700 rounded-xl shadow-lg p-6 mb-6">
-        <div class="flex justify-between items-center">
-            <div>
-                <h2 class="text-2xl font-bold text-white mb-1">Project Tasks</h2>
-                <p class="text-green-100 text-sm">Track time for individual tasks</p>
+        <div class="flex justify-between items-start">
+            <div class="flex-1">
+                @if($project)
+                    <!-- Project Badge -->
+                    <div class="flex items-center mb-3">
+                        <span class="inline-flex items-center px-3 py-1 text-xs font-semibold text-green-800 bg-white/90 backdrop-blur-sm rounded-full">
+                            <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                            </svg>
+                            Project
+                        </span>
+                        @if($project->is_completed)
+                            <span class="ml-2 inline-flex items-center px-3 py-1 text-xs font-semibold text-green-800 bg-green-100/90 backdrop-blur-sm rounded-full">
+                                <svg class="w-3.5 h-3.5 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                                Completed
+                            </span>
+                        @endif
+                    </div>
+                    
+                    <!-- Project Title -->
+                    <h2 class="text-2xl font-bold text-white mb-1">{{ $project->title }}</h2>
+                    
+                    <!-- Project Description -->
+                    @if($project->description)
+                        <p class="text-green-100 text-sm leading-relaxed mb-2 max-w-2xl">{{ $project->description }}</p>
+                    @endif
+                    
+                    <!-- Project Stats -->
+                    <div class="flex items-center space-x-4 text-sm text-green-100 mt-3">
+                        <div class="flex items-center bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-lg">
+                            <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                            </svg>
+                            <span class="font-semibold">{{ $project->tasks->count() }}</span>
+                            <span class="ml-1">tasks</span>
+                        </div>
+                        <div class="flex items-center bg-white/10 backdrop-blur-sm px-3 py-1.5 rounded-lg">
+                            <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span class="font-semibold">{{ $project->formatted_total_duration }}</span>
+                            <span class="ml-1">total time</span>
+                        </div>
+                    </div>
+                @else
+                    <h2 class="text-2xl font-bold text-white mb-1">Project Tasks</h2>
+                    <p class="text-green-100 text-sm">Track time for individual tasks</p>
+                @endif
             </div>
             @if(!$isProjectCompleted)
                 <button wire:click="openCreateModal" 

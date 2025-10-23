@@ -198,7 +198,11 @@ class TaskManager extends Component
     public function render()
     {
         $tasks = [];
+        $project = null;
+        
         if ($this->projectId) {
+            $project = TimeTrackerProject::find($this->projectId);
+            
             $tasks = TimeTrackerTask::where('project_id', $this->projectId)
                 ->where('user_id', auth()->id())
                 ->with(['entries', 'activeEntry'])
@@ -208,6 +212,7 @@ class TaskManager extends Component
 
         return view('livewire.time-tracker.task-manager', [
             'tasks' => $tasks,
+            'project' => $project,
         ]);
     }
 }
