@@ -4,6 +4,7 @@ namespace App\Livewire\TimeTracker;
 
 use Livewire\Component;
 use App\Models\TimeTrackerProject;
+use App\Models\TimeTrackerTask;
 use Livewire\Attributes\On;
 
 class TimeTrackerMain extends Component
@@ -22,6 +23,15 @@ class TimeTrackerMain extends Component
     public function selectProject($projectId)
     {
         $this->selectedProjectId = $projectId;
+    }
+
+    #[On('scroll-to-task')]
+    public function scrollToTask($taskId)
+    {
+        $task = TimeTrackerTask::find($taskId);
+        if ($task) {
+            $this->selectedProjectId = $task->project_id;
+        }
     }
 
     public function render()
