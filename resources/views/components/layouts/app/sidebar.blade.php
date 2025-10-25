@@ -30,12 +30,12 @@
                     wire:navigate>
                     {{ __('Flashcard Pribadi') }}
                 </flux:navlist.item>
-                <flux:navlist.item icon="clock" :href="route('time-tracker.index')" :current="request()->routeIs('time-tracker.*')" wire:navigate>
+                {{-- <flux:navlist.item icon="clock" :href="route('time-tracker.index')" :current="request()->routeIs('time-tracker.*')" wire:navigate>
                     {{ __('Time Tracker') }}
                 </flux:navlist.item>
                 <flux:navlist.item icon="video-camera" :href="route('tube.index')" :current="request()->routeIs('tube.*')" wire:navigate>
                     {{ __('YouTube Pribadi') }}
-                </flux:navlist.item>
+                </flux:navlist.item> --}}
                 <flux:navlist.item icon="home" :href="route('users')" :current="request()->routeIs('users')"
                     wire:navigate>
                     {{ __('Pengguna Lain') }}
