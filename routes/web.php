@@ -68,6 +68,14 @@ Route::controller(\App\Http\Controllers\TimeTrackerController::class)
             ->can('view', 'project');
     });
 
+Route::controller(\App\Http\Controllers\PollingController::class)
+    ->middleware(['auth', 'verified'])
+    ->prefix('polls')
+    ->group(function () {
+        Route::get('/', 'index')->name('polls.index');
+        Route::get('/{poll}', 'show')->name('polls.show');
+    });
+
 Route::controller(\App\Http\Controllers\CourseController::class)
     ->middleware(['auth', 'verified'])
     ->prefix('courses')
