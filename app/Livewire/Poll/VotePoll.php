@@ -21,30 +21,41 @@ class VotePoll extends Component
     public function mount(Poll $poll)
     {
         $this->poll = $poll->load(['options.votes.user', 'user']);
-        $this->checkIfVoted();
-        $this->showResults = $this->hasVoted || $this->poll->isClosed();
+        $this->loadUserVote();
+        $this->showResults = $this->poll->isClosed();
     }
 
-    public function checkIfVoted()
+    public function loadUserVote()
     {
-        $this->hasVoted = PollVote::where('user_id', auth()->id())
+        $vote = PollVote::where('user_id', auth()->id())
             ->whereIn('poll_option_id', $this->poll->options->pluck('id'))
-            ->exists();
+            ->first();
+
+        $this->hasVoted = !is_null($vote);
+        if ($this->hasVoted) {
+            $this->selectedOption = $vote->poll_option_id;
+        }
     }
 
     public function vote()
     {
         if ($this->poll->isClosed()) {
-            session()->flash('error', 'This poll is closed.');
-            return;
-        }
-
-        if ($this->hasVoted) {
-            session()->flash('error', 'You have already voted on this poll.');
+            session()->flash('error', 'Jajak pendapat ini telah ditutup.');
             return;
         }
 
         $this->validate();
+
+        if ($this->hasVoted) {
+            // Update pilihan yang ada
+            PollVote::where('user_id', auth()->id())
+                ->whereIn('poll_option_id', $this->poll->options->pluck('id'))
+                ->delete();
+                
+            session()->flash('message', 'Pilihan Anda telah diperbarui!');
+        } else {
+            session()->flash('message', 'Terima kasih atas partisipasi Anda!');
+        }
 
         PollVote::create([
             'poll_option_id' => $this->selectedOption,
@@ -52,10 +63,7 @@ class VotePoll extends Component
         ]);
 
         $this->hasVoted = true;
-        $this->showResults = true;
         $this->poll->refresh();
-        
-        session()->flash('message', 'Your vote has been recorded!');
     }
 
     public function toggleStatus()

@@ -1,6 +1,6 @@
 <div class="max-w-4xl mx-auto bg-white dark:bg-gray-900 rounded-3xl shadow-2xl overflow-hidden transition duration-500 transform hover:shadow-3xl border border-gray-100 dark:border-gray-800">
     
-    {{-- Header Poll yang Lebih Elegan (Gradasi Halus) --}}
+    {{-- Header Poll yang Elegan (Gradasi Halus) --}}
     <div class="p-8 border-b border-gray-100 dark:border-gray-800 bg-gradient-to-r from-indigo-50 dark:from-gray-800/50 to-white dark:to-gray-900/50">
         <div class="flex justify-between items-start">
             <div class="pr-4">
@@ -11,12 +11,12 @@
                 </div>
             </div>
 
-            {{-- Status Badge & Kontrol (Tombol Ikon Modern & Animated) --}}
+            {{-- Status Badge & Kontrol --}}
             <div class="flex flex-col items-end space-y-3">
                 <span @class([
-                    'px-4 py-2 text-xs font-bold uppercase tracking-widest rounded-full shadow-md transition duration-300',
-                    'bg-green-500 text-white transform hover:scale-105' => $poll->isOpen(),
-                    'bg-red-500 text-white transform hover:scale-105' => !$poll->isOpen(),
+                    'px-4 py-2 text-xs font-bold uppercase tracking-widest rounded-full shadow-md transition duration-300 transform hover:scale-105',
+                    'bg-green-500 text-white' => $poll->isOpen(),
+                    'bg-red-500 text-white' => !$poll->isOpen(),
                 ])>
                     {{ $poll->isOpen() ? 'Polling AKTIF' : 'Polling DITUTUP' }}
                 </span>
@@ -44,21 +44,17 @@
     {{-- Konten Poll --}}
     <div class="p-8">
         @if(session()->has('message') || session()->has('error'))
-            {{-- Notifikasi Lebih Menonjol dan Berikon --}}
+            {{-- Notifikasi --}}
             <div @class([
-                'mb-8 p-5 rounded-xl font-semibold shadow-lg flex items-center',
-                'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 border-l-4 border-green-500' => session()->has('message'),
-                'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200 border-l-4 border-red-500' => session()->has('error'),
+                'mb-8 p-5 rounded-xl font-semibold shadow-lg flex items-center border-l-4',
+                'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 border-green-500' => session()->has('message'),
+                'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200 border-red-500' => session()->has('error'),
             ])>
-                <svg @class([
-                    'w-6 h-6 mr-3',
-                    'text-green-500' => session()->has('message'),
-                    'text-red-500' => session()->has('error'),
-                ]) fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-6 h-6 mr-3 {{ session()->has('message') ? 'text-green-500' : 'text-red-500' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     @if(session()->has('message'))
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     @else
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.368 16c-.77 1.333.192 3 1.732 3z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     @endif
                 </svg>
                 {{ session('message') ?? session('error') }}
@@ -66,7 +62,7 @@
         @endif
 
         @if($showResults)
-            {{-- Tampilkan Hasil (Bar yang Lebih Berani dan Interaktif) --}}
+            {{-- Tampilkan Hasil --}}
             <div class="space-y-6">
                 <h3 class="text-2xl font-extrabold text-gray-900 dark:text-white border-b-2 pb-3 border-indigo-200 dark:border-indigo-900">📊 Hasil Polling Saat Ini</h3>
                 
@@ -88,7 +84,7 @@
                         </div>
 
                         @if(!$poll->isOpen() && count($result['participants']) > 0)
-                            {{-- Dropdown Partisipan (Jika Disediakan) --}}
+                            {{-- Dropdown Partisipan --}}
                             <details class="mt-4 border-t border-gray-200 dark:border-gray-700 pt-4">
                                 <summary class="text-sm font-bold text-indigo-600 dark:text-indigo-400 cursor-pointer hover:text-indigo-500 transition duration-150">
                                     Lihat {{ count($result['participants']) }} Partisipan
@@ -111,15 +107,24 @@
                 </div>
             </div>
         @else
-            {{-- Form Voting (Pilihan Radio yang Lebih Interaktif dan Berwarna) --}}
+            {{-- Form Voting (Disederhanakan) --}}
             <form wire:submit.prevent="vote">
                 <div class="space-y-6">
-                    <h3 class="text-2xl font-extrabold text-gray-900 dark:text-white">🗳️ Silakan Pilih Opsi Terbaik Anda</h3>
+                    {{-- Judul Form Dinamis --}}
+                    <h3 class="text-2xl font-extrabold text-gray-900 dark:text-white flex items-center">
+                        @if($hasVoted)
+                            <svg class="w-6 h-6 mr-3 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+                            Perbarui Pilihan Anda
+                        @else
+                            <svg class="w-6 h-6 mr-3 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Silakan Pilih Opsi Terbaik Anda
+                        @endif
+                    </h3>
                     
                     @foreach($poll->options as $option)
-                        <label class="flex items-center p-6 bg-gray-50 rounded-xl cursor-pointer transition duration-300 ease-in-out
-                                       hover:bg-indigo-50/70 hover:shadow-md border-2 border-transparent dark:bg-gray-800 dark:hover:bg-gray-700/70
-                                       {{ $selectedOption == $option->id ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/40 dark:border-indigo-400 shadow-indigo-200/50 dark:shadow-indigo-900/40 shadow-xl' : '' }}">
+                        <label class="flex items-center p-6 rounded-xl cursor-pointer transition duration-300 ease-in-out border-2 
+                                       hover:bg-indigo-50/70 hover:shadow-lg dark:hover:bg-gray-700/70
+                                       {{ $selectedOption == $option->id ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/40 dark:border-indigo-400 shadow-indigo-200/50 dark:shadow-indigo-900/40 shadow-xl' : 'border-transparent bg-gray-50 dark:bg-gray-800' }}">
                             
                             <input type="radio" 
                                    wire:model="selectedOption"
@@ -136,25 +141,32 @@
                         </p>
                     @enderror
 
-                    {{-- Peringatan yang Lebih Lembut dan Ikonik --}}
+                    {{-- Peringatan Sederhana --}}
                     <div class="mt-6 text-sm flex items-start text-indigo-700 bg-indigo-100 rounded-xl p-4 dark:bg-indigo-900/50 dark:text-indigo-300">
                         <svg class="w-5 h-5 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        <div>
-                            <strong class="font-bold">Informasi Penting:</strong> Pilihan Anda bersifat final dan **tidak dapat diubah** setelah dikirimkan. Silakan pilih dengan bijak.
-                        </div>
+                        Pilihan Anda masih dapat diubah selama polling belum ditutup.
                     </div>
 
                     <div class="pt-6">
-                        {{-- Tombol Kirim Suara yang Menonjol dan Efek 3D --}}
+                        {{-- Tombol Kirim Suara Dinamis --}}
                         <button type="submit" 
                                 class="w-full inline-flex justify-center items-center px-8 py-3 border border-transparent 
                                        rounded-xl shadow-lg text-xl font-extrabold text-white bg-indigo-600 hover:bg-indigo-700 
                                        focus:outline-none focus:ring-4 focus:ring-indigo-300 transition duration-200 transform hover:scale-[1.01] hover:shadow-xl
                                        disabled:opacity-60 disabled:shadow-none disabled:cursor-not-allowed dark:bg-indigo-700 dark:hover:bg-indigo-600 dark:focus:ring-indigo-800/50">
-                            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            KIRIMKAN SUARA
+                            
+                            {{-- Ikon & Teks Tombol Berubah --}}
+                            @if($hasVoted)
+                                <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                </svg>
+                                PERBARUI PILIHAN
+                            @else
+                                <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                KIRIMKAN SUARA
+                            @endif
                         </button>
                     </div>
                 </div>
