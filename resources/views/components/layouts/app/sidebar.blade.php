@@ -30,6 +30,10 @@
                     wire:navigate>
                     {{ __('Flashcard Pribadi') }}
                 </flux:navlist.item>
+                <flux:navlist.item icon="chat-bubble-left-right" :href="route('polls.index')" :current="request()->routeIs('polls.*')"
+                    wire:navigate>
+                    {{ __('Polling Pendapat') }}
+                </flux:navlist.item>
                 {{-- <flux:navlist.item icon="clock" :href="route('time-tracker.index')" :current="request()->routeIs('time-tracker.*')" wire:navigate>
                     {{ __('Time Tracker') }}
                 </flux:navlist.item>
