@@ -20,7 +20,7 @@ class VotePoll extends Component
 
     public function mount(Poll $poll)
     {
-        $this->poll = $poll->load(['options.votes', 'user']);
+        $this->poll = $poll->load(['options.votes.user', 'user']);
         $this->checkIfVoted();
         $this->showResults = $this->hasVoted || $this->poll->isClosed();
     }
@@ -87,7 +87,11 @@ class VotePoll extends Component
                 'id' => $option->id,
                 'text' => $option->option_text,
                 'votes' => $votes,
-                'percentage' => $totalVotes > 0 ? round(($votes / $totalVotes) * 100, 1) : 0
+                'percentage' => $totalVotes > 0 ? round(($votes / $totalVotes) * 100, 1) : 0,
+                'participants' => $option->votes->map(fn($vote) => [
+                    'name' => $vote->user->name,
+                    'voted_at' => $vote->created_at->format('d M Y, H:i')
+                ])
             ];
         });
     }

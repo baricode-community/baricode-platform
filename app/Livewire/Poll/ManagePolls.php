@@ -77,6 +77,12 @@ class ManagePolls extends Component
     public function editPoll($pollId)
     {
         $this->selectedPoll = Poll::with('options')->find($pollId);
+        
+        if (!$this->selectedPoll->isOpen()) {
+            session()->flash('error', 'Poll yang sudah ditutup tidak dapat diedit. Buka kembali poll untuk mengedit.');
+            return;
+        }
+
         $this->title = $this->selectedPoll->title;
         $this->description = $this->selectedPoll->description;
         $this->options = $this->selectedPoll->options->pluck('option_text')->toArray();
@@ -123,11 +129,18 @@ class ManagePolls extends Component
     public function deletePoll($pollId)
     {
         $poll = Poll::find($pollId);
-        if ($poll && $poll->user_id === auth()->id()) {
-            $poll->options()->delete();
-            $poll->delete();
-            session()->flash('message', 'Poll deleted successfully!');
+        if (!$poll || $poll->user_id !== auth()->id()) {
+            return;
         }
+
+        if (!$poll->isOpen()) {
+            session()->flash('error', 'Poll yang sudah ditutup tidak dapat dihapus. Buka kembali poll untuk menghapus.');
+            return;
+        }
+
+        $poll->options()->delete();
+        $poll->delete();
+        session()->flash('message', 'Poll deleted successfully!');
         $this->loadPolls();
     }
 
