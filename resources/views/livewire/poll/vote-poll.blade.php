@@ -1,7 +1,7 @@
 <div class="max-w-4xl mx-auto bg-white dark:bg-gray-900 rounded-3xl shadow-2xl overflow-hidden transition duration-500 transform hover:shadow-3xl border border-gray-100 dark:border-gray-800">
     
     {{-- Header Poll yang Elegan (Gradasi Halus) --}}
-    <div class="p-8 border-b border-gray-100 dark:border-gray-800 bg-gradient-to-r from-indigo-50 dark:from-gray-800/50 to-white dark:to-gray-900/50">
+    <div class="p-8 overflow-x-auto border-b border-gray-100 dark:border-gray-800 bg-gradient-to-r from-indigo-50 dark:from-gray-800/50 to-white dark:to-gray-900/50">
         <div class="flex justify-between items-start">
             <div class="pr-4">
                 <h1 class="text-4xl font-extrabold text-gray-900 dark:text-white tracking-tighter leading-tight">{{ $poll->title }}</h1>
@@ -67,7 +67,7 @@
                 <h3 class="text-2xl font-extrabold text-gray-900 dark:text-white border-b-2 pb-3 border-indigo-200 dark:border-indigo-900">📊 Hasil Polling Saat Ini</h3>
                 
                 @foreach($results as $result)
-                    <div class="bg-gray-50 rounded-xl p-5 dark:bg-gray-800 shadow-lg hover:shadow-xl transition duration-300">
+                    <div class="bg-gray-50 rounded-xl p-5 dark:bg-gray-800 shadow-lg hover:shadow-xl transition duration-300 overflow-x-auto">
                         <div class="flex justify-between items-center mb-3">
                             <span class="text-xl font-bold text-gray-800 dark:text-gray-100">{{ $result['text'] }}</span>
                             <span class="text-2xl font-extrabold text-indigo-600 dark:text-indigo-400 min-w-[70px] text-right">
