@@ -153,10 +153,14 @@
     <section class="py-20 px-4 bg-gray-900">
         <div class="max-w-7xl mx-auto text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-white mb-8">Baca Artikel & Blog Terbaru</h2>
-            <p class="text-gray-400 mb-8">Dapatkan insight, tips, dan cerita inspiratif seputar dunia ngoding dan komunitas
-                kami.</p>
+            <p class="text-gray-400 mb-8">Dapatkan insight, tips, dan cerita inspiratif seputar dunia ngoding dan komunitas kami.</p>
+            <div class="inline-block bg-yellow-500 text-gray-900 font-semibold px-4 py-2 rounded-full text-sm mb-6">
+                Segera Hadir
+            </div>
+            <br>
             <a href="{{ route('blog.index') }}" wire:navigate
-                class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105 shadow-lg">
+                class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50"
+                disabled>
                 Kunjungi Blog
             </a>
         </div>
