@@ -22,6 +22,28 @@
                 class="rounded-full shadow-lg border-4 border-indigo-200 dark:border-indigo-400 bg-white w-20 h-20 object-cover hidden md:block">
         </div>
 
+        <!-- Dropdown Cara Menggunakan Baricode -->
+        <div x-data="{ open: false }" class="mb-8">
+            <button @click="open = !open"
+                class="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow transition focus:outline-none">
+                <x-heroicon-o-question-mark-circle class="w-6 h-6" />
+                Cara Menggunakan Platform
+                <svg :class="{'rotate-180': open}" class="w-4 h-4 ml-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <div x-show="open" x-transition class="mt-4 bg-white dark:bg-gray-800 border border-indigo-200 dark:border-indigo-700 rounded-lg shadow p-6">
+                <ol class="list-decimal list-inside space-y-2 text-gray-700 dark:text-gray-300">
+                    <li>Jelajahi daftar kursus yang tersedia dan pilih kursus yang ingin kamu ikuti.</li>
+                    <li>Mulai kursus dan ikuti materi yang disediakan secara bertahap.</li>
+                    <li>Setiap progres akan tersimpan otomatis, kamu bisa melanjutkan kapan saja.</li>
+                    <li>Setelah menyelesaikan kursus, kamu dapat melihat statistik dan sertifikat (jika tersedia).</li>
+                    <li>Jika ingin mencoba kursus lain, hapus progres kursus yang sedang berjalan terlebih dahulu.</li>
+                    <li>Gunakan fitur bantuan atau hubungi admin jika mengalami kendala.</li>
+                </ol>
+            </div>
+        </div>
+
         <!-- Statistik -->
         <h2 class="text-2xl font-bold mb-6 flex items-center gap-2 dark:text-white">
             <x-heroicon-o-chart-bar class="w-7 h-7 text-indigo-500 dark:text-indigo-400" /> Statistik
