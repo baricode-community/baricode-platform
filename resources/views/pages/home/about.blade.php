@@ -10,6 +10,11 @@
                 Komunitas ngoding gratis yang didedikasikan untuk memberdayakan setiap orang, dari pemula hingga
                 profesional, melalui kolaborasi dan pembelajaran. Kami percaya, kode terbaik adalah kode yang dibuat bersama! ✨
             </p>
+            <div class="mb-8">
+                <p class="text-md text-indigo-300">
+                    <strong>Baricode Community</strong> merupakan bagian dari <strong>Barizaloka Group</strong> sebagai induk yang menaungi komunitas ini.
+                </p>
+            </div>
 
             <div class="space-y-12 mt-16">
                 <div class="bg-gray-800 p-8 rounded-lg shadow-lg">
