@@ -131,6 +131,9 @@ new #[Layout('layouts.app')] class extends Component {
         <p class="mt-2 text-gray-600 dark:text-gray-400">Bergabunglah dengan meet online untuk belajar bersama!</p>
     </div>
 
+    <!-- Tata Tertib Meet -->
+    @include('livewire.meets.partials.tata_tertib')
+
     <!-- Meet Mendatang Section -->
     @php
         $upcomingMeets = $this->meets()->where('scheduled_at', '>', now())->sortBy('scheduled_at')->take(3);

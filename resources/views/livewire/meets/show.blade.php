@@ -3,9 +3,9 @@
 use App\Models\Meet;
 use App\Models\User\User;
 use Livewire\Volt\Component;
-use Livewire\Attributes\Layout;
+use Livewire\Volt\Attributes\Layout;
 
-new #[Layout('layouts.meet')] class extends Component {
+new #[Layout('layouts.app')] class extends Component {
     public Meet $meet;
 
     public function mount(Meet $meet)
@@ -72,8 +72,8 @@ new #[Layout('layouts.meet')] class extends Component {
         }
     }
 }; ?>
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-gray-900 dark:via-slate-900 dark:to-indigo-950">
-    <div class="container mx-auto px-4 py-8">
+<div class="">
+    <div class="">
         {{-- Flash Messages --}}
         @if (session()->has('success'))
             <div class="fixed top-4 right-4 z-50 max-w-md">
@@ -87,6 +87,8 @@ new #[Layout('layouts.meet')] class extends Component {
                 </div>
             </div>
         @endif
+
+        @include('livewire.meets.partials.tata_tertib')
 
         @if (session()->has('error'))
             <div class="fixed top-4 right-4 z-50 max-w-md">
@@ -102,7 +104,7 @@ new #[Layout('layouts.meet')] class extends Component {
         @endif
 
         {{-- Main Content --}}
-        <div class="max-w-5xl mx-auto">
+        <div class="">
             {{-- Meet Header Card --}}
             <div class="relative overflow-hidden bg-white/80 dark:bg-gray-900/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 dark:border-gray-700/70 mb-8">
                 {{-- Animated Background Pattern --}}
