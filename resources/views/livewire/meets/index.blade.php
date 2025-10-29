@@ -4,9 +4,9 @@ use App\Models\Meet;
 use App\Models\User\User;
 use Livewire\WithPagination;
 use Livewire\Volt\Component;
-use Livewire\Attributes\Layout;
+use Livewire\Volt\Attributes\Layout;
 
-new #[Layout('layouts.meet')] class extends Component {
+new #[Layout('layouts.app')] class extends Component {
     use WithPagination;
 
     public $search = '';

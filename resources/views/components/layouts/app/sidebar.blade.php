@@ -18,20 +18,20 @@
                     wire:navigate>
                     {{ __('Dashboard') }}
                 </flux:navlist.item>
-                <flux:navlist.item icon="clipboard-document-list" :href="route('tasks.index')" :current="request()->routeIs('tasks.*')"
-                    wire:navigate>
+                <flux:navlist.item icon="clipboard-document-list" :href="route('tasks.index')"
+                    :current="request()->routeIs('tasks.*')" wire:navigate>
                     {{ __('Tugas') }}
                 </flux:navlist.item>
                 <flux:navlist.item icon="play" :href="route('meets.index')" :current="request()->routeIs('meets.*')"
                     wire:navigate>
                     {{ __('Meet') }}
                 </flux:navlist.item>
-                <flux:navlist.item icon="bookmark" :href="route('flashcard.index')" :current="request()->routeIs('flashcard.*')"
-                    wire:navigate>
+                <flux:navlist.item icon="bookmark" :href="route('flashcard.index')"
+                    :current="request()->routeIs('flashcard.*')" wire:navigate>
                     {{ __('Flashcard Pribadi') }}
                 </flux:navlist.item>
-                <flux:navlist.item icon="chat-bubble-left-right" :href="route('polls.index')" :current="request()->routeIs('polls.*')"
-                    wire:navigate>
+                <flux:navlist.item icon="chat-bubble-left-right" :href="route('polls.index')"
+                    :current="request()->routeIs('polls.*')" wire:navigate>
                     {{ __('Polling Pendapat') }}
                 </flux:navlist.item>
                 {{-- <flux:navlist.item icon="clock" :href="route('time-tracker.index')" :current="request()->routeIs('time-tracker.*')" wire:navigate>
@@ -44,9 +44,8 @@
                     wire:navigate>
                     {{ __('Pengguna Lain') }}
                 </flux:navlist.item>
-                @if (auth()->user()->hasRole('admin'))
-                    <flux:navlist.item icon="shield-check" href="/admin"
-                        wire:navigate>
+                @if (auth()->check() && auth()->user()->hasRole('admin'))
+                    <flux:navlist.item icon="shield-check" href="/admin" wire:navigate>
                         {{ __('Halaman Admin') }}
                     </flux:navlist.item>
                 @endif
@@ -64,27 +63,31 @@
 
         <!-- Desktop User Menu -->
         <flux:dropdown class="hidden lg:block" position="bottom" align="start">
-            <flux:profile :name="auth()->user()->name" :initials="auth()->user()->initials()"
-                icon:trailing="chevrons-up-down" />
+            @if (auth()->check())
+                <flux:profile :name="auth()->user()->name" :initials="auth()->user()->initials()"
+                    icon:trailing="chevrons-up-down" />
+            @endif
 
             <flux:menu class="w-[220px]">
                 <!-- User Info -->
-                <flux:menu.radio.group>
-                    <div class="p-0 text-sm font-normal">
-                        <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
-                            <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-lg">
-                                <span
-                                    class="flex h-full w-full items-center justify-center rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
-                                    {{ auth()->user()->initials() }}
+                @if (auth()->check())
+                    <flux:menu.radio.group>
+                        <div class="p-0 text-sm font-normal">
+                            <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
+                                <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-lg">
+                                    <span
+                                        class="flex h-full w-full items-center justify-center rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
+                                        {{ auth()->user()->initials() }}
+                                    </span>
                                 </span>
-                            </span>
-                            <div class="grid flex-1 text-start text-sm leading-tight">
-                                <span class="truncate font-semibold">{{ auth()->user()->name }}</span>
-                                <span class="truncate text-xs">{{ auth()->user()->email }}</span>
+                                <div class="grid flex-1 text-start text-sm leading-tight">
+                                    <span class="truncate font-semibold">{{ auth()->user()->name }}</span>
+                                    <span class="truncate text-xs">{{ auth()->user()->email }}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </flux:menu.radio.group>
+                    </flux:menu.radio.group>
+                @endif
 
                 <flux:menu.separator />
 
@@ -116,26 +119,30 @@
         <flux:spacer />
 
         <flux:dropdown position="top" align="end">
-            <flux:profile :initials="auth()->user()->initials()" icon-trailing="chevron-down" />
+            @if (auth()->check())
+                <flux:profile :initials="auth()->user()->initials()" icon-trailing="chevron-down" />
+            @endif
 
             <flux:menu>
                 <!-- User Info -->
-                <flux:menu.radio.group>
-                    <div class="p-0 text-sm font-normal">
-                        <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
-                            <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-lg">
-                                <span
-                                    class="flex h-full w-full items-center justify-center rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
-                                    {{ auth()->user()->initials() }}
+                @if (auth()->check())
+                    <flux:menu.radio.group>
+                        <div class="p-0 text-sm font-normal">
+                            <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
+                                <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-lg">
+                                    <span
+                                        class="flex h-full w-full items-center justify-center rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
+                                        {{ auth()->user()->initials() }}
+                                    </span>
                                 </span>
-                            </span>
-                            <div class="grid flex-1 text-start text-sm leading-tight">
-                                <span class="truncate font-semibold">{{ auth()->user()->name }}</span>
-                                <span class="truncate text-xs">{{ auth()->user()->email }}</span>
+                                <div class="grid flex-1 text-start text-sm leading-tight">
+                                    <span class="truncate font-semibold">{{ auth()->user()->name }}</span>
+                                    <span class="truncate text-xs">{{ auth()->user()->email }}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </flux:menu.radio.group>
+                    </flux:menu.radio.group>
+                @endif
 
                 <flux:menu.separator />
 
