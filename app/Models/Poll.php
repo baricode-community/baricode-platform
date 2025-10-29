@@ -18,6 +18,10 @@ class Poll extends Model
     protected $keyType = 'string';
     public $incrementing = false;
 
+    protected $casts = [
+        'user_id' => 'integer',
+    ];
+
     protected static function boot()
     {
         parent::boot();
@@ -38,6 +42,16 @@ class Poll extends Model
     public function options()
     {
         return $this->hasMany(PollOption::class);
+    }
+
+    public function getAllVotes()
+    {
+        $options = $this->options()->with('votes')->get();
+        $allVotes = collect();
+        foreach ($options as $option) {
+            $allVotes = $allVotes->merge($option->votes);
+        }
+        return $allVotes;
     }
 
     public function close()
