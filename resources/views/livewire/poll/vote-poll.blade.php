@@ -4,7 +4,6 @@
     <div class="p-8 overflow-x-auto border-b border-gray-100 dark:border-gray-800 bg-gradient-to-r from-indigo-50 dark:from-gray-800/50 to-white dark:to-gray-900/50">
         <div class="flex justify-between items-start">
             <div class="pr-4">
-                <h1 class="text-4xl font-extrabold text-gray-900 dark:text-white tracking-tighter leading-tight">{{ $poll->title }}</h1>
                 <p class="mt-3 text-lg text-indigo-700 dark:text-indigo-400 font-medium italic">{{ $poll->description }}</p>
                 <div class="mt-4 text-sm font-semibold text-gray-500 dark:text-gray-400">
                     Dibuat oleh <span class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 transition duration-150">{{ $poll->user->name }}</span>
