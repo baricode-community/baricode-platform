@@ -125,7 +125,7 @@ new #[Layout('layouts.app')] class extends Component {
     }
 }; ?>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="">
     <div class="mb-8">
         <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100">Daftar Meet</h1>
         <p class="mt-2 text-gray-600 dark:text-gray-400">Bergabunglah dengan meet online untuk belajar bersama!</p>
