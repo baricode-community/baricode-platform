@@ -13,7 +13,6 @@
 
     {{-- Konten Utama (Komponen Livewire) --}}
     <div class="">
-            @livewire('poll.manage-polls')
-        </div>
+        @livewire('poll.manage-polls')
     </div>
 @endsection
