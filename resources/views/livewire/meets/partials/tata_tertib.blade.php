@@ -46,6 +46,8 @@
                         <li>Memberikan link video tersebut ke admin.</li>
                         <li>(Opsional) Tambahkan judul dan deskripsi yang sesuai pada video.</li>
                         <li>Diperbolehkan untuk menggunakan video itu untuk konten.</li>
+                        <li>Kita harap video tersebut dapat bermanfaat bagi banyak orang.</li>
+                        <li>Kita berharap video tersebut tidak dihapus.</li>
                     </ul>
                 </li>
                 <li>
