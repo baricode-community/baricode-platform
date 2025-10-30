@@ -111,6 +111,5 @@ require __DIR__.'/auth.php';
 // require __DIR__.'/admin/blog.php';
 
 require __DIR__.'/blog.php';
-require __DIR__.'/ai.php';
 require __DIR__.'/tube.php';
 require __DIR__.'/flashcard.php';
