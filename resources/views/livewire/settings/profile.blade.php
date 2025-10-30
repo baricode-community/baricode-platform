@@ -20,6 +20,8 @@ new class extends Component {
     {
         $this->name = Auth::user()->name;
         $this->email = Auth::user()->email;
+        $this->whatsapp = Auth::user()->whatsapp ?? '';
+        $this->about = Auth::user()->about ?? '';
     }
 
     /**
@@ -31,6 +33,7 @@ new class extends Component {
 
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
+            'about' => ['nullable', 'string', 'max:50000'],
 
             'email' => [
                 'required',
@@ -43,9 +46,9 @@ new class extends Component {
             'whatsapp' => [
                 'nullable',
                 'string',
-                'unique:users,whatsapp',
-                function ($attribute, $value, $fail) {
-                    if ($value && !WhatsAppService::isValidNumber($value)) {
+                Rule::unique('users', 'whatsapp')->ignore($user->id),
+                function ($attribute, $value, $fail) use ($user) {
+                    if ($value && $value !== $user->whatsapp && !WhatsAppService::isValidNumber($value)) {
                         $fail('Nomor WhatsApp tidak terdaftar di WhatsApp.');
                     }
                 },
@@ -113,6 +116,8 @@ new class extends Component {
             </div>
 
             <flux:input wire:model="whatsapp" :label="__('WhatsApp Number')" type="text" autocomplete="whatsapp" />
+
+            <flux:textarea wire:model="about" :label="__('About Me')" rows="4" autocomplete="about" />
 
             <div class="flex items-center gap-4">
                 <div class="flex items-center justify-end">
