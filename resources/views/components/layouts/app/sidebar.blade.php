@@ -18,10 +18,6 @@
                     wire:navigate>
                     {{ __('Dashboard') }}
                 </flux:navlist.item>
-                <flux:navlist.item icon="clipboard-document-list" :href="route('tasks.index')"
-                    :current="request()->routeIs('tasks.*')" wire:navigate>
-                    {{ __('Tugas') }}
-                </flux:navlist.item>
                 <flux:navlist.item icon="play" :href="route('meets.index')" :current="request()->routeIs('meets.*')"
                     wire:navigate>
                     {{ __('Meet') }}
