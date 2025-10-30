@@ -22,6 +22,9 @@
                     wire:navigate>
                     {{ __('Meet') }}
                 </flux:navlist.item>
+                <flux:navlist.item icon="view-columns" :href="route('kanboard.index')" :current="request()->routeIs('kanboard.*')" wire:navigate>
+                    {{ __('Kanboard') }}
+                </flux:navlist.item>
                 <flux:navlist.item icon="bookmark" :href="route('flashcard.index')"
                     :current="request()->routeIs('flashcard.*')" wire:navigate>
                     {{ __('Flashcard Pribadi') }}

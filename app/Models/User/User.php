@@ -102,6 +102,13 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
         return $this->hasMany(\App\Models\PersonalFlashCard::class, 'user_id', 'id');
     }
 
+    public function assignedTodos()
+    {
+        return $this->belongsToMany(\App\Models\KanboardTodo::class, 'kanboard_todo_users')
+            ->withPivot(['assigned_at', 'assigned_by'])
+            ->withTimestamps();
+    }
+
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->hasRole('admin');
