@@ -1,4 +1,4 @@
-<x-layouts.app :title="__('Profil Pengguna')">
+<x-layouts.app :title="__('Pengguna') . ' - ' . $user->name" :breadcrumbs="['Users' => route('users'), $user->name]">
     <div class="bg-white dark:bg-gray-800 shadow-xl rounded-lg overflow-hidden">
         <div class="flex flex-col md:flex-row items-center p-8">
             <div class="flex-shrink-0 mb-4 md:mb-0 md:mr-8">

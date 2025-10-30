@@ -55,7 +55,9 @@ Route::controller(\App\Http\Controllers\UserController::class)
     ->prefix('users')
     ->group(function () {
         Route::get('/', 'index')->name('users');
-        Route::get('/{user}', 'show')->name('users.show');
+        Route::get('/{user}', 'show')
+            ->name('users.show')
+            ->withoutMiddleware(['auth', 'verified']);
     });
 
 Route::controller(\App\Http\Controllers\TimeTrackerController::class)
