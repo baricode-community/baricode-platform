@@ -207,6 +207,15 @@ new #[Layout('layouts.app')] class extends Component {
                                     <span class="absolute top-0 left-0 w-2 h-2 bg-indigo-400 rounded-full animate-ping"></span>
                                     <span class="absolute bottom-0 right-0 w-2 h-2 bg-purple-400 rounded-full animate-ping delay-200"></span>
                                 </button>
+                            @else
+                                <button disabled class="cursor-not-allowed opacity-50 group relative overflow-hidden bg-gradient-to-r from-gray-400 to-gray-500 text-white font-bold py-4 px-8 rounded-2xl shadow-xl transform transition-all duration-300">
+                                    <span class="relative z-10 flex items-center justify-center text-lg">
+                                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                                        </svg>
+                                        Meet Telah Selesai
+                                    </span>
+                                </button>
                             @endif
                         @else
                             <a href="{{ route('login') }}" class="group relative overflow-hidden bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 dark:from-indigo-600 dark:to-purple-700 dark:hover:from-indigo-700 dark:hover:to-purple-800 text-white font-bold py-4 px-8 rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 dark:focus:ring-indigo-600">
