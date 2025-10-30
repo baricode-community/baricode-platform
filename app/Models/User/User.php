@@ -30,6 +30,7 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
         'email',
         'password',
         'google_id',
+        'whatsapp',
         'avatar',
         'email_verified_at',
     ];
