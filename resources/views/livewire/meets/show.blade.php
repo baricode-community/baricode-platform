@@ -193,7 +193,7 @@ new #[Layout('layouts.app')] class extends Component {
                                         <span class="absolute bottom-0 right-0 w-2 h-2 bg-pink-400 rounded-full animate-ping delay-200"></span>
                                     </button>
                                 @endif
-                            @else
+                            @elseif (!$meet->is_finished)
                                 <button wire:click="joinMeet" class="group relative overflow-hidden bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 dark:from-indigo-600 dark:to-purple-700 dark:hover:from-indigo-700 dark:hover:to-purple-800 text-white font-bold py-4 px-8 rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300 dark:focus:ring-indigo-600">
                                     <span class="relative z-10 flex items-center justify-center text-lg">
                                         <svg class="w-6 h-6 mr-3 group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
