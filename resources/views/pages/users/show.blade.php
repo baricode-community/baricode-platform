@@ -12,7 +12,6 @@
                     {{ $user->about ?? '-' }}
                 </p>
                 <div class="text-sm text-gray-500 dark:text-gray-400">
-                    <span class="font-semibold">Email:</span> {{ $user->email }}<br>
                     <span class="font-semibold">Bergabung Sejak:</span> {{ $user->created_at->format('d M Y') }}
                 </div>
             </div>
