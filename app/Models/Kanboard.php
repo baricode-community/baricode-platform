@@ -18,7 +18,6 @@ class Kanboard extends Model
     protected $fillable = [
         'title',
         'description',
-        'slug',
         'board_id',
         'visibility',
         'owner_id',
@@ -37,9 +36,6 @@ class Kanboard extends Model
         parent::boot();
         
         static::creating(function ($kanboard) {
-            if (!$kanboard->slug) {
-                $kanboard->slug = Str::slug($kanboard->title);
-            }
             if (!$kanboard->board_id) {
                 $kanboard->board_id = Str::random(8);
             }
@@ -148,7 +144,7 @@ class Kanboard extends Model
 
     public function getRouteKeyName()
     {
-        return 'slug';
+        return 'board_id';
     }
 
     public function scopeAccessibleBy($query, User $user)

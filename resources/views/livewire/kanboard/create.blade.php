@@ -3,7 +3,6 @@
 use Livewire\Volt\Component;
 use Livewire\Volt\Attributes\Layout;
 use App\Models\Kanboard;
-use Illuminate\Support\Str;
 
 new #[Layout('layouts.app')] class extends Component {
     public $title = '';
@@ -28,7 +27,6 @@ new #[Layout('layouts.app')] class extends Component {
         $kanboard = Kanboard::create([
             'title' => $this->title,
             'description' => $this->description,
-            'slug' => Str::slug($this->title),
             'visibility' => $this->visibility,
             'owner_id' => auth()->id(),
         ]);
