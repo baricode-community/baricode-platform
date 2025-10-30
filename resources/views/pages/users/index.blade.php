@@ -37,7 +37,9 @@
                                         <div class="flex items-center">
                                             <div class="ml-4">
                                                 <div class="text-sm font-medium text-gray-900 dark:text-white">
-                                                    {{ $user->name }}
+                                                    <a href="{{ route('users.show', $user->id) }}" class="hover:underline">
+                                                        {{ $user->name }}
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>

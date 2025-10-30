@@ -55,6 +55,7 @@ Route::controller(\App\Http\Controllers\UserController::class)
     ->prefix('users')
     ->group(function () {
         Route::get('/', 'index')->name('users');
+        Route::get('/{user}', 'show')->name('users.show');
     });
 
 Route::controller(\App\Http\Controllers\TimeTrackerController::class)

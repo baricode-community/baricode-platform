@@ -12,4 +12,9 @@ class UserController extends Controller
         $users = User::whereNotNull('email_verified_at')->get();
         return view('pages.users.index', compact('users'));
     }
+
+    public function show(User $user)
+    {
+        return view('pages.users.show', compact('user'));
+    }
 }
