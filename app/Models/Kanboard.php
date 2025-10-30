@@ -105,6 +105,7 @@ class Kanboard extends Model
     // Helper methods for permissions
     public function isOwner(User $user): bool
     {
+        dd([$this->owner_id, $user->id]);
         return $this->owner_id === $user->id;
     }
 
