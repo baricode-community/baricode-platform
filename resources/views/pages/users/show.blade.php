@@ -32,7 +32,7 @@
                             </a>
                         </div>
                         <span class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded dark:bg-green-900 dark:text-green-200">
-                            {{ ucfirst($meet->status) }}
+                            {{ ucfirst($meet->is_finished ? 'selesai' : 'belum selesai') }}
                         </span>
                     </li>
                 @endforeach
