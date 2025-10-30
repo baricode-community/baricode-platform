@@ -69,16 +69,16 @@ class VotePoll extends Component
     public function toggleStatus()
     {
         if (!$this->poll->user_id === auth()->id()) {
-            session()->flash('error', 'You are not authorized to perform this action.');
+            session()->flash('error', 'Anda tidak memiliki izin untuk melakukan aksi ini.');
             return;
         }
 
         if ($this->poll->isOpen()) {
             $this->poll->close();
-            session()->flash('message', 'Poll has been closed.');
+            session()->flash('message', 'Jajak pendapat telah ditutup.');
         } else {
             $this->poll->open();
-            session()->flash('message', 'Poll has been opened.');
+            session()->flash('message', 'Jajak pendapat telah dibuka.');
         }
 
         $this->poll->refresh();
@@ -102,6 +102,23 @@ class VotePoll extends Component
                 ])
             ];
         });
+    }
+
+    public function cancelVote()
+    {
+        if (!$this->hasVoted) {
+            return;
+        }
+
+        PollVote::where('user_id', auth()->id())
+            ->whereIn('poll_option_id', $this->poll->options->pluck('id'))
+            ->delete();
+
+        $this->hasVoted = false;
+        $this->selectedOption = null;
+        $this->poll->refresh();
+
+        session()->flash('message', 'Pilihan Anda telah dibatalkan.');
     }
 
     public function render()
