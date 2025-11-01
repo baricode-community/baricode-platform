@@ -31,6 +31,7 @@ class KanboardCard extends Model
         'labels' => 'array',
         'due_date' => 'datetime',
         'is_archived' => 'boolean',
+        'kanboard_id' => 'integer',
     ];
 
     public function kanboard(): BelongsTo
