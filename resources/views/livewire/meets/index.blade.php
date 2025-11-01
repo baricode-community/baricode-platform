@@ -153,7 +153,7 @@ new #[Layout('layouts.app')] class extends Component {
                                 </div>
                             @endif
                             @if($upcomingMeet->description)
-                                <p class="text-indigo-700 dark:text-indigo-300 mt-2">{{ $upcomingMeet->description }}</p>
+                                <p class="text-indigo-700 dark:text-indigo-300 mt-2">{{ strip_tags($upcomingMeet->description) }}</p>
                             @endif
                         </div>
                         <div class="flex gap-2">
