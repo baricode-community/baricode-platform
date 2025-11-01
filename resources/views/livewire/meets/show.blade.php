@@ -290,7 +290,7 @@ new #[Layout('layouts.app')] class extends Component {
                                         </div>
                                         <div class="flex-1 min-w-0">
                                             <h3 class="text-lg font-bold text-gray-900 dark:text-cyan-500 truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-300 select-text">
-                                                {{ \Illuminate\Support\Str::limit($participant->name, 10) }}
+                                                {{ \Illuminate\Support\Str::limit($participant->name, 25) }}
                                             </h3>
                                             <p class="text-sm text-gray-500 dark:text-gray-700 flex items-center gap-1 select-text">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
