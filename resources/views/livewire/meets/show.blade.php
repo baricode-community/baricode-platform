@@ -270,7 +270,7 @@ new #[Layout('layouts.app')] class extends Component {
             {{-- Participants Section --}}
             <div class="bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 dark:border-gray-700/50 p-8 lg:p-12">
                 <div class="flex items-center gap-3 mb-8">
-                    <h2 class="text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 dark:from-gray-200 dark:to-gray-400 bg-clip-text text-transparent">
+                    <h2 class="text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 dark:from-gray-200 dark:to-gray-400 bg-clip-text text-transparent select-text">
                         Daftar Peserta ({{ $meet->users->count() }})
                     </h2>
                 </div>
@@ -278,7 +278,7 @@ new #[Layout('layouts.app')] class extends Component {
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         @foreach ($meet->users as $participant)
                             <div class="group relative overflow-hidden bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-lg hover:shadow-2xl border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:scale-105">
-                                <div class="p-6">
+                                <div class="p-6 select-text">
                                     <div class="flex items-center gap-4">
                                         <div class="relative">
                                             <div class="w-16 h-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg ring-4 ring-indigo-100 dark:ring-indigo-900 group-hover:ring-indigo-200 dark:group-hover:ring-indigo-800 transition-all duration-300">
@@ -289,12 +289,10 @@ new #[Layout('layouts.app')] class extends Component {
                                             <div class="absolute -top-1 -right-1 w-4 h-4 bg-emerald-500 rounded-full border-2 border-white dark:border-gray-800"></div>
                                         </div>
                                         <div class="flex-1 min-w-0">
-                                            <h3 class="text-lg font-bold text-gray-900 dark:text-cyan-500 truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-300">
-                                                <a href="{{ route('users.show', $participant->id) }}" class="hover:underline hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors duration-200">
-                                                    {{ $participant->name }}
-                                                </a>
+                                            <h3 class="text-lg font-bold text-gray-900 dark:text-cyan-500 truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-300 select-text">
+                                                {{ \Illuminate\Support\Str::limit($participant->name, 10) }}
                                             </h3>
-                                            <p class="text-sm text-gray-500 dark:text-gray-700 flex items-center gap-1">
+                                            <p class="text-sm text-gray-500 dark:text-gray-700 flex items-center gap-1 select-text">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                 </svg>
@@ -303,8 +301,17 @@ new #[Layout('layouts.app')] class extends Component {
                                             </p>
                                         </div>
                                     </div>
+                                    <div class="mt-4 flex justify-end">
+                                        <a href="{{ route('users.show', $participant->id) }}"
+                                           class="inline-flex items-center px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-semibold rounded-xl shadow transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2">
+                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 15c2.5 0 4.847.655 6.879 1.804M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            </svg>
+                                            Lihat Profil
+                                        </a>
+                                    </div>
                                 </div>
-                                <div class="absolute inset-0 bg-gradient-to-r from-indigo-500/0 to-purple-500/0 group-hover:from-indigo-500/5 group-hover:to-purple-500/5 transition-all duration-300"></div>
+                                <div class="absolute inset-0 pointer-events-none bg-gradient-to-r from-indigo-500/0 to-purple-500/0 group-hover:from-indigo-500/5 group-hover:to-purple-500/5 transition-all duration-300"></div>
                             </div>
                         @endforeach
                     </div>
