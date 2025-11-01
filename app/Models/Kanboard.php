@@ -130,7 +130,7 @@ class Kanboard extends Model
 
     public function canManage(User $user): bool
     {
-        return $this->isOwner($user) || $this->isManager($user) || $this->isAdmin($user);
+        return $this->isOwner($user) || $this->isAdmin($user);
     }
 
     public function canAccess(User $user): bool
