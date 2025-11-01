@@ -234,7 +234,7 @@ new #[Layout('layouts.app')] class extends Component {
         if ($card->kanboard_id !== $this->kanboard->id) {
             return;
         }
-        
+
         if ($newStatus === 'done') {
             $this->authorize('update', $this->kanboard);
         }
@@ -290,11 +290,11 @@ new #[Layout('layouts.app')] class extends Component {
 ?>
 
 <div class="py-6">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="">
         <!-- Header -->
-        <div class="flex justify-between items-center mb-6">
+        <header class="flex my-3 justify-between items-center">
             <div>
-                <div class="flex items-center space-x-3">
+                <div class="flex items-center space-x-3 overflow-x-auto">
                     <a href="{{ route('kanboard.index') }}" wire:navigate
                         class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -313,42 +313,37 @@ new #[Layout('layouts.app')] class extends Component {
                 @endif
             </div>
 
-            <div class="flex items-center space-x-3">
+            <div class="flex items-center space-x-2">
                 @if ($isManager || $isAdmin)
                     <button wire:click="openAddCardModal"
-                        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded flex items-center gap-1 text-sm">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4">
-                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                         </svg>
-                        Tambah Card
+                        Card
                     </button>
-
                     <button wire:click="openAddTodoModal"
-                        class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors">
+                        class="bg-green-600 hover:bg-green-700 text-white px-2 py-1 rounded flex items-center gap-1 text-sm">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
-                            </path>
+                                d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                         </svg>
-                        Tambah Todo
+                        Todo
                     </button>
                 @endif
-
                 @if ($isAdmin)
                     <a href="{{ route('kanboard.settings', $kanboard) }}" wire:navigate
                         class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
-                            </path>
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
                     </a>
                 @endif
             </div>
-        </div>
+        </header>
 
         <!-- Flash Messages -->
         @if (session('message'))
@@ -372,7 +367,7 @@ new #[Layout('layouts.app')] class extends Component {
                         <div class="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
                         Todo ({{ $todoCards->count() }})
                     </h3>
-                    @if ($isManager)
+                    @if ($isManager || $isAdmin)
                         <button wire:click="openAddCardModal('todo')"
                             class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -673,9 +668,9 @@ new #[Layout('layouts.app')] class extends Component {
 
     <!-- Add Todo Modal -->
     @if ($showAddTodoModal)
-        <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-md mx-4">
-                <div class="p-6">
+        <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[51]">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-3xl mx-4">
+                <div class="p-8">
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Tambah Todo Baru</h3>
                         <button wire:click="closeAddTodoModal"
@@ -688,113 +683,104 @@ new #[Layout('layouts.app')] class extends Component {
                     </div>
 
                     <form wire:submit="addTodo">
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                Pilih Card <span class="text-red-500">*</span>
-                            </label>
-                            <select wire:model="selectedCardForTodo"
-                                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
-                                <option value="">Pilih Card</option>
-                                @foreach ($todoCards->concat($doingCards) as $card)
-                                    <option value="{{ $card->id }}">{{ $card->title }}
-                                        ({{ ucfirst($card->status) }})</option>
-                                @endforeach
-                            </select>
-                            @error('selectedCardForTodo')
-                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                Judul Todo <span class="text-red-500">*</span>
-                            </label>
-                            <input type="text" wire:model="newTodoTitle"
-                                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
-                                placeholder="Masukkan judul todo">
-                            @error('newTodoTitle')
-                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                Deskripsi
-                            </label>
-                            <textarea wire:model="newTodoDescription" rows="3"
-                                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
-                                placeholder="Deskripsi todo (opsional)"></textarea>
-                            @error('newTodoDescription')
-                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                Prioritas
-                            </label>
-                            <select wire:model="newTodoPriority"
-                                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
-                                <option value="low">Rendah</option>
-                                <option value="medium">Sedang</option>
-                                <option value="high">Tinggi</option>
-                            </select>
-                            @error('newTodoPriority')
-                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                Assign ke User (Legacy - Single User)
-                            </label>
-                            <select wire:model="newTodoAssignedTo"
-                                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
-                                <option value="">Pilih User (Opsional)</option>
-                                @foreach ($kanboardUsers as $user)
-                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('newTodoAssignedTo')
-                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                Assign ke Multiple Users (Baru)
-                            </label>
-                            <div
-                                class="space-y-2 max-h-32 overflow-y-auto border border-gray-300 dark:border-gray-600 rounded-md p-2">
-                                @foreach ($kanboardUsers as $user)
-                                    <label class="flex items-center space-x-2">
-                                        <input type="checkbox" wire:model="newTodoAssignedUsers"
-                                            value="{{ $user->id }}"
-                                            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                                        <span class="text-sm text-gray-900 dark:text-white">{{ $user->name }}</span>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <div class="mb-4">
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        Pilih Card <span class="text-red-500">*</span>
                                     </label>
-                                @endforeach
+                                    <select wire:model="selectedCardForTodo"
+                                        class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                                        <option value="">Pilih Card</option>
+                                        @foreach ($todoCards->concat($doingCards) as $card)
+                                            <option value="{{ $card->id }}">{{ $card->title }}
+                                                ({{ ucfirst($card->status) }})
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('selectedCardForTodo')
+                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        Judul Todo <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="text" wire:model="newTodoTitle"
+                                        class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                                        placeholder="Masukkan judul todo">
+                                    @error('newTodoTitle')
+                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        Deskripsi
+                                    </label>
+                                    <textarea wire:model="newTodoDescription" rows="3"
+                                        class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                                        placeholder="Deskripsi todo (opsional)"></textarea>
+                                    @error('newTodoDescription')
+                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                    @enderror
+                                </div>
                             </div>
-                            @error('newTodoAssignedUsers')
-                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
-                            @if (count($newTodoAssignedUsers) > 0)
-                                <p class="text-xs text-blue-600 mt-1">{{ count($newTodoAssignedUsers) }} user dipilih
-                                </p>
-                            @endif
-                        </div>
+                            <div>
+                                <div class="mb-4">
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        Prioritas
+                                    </label>
+                                    <select wire:model="newTodoPriority"
+                                        class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                                        <option value="low">Rendah</option>
+                                        <option value="medium">Sedang</option>
+                                        <option value="high">Tinggi</option>
+                                    </select>
+                                    @error('newTodoPriority')
+                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                    @enderror
+                                </div>
 
-                        <div class="mb-6">
-                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                                Deadline
-                            </label>
-                            <input type="date" wire:model="newTodoDueDate"
-                                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
-                            @error('newTodoDueDate')
-                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
+                                <div class="mb-4">
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        Assign ke Multiple Users (Baru)
+                                    </label>
+                                    <div
+                                        class="space-y-2 max-h-32 overflow-y-auto border border-gray-300 dark:border-gray-600 rounded-md p-2">
+                                        @foreach ($kanboardUsers as $user)
+                                            <label class="flex items-center space-x-2">
+                                                <input type="checkbox" wire:model="newTodoAssignedUsers"
+                                                    value="{{ $user->id }}"
+                                                    class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                                <span
+                                                    class="text-sm text-gray-900 dark:text-white">{{ $user->name }}</span>
+                                            </label>
+                                        @endforeach
+                                    </div>
+                                    @error('newTodoAssignedUsers')
+                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                    @enderror
+                                    @if (count($newTodoAssignedUsers) > 0)
+                                        <p class="text-xs text-blue-600 mt-1">{{ count($newTodoAssignedUsers) }} user
+                                            dipilih
+                                        </p>
+                                    @endif
+                                </div>
 
+                                <div class="mb-6">
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                        Deadline
+                                    </label>
+                                    <input type="date" wire:model="newTodoDueDate"
+                                        class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                                    @error('newTodoDueDate')
+                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
                         <div class="flex justify-end space-x-3">
                             <button type="button" wire:click="closeAddTodoModal"
                                 class="px-4 py-2 text-gray-700 dark:text-gray-300 bg-gray-200 dark:bg-gray-600 rounded-md hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors">
@@ -814,8 +800,7 @@ new #[Layout('layouts.app')] class extends Component {
     <!-- Card Detail Modal -->
     @if ($showCardDetailModal && $selectedCard)
         <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div
-                class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-y-auto w-full max-w-2xl max-h-[90vh]">
                 <div class="p-6">
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $selectedCard->title }}
@@ -874,7 +859,7 @@ new #[Layout('layouts.app')] class extends Component {
                                     Todos
                                     ({{ $selectedCard->todos->where('is_completed', true)->count() }}/{{ $selectedCard->todos->count() }})
                                 </h4>
-                                @if ($isManager)
+                                @if ($isManager || $isAdmin)
                                     <button wire:click="openAddTodoModal({{ $selectedCard->id }})"
                                         class="text-sm bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition-colors">
                                         Tambah Todo
@@ -884,12 +869,12 @@ new #[Layout('layouts.app')] class extends Component {
 
                             <div class="space-y-2">
                                 @foreach ($selectedCard->todos as $todo)
-                                    <div
-                                        class="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                                    <div class="border border-gray-300 dark:border-gray-600 rounded-md {{ $todo->is_completed ? 'bg-gray-100 dark:bg-gray-700' : 'bg-white dark:bg-gray-800' }}">
+                                        <div class="flex items-center space-x-3 p-3">
                                         <input type="checkbox" {{ $todo->is_completed ? 'checked' : '' }}
                                             @if ($todo->canBeCompletedBy(auth()->user())) wire:click="toggleTodo({{ $todo->id }})"
-                                @else
-                                disabled @endif
+                                            @else
+                                            disabled @endif
                                             class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
                                         <div class="flex-1">
                                             <h5
@@ -942,12 +927,7 @@ new #[Layout('layouts.app')] class extends Component {
                                                 @endif
                                             </div>
                                         </div>
-                                        
-                                        <!-- Todo Messaging Component -->
-                                        <div class="mt-3">
-                                            <livewire:todo-messaging :todo="$todo" />
-                                        </div>
-                                        
+
                                         @if ($isManager)
                                             <button wire:click="openAssignTodoModal({{ $todo->id }})"
                                                 class="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"
@@ -961,6 +941,10 @@ new #[Layout('layouts.app')] class extends Component {
                                                 </svg>
                                             </button>
                                         @endif
+                                    </div>
+                                    <div class="mx-3">
+                                        <livewire:todo-messaging :todo="$todo" />
+                                    </div>
                                     </div>
                                 @endforeach
                             </div>
