@@ -15,12 +15,17 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use UnitEnum;
 
 class KanboardResource extends Resource
 {
     protected static ?string $model = Kanboard::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::BoltSlash;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Fitur Dasar';
+
+    protected static ?string $navigationLabel = 'Kanban Board';
 
     public static function form(Schema $schema): Schema
     {
