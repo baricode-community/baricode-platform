@@ -76,6 +76,7 @@ Route::controller(\App\Http\Controllers\PollingController::class)
     ->prefix('polls')
     ->group(function () {
         Route::get('/', 'index')->name('polls.index');
+        Route::get('/edit/{poll}', 'edit')->name('polls.edit');
         Route::get('/{poll}', 'show')->name('polls.show');
     });
 

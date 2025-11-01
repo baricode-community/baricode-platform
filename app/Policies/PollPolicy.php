@@ -15,4 +15,10 @@ class PollPolicy
         $user = auth()->user();
         return $user->id === $poll->user_id;
     }
+
+    public function edit(User $user, Poll $poll): bool
+    {
+         $user = auth()->user();
+         return $user->id === $poll->user_id;
+    }
 }
