@@ -15,7 +15,8 @@ class WhatsAppGroupsTable
         return $table
             ->columns([
                 TextColumn::make('name')->label('Group Name')->searchable()->sortable(),
-                TextColumn::make('description')->label('Description')->searchable()->sortable()
+                TextColumn::make('description')->label('Description')->searchable()->sortable(),
+                TextColumn::make('is_active')->label('Active'),
             ])
             ->filters([
                 //
