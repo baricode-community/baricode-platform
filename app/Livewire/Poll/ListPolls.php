@@ -13,8 +13,7 @@ class ListPolls extends Component
     public function mount()
     {
         $this->polls = Poll::where([
-            'is_public' => true,
-            'user_id' => '!= ' . auth()->id()
+            'is_public' => true
         ])->get();
         $this->own_polls = Poll::where([
             'user_id' => auth()->id()
