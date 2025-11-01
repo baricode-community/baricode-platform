@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\WhatsAppGroups\Schemas;
 
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
@@ -14,6 +15,7 @@ class WhatsAppGroupForm
                 TextInput::make('name')->label('Group Name')->required()->maxLength(255),
                 TextInput::make('group_id')->label('Group ID')->required()->maxLength(255),
                 TextInput::make('description')->label('Description')->maxLength(500),
+                Checkbox::make('is_active')->label('Is Active')->default(true),
             ]);
     }
 }
