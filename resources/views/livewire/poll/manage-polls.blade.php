@@ -191,6 +191,19 @@
                             @enderror
                         </div>
 
+                        {{-- Is Public Field --}}
+                        <div class="mb-5">
+                            <label class="flex items-center space-x-3">
+                                <input type="checkbox" wire:model="is_public"
+                                    class="h-5 w-5 text-indigo-600 dark:text-indigo-400 border-gray-300 dark:border-gray-700 rounded focus:ring-indigo-500">
+                                <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">Jadikan Jajak Pendapat
+                                    Publik</span>
+                            </label>
+                            @error('is_public')
+                                <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                            @enderror
+                        </div>
+
                         {{-- Options Fields --}}
                         <div class="mb-5">
                             <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">Pilihan</label>

@@ -17,6 +17,8 @@ class ManagePolls extends Component
 
     #[Rule('required|min:3')]
     public $description = '';
+    #[Rule('boolean')]
+    public $is_public = true;
 
     #[Rule('required|array|min:2')]
     public $options = [];
@@ -28,10 +30,13 @@ class ManagePolls extends Component
 
     public function loadPolls()
     {
-        $this->polls = Poll::where('user_id', auth()->id())
-                          ->with('options')
-                          ->latest()
-                          ->get();
+        $this->polls = Poll::where([
+            'user_id' => auth()->id(),
+            'is_public' => true
+        ])
+            ->with('options')
+            ->latest()
+            ->get();
     }
 
     public function openCreateModal()
@@ -60,7 +65,8 @@ class ManagePolls extends Component
             'title' => $this->title,
             'description' => $this->description,
             'user_id' => auth()->id(),
-            'status' => 'open'
+            'status' => 'open',
+            'is_public' => $this->is_public,
         ]);
 
         foreach ($this->options as $optionText) {
@@ -85,6 +91,7 @@ class ManagePolls extends Component
 
         $this->title = $this->selectedPoll->title;
         $this->description = $this->selectedPoll->description;
+        $this->is_public = $this->selectedPoll->is_public;
         $this->options = $this->selectedPoll->options->pluck('option_text')->toArray();
         $this->showCreateModal = true;
     }
@@ -95,7 +102,8 @@ class ManagePolls extends Component
 
         $this->selectedPoll->update([
             'title' => $this->title,
-            'description' => $this->description
+            'description' => $this->description,
+            'is_public' => $this->is_public
         ]);
 
         // Delete existing options and create new ones

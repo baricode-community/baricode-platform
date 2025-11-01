@@ -12,6 +12,7 @@ class Poll extends Model
         'title',
         'description',
         'status',
+        'is_public',
         'user_id'
     ];
 
@@ -20,6 +21,7 @@ class Poll extends Model
 
     protected $casts = [
         'user_id' => 'integer',
+        'is_public' => 'boolean',
     ];
 
     protected static function boot()
@@ -72,5 +74,20 @@ class Poll extends Model
     public function isOpen()
     {
         return $this->status === 'open';
+    }
+
+    public function isPublic()
+    {
+        return $this->is_public;
+    }
+
+    public function makePublic()
+    {
+        return $this->update(['is_public' => true]);
+    }
+
+    public function makePrivate()
+    {
+        return $this->update(['is_public' => false]);
     }
 }
