@@ -942,6 +942,12 @@ new #[Layout('layouts.app')] class extends Component {
                                                 @endif
                                             </div>
                                         </div>
+                                        
+                                        <!-- Todo Messaging Component -->
+                                        <div class="mt-3">
+                                            <livewire:todo-messaging :todo="$todo" />
+                                        </div>
+                                        
                                         @if ($isManager)
                                             <button wire:click="openAssignTodoModal({{ $todo->id }})"
                                                 class="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400"

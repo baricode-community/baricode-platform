@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class KanboardTodo extends Model
 {
@@ -59,6 +60,16 @@ class KanboardTodo extends Model
     public function completedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'completed_by');
+    }
+
+    public function messages(): HasMany
+    {
+        return $this->hasMany(TodoMessage::class, 'kanboard_todo_id');
+    }
+
+    public function latestMessages(): HasMany
+    {
+        return $this->messages()->latest()->limit(10);
     }
 
     public function markAsCompleted(User $user, string $notes = null): void
@@ -166,6 +177,31 @@ class KanboardTodo extends Model
         // Check many-to-many relationship first
         return $this->assignedUsers()->where('users.id', $user->id)->exists() || 
                $this->assigned_to === $user->id; // Legacy support
+    }
+
+    public function canSendMessage(User $user): bool
+    {
+        $kanboard = $this->card->kanboard;
+        
+        // Owner, admin, or manager can send messages
+        if ($kanboard->canManage($user) || $kanboard->isManager($user)) {
+            return true;
+        }
+        
+        // Any assigned user can send messages
+        if ($this->isAssignedTo($user)) {
+            return true;
+        }
+        
+        return false;
+    }
+
+    public function canViewMessages(User $user): bool
+    {
+        $kanboard = $this->card->kanboard;
+        
+        // Anyone who can access the kanboard can view messages
+        return $kanboard->canAccess($user);
     }
 
     public function scopeCompleted($query)
