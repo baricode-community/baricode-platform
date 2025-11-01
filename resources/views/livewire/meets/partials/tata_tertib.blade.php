@@ -1,5 +1,22 @@
-<div class="mb-10">
-    <div class="bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 dark:from-blue-900 dark:via-blue-800 dark:to-blue-900 border border-blue-200 dark:border-blue-700 rounded-3xl shadow-2xl p-8 transition-all duration-300">
+@php
+    $open = false;
+@endphp
+
+<div x-data="{ open: false }" class="mb-10">
+    <button
+        @click="open = !open"
+        class="px-6 py-3 rounded-2xl bg-blue-600 text-white font-bold shadow hover:bg-blue-700 transition mb-4"
+        type="button"
+    >
+        <span x-show="!open">Tampilkan Tata Tertib Meet</span>
+        <span x-show="open">Sembunyikan Tata Tertib Meet</span>
+    </button>
+
+    <div
+        x-show="open"
+        x-transition
+        class="bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 dark:from-blue-900 dark:via-blue-800 dark:to-blue-900 border border-blue-200 dark:border-blue-700 rounded-3xl shadow-2xl p-8 transition-all duration-300"
+    >
         <h2 class="text-3xl font-extrabold text-blue-900 dark:text-blue-100 mb-6 flex items-center gap-3">
             Tata Tertib Meet
         </h2>
