@@ -15,4 +15,8 @@
     <div class="">
         @livewire('poll.manage-polls')
     </div>
+
+    <div class="">
+        @livewire('poll.list-polls')
+    </div>
 @endsection
