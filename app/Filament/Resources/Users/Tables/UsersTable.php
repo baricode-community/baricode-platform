@@ -19,6 +19,7 @@ class UsersTable
             ->columns([
                 TextColumn::make('name')->label('Nama Pengguna')->searchable()->sortable(),
                 TextColumn::make('email')->label('Surel')->searchable()->sortable(),
+                TextColumn::make('email_verified_at')->label('Email Diverifikasi')->dateTime()->sortable(),
                 TextColumn::make('whatsapp')->label('WhatsApp')->searchable()->sortable(),
                 TextColumn::make('created_at')->label('Dibuat Pada')->dateTime()->sortable(),
             ])
