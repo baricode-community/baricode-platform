@@ -50,7 +50,13 @@
                     @foreach($votes as $vote)
                         <li class="py-2 sm:py-3 flex items-center gap-3">
                             <div>
-                                <span class="font-semibold text-gray-900 dark:text-gray-100 text-sm sm:text-base">{{ $vote->user->name ?? 'Anonim' }}</span>
+                                @if($vote->user)
+                                    <a href="{{ route('users.show', $vote->user->id) }}" class="font-semibold text-indigo-700 dark:text-indigo-300 hover:underline text-sm sm:text-base">
+                                        {{ $vote->user->name }}
+                                    </a>
+                                @else
+                                    <span class="font-semibold text-gray-900 dark:text-gray-100 text-sm sm:text-base">Anonim</span>
+                                @endif
                                 <span class="ml-2 text-xs text-gray-500 dark:text-gray-400">({{ $vote->created_at->diffForHumans() }})</span>
                             </div>
                         </li>
