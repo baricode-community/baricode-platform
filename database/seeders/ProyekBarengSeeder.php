@@ -7,6 +7,7 @@ use App\Models\ProyekBarengKanboardLink;
 use App\Models\User\User;
 use App\Models\Meet;
 use App\Models\Kanboard;
+use App\Models\Poll;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -110,6 +111,37 @@ class ProyekBarengSeeder extends Seeder
                     'title' => $externalKanboard['title'],
                     'link' => $externalKanboard['link'],
                     'description' => $externalKanboard['description']
+                ]);
+            }
+
+            // Attach random polls (1-3 polls per project)
+            $polls = Poll::inRandomOrder()->limit(rand(1, 3))->get();
+            foreach ($polls as $poll) {
+                $pollTitles = [
+                    'Voting Prioritas Fitur',
+                    'Pemilihan Tech Stack',
+                    'Jadwal Meeting Tim',
+                    'Design Approval',
+                    'Sprint Planning Vote',
+                    'Final Decision Making',
+                    'Budget Allocation',
+                    'Resource Assignment'
+                ];
+
+                $pollDescriptions = [
+                    'Voting untuk menentukan prioritas pengembangan fitur dalam proyek',
+                    'Survey untuk memilih teknologi yang akan digunakan dalam pengembangan',
+                    'Polling untuk menentukan waktu meeting yang cocok untuk semua anggota tim',
+                    'Voting untuk approval design dan mockup yang telah dibuat',
+                    'Survey untuk perencanaan sprint dan task assignment',
+                    'Polling untuk pengambilan keputusan penting dalam proyek',
+                    'Voting untuk alokasi budget dan resource management',
+                    'Survey untuk pembagian tugas dan tanggung jawab anggota tim'
+                ];
+
+                $proyekBareng->polls()->attach($poll->id, [
+                    'title' => collect($pollTitles)->random(),
+                    'description' => collect($pollDescriptions)->random()
                 ]);
             }
         }

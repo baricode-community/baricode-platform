@@ -10,7 +10,7 @@ new #[Layout('layouts.app')] class extends Component {
     public function mount(ProyekBareng $proyekBareng): void
     {
         $this->proyekBareng = $proyekBareng;
-        $this->proyekBareng->load(['users', 'meets', 'kanboards', 'kanboardLinks']);
+        $this->proyekBareng->load(['users', 'meets', 'kanboards', 'kanboardLinks', 'polls']);
     }
 };
 
@@ -68,7 +68,7 @@ new #[Layout('layouts.app')] class extends Component {
         @endif
 
         <!-- Quick Stats -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
                 <div class="flex items-center">
                     <div class="p-2 {{ $proyekBareng->is_finished ? 'bg-purple-100 dark:bg-purple-900' : 'bg-green-100 dark:bg-green-900' }} rounded-lg">
@@ -141,6 +141,20 @@ new #[Layout('layouts.app')] class extends Component {
                     <div class="ml-4">
                         <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Dibuat</h3>
                         <p class="text-sm font-bold text-gray-900 dark:text-white">{{ $proyekBareng->created_at->format('d M Y') }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="p-2 bg-pink-100 dark:bg-pink-900 rounded-lg">
+                        <svg class="w-6 h-6 text-pink-600 dark:text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Polls</h3>
+                        <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ $proyekBareng->polls->count() }}</p>
                     </div>
                 </div>
             </div>
@@ -219,6 +233,42 @@ new #[Layout('layouts.app')] class extends Component {
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                         </svg>
                         <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Belum ada meeting</p>
+                    </div>
+                    @endif
+                </div>
+            </div>
+
+            <!-- Polls -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow">
+                <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Polls</h3>
+                </div>
+                <div class="p-6">
+                    @if($proyekBareng->polls->count() > 0)
+                    <div class="space-y-4">
+                        @foreach($proyekBareng->polls as $poll)
+                        <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-sm font-medium text-gray-900 dark:text-white">{{ $poll->title }}</h4>
+                                <span class="text-xs px-2 py-1 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 rounded-full">
+                                    {{ $poll->created_at->format('d M') }}
+                                </span>
+                            </div>
+                            @if($poll->pivot->description)
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">{{ $poll->pivot->description }}</p>
+                            @endif
+                            @if($poll->description)
+                            <p class="text-xs text-gray-600 dark:text-gray-300 line-clamp-2">{{ $poll->description }}</p>
+                            @endif
+                        </div>
+                        @endforeach
+                    </div>
+                    @else
+                    <div class="text-center py-8">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                        <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Belum ada poll</p>
                     </div>
                     @endif
                 </div>

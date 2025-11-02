@@ -21,7 +21,7 @@ new #[Layout('layouts.app')] class extends Component {
         }
         
         return [
-            'proyekBarengs' => $query->with(['kanboards', 'kanboardLinks'])->latest()->paginate(12),
+            'proyekBarengs' => $query->with(['kanboards', 'kanboardLinks', 'polls'])->latest()->paginate(12),
             'totalProjects' => ProyekBareng::count(),
             'activeProjects' => ProyekBareng::where('is_finished', false)->count(),
             'finishedProjects' => ProyekBareng::where('is_finished', true)->count(),
@@ -30,7 +30,7 @@ new #[Layout('layouts.app')] class extends Component {
             })->count(),
             'recentProjects' => ProyekBareng::whereHas('users', function($query) {
                 $query->where('user_id', auth()->id());
-            })->where('is_finished', false)->with(['kanboards', 'kanboardLinks'])->latest()->take(3)->get(),
+            })->where('is_finished', false)->with(['kanboards', 'kanboardLinks', 'polls'])->latest()->take(3)->get(),
         ];
     }
     
@@ -236,6 +236,12 @@ new #[Layout('layouts.app')] class extends Component {
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                                     </svg>
                                     {{ $proyek->kanboards->count() + $proyek->kanboardLinks->count() }}
+                                </span>
+                                <span class="flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                    </svg>
+                                    {{ $proyek->polls->count() }}
                                 </span>
                             </div>
                         </div>

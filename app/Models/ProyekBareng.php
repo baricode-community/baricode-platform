@@ -77,4 +77,11 @@ class ProyekBareng extends Model
     {
         return $this->hasMany(ProyekBarengKanboardLink::class, 'proyek_bareng_id', 'id');
     }
+
+    public function polls(): BelongsToMany
+    {
+        return $this->belongsToMany(Poll::class, 'proyek_bareng_polls', 'proyek_bareng_id', 'poll_id')
+                    ->withPivot('title', 'description')
+                    ->withTimestamps();
+    }
 }

@@ -90,4 +90,11 @@ class Poll extends Model
     {
         return $this->update(['is_public' => false]);
     }
+
+    public function proyekBarengs()
+    {
+        return $this->belongsToMany(ProyekBareng::class, 'proyek_bareng_polls', 'poll_id', 'proyek_bareng_id')
+                    ->withPivot('title', 'description')
+                    ->withTimestamps();
+    }
 }
