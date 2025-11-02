@@ -5,6 +5,8 @@ namespace App\Filament\Resources\ProyekBarengs;
 use App\Filament\Resources\ProyekBarengs\Pages\CreateProyekBareng;
 use App\Filament\Resources\ProyekBarengs\Pages\EditProyekBareng;
 use App\Filament\Resources\ProyekBarengs\Pages\ListProyekBarengs;
+use App\Filament\Resources\ProyekBarengs\Pages\ViewProyekBareng;
+use App\Filament\Resources\ProyekBarengs\RelationManagers;
 use App\Filament\Resources\ProyekBarengs\Schemas\ProyekBarengForm;
 use App\Filament\Resources\ProyekBarengs\Tables\ProyekBarengsTable;
 use App\Models\ProyekBareng;
@@ -36,7 +38,11 @@ class ProyekBarengResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\UsersRelationManager::class,
+            RelationManagers\MeetsRelationManager::class,
+            RelationManagers\KanboardsRelationManager::class,
+            RelationManagers\KanboardLinksRelationManager::class,
+            RelationManagers\PollsRelationManager::class,
         ];
     }
 
@@ -45,6 +51,7 @@ class ProyekBarengResource extends Resource
         return [
             'index' => ListProyekBarengs::route('/'),
             'create' => CreateProyekBareng::route('/create'),
+            'view' => ViewProyekBareng::route('/{record}'),
             'edit' => EditProyekBareng::route('/{record}/edit'),
         ];
     }
