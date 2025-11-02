@@ -23,7 +23,10 @@
                     {{ __('Meet') }}
                 </flux:navlist.item>
                 <flux:navlist.item icon="view-columns" :href="route('kanboard.index')" :current="request()->routeIs('kanboard.*')" wire:navigate>
-                    {{ __('Kanboard') }}
+                    {{ __('Kanboard (Beta)') }}
+                </flux:navlist.item>
+                <flux:navlist.item icon="users" :href="route('proyek-bareng.index')" :current="request()->routeIs('proyek-bareng.*')" wire:navigate>
+                    {{ __('Proyek Bareng') }}
                 </flux:navlist.item>
                 <flux:navlist.item icon="bookmark" :href="route('flashcard.index')"
                     :current="request()->routeIs('flashcard.*')" wire:navigate>

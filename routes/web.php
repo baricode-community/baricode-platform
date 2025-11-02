@@ -90,7 +90,12 @@ Route::controller(\App\Http\Controllers\CourseController::class)
         Route::get('/continue/lesson/{enrollmentLesson}', 'continue_lesson')->name('course.continue.lesson');
     });
 
-// Meet routes - Livewire Volt routes
+// Proyek Bareng routes - Livewire Volt routes
+Route::middleware(['web'])->group(function () {
+    Volt::route('proyek-bareng', 'proyek-bareng.index')->name('proyek-bareng.index');
+    // Volt::route('proyek-bareng/{proyekaBareng}', 'proyek-bareng.show')->name('proyek-bareng.show');
+});
+
 Route::middleware(['web'])->group(function () {
     Volt::route('meets', 'meets.index')->name('meets.index');
     Volt::route('meets/{meet}', 'meets.show')->name('meets.show');
