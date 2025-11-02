@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('proyek_bareng_polls', function (Blueprint $table) {
+        Schema::create('proyek_bareng_polls', function (Blueprint $table) {
             $table->string('proyek_bareng_id', 5)->after('id');
             $table->unsignedBigInteger('poll_id')->after('proyek_bareng_id');
             $table->string('title')->after('poll_id');
