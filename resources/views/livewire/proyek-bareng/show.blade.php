@@ -157,7 +157,9 @@ new #[Layout('layouts.app')] class extends Component {
                                     {{ $user->initials() }}
                                 </div>
                                 <div>
-                                    <p class="text-sm font-medium text-gray-900 dark:text-white">{{ $user->name }}</p>
+                                    <a href="{{ route('users.show', $user) }}" class="text-sm font-medium text-gray-900 dark:text-white hover:underline">
+                                        {{ $user->name }}
+                                    </a>
                                     @if($user->pivot->description)
                                     <p class="text-xs text-gray-500 dark:text-gray-400">{{ $user->pivot->description }}</p>
                                     @endif
@@ -191,7 +193,11 @@ new #[Layout('layouts.app')] class extends Component {
                         @foreach($proyekBareng->meets as $meet)
                         <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                             <div class="flex justify-between items-start mb-2">
-                                <h4 class="text-sm font-medium text-gray-900 dark:text-white">{{ $meet->title }}</h4>
+                                <h4 class="text-sm font-medium text-gray-900 dark:text-white">
+                                    <a href="{{ route('meets.show', $meet) }}" class="hover:underline">
+                                        {{ $meet->title }}
+                                    </a>
+                                </h4>
                                 <span class="text-xs px-2 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded-full">
                                     @if ($meet->scheduled_at)
                                         {{ $meet->scheduled_at->format('d M') }}
@@ -229,7 +235,11 @@ new #[Layout('layouts.app')] class extends Component {
                         @foreach($proyekBareng->polls as $poll)
                         <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                             <div class="flex justify-between items-start mb-2">
-                                <h4 class="text-sm font-medium text-gray-900 dark:text-white">{{ $poll->title }}</h4>
+                                <h4 class="text-sm font-medium text-gray-900 dark:text-white">
+                                    <a href="{{ route('polls.show', $poll) }}" class="hover:underline">
+                                        {{ $poll->title }}
+                                    </a>
+                                </h4>
                                 <span class="text-xs px-2 py-1 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 rounded-full">
                                     {{ $poll->created_at->format('d M') }}
                                 </span>
