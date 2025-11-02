@@ -40,7 +40,7 @@ class ProyekBarengForm
                     ->columns(2),
                     
                 \Filament\Schemas\Components\Section::make('Tim & Kolaborator')
-                    ->description('Anggota tim yang terlibat dalam proyek')
+                    ->description('Anggota tim yang terlibat dalam proyek dengan detail posisi dan peran')
                     ->schema([
                         Select::make('users')
                             ->label('Anggota Tim')
@@ -49,7 +49,7 @@ class ProyekBarengForm
                             ->preload()
                             ->searchable()
                             ->placeholder('Pilih anggota tim')
-                            ->helperText('Pilih pengguna yang akan terlibat dalam proyek ini'),
+                            ->helperText('Pilih pengguna yang akan terlibat dalam proyek ini. Detail posisi dan peran dapat diatur di tab "Anggota Tim" setelah menyimpan.'),
                     ]),
                     
                 \Filament\Schemas\Components\Section::make('Meetings')

@@ -9,6 +9,8 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Select;
+use Illuminate\Support\Str;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
@@ -33,18 +35,23 @@ class UsersRelationManager extends RelationManager
                 TextInput::make('name')
                     ->label('Nama')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->disabled()
+                    ->helperText('Nama pengguna tidak dapat diubah'),
                     
                 TextInput::make('email')
                     ->label('Email')
                     ->email()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->disabled()
+                    ->helperText('Email pengguna tidak dapat diubah'),
                     
                 Textarea::make('description')
-                    ->label('Deskripsi Peran')
-                    ->rows(3)
-                    ->placeholder('Jelaskan peran anggota dalam proyek ini')
-                    ->helperText('Deskripsi tentang peran atau tanggung jawab anggota dalam proyek ini'),
+                    ->label('Posisi & Deskripsi Peran')
+                    ->rows(4)
+                    ->placeholder("Contoh:\nPosisi: Project Manager\nPeran: Mengkoordinasi tim, mengatur timeline, dan memastikan deliverable tercapai\n\nTanggung jawab:\n- Mengelola komunikasi antar tim\n- Monitoring progress proyek\n- Risk management")
+                    ->helperText('Jelaskan posisi, peran, dan tanggung jawab spesifik anggota dalam proyek ini')
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -56,47 +63,76 @@ class UsersRelationManager extends RelationManager
                 TextColumn::make('name')
                     ->label('Nama')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->weight('bold'),
                     
                 TextColumn::make('email')
                     ->label('Email')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(),
                     
                 TextColumn::make('pivot.description')
-                    ->label('Peran dalam Proyek')
-                    ->limit(50)
-                    ->placeholder('Tidak ada deskripsi'),
+                    ->label('Posisi & Peran dalam Proyek')
+                    ->limit(80)
+                    ->placeholder('Belum ada deskripsi posisi')
+                    ->tooltip(function (TextColumn $column): ?string {
+                        $state = $column->getState();
+                        if (strlen($state) <= 80) {
+                            return null;
+                        }
+                        return $state;
+                    })
+                    ->formatStateUsing(function ($state) {
+                        if (!$state) return 'Belum ada deskripsi posisi';
+                        
+                        // Extract position from description if it follows the format
+                        $lines = explode("\n", $state);
+                        $positionLine = '';
+                        foreach ($lines as $line) {
+                            if (str_starts_with(trim($line), 'Posisi:') || str_starts_with(trim($line), 'Position:')) {
+                                $positionLine = trim(str_replace(['Posisi:', 'Position:'], '', $line));
+                                break;
+                            }
+                        }
+                        
+                        if ($positionLine) {
+                            return $positionLine . ' • ' . Str::limit($state, 50);
+                        }
+                        
+                        return Str::limit($state, 80);
+                    }),
                     
                 TextColumn::make('pivot.created_at')
                     ->label('Bergabung')
                     ->dateTime('d M Y')
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
                 AttachAction::make()
-                    ->label('Tambah Anggota')
+                    ->label('Tambah Anggota Tim')
                     ->preloadRecordSelect()
                     ->form(fn (AttachAction $action): array => [
                         $action->getRecordSelect(),
                         Textarea::make('description')
-                            ->label('Deskripsi Peran')
-                            ->rows(3)
-                            ->placeholder('Jelaskan peran anggota dalam proyek ini')
-                            ->helperText('Deskripsi tentang peran atau tanggung jawab anggota dalam proyek ini'),
+                            ->label('Posisi & Deskripsi Peran')
+                            ->rows(5)
+                            ->placeholder("Contoh:\nPosisi: Project Manager\nPeran: Mengkoordinasi tim, mengatur timeline, dan memastikan deliverable tercapai\n\nTanggung jawab:\n- Mengelola komunikasi antar tim\n- Monitoring progress proyek\n- Risk management")
+                            ->helperText('Jelaskan posisi, peran, dan tanggung jawab spesifik anggota dalam proyek ini'),
                     ]),
             ])
             ->recordActions([
                 EditAction::make()
                     ->form([
                         Textarea::make('description')
-                            ->label('Deskripsi Peran')
-                            ->rows(3)
-                            ->placeholder('Jelaskan peran anggota dalam proyek ini')
-                            ->helperText('Deskripsi tentang peran atau tanggung jawab anggota dalam proyek ini'),
+                            ->label('Posisi & Deskripsi Peran')
+                            ->rows(5)
+                            ->placeholder("Contoh:\nPosisi: Project Manager\nPeran: Mengkoordinasi tim, mengatur timeline, dan memastikan deliverable tercapai\n\nTanggung jawab:\n- Mengelola komunikasi antar tim\n- Monitoring progress proyek\n- Risk management")
+                            ->helperText('Jelaskan posisi, peran, dan tanggung jawab spesifik anggota dalam proyek ini'),
                     ]),
                 DetachAction::make()
                     ->label('Hapus dari Tim'),
