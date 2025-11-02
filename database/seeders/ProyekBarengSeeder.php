@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\ProyekBareng;
+use App\Models\ProyekBarengKanboardLink;
 use App\Models\User\User;
 use App\Models\Meet;
 use App\Models\Kanboard;
@@ -69,6 +70,46 @@ class ProyekBarengSeeder extends Seeder
             foreach ($kanboards as $kanboard) {
                 $proyekBareng->kanboards()->attach($kanboard->id, [
                     'description' => 'Kanboard untuk ' . collect(['Development Tasks', 'Design Tasks', 'Bug Tracking', 'Feature Planning'])->random()
+                ]);
+            }
+
+            // Create external kanboard links (1-3 per project)
+            $externalKanboards = [
+                [
+                    'title' => 'Trello Board - ' . $proyekBareng->title,
+                    'link' => 'https://trello.com/b/example/' . strtolower(str_replace(' ', '-', $proyekBareng->title)),
+                    'description' => 'Kanban board utama untuk tracking progress dan task management'
+                ],
+                [
+                    'title' => 'Notion Workspace',
+                    'link' => 'https://notion.so/workspace/' . strtolower(str_replace(' ', '-', $proyekBareng->title)),
+                    'description' => 'Dokumentasi proyek dan knowledge base lengkap'
+                ],
+                [
+                    'title' => 'Asana Project',
+                    'link' => 'https://app.asana.com/0/project/' . rand(1000000, 9999999),
+                    'description' => 'Timeline dan milestone tracking untuk project management'
+                ],
+                [
+                    'title' => 'Monday.com Board',
+                    'link' => 'https://monday.com/boards/' . rand(100000, 999999),
+                    'description' => 'Workflow automation dan team collaboration'
+                ],
+                [
+                    'title' => 'Jira Board',
+                    'link' => 'https://company.atlassian.net/jira/projects/' . strtoupper(substr($proyekBareng->id, 0, 3)),
+                    'description' => 'Bug tracking dan agile project management'
+                ]
+            ];
+
+            // Randomly select 1-3 external kanboards for each project
+            $selectedExternalKanboards = collect($externalKanboards)->random(rand(1, 3));
+            foreach ($selectedExternalKanboards as $externalKanboard) {
+                ProyekBarengKanboardLink::create([
+                    'proyek_bareng_id' => $proyekBareng->id,
+                    'title' => $externalKanboard['title'],
+                    'link' => $externalKanboard['link'],
+                    'description' => $externalKanboard['description']
                 ]);
             }
         }

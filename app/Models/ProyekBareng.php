@@ -6,6 +6,7 @@ use App\Models\User\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class ProyekBareng extends Model
@@ -70,5 +71,10 @@ class ProyekBareng extends Model
         return $this->belongsToMany(Kanboard::class, 'proyek_bareng_kanboards', 'proyek_bareng_id', 'kanboard_id')
                     ->withPivot('description')
                     ->withTimestamps();
+    }
+
+    public function kanboardLinks(): HasMany
+    {
+        return $this->hasMany(ProyekBarengKanboardLink::class, 'proyek_bareng_id', 'id');
     }
 }
