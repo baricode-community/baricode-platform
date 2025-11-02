@@ -93,7 +93,7 @@ Route::controller(\App\Http\Controllers\CourseController::class)
 // Proyek Bareng routes - Livewire Volt routes
 Route::middleware(['web'])->group(function () {
     Volt::route('proyek-bareng', 'proyek-bareng.index')->name('proyek-bareng.index');
-    // Volt::route('proyek-bareng/{proyekaBareng}', 'proyek-bareng.show')->name('proyek-bareng.show');
+    Volt::route('proyek-bareng/{proyekBareng}', 'proyek-bareng.show')->name('proyek-bareng.show');
 });
 
 Route::middleware(['web'])->group(function () {

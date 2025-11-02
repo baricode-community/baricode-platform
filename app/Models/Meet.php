@@ -50,4 +50,14 @@ class Meet extends Model
     {
         return $this->users()->where('user_id', $user->id)->exists();
     }
+
+    /**
+     * Get the proyek bareng that belong to the meet.
+     */
+    public function proyekBarengs()
+    {
+        return $this->belongsToMany(ProyekBareng::class, 'proyek_bareng_meets', 'meet_id', 'proyek_bareng_id')
+                    ->withPivot('description')
+                    ->withTimestamps();
+    }
 }

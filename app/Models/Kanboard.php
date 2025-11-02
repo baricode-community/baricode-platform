@@ -162,4 +162,11 @@ class Kanboard extends Model
     {
         return $query->where('is_active', true);
     }
+
+    public function proyekBarengs(): BelongsToMany
+    {
+        return $this->belongsToMany(ProyekBareng::class, 'proyek_bareng_kanboards', 'kanboard_id', 'proyek_bareng_id')
+                    ->withPivot('description')
+                    ->withTimestamps();
+    }
 }

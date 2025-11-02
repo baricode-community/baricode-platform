@@ -109,6 +109,13 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
             ->withTimestamps();
     }
 
+    public function proyekBarengs()
+    {
+        return $this->belongsToMany(\App\Models\ProyekBareng::class, 'proyek_bareng_users', 'user_id', 'proyek_bareng_id')
+                    ->withPivot('description')
+                    ->withTimestamps();
+    }
+
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->hasRole('admin');
