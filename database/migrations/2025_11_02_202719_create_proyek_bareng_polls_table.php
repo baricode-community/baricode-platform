@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('proyek_bareng_polls', function (Blueprint $table) {
             $table->id();
             $table->string('proyek_bareng_id', 5);
-            $table->unsignedBigInteger('poll_id');
-            $table->string('title');
+            $table->string('poll_id', 5);
+            $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
 
