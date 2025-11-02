@@ -36,26 +36,6 @@ new #[Layout('layouts.app')] class extends Component {
                         <p class="text-gray-600 dark:text-gray-400 mt-1">ID Proyek: {{ $proyekBareng->id }}</p>
                     </div>
                 </div>
-                <div class="flex items-center space-x-3">
-                    <span class="px-3 py-1 {{ $proyekBareng->is_finished ? 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200' : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' }} rounded-full text-sm font-medium">
-                        {{ $proyekBareng->is_finished ? 'Proyek Selesai' : 'Proyek Aktif' }}
-                    </span>
-                    @if($proyekBareng->is_finished)
-                    <div class="flex items-center text-purple-600 dark:text-purple-400">
-                        <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        <span class="text-sm font-medium">Completed</span>
-                    </div>
-                    @else
-                    <div class="flex items-center text-green-600 dark:text-green-400">
-                        <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                        </svg>
-                        <span class="text-sm font-medium">In Progress</span>
-                    </div>
-                    @endif
-                </div>
             </div>
         </div>
 
