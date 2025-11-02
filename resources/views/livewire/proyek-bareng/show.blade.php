@@ -36,9 +36,26 @@ new #[Layout('layouts.app')] class extends Component {
                         <p class="text-gray-600 dark:text-gray-400 mt-1">ID Proyek: {{ $proyekBareng->id }}</p>
                     </div>
                 </div>
-                <span class="px-3 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded-full text-sm font-medium">
-                    Aktif
-                </span>
+                <div class="flex items-center space-x-3">
+                    <span class="px-3 py-1 {{ $proyekBareng->is_finished ? 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200' : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' }} rounded-full text-sm font-medium">
+                        {{ $proyekBareng->is_finished ? 'Proyek Selesai' : 'Proyek Aktif' }}
+                    </span>
+                    @if($proyekBareng->is_finished)
+                    <div class="flex items-center text-purple-600 dark:text-purple-400">
+                        <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span class="text-sm font-medium">Completed</span>
+                    </div>
+                    @else
+                    <div class="flex items-center text-green-600 dark:text-green-400">
+                        <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                        <span class="text-sm font-medium">In Progress</span>
+                    </div>
+                    @endif
+                </div>
             </div>
         </div>
 
@@ -52,6 +69,26 @@ new #[Layout('layouts.app')] class extends Component {
 
         <!-- Quick Stats -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="p-2 {{ $proyekBareng->is_finished ? 'bg-purple-100 dark:bg-purple-900' : 'bg-green-100 dark:bg-green-900' }} rounded-lg">
+                        <svg class="w-6 h-6 {{ $proyekBareng->is_finished ? 'text-purple-600 dark:text-purple-400' : 'text-green-600 dark:text-green-400' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            @if($proyekBareng->is_finished)
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            @else
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            @endif
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Status</h3>
+                        <p class="text-lg font-bold {{ $proyekBareng->is_finished ? 'text-purple-600 dark:text-purple-400' : 'text-green-600 dark:text-green-400' }}">
+                            {{ $proyekBareng->is_finished ? 'Selesai' : 'Aktif' }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
                 <div class="flex items-center">
                     <div class="p-2 bg-blue-100 dark:bg-blue-900 rounded-lg">
@@ -162,7 +199,9 @@ new #[Layout('layouts.app')] class extends Component {
                             <div class="flex justify-between items-start mb-2">
                                 <h4 class="text-sm font-medium text-gray-900 dark:text-white">{{ $meet->title }}</h4>
                                 <span class="text-xs px-2 py-1 bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded-full">
-                                    {{ $meet->scheduled_at->format('d M') }}
+                                    @if ($meet->scheduled_at)
+                                        {{ $meet->scheduled_at->format('d M') }}
+                                    @endif
                                 </span>
                             </div>
                             @if($meet->pivot->description)

@@ -20,23 +20,28 @@ class ProyekBarengSeeder extends Seeder
         $proyekBarengData = [
             [
                 'title' => 'Platform Edukasi Online',
-                'description' => 'Proyek kolaboratif untuk mengembangkan platform pembelajaran online yang inovatif dengan fitur interaktif dan gamifikasi.'
+                'description' => 'Proyek kolaboratif untuk mengembangkan platform pembelajaran online yang inovatif dengan fitur interaktif dan gamifikasi.',
+                'is_finished' => false
             ],
             [
                 'title' => 'Aplikasi Manajemen Task',
-                'description' => 'Membangun aplikasi manajemen task modern dengan fitur kanban board, tracking waktu, dan kolaborasi tim.'
+                'description' => 'Membangun aplikasi manajemen task modern dengan fitur kanban board, tracking waktu, dan kolaborasi tim.',
+                'is_finished' => true
             ],
             [
                 'title' => 'Website Portfolio Kreatif',
-                'description' => 'Mengembangkan website portfolio dengan desain yang menarik dan fitur showcase project yang interaktif.'
+                'description' => 'Mengembangkan website portfolio dengan desain yang menarik dan fitur showcase project yang interaktif.',
+                'is_finished' => false
             ],
             [
                 'title' => 'Mobile App E-Commerce',
-                'description' => 'Proyek pengembangan aplikasi mobile e-commerce dengan fitur lengkap mulai dari katalog hingga payment gateway.'
+                'description' => 'Proyek pengembangan aplikasi mobile e-commerce dengan fitur lengkap mulai dari katalog hingga payment gateway.',
+                'is_finished' => true
             ],
             [
                 'title' => 'Dashboard Analytics',
-                'description' => 'Membangun dashboard analytics real-time untuk monitoring performa bisnis dengan visualisasi data yang menarik.'
+                'description' => 'Membangun dashboard analytics real-time untuk monitoring performa bisnis dengan visualisasi data yang menarik.',
+                'is_finished' => false
             ]
         ];
 

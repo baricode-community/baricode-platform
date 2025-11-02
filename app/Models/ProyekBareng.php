@@ -24,6 +24,11 @@ class ProyekBareng extends Model
         'id',
         'title',
         'description',
+        'is_finished',
+    ];
+
+    protected $casts = [
+        'is_finished' => 'boolean',
     ];
 
     protected static function boot()
