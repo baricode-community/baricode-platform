@@ -127,7 +127,7 @@ class VotePoll extends Component
         $totalVotes = $results->sum('votes');
         
         $copyText = "HASIL POLLING: {$this->poll->question}\n";
-        $copyText .= "===========================================\n\n";
+        $copyText .= "==========\n";
         
         foreach ($results as $result) {
             $copyText .= "📊 {$result['text']}\n";
@@ -142,7 +142,7 @@ class VotePoll extends Component
             $copyText .= "\n";
         }
         
-        $copyText .= "===========================================\n";
+        $copyText .= "=====\n";
         $copyText .= "Total Suara: {$totalVotes}\n";
         $copyText .= "Dibuat oleh: {$this->poll->user->name}\n";
         $copyText .= "Tanggal Dibuat: {$this->poll->created_at->format('d M Y, H:i')}\n";
