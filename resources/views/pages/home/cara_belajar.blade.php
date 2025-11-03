@@ -33,7 +33,7 @@
         <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
             Ragam Mode Belajar di Sini
         </h2>
-        <div class="grid md:grid-cols-4 gap-8">
+        <div class="grid md:grid-cols-3 gap-8">
             <!-- Belajar Mandiri -->
             <div class="bg-gray-800/60 rounded-xl p-6 text-center shadow-lg">
                 <div class="text-4xl mb-3">🧑‍💻</div>
@@ -53,11 +53,20 @@
                 <p class="text-sm text-gray-300">Gabung forum komunitas, tanya jawab, dan saling support. Belajar bareng jadi lebih seru dan tidak merasa sendirian.</p>
             </div>
             <!-- Tugas Mingguan -->
-            <div class="bg-gray-800/60 rounded-xl p-6 text-center shadow-lg">
+            {{-- <div class="bg-gray-800/60 rounded-xl p-6 text-center shadow-lg">
                 <div class="text-4xl mb-3">📆</div>
                 <h4 class="font-semibold mb-2 text-yellow-300">Tugas Menarik</h4>
                 <p class="text-sm text-gray-300">Dapatkan challenge atau tugas menarik untuk menguji pemahamanmu dan membuat belajar lebih menantang.</p>
-            </div>
+            </div> --}}
+        </div>
+    </div>
+
+    <div class="max-w-3xl mx-auto mb-12">
+        <div class="bg-yellow-900/40 border border-yellow-500/30 rounded-xl p-6 text-center shadow-lg">
+            <span class="inline-block bg-yellow-400 text-gray-900 text-xs font-semibold px-3 py-1 rounded-full mb-3">Info Penting</span>
+            <p class="text-lg text-yellow-200 font-medium">
+                Saat ini, course yang tersedia adalah <span class="font-bold text-white">Laravel</span> terlebih dahulu. Course lain seperti HTML, CSS, JavaScript, dan lainnya termasuk Flutter akan segera menyusul!
+            </p>
         </div>
     </div>
     
