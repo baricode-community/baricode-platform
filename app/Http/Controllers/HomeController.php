@@ -20,6 +20,12 @@ class HomeController extends Controller
         return view('pages.home.index');
     }
 
+    public function progres()
+    {
+        logger()->info('HomeController progres method called');
+        return view('pages.home.progres');
+    }
+
     public function super_app()
     {
         logger()->info('HomeController super_app method called');
