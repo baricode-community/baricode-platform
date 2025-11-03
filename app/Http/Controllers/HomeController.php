@@ -17,7 +17,8 @@ class HomeController extends Controller
     public function index()
     {
         logger()->info('HomeController index method called');
-        return view('pages.home.index');
+        $usersCount = User::whereNotNull('email_verified_at')->count();
+        return view('pages.home.index', compact('usersCount'));
     }
 
     public function progres()
