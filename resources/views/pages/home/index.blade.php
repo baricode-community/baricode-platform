@@ -54,56 +54,6 @@
         </div>
     </section>
 
-    <section class="py-20 px-4 bg-gray-900">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Kata Mereka yang Sudah Bergabung</h2>
-            <div class="mb-8 text-center">
-                <span class="inline-block bg-yellow-500 text-gray-900 font-semibold px-4 py-2 rounded-full text-sm">
-                    Testimoni di bawah ini hanya contoh (fake) karena kami baru launching versi beta. Data asli akan kami
-                    update setelah ada pengguna yang bergabung.
-                </span>
-            </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
-                    <p class="text-gray-400 italic mb-4">"Kurikulumnya terstruktur banget, dari nol jadi bisa bikin website
-                        sendiri. Komunitasnya juga supportif!"</p>
-                    <div class="flex items-center">
-                        <img src="https://ui-avatars.com/api/?name=Budi+Santoso&background=4F46E5&color=fff"
-                            alt="Foto Profil Pengguna" class="w-12 h-12 rounded-full mr-4">
-                        <div>
-                            <p class="font-semibold text-white">Budi Santoso</p>
-                            <p class="text-sm text-indigo-400">Junior Developer</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
-                    <p class="text-gray-400 italic mb-4">"Bisa kolaborasi di proyek bareng itu pengalaman yang luar biasa.
-                        Sangat membantu untuk portofolio!"</p>
-                    <div class="flex items-center">
-                        <img src="https://ui-avatars.com/api/?name=Siti+Aisyah&background=4F46E5&color=fff"
-                            alt="Foto Profil Pengguna" class="w-12 h-12 rounded-full mr-4">
-                        <div>
-                            <p class="font-semibold text-white">Siti Aisyah</p>
-                            <p class="text-sm text-indigo-400">Mahasiswa Informatika</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
-                    <p class="text-gray-400 italic mb-4">"Mentoringnya berkualitas. Pertanyaan apapun selalu dijawab dengan
-                        sabar dan jelas."</p>
-                    <div class="flex items-center">
-                        <img src="https://ui-avatars.com/api/?name=Joko+Wicaksono&background=4F46E5&color=fff"
-                            alt="Foto Profil Pengguna" class="w-12 h-12 rounded-full mr-4">
-                        <div>
-                            <p class="font-semibold text-white">Joko Wicaksono</p>
-                            <p class="text-sm text-indigo-400">Web Freelancer</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section class="py-20 px-4 bg-gradient-to-r from-gray-800 to-gray-900">
         <div class="max-w-7xl mx-auto">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Apa yang Akan Kamu Dapatkan?</h2>
