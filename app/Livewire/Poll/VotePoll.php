@@ -145,6 +145,8 @@ class VotePoll extends Component
         $copyText .= "===========================================\n";
         $copyText .= "Total Suara: {$totalVotes}\n";
         $copyText .= "Dibuat oleh: {$this->poll->user->name}\n";
+        $copyText .= "Tanggal Dibuat: {$this->poll->created_at->format('d M Y, H:i')}\n";
+        $copyText .= "Alamat Poll: " . route('polls.show', $this->poll->id) . "\n";
         $copyText .= "Status: " . ($this->poll->isOpen() ? "AKTIF" : "DITUTUP");
         
         $this->dispatch('copy-to-clipboard', text: $copyText);
