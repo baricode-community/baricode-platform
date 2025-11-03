@@ -54,6 +54,29 @@
         </div>
     </section>
 
+    <section class="py-20 px-4 bg-gray-800">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Halaman Bermanfaat di Platform Kami</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <a href="{{ route('cara_belajar') }}" wire:navigate class="block bg-gray-700 p-8 rounded-lg shadow-lg text-center hover:bg-indigo-600 transition duration-300">
+                    <div class="text-4xl mb-4 text-indigo-400">📖</div>
+                    <h3 class="text-xl font-semibold mb-2 text-white">Cara Belajar</h3>
+                    <p class="text-gray-300">Panduan langkah demi langkah untuk memulai belajar di platform ini.</p>
+                </a>
+                <a href="{{ route('blog.index') }}" wire:navigate class="block bg-gray-700 p-8 rounded-lg shadow-lg text-center hover:bg-indigo-600 transition duration-300">
+                    <div class="text-4xl mb-4 text-indigo-400">📰</div>
+                    <h3 class="text-xl font-semibold mb-2 text-white">Blog & Artikel</h3>
+                    <p class="text-gray-300">Baca artikel, tips, dan insight terbaru seputar dunia pemrograman.</p>
+                </a>
+                <a href="{{ route('home.progres') }}" wire:navigate class="block bg-gray-700 p-8 rounded-lg shadow-lg text-center hover:bg-indigo-600 transition duration-300">
+                    <div class="text-4xl mb-4 text-indigo-400">📈</div>
+                    <h3 class="text-xl font-semibold mb-2 text-white">Sedang Apa Kita?</h3>
+                    <p class="text-gray-300">Pantau progres yang sedang komunitas lakukan saat ini.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <section class="py-20 px-4 bg-gradient-to-r from-gray-800 to-gray-900">
         <div class="max-w-7xl mx-auto">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Apa yang Akan Kamu Dapatkan?</h2>
