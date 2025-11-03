@@ -26,6 +26,12 @@ class HomeController extends Controller
         return view('pages.home.progres');
     }
 
+    public function rencana()
+    {
+        logger()->info('HomeController rencana method called');
+        return view('pages.home.rencana');
+    }
+
     public function super_app()
     {
         logger()->info('HomeController super_app method called');

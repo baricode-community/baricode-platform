@@ -108,23 +108,14 @@
     <section class="py-20 px-4 bg-gray-900">
         <div class="max-w-7xl mx-auto">
             <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-16 text-white">
-                <span class="text-indigo-400">Navigasi</span> Cepat & Penting
+                <span class="text-indigo-400">Navigasi</span> Cepat & Teknis Seputar Komunitas
             </h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <a href="{{ route('cara_belajar') }}" wire:navigate
+            <div class="grid md:grid-cols-2 gap-8">
+                <a href="{{ route('home.rencana') }}" wire:navigate
                     class="block bg-gray-800 p-8 rounded-xl shadow-xl text-center border-2 border-transparent hover:border-indigo-500 transition duration-300 group">
                     <i class="fas fa-book-reader text-5xl mb-4 text-indigo-400 group-hover:text-indigo-300 transition"></i>
-                    <h3 class="text-2xl font-semibold mb-2 text-white">Cara Belajar</h3>
-                    <p class="text-gray-400">Panduan langkah demi langkah untuk memulai petualangan ngoding di platform ini.
-                    </p>
-                </a>
-                <a href="{{ route('blog.index') }}" wire:navigate
-                    class="block bg-gray-800 p-8 rounded-xl shadow-xl text-center border-2 border-transparent hover:border-pink-500 transition duration-300 group">
-                    <i class="fas fa-newspaper text-5xl mb-4 text-pink-400 group-hover:text-pink-300 transition"></i>
-                    <h3 class="text-2xl font-semibold mb-2 text-white">Blog & Artikel</h3>
-                    <p class="text-gray-400">Baca artikel, tips, dan insight terbaru seputar dunia pemrograman dan
-                        teknologi.
-                    </p>
+                    <h3 class="text-2xl font-semibold mb-2 text-white">Rencana Komunitas</h3>
+                    <p class="text-gray-400">Lihat roadmap, target, dan langkah komunitas untuk membangun platform belajar bersama dan bangun proyek bareng.</p>
                 </a>
                 <a href="{{ route('home.progres') }}" wire:navigate
                     class="block bg-gray-800 p-8 rounded-xl shadow-xl text-center border-2 border-transparent hover:border-teal-500 transition duration-300 group">
