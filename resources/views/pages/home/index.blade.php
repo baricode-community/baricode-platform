@@ -54,7 +54,7 @@
         <div class="max-w-5xl mx-auto relative z-10">
             <h1 class="text-2xl sm:text-3xl md:text-5xl font-extrabold leading-snug mb-6 animate-fade-in-up drop-shadow-lg">
                 <span class="text-indigo-300">Belajar Ngoding Gratis 100%.</span> <br class="hidden md:inline-block"> Bangun
-                Proyek Nyata.
+                Proyek Bareng.
             </h1>
             <p
                 class="text-base md:text-lg text-gray-300 mb-10 max-w-3xl mx-auto animate-fade-in-up-2 font-light drop-shadow-md">
