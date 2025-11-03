@@ -1,14 +1,16 @@
 <div>
     {{-- Create Poll Button --}}
-    <div class="mb-8 text-right">
-        <button wire:click="openCreateModal"
-            class="inline-flex items-center px-6 py-3 bg-indigo-600 border border-transparent rounded-full font-extrabold text-sm text-white uppercase tracking-wider shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition ease-in-out duration-300 transform hover:scale-[1.02]">
-            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-            </svg>
-            Buat Jajak Pendapat Baru
-        </button>
-    </div>
+    @if (auth()->check())
+        <div class="mb-8 text-right">
+            <button wire:click="openCreateModal"
+                class="inline-flex items-center px-6 py-3 bg-indigo-600 border border-transparent rounded-full font-extrabold text-sm text-white uppercase tracking-wider shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-4 focus:ring-indigo-300 transition ease-in-out duration-300 transform hover:scale-[1.02]">
+                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+                Buat Jajak Pendapat Baru
+            </button>
+        </div>
+    @endif
 
     {{-- Create/Edit Modal (Improved structure and visual focus) --}}
     <div x-show="$wire.showCreateModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0"
@@ -17,7 +19,8 @@
         aria-labelledby="modal-title" role="dialog" aria-modal="true">
 
         {{-- Background backdrop --}}
-        <div class="fixed inset-0 bg-gray-900 bg-opacity-40 dark:bg-opacity-70 backdrop-blur-sm transition-opacity"></div>
+        <div class="fixed inset-0 bg-gray-900 bg-opacity-40 dark:bg-opacity-70 backdrop-blur-sm transition-opacity">
+        </div>
 
         <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
             <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
@@ -48,7 +51,8 @@
                     <div class="mt-6">
                         {{-- Title Field --}}
                         <div class="mb-5">
-                            <label for="title" class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-1">Judul Jajak
+                            <label for="title"
+                                class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-1">Judul Jajak
                                 Pendapat</label>
                             <input wire:model="title" type="text" id="title"
                                 placeholder="Contoh: Voting Tema Proyek"
@@ -62,8 +66,7 @@
                         <div class="mb-5">
                             <label for="description"
                                 class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-1">Deskripsi</label>
-                            <textarea wire:model="description" id="description" rows="3"
-                                placeholder="Jelaskan tujuan jajak pendapat ini..."
+                            <textarea wire:model="description" id="description" rows="3" placeholder="Jelaskan tujuan jajak pendapat ini..."
                                 class="mt-1 block w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-3"></textarea>
                             @error('description')
                                 <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
@@ -75,7 +78,8 @@
                             <label class="flex items-center space-x-3">
                                 <input type="checkbox" wire:model="is_public"
                                     class="h-5 w-5 text-indigo-600 dark:text-indigo-400 border-gray-300 dark:border-gray-700 rounded focus:ring-indigo-500">
-                                <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">Jadikan Jajak Pendapat
+                                <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">Jadikan Jajak
+                                    Pendapat
                                     Publik</span>
                             </label>
                             @error('is_public')
@@ -85,7 +89,8 @@
 
                         {{-- Options Fields --}}
                         <div class="mb-5">
-                            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">Pilihan</label>
+                            <label
+                                class="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">Pilihan</label>
                             <div class="space-y-3">
                                 @foreach ($options as $index => $option)
                                     <div class="flex items-center space-x-3">

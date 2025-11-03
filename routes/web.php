@@ -72,7 +72,6 @@ Route::controller(\App\Http\Controllers\TimeTrackerController::class)
     });
 
 Route::controller(\App\Http\Controllers\PollingController::class)
-    ->middleware(['auth', 'verified'])
     ->prefix('polls')
     ->group(function () {
         Route::get('/', 'index')->name('polls.index');
