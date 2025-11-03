@@ -79,10 +79,23 @@
         @if ($showResults)
             {{-- TAMPILKAN HASIL POLLING --}}
             <div class="space-y-6">
-                <h3
-                    class="text-2xl font-extrabold text-gray-900 dark:text-white border-b-4 pb-3 border-indigo-500/50 dark:border-indigo-800 flex items-center">
-                    <span class="text-indigo-600 dark:text-indigo-400 mr-3">📊</span> Hasil Polling Saat Ini
-                </h3>
+                <div class="flex justify-between items-center">
+                    <h3
+                        class="text-2xl font-extrabold text-gray-900 dark:text-white border-b-4 pb-3 border-indigo-500/50 dark:border-indigo-800 flex items-center flex-1">
+                        <span class="text-indigo-600 dark:text-indigo-400 mr-3">📊</span> Hasil Polling Saat Ini
+                    </h3>
+                    
+                    {{-- Tombol Salin Hasil --}}
+                    <button wire:click="copyResults"
+                        class="ml-4 inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl transition duration-200 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-green-400/70 transform hover:scale-105">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                        Salin Hasil
+                    </button>
+                </div>
 
                 @foreach ($results as $result)
                     <div
@@ -286,3 +299,50 @@
         @endif
     </div>
 </div>
+
+<script>
+document.addEventListener('livewire:initialized', () => {
+    Livewire.on('copy-to-clipboard', (event) => {
+        const text = event.text;
+        
+        if (navigator.clipboard && window.isSecureContext) {
+            // Use modern clipboard API
+            navigator.clipboard.writeText(text).then(() => {
+                // Success feedback handled by Livewire flash message
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                fallbackCopyTextToClipboard(text);
+            });
+        } else {
+            // Fallback for older browsers or non-secure contexts
+            fallbackCopyTextToClipboard(text);
+        }
+    });
+});
+
+function fallbackCopyTextToClipboard(text) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    
+    // Avoid scrolling to bottom
+    textArea.style.top = "0";
+    textArea.style.left = "0";
+    textArea.style.position = "fixed";
+    textArea.style.opacity = "0";
+    
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    try {
+        const successful = document.execCommand('copy');
+        if (!successful) {
+            console.error('Fallback: Could not copy text');
+        }
+    } catch (err) {
+        console.error('Fallback: Could not copy text: ', err);
+    }
+    
+    document.body.removeChild(textArea);
+}
+</script>

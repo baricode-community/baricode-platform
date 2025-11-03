@@ -121,6 +121,36 @@ class VotePoll extends Component
         session()->flash('message', 'Pilihan Anda telah dibatalkan.');
     }
 
+    public function copyResults()
+    {
+        $results = $this->results;
+        $totalVotes = $results->sum('votes');
+        
+        $copyText = "HASIL POLLING: {$this->poll->question}\n";
+        $copyText .= "===========================================\n\n";
+        
+        foreach ($results as $result) {
+            $copyText .= "📊 {$result['text']}\n";
+            $copyText .= "   Suara: {$result['votes']} ({$result['percentage']}%)\n";
+            
+            if (count($result['participants']) > 0) {
+                $copyText .= "   Pemilih:\n";
+                foreach ($result['participants'] as $participant) {
+                    $copyText .= "   - {$participant['name']} ({$participant['voted_at']})\n";
+                }
+            }
+            $copyText .= "\n";
+        }
+        
+        $copyText .= "===========================================\n";
+        $copyText .= "Total Suara: {$totalVotes}\n";
+        $copyText .= "Dibuat oleh: {$this->poll->user->name}\n";
+        $copyText .= "Status: " . ($this->poll->isOpen() ? "AKTIF" : "DITUTUP");
+        
+        $this->dispatch('copy-to-clipboard', text: $copyText);
+        session()->flash('message', 'Hasil polling telah disalin ke clipboard!');
+    }
+
     public function render()
     {
         return view('livewire.poll.vote-poll', [
