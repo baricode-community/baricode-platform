@@ -179,29 +179,6 @@
         </div>
     </section>
 
-    {{-- NAVIGASI CEPAT --}}
-    <section class="py-20 px-4 bg-gray-900">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-white">
-                <span class="text-indigo-400">Jelajahi</span> Info & Progres Komunitas
-            </h2>
-            <ul class="list-disc list-inside text-lg text-gray-200 max-w-2xl mx-auto space-y-4">
-                <li>
-                    <a href="{{ route('home.rencana') }}" wire:navigate class="text-indigo-400 hover:underline font-semibold">
-                        Rencana Komunitas
-                    </a>
-                    <span class="block text-gray-400 text-base ml-6">Lihat roadmap, target, dan langkah komunitas untuk membangun platform belajar bersama dan bangun proyek bareng.</span>
-                </li>
-                <li>
-                    <a href="{{ route('home.progres') }}" wire:navigate class="text-teal-400 hover:underline font-semibold">
-                        Sedang Apa Kita?
-                    </a>
-                    <span class="block text-gray-400 text-base ml-6">Pantau progres proyek yang sedang komunitas lakukan saat ini!</span>
-                </li>
-            </ul>
-        </div>
-    </section>
-
     {{-- ARTIKEL & BLOG --}}
     <section class="py-20 px-4 bg-gray-800">
         <div class="max-w-7xl mx-auto text-center">
@@ -352,141 +329,24 @@
         </div>
     </section>
 
-    {{-- MENTORSHIP CALL TO ACTION --}}
-    <section class="py-20 px-4 bg-gray-800">
-        <div class="max-w-7xl mx-auto text-center">
-            <i class="fas fa-handshake text-6xl text-teal-400 mb-6 animate-scale-in"></i>
-            <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4 animate-fade-in-up">
-                Butuh Bantuan Personal? <span class="text-teal-400">Hubungi Mentor!</span>
-            </h2>
-            <p class="text-gray-300 text-lg mb-8 max-w-3xl mx-auto animate-fade-in-up-2">
-                Jangan pernah merasa sendirian. Tim mentor kami siap membantu memecahkan bug dan memberikan arahan karir.
-            </p>
-            <a href="" wire:navigate
-                class="inline-flex items-center gap-2 bg-teal-500 text-gray-900 font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105 hover:bg-teal-400 animate-fade-in-up-3 shadow-xl shadow-teal-500/40">
-                <i class="fas fa-comments"></i>
-                Minta Bimbingan Mentor
-            </a>
-        </div>
-    </section>
-
     {{-- STATISTIK KOMUNITAS --}}
     <section class="py-20 px-4 bg-gray-900">
         <div class="max-w-7xl mx-auto text-center">
             <h2 class="text-3xl md:text-4xl font-extrabold mb-12 text-white animate-fade-in-up">
                 Komunitas Kami dalam <span class="text-purple-400">Angka</span>
             </h2>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="p-6 bg-gray-800 rounded-xl border-b-4 border-indigo-500 animate-scale-in">
-                    <p class="text-5xl font-extrabold text-indigo-400 mb-2">{{ $usersCount }}+</p>
-                    <p class="text-gray-300 font-medium">Anggota Aktif</p>
-                </div>
-                <div class="p-6 bg-gray-800 rounded-xl border-b-4 border-purple-500 animate-scale-in-2">
-                    <p class="text-5xl font-extrabold text-purple-400 mb-2">350+</p>
-                    <p class="text-gray-300 font-medium">Jam Materi Video</p>
+                    <p class="text-5xl font-extrabold text-indigo-400 mb-2">{{ $usersCount }}</p>
+                    <p class="text-gray-300 font-medium">Anggota Terdaftar</p>
                 </div>
                 <div class="p-6 bg-gray-800 rounded-xl border-b-4 border-pink-500 animate-scale-in-2">
-                    <p class="text-5xl font-extrabold text-pink-400 mb-2">12+</p>
+                    <p class="text-5xl font-extrabold text-pink-400 mb-2">{{ $projectsCount }}</p>
                     <p class="text-gray-300 font-medium">Proyek Utama Berjalan</p>
                 </div>
                 <div class="p-6 bg-gray-800 rounded-xl border-b-4 border-teal-500 animate-scale-in">
                     <p class="text-5xl font-extrabold text-teal-400 mb-2">100%</p>
                     <p class="text-gray-300 font-medium">Akses Gratis Selamanya</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    {{-- KOLABORASI GIT --}}
-    <section class="py-20 px-4 bg-gray-800">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <div class="order-2 md:order-1 animate-slide-in-left">
-                <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-white">
-                    Belajar <span class="text-pink-400">Kolaborasi</span> Nyata dengan Git
-                </h2>
-                <p class="text-gray-300 text-lg mb-6">
-                    Kami mengajarkan alur kerja developer profesional. Semua proyek komunitas dikelola menggunakan
-                    Git dan GitHub. Pelajari pull request, code review, dan branching dari project langsung.
-                </p>
-                <div class="flex items-center space-x-4 mb-6">
-                    <i class="fab fa-github text-4xl text-white"></i>
-                    <i class="fas fa-code-branch text-4xl text-white"></i>
-                    <i class="fas fa-users-cog text-4xl text-white"></i>
-                </div>
-                <a href="{{ route('cara_belajar') }}" wire:navigate
-                    class="inline-flex items-center text-pink-400 hover:text-pink-300 font-semibold transition duration-300">
-                    Lihat Alur Kerja Kami <i class="fas fa-external-link-alt ml-2 text-sm"></i>
-                </a>
-            </div>
-            <div class="order-1 md:order-2 bg-gray-900 p-6 rounded-xl shadow-xl animate-slide-in-right">
-                <pre class="text-sm overflow-x-auto text-green-400 font-mono">
-<code class="text-sm"># Mulai kontribusi hari ini
-git clone https://github.com/project-community
-cd project-community
-git checkout -b feature/nama-fitur
-git add .
-git commit -m "feat: tambahkan fitur X"
-git push origin feature/nama-fitur
-</code></pre>
-            </div>
-        </div>
-    </section>
-
-    {{-- BELAJAR DARI PROYEK NYATA --}}
-    <section class="py-20 px-4 bg-gray-900">
-        <div class="max-w-7xl mx-auto text-center">
-            <h2 class="text-3xl md:text-4xl font-extrabold mb-12 text-white animate-fade-in-up">
-                Bangun <span class="text-indigo-400">Portofolio</span> dengan Proyek Nyata
-            </h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div
-                    class="p-6 bg-gray-800 rounded-xl shadow-xl transform hover:shadow-indigo-500/30 transition duration-300 animate-fade-in-up">
-                    <i class="fas fa-shopping-cart text-5xl mb-4 text-indigo-400"></i>
-                    <h3 class="text-xl font-semibold mb-2 text-white">E-Commerce Platform</h3>
-                    <p class="text-gray-400">Belajar otentikasi, pembayaran, dan manajemen inventori.</p>
-                </div>
-                <div
-                    class="p-6 bg-gray-800 rounded-xl shadow-xl transform hover:shadow-purple-500/30 transition duration-300 animate-fade-in-up-2">
-                    <i class="fas fa-blog text-5xl mb-4 text-purple-400"></i>
-                    <h3 class="text-xl font-semibold mb-2 text-white">CMS Modern</h3>
-                    <p class="text-gray-400">Membangun sistem manajemen konten (CMS) yang cepat dan aman.</p>
-                </div>
-                <div
-                    class="p-6 bg-gray-800 rounded-xl shadow-xl transform hover:shadow-pink-500/30 transition duration-300 animate-fade-in-up-3">
-                    <i class="fas fa-mobile-alt text-5xl mb-4 text-pink-400"></i>
-                    <h3 class="text-xl font-semibold mb-2 text-white">Aplikasi Mobile Tracking</h3>
-                    <p class="text-gray-400">Pengembangan aplikasi cross-platform dengan Flutter dan API.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    {{-- KOMUNITAS DISCORD --}}
-    <section class="py-20 px-4 bg-gray-800">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <div class="animate-slide-in-left">
-                <i class="fab fa-discord text-6xl text-indigo-400 mb-4"></i>
-                <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-white">
-                    Diskusi Langsung di <span class="text-indigo-400">Discord</span>
-                </h2>
-                <p class="text-gray-300 text-lg mb-6">
-                    Bergabunglah dengan server Discord kami! Tempat terbaik untuk bertanya, berdiskusi, voice chat saat
-                    ngoding, dan mendapatkan notifikasi proyek terbaru secara real-time.
-                </p>
-                <a href="URL_DISCORD_ANDA" target="_blank"
-                    class="inline-flex items-center gap-2 bg-indigo-500 text-white font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105 hover:bg-indigo-600 shadow-xl shadow-indigo-500/40">
-                    <i class="fas fa-sign-in-alt"></i>
-                    Gabung Discord Sekarang
-                </a>
-            </div>
-            <div class="hidden md:block bg-gray-900 p-8 rounded-xl shadow-2xl animate-slide-in-right">
-                <p class="text-gray-300 font-mono text-center">
-                    #general-chat (120 online) <br>
-                    #laravel-help <br>
-                    #flutter-bug-report
-                </p>
-                <div class="h-40 bg-gray-700 rounded-lg mt-4 flex items-center justify-center">
-                    <p class="text-gray-400 italic">Preview Chat Aktif</p>
                 </div>
             </div>
         </div>
@@ -503,11 +363,11 @@ git push origin feature/nama-fitur
                 Kami membangun platform ini bersama. Semua materi, kode sumber, dan kurikulum kami adalah open-source. Ini
                 adalah kesempatan Anda untuk belajar dari kontribusi, dan berkontribusi untuk belajar.
             </p>
-            <a href="URL_GITHUB_KOMUNITAS" target="_blank"
+            {{-- <a href="URL_GITHUB_KOMUNITAS" target="_blank"
                 class="inline-flex items-center gap-2 bg-teal-500 text-gray-900 font-bold py-3 px-8 rounded-full text-lg transition duration-300 transform hover:scale-105 hover:bg-teal-400 animate-fade-in-up-3 shadow-xl shadow-teal-500/40">
                 <i class="fab fa-github"></i>
                 Lihat Semua Repo Kami
-            </a>
+            </a> --}}
         </div>
     </section>
 
@@ -538,111 +398,6 @@ git push origin feature/nama-fitur
         </div>
     </section>
 
-    {{-- CAREER PREPARATION (BARU) --}}
-    <section class="py-20 px-4 bg-gray-900">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <div class="animate-slide-in-left">
-                <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-white">
-                    Persiapan Karir <span class="text-purple-400">Siap Kerja</span>
-                </h2>
-                <p class="text-gray-400 text-lg mb-6">
-                    Materi kami tidak hanya tentang syntax. Kami fokus pada soft skill, persiapan wawancara teknis,
-                    dan cara membangun profil LinkedIn yang profesional, diintegrasikan langsung ke dalam kurikulum.
-                </p>
-                <ul class="space-y-3 text-gray-300">
-                    <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-purple-400"></i> Mock Interview Rutin</li>
-                    <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-purple-400"></i> Workshop Portofolio</li>
-                    <li class="flex items-center"><i class="fas fa-check-circle mr-3 text-purple-400"></i> Sesi Strategi Melamar Kerja</li>
-                </ul>
-            </div>
-            <div class="p-6 text-center animate-slide-in-right">
-                <i class="fas fa-briefcase text-8xl text-purple-500 drop-shadow-lg"></i>
-            </div>
-        </div>
-    </section>
-
-    {{-- LEARNING RESOURCES - Ebook/Video (BARU) --}}
-    <section class="py-20 px-4 bg-gray-800">
-        <div class="max-w-7xl mx-auto text-center">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-12 animate-fade-in-up">
-                Akses <span class="text-teal-400">Sumber Belajar</span> Eksklusif
-            </h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div
-                    class="bg-gray-900 p-8 rounded-xl shadow-2xl border-b-4 border-teal-500 transform hover:scale-105 transition duration-300 animate-scale-in">
-                    <i class="fas fa-file-pdf text-5xl mb-4 text-teal-400"></i>
-                    <h3 class="text-2xl font-semibold mb-2 text-white">Panduan E-book Developer</h3>
-                    <p class="text-gray-300 mb-4">Koleksi ringkas E-book untuk referensi cepat Laravel & Flutter.</p>
-                    <a href="" wire:navigate
-                        class="text-teal-400 font-medium hover:text-teal-300">Download Gratis <i
-                            class="fas fa-download ml-2"></i></a>
-                </div>
-                <div
-                    class="bg-gray-900 p-8 rounded-xl shadow-2xl border-b-4 border-indigo-500 transform hover:scale-105 transition duration-300 animate-scale-in-2">
-                    <i class="fab fa-youtube text-5xl mb-4 text-indigo-400"></i>
-                    <h3 class="text-2xl font-semibold mb-2 text-white">Video Tutorial Premium</h3>
-                    <p class="text-gray-300 mb-4">Video pembelajaran mendalam dari studi kasus nyata.</p>
-                    <a href="" wire:navigate
-                        class="text-indigo-400 font-medium hover:text-indigo-300">Tonton Sekarang <i
-                            class="fas fa-arrow-right ml-2"></i></a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    {{-- PARTNERSHIPS (BARU) --}}
-    <section class="py-20 px-4 bg-gray-900">
-        <div class="max-w-7xl mx-auto text-center">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-10 animate-fade-in-up">
-                Didukung oleh <span class="text-pink-400">Ekosistem Digital</span>
-            </h2>
-            <p class="text-gray-400 text-lg mb-12 max-w-3xl mx-auto animate-fade-in-up-2">
-                Kami membangun koneksi dengan platform dan perusahaan teknologi yang peduli pada pendidikan terbuka.
-            </p>
-            <div class="flex flex-wrap justify-center items-center gap-10 opacity-70 animate-fade-in-up-3">
-                {{-- Placeholder Logo --}}
-                <div class="text-2xl font-bold text-gray-500 hover:text-white transition duration-200">
-                    <i class="fas fa-server mr-2 text-pink-500"></i> Cloud Hosting Co.
-                </div>
-                <div class="text-2xl font-bold text-gray-500 hover:text-white transition duration-200">
-                    <i class="fas fa-terminal mr-2 text-indigo-500"></i> Dev Tools Inc.
-                </div>
-                <div class="text-2xl font-bold text-gray-500 hover:text-white transition duration-200">
-                    <i class="fas fa-city mr-2 text-purple-500"></i> Startup Studio
-                </div>
-            </div>
-        </div>
-    </section>
-
-    {{-- FUTURE TECH ROADMAP (BARU) --}}
-    <section class="py-20 px-4 bg-gray-800 border-t border-gray-700">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-extrabold mb-12 text-white text-center animate-fade-in-up">
-                Masa Depan: Teknologi <span class="text-indigo-400">yang Akan Datang</span>
-            </h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div
-                    class="bg-gray-700 p-6 rounded-xl shadow-xl border-l-4 border-indigo-500 hover:bg-gray-600 transition duration-300 animate-slide-in-left">
-                    <i class="fas fa-brain text-4xl mb-3 text-indigo-400"></i>
-                    <h3 class="text-xl font-semibold mb-1 text-white">Artificial Intelligence (AI)</h3>
-                    <p class="text-gray-300 text-sm">Integrasi Python dan machine learning untuk proyek data.</p>
-                </div>
-                <div
-                    class="bg-gray-700 p-6 rounded-xl shadow-xl border-l-4 border-purple-500 hover:bg-gray-600 transition duration-300 animate-fade-in-up-2">
-                    <i class="fab fa-bitcoin text-4xl mb-3 text-purple-400"></i>
-                    <h3 class="text-xl font-semibold mb-1 text-white">Blockchain & Web3</h3>
-                    <p class="text-gray-300 text-sm">Pengembangan DApps dasar dan konsep smart contract.</p>
-                </div>
-                <div
-                    class="bg-gray-700 p-6 rounded-xl shadow-xl border-l-4 border-pink-500 hover:bg-gray-600 transition duration-300 animate-slide-in-right">
-                    <i class="fas fa-vr-cardboard text-4xl mb-3 text-pink-400"></i>
-                    <h3 class="text-xl font-semibold mb-1 text-white">Augmented Reality (AR)</h3>
-                    <p class="text-gray-300 text-sm">Eksplorasi penggunaan Flutter untuk aplikasi AR mobile.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     {{-- DAILY MOTIVATION (BARU) --}}
     <section class="py-20 px-4 bg-gray-900 border-t border-gray-700">
         <div class="max-w-4xl mx-auto text-center">
@@ -654,50 +409,7 @@ git push origin feature/nama-fitur
                 "Setiap bug yang berhasil kamu pecahkan bukan hanya mengasah skill-mu, tapi juga menambah satu cerita heroik
                 di portofolio karirmu."
             </blockquote>
-            <p class="text-gray-500 mt-4 text-sm animate-fade-in-up-3">– Komunitas Developer Ngoding</p>
-        </div>
-    </section>
-
-    {{-- CODE CHALLENGES (BARU) --}}
-    <section class="py-20 px-4 bg-gray-800">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-            <div class="animate-slide-in-left">
-                <i class="fas fa-trophy text-6xl text-pink-400 mb-4"></i>
-                <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-white">
-                    Tantangan Kodifikasi <span class="text-pink-400">Mingguan</span>
-                </h2>
-                <p class="text-gray-300 text-lg mb-6">
-                    Asah kemampuanmu dengan code challenge yang dirancang untuk menguji pemahaman algoritma dan
-                    struktur data. Dapatkan lencana khusus bagi yang berhasil!
-                </p>
-                <a href="" wire:navigate
-                    class="inline-flex items-center gap-2 text-pink-400 hover:text-pink-300 font-semibold transition duration-300">
-                    Lihat Tantangan Terbaru <i class="fas fa-arrow-right ml-2 text-sm"></i>
-                </a>
-            </div>
-            <div class="bg-gray-900 p-6 rounded-xl shadow-xl animate-scale-in-2">
-                <p class="text-sm text-green-400 font-mono mb-4">// Tantangan Pekan Ini: FizzBuzz Lanjutan</p>
-                <div class="h-40 bg-gray-700 rounded-lg flex items-center justify-center">
-                    <p class="text-gray-400 italic">Antarmuka Challenge (UI/UX)</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    {{-- FINAL CTA --}}
-    <section class="py-20 px-4 bg-gradient-to-r from-indigo-600 to-purple-600">
-        <div class="max-w-7xl mx-auto text-center">
-            <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6 leading-tight drop-shadow-md">
-                Siap <span class="text-pink-200">Menciptakan</span> Proyek Pertamamu?
-            </h2>
-            <p class="text-white text-xl mb-10 max-w-3xl mx-auto font-light">
-                Jangan lewatkan kesempatan untuk belajar, berkolaborasi, dan berkembang bersama komunitas kami, sekarang
-                juga.
-            </p>
-            <a href="{{ route('register') }}" wire:navigate
-                class="bg-white text-indigo-700 font-bold py-4 px-12 rounded-full text-xl transition duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-white/40 uppercase tracking-wider">
-                <i class="fas fa-user-plus mr-2"></i> Daftar Sekarang GRATIS
-            </a>
+            <p class="text-gray-500 mt-4 text-sm animate-fade-in-up-3">– Manusia di Balik Layar</p>
         </div>
     </section>
 @endsection

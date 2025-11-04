@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProyekBareng;
 use App\Models\User\User;
 use Illuminate\Http\Request;
 use App\Models\Course\CourseCategory;
@@ -18,7 +19,8 @@ class HomeController extends Controller
     {
         logger()->info('HomeController index method called');
         $usersCount = User::whereNotNull('email_verified_at')->count();
-        return view('pages.home.index', compact('usersCount'));
+        $projectsCount = ProyekBareng::count();
+        return view('pages.home.index', compact('usersCount', 'projectsCount'));
     }
 
     public function progres()
