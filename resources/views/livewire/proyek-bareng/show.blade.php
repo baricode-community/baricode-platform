@@ -3,14 +3,92 @@
 use Livewire\Volt\Component;
 use Livewire\Volt\Attributes\Layout;
 use App\Models\ProyekBareng;
+use Livewire\Attributes\Validate;
 
 new #[Layout('layouts.app')] class extends Component {
     public ProyekBareng $proyekBareng;
+    
+    public bool $showingJoinForm = false;
+    
+    #[Validate('required|min:10|max:500')]
+    public string $joinReason = '';
     
     public function mount(ProyekBareng $proyekBareng): void
     {
         $this->proyekBareng = $proyekBareng;
         $this->proyekBareng->load(['users', 'meets', 'kanboards', 'kanboardLinks', 'polls']);
+    }
+    
+    public function canJoinProject(): bool
+    {
+        if (!auth()->check()) {
+            return false;
+        }
+        
+        $user = auth()->user();
+        
+        // Cek apakah user sudah bergabung
+        if ($this->proyekBareng->users()->where('user_id', $user->id)->exists()) {
+            return false;
+        }
+        
+        // Cek apakah proyek sudah selesai
+        if ($this->proyekBareng->is_finished) {
+            return false;
+        }
+        
+        // Cek apakah user memiliki whatsapp yang valid
+        if (empty($user->whatsapp)) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    public function showJoinForm(): void
+    {
+        logger('showJoinForm dipanggil');
+        
+        if (!$this->canJoinProject()) {
+            logger('canJoinProject return false');
+            return;
+        }
+        
+        logger('Setting showingJoinForm to true');
+        $this->showingJoinForm = true;
+        $this->joinReason = '';
+    }
+    
+    public function hideJoinForm(): void
+    {
+        $this->showingJoinForm = false;
+        $this->joinReason = '';
+        $this->resetValidation();
+    }
+    
+    public function joinProject(): void
+    {
+        if (!$this->canJoinProject()) {
+            session()->flash('error', 'Anda tidak dapat bergabung dengan proyek ini.');
+            return;
+        }
+        
+        $this->validate();
+        
+        $user = auth()->user();
+        
+        // Bergabung dengan proyek
+        $this->proyekBareng->users()->attach($user->id, [
+            'description' => $this->joinReason
+        ]);
+        
+        // Refresh data
+        $this->proyekBareng->load(['users', 'meets', 'kanboards', 'kanboardLinks', 'polls']);
+        
+        // Reset form
+        $this->hideJoinForm();
+        
+        session()->flash('success', 'Berhasil bergabung dengan proyek!');
     }
 };
 
@@ -18,6 +96,102 @@ new #[Layout('layouts.app')] class extends Component {
 
 <div class="">
     <div class="">
+        <!-- Flash Messages -->
+        @if (session()->has('success'))
+            <div class="mb-6 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <span class="block sm:inline">{{ session('success') }}</span>
+            </div>
+        @endif
+
+        @if (session()->has('error'))
+            <div class="mb-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <span class="block sm:inline">{{ session('error') }}</span>
+            </div>
+        @endif
+
+        <!-- Join Project Form -->
+        @if($showingJoinForm && $this->canJoinProject())
+        <div class="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 border border-green-200 dark:border-green-700 rounded-lg p-6 mb-8 shadow-sm">
+            <div class="flex items-start">
+                <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 bg-green-100 dark:bg-green-900 rounded-full">
+                    <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                </div>
+                <div class="ml-4 flex-1">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-white">
+                            Bergabung dengan Proyek
+                        </h3>
+                        <button 
+                            wire:click="hideJoinForm"
+                            class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+                        >
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="mt-2">
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                            Ceritakan alasan Anda ingin bergabung dengan proyek "<strong>{{ $proyekBareng->title }}</strong>" dan kontribusi apa yang bisa Anda berikan.
+                        </p>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <label for="joinReason" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Alasan & Kontribusi *
+                        </label>
+                        <textarea 
+                            wire:model="joinReason"
+                            id="joinReason"
+                            rows="4"
+                            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:text-white"
+                            placeholder="Contoh: Saya tertarik bergabung karena memiliki pengalaman di bidang web development dan ingin berkontribusi dalam pembuatan fitur backend. Saya bisa membantu dalam pengembangan API dan database design."
+                        ></textarea>
+                        @error('joinReason')
+                            <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                        @enderror
+                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                            Minimal 10 karakter, maksimal 500 karakter
+                        </p>
+                    </div>
+                    
+                    <div class="mt-5 flex items-center space-x-3">
+                        <button 
+                            type="button" 
+                            wire:click="joinProject"
+                            wire:loading.attr="disabled"
+                            wire:loading.class="opacity-50 cursor-not-allowed"
+                            class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold rounded-lg shadow transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            <span wire:loading.remove>
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                </svg>
+                                Bergabung
+                            </span>
+                            <span wire:loading class="inline-flex items-center">
+                                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                Memproses...
+                            </span>
+                        </button>
+                        <button 
+                            type="button" 
+                            wire:click="hideJoinForm"
+                            class="inline-flex items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
+                        >
+                            Batal
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+
         <!-- Header -->
         <div class="mb-8">
             <div class="flex items-center justify-between">
@@ -36,6 +210,56 @@ new #[Layout('layouts.app')] class extends Component {
                         <p class="text-gray-600 dark:text-gray-400 mt-1">ID Proyek: {{ $proyekBareng->id }}</p>
                     </div>
                 </div>
+                
+                <!-- Join Project Button -->
+                @auth
+                    @if($this->canJoinProject())
+                        <div class="flex items-center space-x-3">
+                            <button 
+                                wire:click="showJoinForm" 
+                                class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold rounded-lg shadow transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2"
+                                onclick="console.log('Tombol Bergabung diklik')"
+                            >
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                </svg>
+                                Bergabung
+                            </button>
+                        </div>
+                    @else
+                        @if(auth()->user() && $proyekBareng->users()->where('user_id', auth()->id())->exists())
+                            <div class="flex items-center space-x-2 text-green-600 dark:text-green-400">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span class="text-sm font-medium">Anda sudah bergabung</span>
+                            </div>
+                        @elseif($proyekBareng->is_finished)
+                            <div class="flex items-center space-x-2 text-gray-500 dark:text-gray-400">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 0h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                </svg>
+                                <span class="text-sm">Proyek sudah selesai</span>
+                            </div>
+                        @elseif(auth()->user() && empty(auth()->user()->whatsapp))
+                            <div class="flex items-center space-x-2 text-amber-600 dark:text-amber-400">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                </svg>
+                                <span class="text-sm">Lengkapi nomor WhatsApp untuk bergabung</span>
+                            </div>
+                        @endif
+                    @endif
+                @else
+                    <div class="flex items-center space-x-2">
+                        <a 
+                            href="{{ route('login') }}" 
+                            class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg shadow transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+                        >
+                            Login untuk Bergabung
+                        </a>
+                    </div>
+                @endauth
             </div>
         </div>
 
