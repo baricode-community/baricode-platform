@@ -62,7 +62,7 @@ class ProyekBareng extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'proyek_bareng_users', 'proyek_bareng_id', 'user_id')
-                    ->withPivot('description')
+                    ->withPivot('description', 'is_approved')
                     ->withTimestamps();
     }
 

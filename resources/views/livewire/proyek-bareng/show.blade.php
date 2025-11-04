@@ -79,7 +79,8 @@ new #[Layout('layouts.app')] class extends Component {
         
         // Bergabung dengan proyek
         $this->proyekBareng->users()->attach($user->id, [
-            'description' => $this->joinReason
+            'description' => $this->joinReason,
+            'is_approved' => false // Default menunggu persetujuan
         ]);
         
         // Refresh data
@@ -246,7 +247,12 @@ new #[Layout('layouts.app')] class extends Component {
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
                                 </svg>
-                                <span class="text-sm">Lengkapi nomor WhatsApp untuk bergabung</span>
+                                <a 
+                                    href="{{ route('profile.edit') }}" 
+                                    class="text-sm underline hover:text-amber-700 dark:hover:text-amber-300"
+                                >
+                                    Lengkapi nomor WhatsApp valid untuk bergabung
+                                </a>
                             </div>
                         @endif
                     @endif
@@ -302,7 +308,19 @@ new #[Layout('layouts.app')] class extends Component {
                     </div>
                     <div class="ml-4">
                         <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Anggota</h3>
-                        <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ $proyekBareng->users->count() }}</p>
+                        <div class="flex items-center space-x-2">
+                            <p class="text-2xl font-bold text-gray-900 dark:text-white">{{ $proyekBareng->users->count() }}</p>
+                            @if($proyekBareng->users->count() > 0)
+                                @php
+                                    $approvedCount = $proyekBareng->users->filter(fn($user) => isset($user->pivot->is_approved) && $user->pivot->is_approved)->count();
+                                @endphp
+                                @if($approvedCount > 0)
+                                <span class="text-xs px-2 py-1 bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100 rounded-full">
+                                    {{ $approvedCount }} disetujui
+                                </span>
+                                @endif
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
@@ -380,18 +398,47 @@ new #[Layout('layouts.app')] class extends Component {
                                 <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
                                     {{ $user->initials() }}
                                 </div>
-                                <div>
-                                    <a href="{{ route('users.show', $user) }}" class="text-sm font-medium text-gray-900 dark:text-white hover:underline">
-                                        {{ $user->name }}
-                                    </a>
+                                <div class="flex-1">
+                                    <div class="flex items-center space-x-2">
+                                        <a href="{{ route('users.show', $user) }}" class="text-sm font-medium text-gray-900 dark:text-white hover:underline">
+                                            {{ $user->name }}
+                                        </a>
+                                        @if(isset($user->pivot->is_approved))
+                                            @if($user->pivot->is_approved)
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100">
+                                                    <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                    </svg>
+                                                    Disetujui
+                                                </span>
+                                            @else
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-800 dark:text-yellow-100">
+                                                    <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                                    </svg>
+                                                    Menunggu Persetujuan
+                                                </span>
+                                            @endif
+                                        @endif
+                                    </div>
                                     @if($user->pivot->description)
-                                    <p class="text-xs text-gray-500 dark:text-gray-400">{{ $user->pivot->description }}</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">{{ $user->pivot->description }}</p>
                                     @endif
                                 </div>
                             </div>
-                            <span class="text-xs text-gray-500 dark:text-gray-400">
-                                {{ $user->pivot->created_at->diffForHumans() }}
-                            </span>
+                            <div class="flex flex-col items-end space-y-1">
+                                <span class="text-xs text-gray-500 dark:text-gray-400">
+                                    {{ $user->pivot->created_at->diffForHumans() }}
+                                </span>
+                                @if(isset($user->pivot->is_approved) && $user->pivot->is_approved)
+                                    <div class="flex items-center text-xs text-green-600 dark:text-green-400">
+                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                        Aktif
+                                    </div>
+                                @endif
+                            </div>
                         </div>
                         @endforeach
                     </div>

@@ -7,14 +7,18 @@ use Filament\Actions\DetachAction;
 use Filament\Actions\DetachBulkAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\EditAction;
+use Filament\Actions\Action;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
 use Illuminate\Support\Str;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Support\Colors\Color;
 
 class UsersRelationManager extends RelationManager
 {
@@ -52,6 +56,11 @@ class UsersRelationManager extends RelationManager
                     ->placeholder("Contoh:\nPosisi: Project Manager\nPeran: Mengkoordinasi tim, mengatur timeline, dan memastikan deliverable tercapai\n\nTanggung jawab:\n- Mengelola komunikasi antar tim\n- Monitoring progress proyek\n- Risk management")
                     ->helperText('Jelaskan posisi, peran, dan tanggung jawab spesifik anggota dalam proyek ini')
                     ->columnSpanFull(),
+                    
+                Toggle::make('is_approved')
+                    ->label('Status Persetujuan')
+                    ->helperText('Aktifkan untuk menyetujui anggota ini dalam proyek')
+                    ->default(false),
             ]);
     }
 
@@ -103,6 +112,16 @@ class UsersRelationManager extends RelationManager
                         return Str::limit($state, 80);
                     }),
                     
+                IconColumn::make('pivot.is_approved')
+                    ->label('Status')
+                    ->boolean()
+                    ->trueIcon('heroicon-o-check-circle')
+                    ->falseIcon('heroicon-o-x-circle')
+                    ->trueColor(Color::Green)
+                    ->falseColor(Color::Red)
+                    ->tooltip(fn ($state): string => $state ? 'Disetujui' : 'Menunggu Persetujuan')
+                    ->sortable(),
+                    
                 TextColumn::make('pivot.created_at')
                     ->label('Bergabung')
                     ->dateTime('d M Y')
@@ -123,9 +142,37 @@ class UsersRelationManager extends RelationManager
                             ->rows(5)
                             ->placeholder("Contoh:\nPosisi: Project Manager\nPeran: Mengkoordinasi tim, mengatur timeline, dan memastikan deliverable tercapai\n\nTanggung jawab:\n- Mengelola komunikasi antar tim\n- Monitoring progress proyek\n- Risk management")
                             ->helperText('Jelaskan posisi, peran, dan tanggung jawab spesifik anggota dalam proyek ini'),
+                        Toggle::make('is_approved')
+                            ->label('Langsung Setujui')
+                            ->helperText('Aktifkan untuk langsung menyetujui anggota ini')
+                            ->default(false),
                     ]),
             ])
             ->recordActions([
+                Action::make('approve')
+                    ->label('Setujui')
+                    ->icon('heroicon-o-check-circle')
+                    ->color(Color::Green)
+                    ->visible(fn ($record): bool => !$record->pivot->is_approved)
+                    ->action(function ($record) {
+                        $record->pivot->update(['is_approved' => true]);
+                    })
+                    ->requiresConfirmation()
+                    ->modalHeading('Setujui Anggota')
+                    ->modalDescription('Apakah Anda yakin ingin menyetujui anggota ini untuk bergabung dalam proyek?'),
+                    
+                Action::make('reject')
+                    ->label('Batalkan Persetujuan')
+                    ->icon('heroicon-o-x-circle')
+                    ->color(Color::Red)
+                    ->visible(fn ($record): bool => $record->pivot->is_approved)
+                    ->action(function ($record) {
+                        $record->pivot->update(['is_approved' => false]);
+                    })
+                    ->requiresConfirmation()
+                    ->modalHeading('Batalkan Persetujuan')
+                    ->modalDescription('Apakah Anda yakin ingin membatalkan persetujuan anggota ini?'),
+                    
                 EditAction::make()
                     ->form([
                         Textarea::make('description')
@@ -133,6 +180,9 @@ class UsersRelationManager extends RelationManager
                             ->rows(5)
                             ->placeholder("Contoh:\nPosisi: Project Manager\nPeran: Mengkoordinasi tim, mengatur timeline, dan memastikan deliverable tercapai\n\nTanggung jawab:\n- Mengelola komunikasi antar tim\n- Monitoring progress proyek\n- Risk management")
                             ->helperText('Jelaskan posisi, peran, dan tanggung jawab spesifik anggota dalam proyek ini'),
+                        Toggle::make('is_approved')
+                            ->label('Status Persetujuan')
+                            ->helperText('Aktifkan untuk menyetujui anggota ini dalam proyek'),
                     ]),
                 DetachAction::make()
                     ->label('Hapus dari Tim'),
