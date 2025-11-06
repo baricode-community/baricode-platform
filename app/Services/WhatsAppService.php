@@ -56,6 +56,6 @@ class WhatsAppService
             'MessageType' => 'text',
         ];
         
-        return self::sendRequest('send-message', $data);
+        return self::sendRequest('send', $data);
     }
 }
