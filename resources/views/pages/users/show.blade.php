@@ -23,9 +23,6 @@
                     <h2 class="text-4xl font-extrabold text-gray-900 dark:text-white mb-2 leading-tight">
                         {{ $user->name }}
                     </h2>
-                    <p class="text-lg text-indigo-600 dark:text-indigo-400 font-medium mb-4">
-                        <i class="fas fa-at mr-2"></i> {{ $user->email ?? 'Email Tidak Tersedia' }}
-                    </p>
                     <p class="text-gray-700 dark:text-gray-300 italic max-w-xl mb-4">
                         "{{ $user->about ?? 'Deskripsi diri belum diisi.' }}"
                     </p>
