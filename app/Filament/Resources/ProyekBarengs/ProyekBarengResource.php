@@ -43,6 +43,7 @@ class ProyekBarengResource extends Resource
             RelationManagers\KanboardsRelationManager::class,
             RelationManagers\KanboardLinksRelationManager::class,
             RelationManagers\PollsRelationManager::class,
+            RelationManagers\UsefulLinksRelationManager::class,
         ];
     }
 

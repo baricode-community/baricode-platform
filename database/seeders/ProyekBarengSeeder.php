@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\ProyekBareng;
 use App\Models\ProyekBarengKanboardLink;
+use App\Models\ProyekBarengUsefulLink;
 use App\Models\User\User;
 use App\Models\Meet;
 use App\Models\Kanboard;
@@ -142,6 +143,61 @@ class ProyekBarengSeeder extends Seeder
                 $proyekBareng->polls()->attach($poll->id, [
                     'title' => collect($pollTitles)->random(),
                     'description' => collect($pollDescriptions)->random()
+                ]);
+            }
+
+            // Create useful links for the project (2-4 links per project)
+            $usefulLinks = [
+                [
+                    'title' => 'GitHub Repository',
+                    'link' => 'https://github.com/company/' . strtolower(str_replace(' ', '-', $proyekBareng->title)),
+                    'description' => 'Repository utama untuk source code dan version control proyek'
+                ],
+                [
+                    'title' => 'Figma Design File',
+                    'link' => 'https://figma.com/file/' . rand(100000, 999999) . '/' . urlencode($proyekBareng->title),
+                    'description' => 'Design system dan prototype UI/UX untuk proyek'
+                ],
+                [
+                    'title' => 'API Documentation',
+                    'link' => 'https://docs.api.company.com/' . strtolower(str_replace(' ', '-', $proyekBareng->title)),
+                    'description' => 'Dokumentasi lengkap API endpoints dan integration guide'
+                ],
+                [
+                    'title' => 'Deployment Guide',
+                    'link' => 'https://docs.deployment.company.com/' . strtolower(str_replace(' ', '-', $proyekBareng->title)),
+                    'description' => 'Panduan deployment dan configuration untuk production environment'
+                ],
+                [
+                    'title' => 'Testing Guidelines',
+                    'link' => 'https://testing.company.com/projects/' . strtolower(str_replace(' ', '-', $proyekBareng->title)),
+                    'description' => 'Guidelines untuk unit testing, integration testing, dan quality assurance'
+                ],
+                [
+                    'title' => 'Style Guide',
+                    'link' => 'https://styleguide.company.com/' . strtolower(str_replace(' ', '-', $proyekBareng->title)),
+                    'description' => 'Panduan coding standard dan best practices untuk consistency'
+                ],
+                [
+                    'title' => 'Learning Resources',
+                    'link' => 'https://learning.company.com/resources/' . strtolower(str_replace(' ', '-', $proyekBareng->title)),
+                    'description' => 'Kumpulan tutorial, artikel, dan referensi untuk skill development'
+                ],
+                [
+                    'title' => 'Project Roadmap',
+                    'link' => 'https://roadmap.company.com/projects/' . strtolower(str_replace(' ', '-', $proyekBareng->title)),
+                    'description' => 'Timeline proyek, milestone, dan planning jangka panjang'
+                ]
+            ];
+
+            // Randomly select 2-4 useful links for each project
+            $selectedUsefulLinks = collect($usefulLinks)->random(rand(2, 4));
+            foreach ($selectedUsefulLinks as $usefulLink) {
+                ProyekBarengUsefulLink::create([
+                    'proyek_bareng_id' => $proyekBareng->id,
+                    'title' => $usefulLink['title'],
+                    'link' => $usefulLink['link'],
+                    'description' => $usefulLink['description']
                 ]);
             }
         }

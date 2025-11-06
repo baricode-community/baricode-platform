@@ -84,4 +84,9 @@ class ProyekBareng extends Model
                     ->withPivot('title', 'description')
                     ->withTimestamps();
     }
+
+    public function usefulLinks(): HasMany
+    {
+        return $this->hasMany(ProyekBarengUsefulLink::class, 'proyek_bareng_id', 'id');
+    }
 }

@@ -16,7 +16,7 @@ new #[Layout('layouts.app')] class extends Component {
     public function mount(ProyekBareng $proyekBareng): void
     {
         $this->proyekBareng = $proyekBareng;
-        $this->proyekBareng->load(['users', 'meets', 'kanboards', 'kanboardLinks', 'polls']);
+        $this->proyekBareng->load(['users', 'meets', 'kanboards', 'kanboardLinks', 'polls', 'usefulLinks']);
     }
 
     public function canJoinProject(): bool
@@ -84,7 +84,7 @@ new #[Layout('layouts.app')] class extends Component {
         ]);
 
         // Refresh data
-        $this->proyekBareng->load(['users', 'meets', 'kanboards', 'kanboardLinks', 'polls']);
+        $this->proyekBareng->load(['users', 'meets', 'kanboards', 'kanboardLinks', 'polls', 'usefulLinks']);
 
         // Reset form
         $this->hideJoinForm();
@@ -276,8 +276,84 @@ new #[Layout('layouts.app')] class extends Component {
             </div>
         @endif
 
+
+
+        <!-- Useful Links -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow lg:col-span-2">
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Link Bermanfaat</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Kumpulan link dan sumber daya yang berguna
+                    untuk proyek ini</p>
+            </div>
+            <div class="p-6">
+                @if ($proyekBareng->usefulLinks->count() > 0)
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        @foreach ($proyekBareng->usefulLinks as $link)
+                            <div
+                                class="border border-orange-200 dark:border-orange-700 rounded-lg p-4 bg-orange-50/50 dark:bg-orange-900/20">
+                                <div class="flex justify-between items-start mb-3">
+                                    <h5 class="text-sm font-medium text-gray-900 dark:text-white">
+                                        {{ $link->title }}
+                                    </h5>
+                                    <span
+                                        class="text-xs px-2 py-1 bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200 rounded-full flex items-center">
+                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                            </path>
+                                        </svg>
+                                        Useful Link
+                                    </span>
+                                </div>
+                                @if ($link->description)
+                                    <p class="text-xs text-gray-600 dark:text-gray-300 mb-3 line-clamp-2">
+                                        {{ $link->description }}
+                                    </p>
+                                @endif
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center text-xs text-gray-500 dark:text-gray-400">
+                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1">
+                                            </path>
+                                        </svg>
+                                        <span class="truncate">{{ parse_url($link->link, PHP_URL_HOST) }}</span>
+                                    </div>
+                                    <a href="{{ $link->link }}" target="_blank" rel="noopener noreferrer"
+                                        class="text-xs bg-orange-600 hover:bg-orange-700 text-white px-2 py-1 rounded transition-colors flex items-center">
+                                        <span>Buka Link</span>
+                                        <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
+                                            </path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="text-center py-8">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                            </path>
+                        </svg>
+                        <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">Belum ada link bermanfaat
+                        </h3>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Belum ada link atau sumber daya yang
+                            ditambahkan untuk proyek ini.</p>
+                    </div>
+                @endif
+            </div>
+        </div>
+
         <!-- Quick Stats -->
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
                 <div class="flex items-center">
                     <div
