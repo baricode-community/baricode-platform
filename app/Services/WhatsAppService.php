@@ -51,8 +51,9 @@ class WhatsAppService
     public static function sendMessage($to, $message)
     {
         $data = [
-            'number' => $to,
-            'message' => $message
+            'To' => $to,
+            'Body' => $message,
+            'MessageType' => 'text',
         ];
         
         return self::sendRequest('send-message', $data);
