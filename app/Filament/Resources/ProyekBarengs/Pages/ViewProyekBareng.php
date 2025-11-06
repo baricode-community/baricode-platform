@@ -78,9 +78,10 @@ class ViewProyekBareng extends ViewRecord
             }
 
             try {
-                $fullMessage = "📢 *Pesan dari Proyek: {$this->record->title}*\n\n" . 
-                    "{$message}\n\n" .
-                    "Detail Proyek:\nhttps://baricode.org/proyek-bareng/{$this->record->id}";
+                $fullMessage = "🚀 *Pesan dari Proyek: {$this->record->title}* 🚀\n\n"
+                    . "💬 {$message}\n\n"
+                    . "📄 *Detail Proyek:*\n🔗 https://baricode.org/proyek-bareng/{$this->record->id}\n\n"
+                    . "🤝 Terima kasih telah berkontribusi! 🙏";
 
                 $response = WhatsAppService::sendMessage($user->whatsapp, $fullMessage);
                 
