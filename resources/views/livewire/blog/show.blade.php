@@ -130,10 +130,12 @@ new #[Layout('layouts.base')] class extends Component {
                         WhatsApp
                     </a>
 
-                    <button onclick="navigator.clipboard.writeText(window.location.href)" 
+                    {{-- PERBAIKAN: Tombol Copy Link dengan ID dan onclick ke fungsi JS --}}
+                    <button onclick="copyLink()" 
+                        id="copy-link-button"
                         class="flex items-center gap-2 px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition">
                         <x-heroicon-o-link class="w-4 h-4" />
-                        Copy Link
+                        <span id="copy-link-text">Copy Link</span>
                     </button>
                 </div>
             </div>
@@ -250,15 +252,40 @@ new #[Layout('layouts.base')] class extends Component {
         }
     </style>
 
-    {{-- Copy Link Notification --}}
+    {{-- PERBAIKAN: Logika JavaScript untuk Copy Link dengan Notifikasi --}}
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            window.copyLink = function() {
-                navigator.clipboard.writeText(window.location.href).then(function() {
-                    // You can add a toast notification here
-                    alert('Link copied to clipboard!');
-                });
-            }
-        });
+        // Fungsi untuk menyalin tautan dan memberikan notifikasi visual
+        function copyLink() {
+            // Dapatkan URL halaman saat ini
+            const linkToCopy = window.location.href;
+            
+            // Dapatkan elemen tombol dan teks menggunakan ID
+            const button = document.getElementById('copy-link-button');
+            const textSpan = document.getElementById('copy-link-text');
+
+            // Salin tautan ke clipboard
+            navigator.clipboard.writeText(linkToCopy).then(() => {
+                // Perubahan visual saat berhasil
+                if (button && textSpan) {
+                    const originalText = textSpan.textContent;
+                    
+                    // Ganti teks dan ubah warna latar (green for success)
+                    textSpan.textContent = 'Link Tersalin!';
+                    button.classList.remove('bg-gray-500', 'hover:bg-gray-600');
+                    button.classList.add('bg-green-500', 'hover:bg-green-600');
+                    
+                    // Kembalikan ke kondisi semula setelah 2 detik
+                    setTimeout(() => {
+                        textSpan.textContent = originalText;
+                        button.classList.remove('bg-green-500', 'hover:bg-green-600');
+                        button.classList.add('bg-gray-500', 'hover:bg-gray-600');
+                    }, 2000); // Tampilkan notifikasi selama 2 detik
+                }
+            }).catch(err => {
+                // Notifikasi error jika penyalinan gagal
+                console.error('Gagal menyalin tautan: ', err);
+                alert('Gagal menyalin tautan. Pastikan browser Anda mendukung fitur ini.');
+            });
+        }
     </script>
 </div>
