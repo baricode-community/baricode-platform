@@ -36,6 +36,7 @@ class WhatsAppGroupDailyQuote extends Command
             $this->info("Sending daily quote to group: {$group->name}");
             logger()->info("Sending daily quote to group: {$group->name}");
             // Implement the actual sending logic here
+            if (!$group->is_active) continue;
 
             if ($group->dailyQuotes()->exists()) {
                 $quote = $group->dailyQuotes()->inRandomOrder()->first();
