@@ -96,7 +96,7 @@ new #[Layout('layouts.base')] class extends Component {
 
             {{-- Content --}}
             <article class="prose prose-lg max-w-none dark:prose-invert prose-headings:text-gray-900 dark:prose-headings:text-white prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-a:text-indigo-600 dark:prose-a:text-indigo-400 prose-strong:text-gray-900 dark:prose-strong:text-white prose-code:text-indigo-600 dark:prose-code:text-indigo-400 prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800">
-                {!! $blog->content !!}
+                {!! \Illuminate\Support\Str::markdown($blog->content) !!}
             </article>
 
             {{-- Share Buttons --}}
