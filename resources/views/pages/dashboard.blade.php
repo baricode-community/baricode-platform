@@ -102,7 +102,7 @@
                     Kamu belum mengikuti kursus apapun saat ini.
                 </div>
             @endif
-            <div class="mt-8 flex flex-wrap justify-center gap-4">
+            {{-- <div class="mt-8 flex flex-wrap justify-center gap-4">
                 <a href="{{ route('courses.pemula') }}"
                     class="group relative inline-flex items-center justify-center bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 dark:from-indigo-700 dark:to-indigo-800 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-400">
                     <x-heroicon-o-sparkles class="w-6 h-6 mr-2 group-hover:animate-spin" />
@@ -118,6 +118,9 @@
                     <x-heroicon-o-fire class="w-6 h-6 mr-2 group-hover:animate-pulse" />
                     Kursus Lanjutan
                 </a>
+            </div> --}}
+            <div class="mt-4 text-center text-yellow-700 dark:text-yellow-300 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg py-3 px-4 font-medium">
+                ⚠️ Semua fitur kursus masih dalam tahap pengerjaan.
             </div>
         </div>
 
