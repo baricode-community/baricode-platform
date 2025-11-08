@@ -92,24 +92,22 @@
                     Kamu belum mengikuti kursus apapun saat ini.
                 </div>
             @endif
-            <div class="mt-8 text-center">
+            <div class="mt-8 flex flex-wrap justify-center gap-4">
                 <a href="{{ route('courses.pemula') }}"
-                    class="inline-block bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-600 text-white font-semibold py-2 px-6 rounded-full shadow transition">
-                    Lihat Kursus Pemula
+                    class="group relative inline-flex items-center justify-center bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 dark:from-indigo-700 dark:to-indigo-800 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                    <x-heroicon-o-sparkles class="w-6 h-6 mr-2 group-hover:animate-spin" />
+                    Kursus Pemula
                 </a>
-                {{-- <a href="{{ route('courses.menengah') }}"
-                    class="inline-block bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-600 text-white font-semibold py-2 px-6 rounded-full shadow transition">
-                    Lihat Kursus Menengah
+                <a href="{{ route('courses.menengah') }}"
+                    class="group relative inline-flex items-center justify-center bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 dark:from-green-700 dark:to-green-800 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-400">
+                    <x-heroicon-o-arrow-trending-up class="w-6 h-6 mr-2 group-hover:animate-bounce" />
+                    Kursus Menengah
                 </a>
                 <a href="{{ route('courses.lanjut') }}"
-                    class="inline-block bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-600 text-white font-semibold py-2 px-6 rounded-full shadow transition">
-                    Lihat Kursus Lanjutan
+                    class="group relative inline-flex items-center justify-center bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 dark:from-pink-700 dark:to-pink-800 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-pink-400">
+                    <x-heroicon-o-fire class="w-6 h-6 mr-2 group-hover:animate-pulse" />
+                    Kursus Lanjutan
                 </a>
-
-                <a href="{{ route('courses') }}"
-                    class="inline-block bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-600 text-white font-semibold py-2 px-6 rounded-full shadow transition">
-                    Lihat Semua Kursus
-                </a> --}}
             </div>
         </div>
 
