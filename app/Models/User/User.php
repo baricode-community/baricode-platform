@@ -92,6 +92,11 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
                     ->withTimestamps();
     }
 
+    public function polls()
+    {
+        return $this->hasMany(\App\Models\Poll::class, 'user_id', 'id');
+    }
+
     public function personalTubes()
     {
         return $this->hasMany(\App\Models\PersonalTube::class, 'user_id', 'id');

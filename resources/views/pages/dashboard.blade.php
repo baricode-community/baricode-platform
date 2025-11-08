@@ -48,23 +48,33 @@
         <h2 class="text-2xl font-bold mb-6 flex items-center gap-2 dark:text-white">
             <x-heroicon-o-chart-bar class="w-7 h-7 text-indigo-500 dark:text-indigo-400" /> Statistik
         </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             <div
-                class="p-8 rounded-xl shadow-xl text-center border bg-white dark:bg-gray-800 dark:border-gray-700 hover:scale-105 transition-transform duration-200">
-                <h2
-                    class="text-5xl font-extrabold text-indigo-600 dark:text-indigo-400 flex items-center justify-center gap-2">
-                    <x-heroicon-o-book-open class="w-10 h-10" /> {{ $courseRecords->count() }}
-                </h2>
-                <p class="mt-2 text-lg font-medium text-gray-700 dark:text-gray-300">📚 Kursus Sedang Berjalan</p>
+            class="p-8 rounded-xl shadow-xl text-center border bg-white dark:bg-gray-800 dark:border-gray-700 hover:scale-105 transition-transform duration-200">
+            <h2
+                class="text-5xl font-extrabold text-green-600 dark:text-green-400 flex items-center justify-center gap-2">
+                <x-heroicon-o-check-circle class="w-10 h-10" />
+                {{ $courseRecords->where('is_finished', true)->count() }}
+            </h2>
+            <p class="mt-2 text-lg font-medium text-gray-700 dark:text-gray-300">✅ Kursus Selesai</p>
             </div>
             <div
-                class="p-8 rounded-xl shadow-xl text-center border bg-white dark:bg-gray-800 dark:border-gray-700 hover:scale-105 transition-transform duration-200">
-                <h2
-                    class="text-5xl font-extrabold text-green-600 dark:text-green-400 flex items-center justify-center gap-2">
-                    <x-heroicon-o-check-circle class="w-10 h-10" />
-                    {{ $courseRecords->where('is_finished', true)->count() }}
-                </h2>
-                <p class="mt-2 text-lg font-medium text-gray-700 dark:text-gray-300">✅ Kursus Selesai</p>
+            class="p-8 rounded-xl shadow-xl text-center border bg-white dark:bg-gray-800 dark:border-gray-700 hover:scale-105 transition-transform duration-200">
+            <h2
+                class="text-5xl font-extrabold text-blue-600 dark:text-blue-400 flex items-center justify-center gap-2">
+                <x-heroicon-o-users class="w-10 h-10" />
+                {{ $meetRecords->count() }}
+            </h2>
+            <p class="mt-2 text-lg font-medium text-gray-700 dark:text-gray-300">👥 Meet Diikuti</p>
+            </div>
+            <div
+            class="p-8 rounded-xl shadow-xl text-center border bg-white dark:bg-gray-800 dark:border-gray-700 hover:scale-105 transition-transform duration-200">
+            <h2
+                class="text-5xl font-extrabold text-pink-600 dark:text-pink-400 flex items-center justify-center gap-2">
+                <x-heroicon-o-chart-pie class="w-10 h-10" />
+                {{ $pollingRecords->count() }}
+            </h2>
+            <p class="mt-2 text-lg font-medium text-gray-700 dark:text-gray-300">📊 Polling Diikuti</p>
             </div>
         </div>
 
