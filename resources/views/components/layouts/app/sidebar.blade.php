@@ -28,6 +28,9 @@
                 <flux:navlist.item icon="users" :href="route('proyek-bareng.index')" :current="request()->routeIs('proyek-bareng.*')" wire:navigate>
                     {{ __('Proyek Bareng') }}
                 </flux:navlist.item>
+                <flux:navlist.item icon="clipboard" :href="route('kanboard.index')" :current="request()->routeIs('kanboard.*')" wire:navigate>
+                    {{ __('Kanboard (Beta)') }}
+                </flux:navlist.item>
                 <flux:navlist.item icon="bookmark" :href="route('flashcard.index')"
                     :current="request()->routeIs('flashcard.*')" wire:navigate>
                     {{ __('Flashcard Pribadi') }}
@@ -36,12 +39,6 @@
                     :current="request()->routeIs('polls.*')" wire:navigate>
                     {{ __('Polling Pendapat') }}
                 </flux:navlist.item>
-                {{-- <flux:navlist.item icon="clock" :href="route('time-tracker.index')" :current="request()->routeIs('time-tracker.*')" wire:navigate>
-                    {{ __('Time Tracker') }}
-                </flux:navlist.item>
-                <flux:navlist.item icon="video-camera" :href="route('tube.index')" :current="request()->routeIs('tube.*')" wire:navigate>
-                    {{ __('YouTube Pribadi') }}
-                </flux:navlist.item> --}}
                 <flux:navlist.item icon="home" :href="route('users')" :current="request()->routeIs('users')"
                     wire:navigate>
                     {{ __('Pengguna Lain') }}
