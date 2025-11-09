@@ -22,7 +22,7 @@
                     wire:navigate>
                     {{ __('Meet') }}
                 </flux:navlist.item>
-                <flux:navlist.item icon="play" :href="route('satu-tapak.index')" :current="request()->routeIs('satu-tapak.*')" wire:navigate>
+                <flux:navlist.item icon="map" :href="route('satu-tapak.index')" :current="request()->routeIs('satu-tapak.*')" wire:navigate>
                     {{ __('Satu Tapak (Beta)') }}
                 </flux:navlist.item>
                 <flux:navlist.item icon="users" :href="route('proyek-bareng.index')" :current="request()->routeIs('proyek-bareng.*')" wire:navigate>
