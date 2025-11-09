@@ -94,17 +94,13 @@ new #[Layout('components.layouts.app')] class extends Component
 }; ?>
 
 <div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="">
         <div class="mb-8">
             <div class="flex items-center mb-4">
                 <a href="{{ route('satu-tapak.show', $habit->id) }}" 
                    class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 mr-4">
                     ← Kembali
                 </a>
-                <div>
-                    <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100">Statistik Habit</h1>
-                    <p class="text-gray-600 dark:text-gray-400 mt-1">{{ $habit->name }}</p>
-                </div>
             </div>
         </div>
 
