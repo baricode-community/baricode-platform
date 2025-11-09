@@ -17,6 +17,5 @@ Route::middleware(['auth', 'verified'])
         // Habit specific actions
         Volt::route('/{habitId}/invite', 'habits.invite')->name('satu-tapak.invite');
         Volt::route('/{habitId}/statistics', 'habits.statistics')->name('satu-tapak.statistics');
-        // Uncomment if needed
-        // Volt::route('{habitId}/edit', 'habits.edit')->name('satu-tapak.edit');
+        Volt::route('/{habitId}/edit', 'habits.edit')->name('satu-tapak.edit');
     });

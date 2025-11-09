@@ -49,6 +49,18 @@ new #[Layout('components.layouts.app')] class extends Component {
         $this->mount($this->habit->id); // Refresh data
     }
 
+    public function unlockHabit()
+    {
+        if ($this->habit->user_id !== Auth::id()) {
+            session()->flash('error', 'Unauthorized action.');
+            return;
+        }
+
+        $this->habit->unlock();
+        session()->flash('success', 'Habit berhasil dibuka kuncinya.');
+        $this->mount($this->habit->id); // Refresh data
+    }
+
     public function logActivity()
     {
         if (!$this->userIsParticipant && !$this->userIsCreator) {
@@ -212,6 +224,12 @@ new #[Layout('components.layouts.app')] class extends Component {
                             class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition duration-200">
                             🔒 Kunci Habit
                         </button>
+                    @elseif ($habit->user_id === Auth::id() && $habit->is_locked)
+                        <button wire:click="unlockHabit"
+                            wire:confirm="Apakah Anda yakin ingin membuka kunci habit ini? Setelah dibuka, habit dapat diubah kembali."
+                            class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg font-medium transition duration-200">
+                            🔓 Buka Kunci Habit
+                        </button>
                     @endif
                     <a href="{{ route('satu-tapak.statistics', $habit->id) }}"
                         class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition duration-200">
@@ -226,7 +244,15 @@ new #[Layout('components.layouts.app')] class extends Component {
             <div class="lg:col-span-2 space-y-6">
                 <!-- Habit Info -->
                 <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
-                    <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Informasi Habit</h2>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Informasi Habit</h2>
+                        @if($userIsCreator && !$habit->is_locked)
+                            <a href="{{ route('satu-tapak.edit', $habit->id) }}" 
+                               class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 text-sm font-medium">
+                                ✏️ Edit Habit
+                            </a>
+                        @endif
+                    </div>
 
                     <div class="grid grid-cols-2 gap-4">
                         <div>
