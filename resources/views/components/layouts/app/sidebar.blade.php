@@ -13,7 +13,8 @@
 
         <!-- Main Navigation -->
         <flux:navlist variant="outline">
-            <flux:navlist.group :heading="__('Platform')" class="grid">
+            <!-- Main Features -->
+            <flux:navlist.group :heading="__('Main Features')" class="grid">
                 <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')"
                     wire:navigate>
                     {{ __('Dashboard') }}
@@ -22,6 +23,10 @@
                     wire:navigate>
                     {{ __('Meet') }}
                 </flux:navlist.item>
+            </flux:navlist.group>
+
+            <!-- Collaboration Tools -->
+            <flux:navlist.group :heading="__('Collaboration')" class="grid">
                 <flux:navlist.item icon="map" :href="route('satu-tapak.index')" :current="request()->routeIs('satu-tapak.*')" wire:navigate>
                     {{ __('Satu Tapak (Beta)') }}
                 </flux:navlist.item>
@@ -31,10 +36,18 @@
                 <flux:navlist.item icon="clipboard" :href="route('kanboard.index')" :current="request()->routeIs('kanboard.*')" wire:navigate>
                     {{ __('Kanboard (Beta)') }}
                 </flux:navlist.item>
+            </flux:navlist.group>
+
+            <!-- Learning Tools -->
+            <flux:navlist.group :heading="__('Learning')" class="grid">
                 <flux:navlist.item icon="bookmark" :href="route('flashcard.index')"
                     :current="request()->routeIs('flashcard.*')" wire:navigate>
                     {{ __('Flashcard Pribadi') }}
                 </flux:navlist.item>
+            </flux:navlist.group>
+
+            <!-- Community -->
+            <flux:navlist.group :heading="__('Community')" class="grid">
                 <flux:navlist.item icon="chat-bubble-left-right" :href="route('polls.index')"
                     :current="request()->routeIs('polls.*')" wire:navigate>
                     {{ __('Polling Pendapat') }}
@@ -43,12 +56,16 @@
                     wire:navigate>
                     {{ __('Pengguna Lain') }}
                 </flux:navlist.item>
-                @if (auth()->check() && auth()->user()->hasRole('admin'))
+            </flux:navlist.group>
+
+            <!-- Administration -->
+            @if (auth()->check() && auth()->user()->hasRole('admin'))
+                <flux:navlist.group :heading="__('Admin')" class="grid">
                     <flux:navlist.item icon="shield-check" href="/admin">
                         {{ __('Halaman Admin') }}
                     </flux:navlist.item>
-                @endif
-            </flux:navlist.group>
+                </flux:navlist.group>
+            @endif
         </flux:navlist>
 
         <flux:spacer />
