@@ -64,6 +64,11 @@ class Habit extends Model
         return $id;
     }
 
+    public function isOwner($userId): bool
+    {
+        return $this->user_id === $userId;
+    }
+
     /**
      * Relation to User (Creator)
      */
@@ -151,5 +156,31 @@ class Habit extends Model
         }
         
         return now()->diffInDays($this->end_date);
+    }
+
+    /**
+     * Check if today is a scheduled day for this habit
+     */
+    public function isScheduledToday(): bool
+    {
+        $todayDayOfWeek = strtolower(now()->format('l')); // monday, tuesday, etc.
+        
+        return $this->schedules()
+            ->where('day_of_week', $todayDayOfWeek)
+            ->where('is_active', true)
+            ->exists();
+    }
+
+    /**
+     * Get today's schedule if exists
+     */
+    public function getTodaySchedule(): ?HabitSchedule
+    {
+        $todayDayOfWeek = strtolower(now()->format('l'));
+        
+        return $this->schedules()
+            ->where('day_of_week', $todayDayOfWeek)
+            ->where('is_active', true)
+            ->first();
     }
 }
