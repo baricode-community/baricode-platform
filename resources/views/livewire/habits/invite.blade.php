@@ -25,16 +25,25 @@ new #[Layout('components.layouts.app')] class extends Component
             abort(403, 'Unauthorized action.');
         }
         
-        $this->loadUsers();
+        // Don't load users initially - wait for search
+        // $this->loadUsers();
     }
 
     public function updatedSearch()
     {
+        // Reset selected users when search changes
+        $this->selectedUsers = [];
         $this->loadUsers();
     }
 
     public function loadUsers()
     {
+        // Only search if there's a search term with minimum 2 characters
+        if (empty($this->search) || strlen($this->search) < 2) {
+            $this->users = [];
+            return;
+        }
+
         $query = User::where('id', '!=', Auth::id())
             ->whereNotIn('id', function($subQuery) {
                 $subQuery->select('user_id')
@@ -48,13 +57,11 @@ new #[Layout('components.layouts.app')] class extends Component
                          ->where('status', 'pending');
             });
 
-        if (!empty($this->search)) {
-            $searchTerm = '%' . $this->search . '%';
-            $query->where(function($q) use ($searchTerm) {
-                $q->where('name', 'like', $searchTerm)
-                  ->orWhere('username', 'like', $searchTerm);
-            });
-        }
+        $searchTerm = '%' . $this->search . '%';
+        $query->where(function($q) use ($searchTerm) {
+            $q->where('name', 'like', $searchTerm)
+              ->orWhere('username', 'like', $searchTerm);
+        });
 
         $this->users = $query->get()->toArray();
     }
@@ -118,7 +125,7 @@ new #[Layout('components.layouts.app')] class extends Component
 }; ?>
 
 <div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="">
         @if (session()->has('success'))
             <div class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
                 {{ session('success') }}
@@ -152,7 +159,7 @@ new #[Layout('components.layouts.app')] class extends Component
                         <div class="relative">
                             <input type="text" 
                                    wire:model.live="search"
-                                   placeholder="Cari berdasarkan nama atau username..."
+                                   placeholder="Ketik minimal 2 karakter untuk mencari nama atau username..."
                                    class="w-full px-4 py-3 pl-10 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-gray-100">
                             <div class="absolute left-3 top-3 text-gray-400">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -165,19 +172,23 @@ new #[Layout('components.layouts.app')] class extends Component
                     @if(empty($users))
                         {{-- Empty State --}}
                         <div class="text-center py-12">
-                            <div class="text-gray-400 text-6xl mb-4">👥</div>
+                            <div class="text-gray-400 text-6xl mb-4">�</div>
                             <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
                                 @if(empty($search))
-                                    Tidak Ada User Tersedia
+                                    Mulai Cari Teman
+                                @elseif(strlen($search) < 2)
+                                    Minimal 2 Karakter
                                 @else
                                     Tidak ada user yang sesuai dengan pencarian
                                 @endif
                             </h3>
                             <p class="text-gray-500 dark:text-gray-400">
                                 @if(empty($search))
-                                    Semua user sudah menjadi peserta atau sudah diundang ke habit ini.
+                                    Gunakan kotak pencarian di atas untuk mencari teman berdasarkan nama atau username.
+                                @elseif(strlen($search) < 2)
+                                    Masukkan minimal 2 karakter untuk memulai pencarian.
                                 @else
-                                    Coba dengan kata kunci yang berbeda.
+                                    Coba dengan kata kunci yang berbeda atau pastikan teman belum menjadi peserta.
                                 @endif
                             </p>
                         </div>
@@ -200,7 +211,7 @@ new #[Layout('components.layouts.app')] class extends Component
                                         <div class="flex-1">
                                             <div class="font-medium text-gray-900 dark:text-gray-100">{{ $user['name'] }}</div>
                                             @if(!empty($user['username']))
-                                                <div class="text-sm text-gray-500 dark:text-gray-400">@{{ $user['username'] }}</div>
+                                                <div class="text-sm text-gray-500 dark:text-gray-400">{{ $user['username'] }}</div>
                                             @endif
                                         </div>
                                     </div>
