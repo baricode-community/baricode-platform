@@ -116,7 +116,6 @@
                                                 <a href="{{ route('users.show', $user->id) }}" class="text-sm font-semibold text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200 group-hover:underline">
                                                     {{ $user->name }}
                                                 </a>
-                                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{{ $user->email }}</p>
                                             </div>
                                         </div>
                                     </td>
