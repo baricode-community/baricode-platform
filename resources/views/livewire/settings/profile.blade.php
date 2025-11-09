@@ -9,6 +9,7 @@ use App\Services\WhatsAppService;
 
 new class extends Component {
     public string $name = '';
+    public string $username = '';
     public string $email = '';
     public string $whatsapp = '';
     public string $about = '';
@@ -19,6 +20,7 @@ new class extends Component {
     public function mount(): void
     {
         $this->name = Auth::user()->name;
+        $this->username = Auth::user()->username ?? '';
         $this->email = Auth::user()->email;
         $this->whatsapp = Auth::user()->whatsapp ?? '';
         $this->about = Auth::user()->about ?? '';
@@ -33,8 +35,14 @@ new class extends Component {
 
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
-            'about' => ['nullable', 'string', 'max:50000'],
-
+            'username' => [
+                'required',
+                'string',
+                'min:3',
+                'max:30',
+                'regex:/^[a-z0-9]+$/',
+                Rule::unique(User::class)->ignore($user->id)
+            ],
             'email' => [
                 'required',
                 'string',
@@ -84,6 +92,45 @@ new class extends Component {
 
         Session::flash('status', 'verification-link-sent');
     }
+
+    /**
+     * Generate a suggested username based on the current name
+     */
+    public function generateSuggestedUsername(): void
+    {
+        $baseName = $this->name ?: Auth::user()->name;
+        $baseUsername = \Illuminate\Support\Str::slug($baseName, '');
+        
+        // Ensure minimum length
+        if (strlen($baseUsername) < 3) {
+            $baseUsername = $baseUsername . 'user';
+        }
+        
+        // Ensure maximum length
+        if (strlen($baseUsername) > 30) {
+            $baseUsername = substr($baseUsername, 0, 30);
+        }
+        
+        // Make it unique
+        $username = $baseUsername;
+        $counter = 1;
+        $currentUserId = Auth::user()->id;
+        
+        while (User::where('username', $username)->where('id', '!=', $currentUserId)->exists()) {
+            $suffix = (string) $counter;
+            $maxBaseLength = 30 - strlen($suffix);
+            
+            if (strlen($baseUsername) > $maxBaseLength) {
+                $username = substr($baseUsername, 0, $maxBaseLength) . $suffix;
+            } else {
+                $username = $baseUsername . $suffix;
+            }
+            
+            $counter++;
+        }
+        
+        $this->username = $username;
+    }
 }; ?>
 
 <section class="w-full">
@@ -92,6 +139,38 @@ new class extends Component {
     <x-settings.layout :heading="__('Profile')" :subheading="__('Update your name and email address')">
         <form wire:submit="updateProfileInformation" class="my-6 w-full space-y-6">
             <flux:input wire:model="name" :label="__('Name')" type="text" required autofocus autocomplete="name" />
+
+            <div>
+                <label for="username" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Username</label>
+                <div class="flex gap-2">
+                    <flux:input 
+                        wire:model="username" 
+                        type="text" 
+                        required 
+                        autocomplete="username"
+                        placeholder="contoh: johnsmith123"
+                        x-on:input="$event.target.value = $event.target.value.toLowerCase().replace(/[^a-z0-9]/g, '')"
+                        class="flex-1"
+                    />
+                    <flux:button 
+                        wire:click="generateSuggestedUsername" 
+                        type="button" 
+                        variant="outline" 
+                        size="sm"
+                        class="whitespace-nowrap"
+                    >
+                        Generate
+                    </flux:button>
+                </div>
+                <flux:text class="mt-1 text-sm text-gray-500">
+                    Username harus 3-30 karakter, hanya huruf kecil dan angka (tanpa spasi atau karakter khusus).
+                </flux:text>
+                @if(Auth::user()->username)
+                    <flux:text class="mt-1 text-xs text-blue-600">
+                        Username saat ini: <strong>{{ Auth::user()->username }}</strong>
+                    </flux:text>
+                @endif
+            </div>
 
             <div>
                 <flux:input wire:model="email" :label="__('Email')" type="email" required autocomplete="email" />
