@@ -76,4 +76,41 @@ class HabitLog extends Model
 
         return $statuses[$this->status] ?? $this->status;
     }
+
+    /**
+     * Check if this log can still be edited
+     * Can be edited within 24 hours of creation
+     */
+    public function canBeEdited(): bool
+    {
+        return $this->created_at->diffInHours(now()) <= 24;
+    }
+
+    /**
+     * Get remaining edit time in hours
+     */
+    public function getRemainingEditTimeAttribute(): int
+    {
+        $hoursElapsed = $this->created_at->diffInHours(now());
+        return max(0, 24 - $hoursElapsed);
+    }
+
+    /**
+     * Get formatted remaining edit time
+     */
+    public function getFormattedRemainingEditTimeAttribute(): string
+    {
+        $remainingHours = $this->remaining_edit_time;
+        
+        if ($remainingHours <= 0) {
+            return 'Tidak dapat diedit lagi';
+        }
+        
+        if ($remainingHours < 1) {
+            $minutes = $this->created_at->diffInMinutes(now()->subHours(23));
+            return "Tersisa {$minutes} menit";
+        }
+        
+        return "Tersisa {$remainingHours} jam";
+    }
 }

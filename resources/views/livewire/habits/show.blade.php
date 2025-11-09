@@ -14,6 +14,8 @@ new #[Layout('components.layouts.app')] class extends Component {
     public ?HabitLog $todayLog = null;
     public string $logNote = '';
     public bool $isScheduledToday = false;
+    public bool $isEditingLog = false;
+    public string $editLogNote = '';
 
     public function mount($habitId)
     {
@@ -85,6 +87,54 @@ new #[Layout('components.layouts.app')] class extends Component {
             $this->mount($this->habit->id); // Refresh data
         } catch (\Exception $e) {
             session()->flash('error', 'Terjadi kesalahan saat mencatat aktivitas.');
+        }
+    }
+
+    public function startEditLog()
+    {
+        if (!$this->todayLog || !$this->todayLog->canBeEdited()) {
+            session()->flash('error', 'Log tidak dapat diedit lagi.');
+            return;
+        }
+
+        if ($this->todayLog->user_id !== Auth::id()) {
+            session()->flash('error', 'Anda hanya dapat mengedit log aktivitas Anda sendiri.');
+            return;
+        }
+
+        $this->isEditingLog = true;
+        $this->editLogNote = $this->todayLog->notes ?? '';
+    }
+
+    public function cancelEditLog()
+    {
+        $this->isEditingLog = false;
+        $this->editLogNote = '';
+    }
+
+    public function updateLog()
+    {
+        if (!$this->todayLog || !$this->todayLog->canBeEdited()) {
+            session()->flash('error', 'Log tidak dapat diedit lagi.');
+            return;
+        }
+
+        if ($this->todayLog->user_id !== Auth::id()) {
+            session()->flash('error', 'Anda hanya dapat mengedit log aktivitas Anda sendiri.');
+            return;
+        }
+
+        try {
+            $this->todayLog->update([
+                'notes' => $this->editLogNote,
+            ]);
+
+            session()->flash('success', 'Log aktivitas berhasil diperbarui!');
+            $this->isEditingLog = false;
+            $this->editLogNote = '';
+            $this->mount($this->habit->id); // Refresh data
+        } catch (\Exception $e) {
+            session()->flash('error', 'Terjadi kesalahan saat memperbarui log.');
         }
     }
 
@@ -296,22 +346,77 @@ new #[Layout('components.layouts.app')] class extends Component {
                                 </div>
                             </div>
                         @elseif ($todayLog)
-                            <div
-                                class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
-                                <div class="flex items-center">
-                                    <span class="text-green-600 dark:text-green-400 text-2xl mr-3">✅</span>
-                                    <div>
-                                        <p class="font-medium text-green-900 dark:text-green-100">Sudah mencatat
-                                            aktivitas hari ini!</p>
-                                        @if ($todayLog->notes)
-                                            <p class="text-sm text-green-700 dark:text-green-300 mt-1">
-                                                {{ $todayLog->notes }}</p>
+                            @if (!$isEditingLog)
+                                {{-- Display existing log --}}
+                                <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
+                                    <div class="flex items-start justify-between">
+                                        <div class="flex items-start">
+                                            <span class="text-green-600 dark:text-green-400 text-2xl mr-3">✅</span>
+                                            <div class="flex-1">
+                                                <p class="font-medium text-green-900 dark:text-green-100">Sudah mencatat aktivitas hari ini!</p>
+                                                @if ($todayLog->notes)
+                                                    <p class="text-sm text-green-700 dark:text-green-300 mt-1">{{ $todayLog->notes }}</p>
+                                                @endif
+                                                <div class="flex items-center justify-between mt-2">
+                                                    <p class="text-xs text-green-600 dark:text-green-400">
+                                                        Dicatat pada: {{ $todayLog->created_at->format('H:i') }}
+                                                    </p>
+                                                    @if($todayLog->user_id === Auth::id())
+                                                        <div class="text-xs text-gray-500 dark:text-gray-400">
+                                                            @if($todayLog->canBeEdited())
+                                                                <span class="text-blue-600 dark:text-blue-400">{{ $todayLog->formatted_remaining_edit_time }}</span>
+                                                            @else
+                                                                <span>Tidak dapat diedit lagi</span>
+                                                            @endif
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if($todayLog->user_id === Auth::id() && $todayLog->canBeEdited())
+                                            <button wire:click="startEditLog" 
+                                                    class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 text-sm font-medium ml-4">
+                                                ✏️ Edit
+                                            </button>
                                         @endif
-                                        <p class="text-xs text-green-600 dark:text-green-400 mt-1">Dicatat pada:
-                                            {{ $todayLog->created_at->format('H:i') }}</p>
                                     </div>
                                 </div>
-                            </div>
+                            @else
+                                {{-- Edit form --}}
+                                <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                                    <div class="flex items-center mb-3">
+                                        <span class="text-blue-600 dark:text-blue-400 text-2xl mr-3">✏️</span>
+                                        <div>
+                                            <p class="font-medium text-blue-900 dark:text-blue-100">Edit Log Aktivitas</p>
+                                            <p class="text-xs text-blue-600 dark:text-blue-400">{{ $todayLog->formatted_remaining_edit_time }}</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="space-y-3">
+                                        <div>
+                                            <label for="editLogNote" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                                Catatan (Opsional)
+                                            </label>
+                                            <textarea wire:model="editLogNote" id="editLogNote" rows="3"
+                                                class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-gray-100"
+                                                placeholder="Ceritakan bagaimana Anda menjalankan habit hari ini..."></textarea>
+                                        </div>
+                                        
+                                        <div class="flex space-x-2">
+                                            <button wire:click="updateLog" wire:loading.attr="disabled"
+                                                    wire:loading.class="opacity-50 cursor-not-allowed"
+                                                    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition duration-200">
+                                                <span wire:loading.remove wire:target="updateLog">💾 Simpan</span>
+                                                <span wire:loading wire:target="updateLog">Menyimpan...</span>
+                                            </button>
+                                            <button wire:click="cancelEditLog"
+                                                    class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg font-medium transition duration-200">
+                                                ❌ Batal
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         @else
                             <div class="space-y-4">
                                 <div>

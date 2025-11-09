@@ -49,7 +49,7 @@ new #[Layout('components.layouts.app')] class extends Component
 }; ?>
 
 <div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="">
         <div class="flex justify-between items-center mb-8">
             <div>
                 <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100">Daily Habit Tracker</h1>
