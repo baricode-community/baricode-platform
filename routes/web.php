@@ -123,3 +123,4 @@ require __DIR__.'/kanboard.php';
 require __DIR__.'/blog.php';
 require __DIR__.'/tube.php';
 require __DIR__.'/flashcard.php';
+require __DIR__.'/habits.php';

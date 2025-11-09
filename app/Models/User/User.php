@@ -121,6 +121,31 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
                     ->withTimestamps();
     }
 
+    public function habits()
+    {
+        return $this->hasMany(\App\Models\Habit::class, 'user_id', 'id');
+    }
+
+    public function habitParticipations()
+    {
+        return $this->hasMany(\App\Models\HabitParticipant::class, 'user_id', 'id');
+    }
+
+    public function habitLogs()
+    {
+        return $this->hasMany(\App\Models\HabitLog::class, 'user_id', 'id');
+    }
+
+    public function sentHabitInvitations()
+    {
+        return $this->hasMany(\App\Models\HabitInvitation::class, 'inviter_id', 'id');
+    }
+
+    public function receivedHabitInvitations()
+    {
+        return $this->hasMany(\App\Models\HabitInvitation::class, 'invitee_id', 'id');
+    }
+
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->hasRole('admin');
