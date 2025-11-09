@@ -71,7 +71,7 @@
 
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                        <thead>
+                                                <thead>
                             <tr class="bg-gray-50 dark:bg-gray-700/50">
                                 <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
                                     <div class="flex items-center gap-2">
@@ -79,6 +79,14 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                                         </svg>
                                         Pengguna
+                                    </div>
+                                </th>
+                                <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider hidden sm:table-cell">
+                                    <div class="flex items-center gap-2">
+                                        <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm-3 8a8.657 8.657 0 006.364-2.636l-.637-.623C16.59 20.02 14.401 21 12 21s-4.59-.98-5.727-4.259l-.637.623A8.657 8.657 0 0012 20z"></path>
+                                        </svg>
+                                        Username
                                     </div>
                                 </th>
                                 <th scope="col" class="px-6 py-4 text-left text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wider hidden md:table-cell">
@@ -108,8 +116,18 @@
                                                 <a href="{{ route('users.show', $user->id) }}" class="text-sm font-semibold text-gray-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200 group-hover:underline">
                                                     {{ $user->name }}
                                                 </a>
-                                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">ID: #{{ $user->id }}</p>
+                                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{{ $user->email }}</p>
                                             </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap hidden sm:table-cell">
+                                        <div class="flex items-center gap-2">
+                                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 transition-all duration-200">
+                                                <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path>
+                                                </svg>
+                                                {{ $user->username }}
+                                            </span>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap hidden md:table-cell">
@@ -123,7 +141,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4" class="px-6 py-12 text-center bg-gray-50 dark:bg-gray-800/70">
+                                    <td colspan="3" class="px-6 py-12 text-center bg-gray-50 dark:bg-gray-800/70">
                                         <div class="flex flex-col items-center gap-3">
                                             <div class="w-16 h-16 bg-indigo-100 dark:bg-indigo-900/50 border-4 border-indigo-200 dark:border-indigo-800 rounded-full flex items-center justify-center animate-bounce-slow">
                                                 <svg class="w-8 h-8 text-indigo-500 dark:text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">

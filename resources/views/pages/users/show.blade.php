@@ -23,6 +23,17 @@
                     <h2 class="text-4xl font-extrabold text-gray-900 dark:text-white mb-2 leading-tight">
                         {{ $user->name }}
                     </h2>
+                    
+                    {{-- Username Badge --}}
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 border border-green-200 dark:border-green-800">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"></path>
+                            </svg>
+                            {{ $user->username }}
+                        </span>
+                    </div>
+                    
                     <p class="text-gray-700 dark:text-gray-300 italic max-w-xl mb-4">
                         "{{ $user->about ?? 'Deskripsi diri belum diisi.' }}"
                     </p>
