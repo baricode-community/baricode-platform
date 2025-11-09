@@ -28,6 +28,7 @@ class Habit extends Model
     protected $casts = [
         'start_date' => 'date',
         'end_date' => 'date',
+        'duration_days' => 'integer',
         'is_active' => 'boolean',
         'is_locked' => 'boolean',
         'settings' => 'array',
@@ -44,7 +45,8 @@ class Habit extends Model
             
             // Calculate end_date based on start_date and duration_days
             if ($model->start_date && $model->duration_days) {
-                $model->end_date = $model->start_date->addDays($model->duration_days);
+                $durationDays = (int) $model->duration_days;
+                $model->end_date = $model->start_date->copy()->addDays($durationDays);
             }
         });
     }
