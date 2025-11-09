@@ -26,6 +26,7 @@ class Habit extends Model
     ];
 
     protected $casts = [
+        'user_id' => 'integer',
         'start_date' => 'date',
         'end_date' => 'date',
         'duration_days' => 'integer',

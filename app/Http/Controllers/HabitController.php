@@ -88,7 +88,7 @@ class HabitController extends Controller
         ]);
 
         return redirect()
-            ->route('satu-tapak.habits.show', $habit)
+            ->route('satu-tapak.show', $habit)
             ->with('success', 'Habit berhasil dibuat!');
     }
 
@@ -124,7 +124,7 @@ class HabitController extends Controller
 
         if ($habit->is_locked) {
             return redirect()
-                ->route('satu-tapak.habits.show', $habit)
+                ->route('satu-tapak.show', $habit)
                 ->with('error', 'Habit ini sudah terkunci dan tidak bisa diubah.');
         }
 
@@ -143,7 +143,7 @@ class HabitController extends Controller
 
         if ($habit->is_locked) {
             return redirect()
-                ->route('satu-tapak.habits.show', $habit)
+                ->route('satu-tapak.show', $habit)
                 ->with('error', 'Habit ini sudah terkunci dan tidak bisa diubah.');
         }
 
@@ -155,7 +155,7 @@ class HabitController extends Controller
         $habit->update($validated);
 
         return redirect()
-            ->route('satu-tapak.habits.show', $habit)
+            ->route('satu-tapak.show', $habit)
             ->with('success', 'Habit berhasil diperbarui!');
     }
 
@@ -171,7 +171,7 @@ class HabitController extends Controller
         $habit->delete();
 
         return redirect()
-            ->route('satu-tapak.habits.index')
+            ->route('satu-tapak.index')
             ->with('success', 'Habit berhasil dihapus!');
     }
 
@@ -187,7 +187,7 @@ class HabitController extends Controller
         $habit->lock();
 
         return redirect()
-            ->route('satu-tapak.habits.show', $habit)
+            ->route('satu-tapak.show', $habit)
             ->with('success', 'Habit berhasil dikunci. Sekarang tidak dapat diubah lagi.');
     }
 
@@ -245,7 +245,7 @@ class HabitController extends Controller
         }
 
         return redirect()
-            ->route('satu-tapak.habits.show', $habit)
+            ->route('satu-tapak.show', $habit)
             ->with('success', 'Undangan berhasil dikirim!');
     }
 
@@ -285,7 +285,7 @@ class HabitController extends Controller
         }
 
         return redirect()
-            ->route('satu-tapak.habits.invitations')
+            ->route('satu-tapak.invitations')
             ->with('success', $message);
     }
 
@@ -312,7 +312,7 @@ class HabitController extends Controller
 
         if ($existingLog) {
             return redirect()
-                ->route('satu-tapak.habits.show', $habit)
+                ->route('satu-tapak.show', $habit)
                 ->with('error', 'Anda sudah melakukan log untuk hari ini.');
         }
 
@@ -327,7 +327,7 @@ class HabitController extends Controller
         ]);
 
         return redirect()
-            ->route('satu-tapak.habits.show', $habit)
+            ->route('satu-tapak.show', $habit)
             ->with('success', 'Log aktivitas berhasil disimpan!');
     }
 

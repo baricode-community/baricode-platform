@@ -6,7 +6,7 @@
 <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div class="mb-8">
         <div class="flex items-center mb-4">
-            <a href="{{ route('satu-tapak.habits.index') }}" 
+            <a href="{{ route('satu-tapak.index') }}" 
                class="text-gray-500 hover:text-gray-700 mr-4">
                 ← Kembali
             </a>
@@ -15,7 +15,7 @@
         <p class="text-gray-600">Mulai perjalanan kebiasaan baik Anda dengan membuat habit yang konsisten</p>
     </div>
 
-    <form action="{{ route('satu-tapak.habits.store') }}" method="POST" class="space-y-6">
+    <form action="{{ route('satu-tapak.store') }}" method="POST" class="space-y-6">
         @csrf
         
         <!-- Basic Information -->
@@ -147,7 +147,7 @@
 
         <!-- Submit Button -->
         <div class="flex justify-end space-x-4">
-            <a href="{{ route('satu-tapak.habits.index') }}" 
+            <a href="{{ route('satu-tapak.index') }}" 
                class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition duration-200">
                 Batal
             </a>

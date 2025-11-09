@@ -3,26 +3,23 @@
 @section('title', 'Undangan Habit - Daily Habit Tracker')
 
 @section('content')
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="">
     <div class="mb-8">
         <div class="flex items-center mb-4">
-            <a href="{{ route('satu-tapak.habits.index') }}" 
-               class="text-gray-500 hover:text-gray-700 mr-4">
+            <a href="{{ route('satu-tapak.index') }}" 
+               class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 mr-4">
                 ← Kembali
             </a>
-            <div>
-                <h1 class="text-3xl font-bold text-gray-900">Undangan Habit</h1>
-                <p class="text-gray-600 mt-1">Undangan yang Anda terima dari teman-teman</p>
-            </div>
         </div>
     </div>
 
     @if($invitations->isEmpty())
-        <div class="bg-white rounded-lg border border-gray-200 p-12 text-center">
+        {{-- Empty State Card --}}
+        <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-12 text-center">
             <div class="text-gray-400 text-6xl mb-4">✉️</div>
-            <h3 class="text-lg font-medium text-gray-900 mb-2">Tidak Ada Undangan</h3>
-            <p class="text-gray-500 mb-6">Anda belum memiliki undangan habit yang pending.</p>
-            <a href="{{ route('satu-tapak.habits.index') }}" 
+            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">Tidak Ada Undangan</h3>
+            <p class="text-gray-500 dark:text-gray-400 mb-6">Anda belum memiliki undangan habit yang pending.</p>
+            <a href="{{ route('satu-tapak.index') }}" 
                class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition duration-200">
                 Kembali ke Dashboard
             </a>
@@ -30,69 +27,74 @@
     @else
         <div class="space-y-6">
             @foreach($invitations as $invitation)
-                <div class="bg-white rounded-lg border border-gray-200 p-6">
+                {{-- Invitation Card --}}
+                <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <!-- Invitation Info -->
                         <div class="lg:col-span-2">
                             <div class="flex items-start space-x-4">
-                                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                                    <span class="text-blue-600 font-semibold">
+                                {{-- Initial Badge --}}
+                                <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center">
+                                    <span class="text-blue-600 dark:text-blue-300 font-semibold">
                                         {{ $invitation->inviter->initials() }}
                                     </span>
                                 </div>
                                 <div class="flex-1">
                                     <div class="flex items-center space-x-2 mb-2">
-                                        <h3 class="text-xl font-semibold text-gray-900">{{ $invitation->habit->name }}</h3>
-                                        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded-full">
+                                        {{-- Habit Name --}}
+                                        <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">{{ $invitation->habit->name }}</h3>
+                                        {{-- Habit ID Badge --}}
+                                        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded-full dark:bg-blue-900/50 dark:text-blue-300">
                                             ID: {{ $invitation->habit->id }}
                                         </span>
                                     </div>
                                     
-                                    <p class="text-gray-600 mb-4">
+                                    <p class="text-gray-600 dark:text-gray-400 mb-4">
                                         <strong>{{ $invitation->inviter->name }}</strong> mengundang Anda untuk bergabung dalam habit ini
                                     </p>
 
                                     @if($invitation->habit->description)
                                         <div class="mb-4">
-                                            <label class="text-sm font-medium text-gray-500">Deskripsi Habit:</label>
-                                            <p class="text-gray-700">{{ $invitation->habit->description }}</p>
+                                            <label class="text-sm font-medium text-gray-500 dark:text-gray-400">Deskripsi Habit:</label>
+                                            <p class="text-gray-700 dark:text-gray-300">{{ $invitation->habit->description }}</p>
                                         </div>
                                     @endif
 
                                     @if($invitation->message)
-                                        <div class="mb-4 bg-gray-50 p-4 rounded-lg">
-                                            <label class="text-sm font-medium text-gray-500">Pesan dari {{ $invitation->inviter->name }}:</label>
-                                            <p class="text-gray-700 mt-1">{{ $invitation->message }}</p>
+                                        {{-- Message Box --}}
+                                        <div class="mb-4 bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                                            <label class="text-sm font-medium text-gray-500 dark:text-gray-400">Pesan dari {{ $invitation->inviter->name }}:</label>
+                                            <p class="text-gray-700 dark:text-gray-300 mt-1">{{ $invitation->message }}</p>
                                         </div>
                                     @endif
 
                                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                                        {{-- Habit Details --}}
                                         <div>
-                                            <label class="font-medium text-gray-500">Durasi</label>
-                                            <p class="text-gray-900">{{ $invitation->habit->duration_days }} hari</p>
+                                            <label class="font-medium text-gray-500 dark:text-gray-400">Durasi</label>
+                                            <p class="text-gray-900 dark:text-gray-100">{{ $invitation->habit->duration_days }} hari</p>
                                         </div>
                                         <div>
-                                            <label class="font-medium text-gray-500">Mulai</label>
-                                            <p class="text-gray-900">{{ $invitation->habit->start_date->format('d M Y') }}</p>
+                                            <label class="font-medium text-gray-500 dark:text-gray-400">Mulai</label>
+                                            <p class="text-gray-900 dark:text-gray-100">{{ $invitation->habit->start_date->format('d M Y') }}</p>
                                         </div>
                                         <div>
-                                            <label class="font-medium text-gray-500">Selesai</label>
-                                            <p class="text-gray-900">{{ $invitation->habit->end_date->format('d M Y') }}</p>
+                                            <label class="font-medium text-gray-500 dark:text-gray-400">Selesai</label>
+                                            <p class="text-gray-900 dark:text-gray-100">{{ $invitation->habit->end_date->format('d M Y') }}</p>
                                         </div>
                                         <div>
-                                            <label class="font-medium text-gray-500">Peserta</label>
-                                            <p class="text-gray-900">{{ $invitation->habit->approvedParticipants->count() }} orang</p>
+                                            <label class="font-medium text-gray-500 dark:text-gray-400">Peserta</label>
+                                            <p class="text-gray-900 dark:text-gray-100">{{ $invitation->habit->approvedParticipants->count() }} orang</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Schedule -->
-                            <div class="mt-6 pt-6 border-t border-gray-200">
-                                <label class="text-sm font-medium text-gray-500 mb-3 block">Jadwal Habit:</label>
+                            <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                                <label class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-3 block">Jadwal Habit:</label>
                                 <div class="flex flex-wrap gap-2">
                                     @foreach($invitation->habit->schedules as $schedule)
-                                        <span class="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-lg">
+                                        {{-- Schedule Badge --}}
+                                        <span class="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-lg dark:bg-blue-900/50 dark:text-blue-300">
                                             {{ $schedule->day_name }} {{ $schedule->formatted_time }}
                                         </span>
                                     @endforeach
@@ -100,15 +102,15 @@
                             </div>
                         </div>
 
-                        <!-- Actions -->
                         <div class="space-y-4">
-                            <div class="text-sm text-gray-500">
+                            <div class="text-sm text-gray-500 dark:text-gray-400">
                                 <p>Diterima: {{ $invitation->created_at->diffForHumans() }}</p>
                                 <p>Berakhir: {{ $invitation->expires_at->diffForHumans() }}</p>
                             </div>
 
                             @if($invitation->isPending())
                                 <div class="space-y-3">
+                                    {{-- Tombol Accept --}}
                                     <form action="{{ route('satu-tapak.invitations.respond', $invitation) }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="response" value="accept">
@@ -118,6 +120,7 @@
                                         </button>
                                     </form>
 
+                                    {{-- Tombol Reject --}}
                                     <form action="{{ route('satu-tapak.invitations.respond', $invitation) }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="response" value="reject">
@@ -128,25 +131,29 @@
                                         </button>
                                     </form>
 
-                                    <a href="{{ route('satu-tapak.habits.show', $invitation->habit) }}" 
-                                       class="block w-full text-center bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 px-4 rounded-lg font-medium transition duration-200">
+                                    {{-- Tombol Detail --}}
+                                    <a href="{{ route('satu-tapak.show', $invitation->habit) }}" 
+                                       class="block w-full text-center bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200 py-3 px-4 rounded-lg font-medium transition duration-200">
                                         👀 Lihat Detail Habit
                                     </a>
                                 </div>
                             @else
                                 <div class="text-center">
+                                    {{-- Status Badge (Accepted) --}}
                                     @if($invitation->status === 'accepted')
-                                        <span class="bg-green-100 text-green-800 text-sm font-medium px-4 py-2 rounded-full">
+                                        <span class="bg-green-100 text-green-800 text-sm font-medium px-4 py-2 rounded-full dark:bg-green-900/50 dark:text-green-300">
                                             ✅ Sudah Diterima
                                         </span>
-                                        <p class="text-xs text-gray-500 mt-2">{{ $invitation->responded_at->diffForHumans() }}</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">{{ $invitation->responded_at->diffForHumans() }}</p>
+                                    {{-- Status Badge (Rejected) --}}
                                     @elseif($invitation->status === 'rejected')
-                                        <span class="bg-red-100 text-red-800 text-sm font-medium px-4 py-2 rounded-full">
+                                        <span class="bg-red-100 text-red-800 text-sm font-medium px-4 py-2 rounded-full dark:bg-red-900/50 dark:text-red-300">
                                             ❌ Ditolak
                                         </span>
-                                        <p class="text-xs text-gray-500 mt-2">{{ $invitation->responded_at->diffForHumans() }}</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">{{ $invitation->responded_at->diffForHumans() }}</p>
+                                    {{-- Status Badge (Expired) --}}
                                     @else
-                                        <span class="bg-gray-100 text-gray-800 text-sm font-medium px-4 py-2 rounded-full">
+                                        <span class="bg-gray-100 text-gray-800 text-sm font-medium px-4 py-2 rounded-full dark:bg-gray-700 dark:text-gray-300">
                                             ⏰ Kedaluwarsa
                                         </span>
                                     @endif
