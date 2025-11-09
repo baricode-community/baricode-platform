@@ -11,14 +11,16 @@ new #[Layout('components.layouts.app')] class extends Component {
     public bool $userIsParticipant = false;
     public ?HabitLog $todayLog = null;
     public string $logNote = '';
+    public bool $isScheduledToday = false;
 
     public function mount($habitId)
     {
         $this->habit = Habit::with(['creator', 'schedules', 'approvedParticipants.user', 'logs.user'])->findOrFail($habitId);
 
         $this->userIsParticipant = $this->habit->hasParticipant(Auth::id());
+        $this->isScheduledToday = $this->habit->isScheduledToday();
 
-        if ($this->userIsParticipant) {
+        if ($this->userIsParticipant && $this->isScheduledToday) {
             $this->todayLog = HabitLog::where([
                 'habit_id' => $this->habit->id,
                 'user_id' => Auth::id(),
@@ -46,21 +48,33 @@ new #[Layout('components.layouts.app')] class extends Component {
             return;
         }
 
-        if ($this->todayLog) {
-            session()->flash('error', 'Anda sudah mencatat aktivitas hari ini.');
+        if (!$this->isScheduledToday) {
+            session()->flash('error', 'Habit ini tidak dijadwalkan untuk hari ini.');
             return;
         }
 
         try {
-            HabitLog::create([
-                'habit_id' => $this->habit->id,
-                'user_id' => Auth::id(),
-                'log_date' => today(),
-                'notes' => $this->logNote,
-                'completed' => true,
-            ]);
+            // Use firstOrCreate to prevent duplicate entries
+            $log = HabitLog::firstOrCreate(
+                [
+                    'habit_id' => $this->habit->id,
+                    'user_id' => Auth::id(),
+                    'log_date' => today(),
+                ],
+                [
+                    'log_time' => now(),
+                    'logged_at' => now(),
+                    'notes' => $this->logNote,
+                    'status' => 'present', // Use proper status field
+                ]
+            );
 
-            session()->flash('success', 'Aktivitas berhasil dicatat!');
+            if ($log->wasRecentlyCreated) {
+                session()->flash('success', 'Aktivitas berhasil dicatat!');
+            } else {
+                session()->flash('info', 'Anda sudah mencatat aktivitas hari ini.');
+            }
+
             $this->logNote = '';
             $this->mount($this->habit->id); // Refresh data
         } catch (\Exception $e) {
@@ -71,6 +85,43 @@ new #[Layout('components.layouts.app')] class extends Component {
     public function title()
     {
         return $this->habit->name . ' - Daily Habit Tracker';
+    }
+
+    public function getNextScheduledDayProperty()
+    {
+        $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+        $today = strtolower(now()->format('l'));
+        $todayIndex = array_search($today, $days);
+        
+        $scheduledDays = $this->habit->schedules()
+            ->where('is_active', true)
+            ->pluck('day_of_week')
+            ->toArray();
+        
+        if (empty($scheduledDays)) {
+            return null;
+        }
+        
+        // Find next scheduled day
+        for ($i = 1; $i <= 7; $i++) {
+            $nextDayIndex = ($todayIndex + $i) % 7;
+            $nextDay = $days[$nextDayIndex];
+            
+            if (in_array($nextDay, $scheduledDays)) {
+                $schedule = $this->habit->schedules()
+                    ->where('day_of_week', $nextDay)
+                    ->where('is_active', true)
+                    ->first();
+                
+                return [
+                    'day' => $schedule->day_name ?? $nextDay,
+                    'time' => $schedule->formatted_time ?? '',
+                    'days_away' => $i == 7 ? 0 : $i // If 7 days away, it means next week same day
+                ];
+            }
+        }
+        
+        return null;
     }
 }; ?>
 
@@ -165,17 +216,34 @@ new #[Layout('components.layouts.app')] class extends Component {
                 <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
                     <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Jadwal</h2>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                        @foreach ($habit->schedules as $schedule)
-                            <div
-                                class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3">
-                                <div class="font-medium text-blue-900 dark:text-blue-100">{{ $schedule->day_name }}
+                    @if($habit->schedules->count() > 0)
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                            @foreach ($habit->schedules as $schedule)
+                                @php
+                                    $today = strtolower(now()->format('l'));
+                                    $isToday = $schedule->day_of_week === $today;
+                                @endphp
+                                <div class="@if($isToday) bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800 @else bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 @endif border rounded-lg p-3">
+                                    <div class="flex items-center justify-between">
+                                        <div class="@if($isToday) text-green-900 dark:text-green-100 @else text-blue-900 dark:text-blue-100 @endif font-medium">
+                                            {{ $schedule->day_name }}
+                                            @if($isToday)
+                                                <span class="text-xs bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-300 px-2 py-1 rounded-full ml-2">Hari Ini</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="@if($isToday) text-green-700 dark:text-green-300 @else text-blue-700 dark:text-blue-300 @endif text-sm">
+                                        {{ $schedule->formatted_time }}
+                                    </div>
                                 </div>
-                                <div class="text-sm text-blue-700 dark:text-blue-300">{{ $schedule->formatted_time }}
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <div class="text-center py-8">
+                            <div class="text-gray-400 text-4xl mb-2">📅</div>
+                            <p class="text-gray-500 dark:text-gray-400">Belum ada jadwal yang ditetapkan</p>
+                        </div>
+                    @endif
                 </div>
 
                 <!-- Log Activity (only for participants) -->
@@ -184,7 +252,36 @@ new #[Layout('components.layouts.app')] class extends Component {
                         <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Catat Aktivitas Hari Ini
                         </h2>
 
-                        @if ($todayLog)
+                        @if (!$isScheduledToday)
+                            {{-- Not scheduled today --}}
+                            <div class="bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="text-gray-400 text-2xl">📅</div>
+                                    <div class="flex-1">
+                                        <p class="font-medium text-gray-700 dark:text-gray-300">Tidak ada jadwal hari ini</p>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                            Habit ini dijadwalkan untuk: 
+                                            @foreach($habit->schedules as $schedule)
+                                                {{ $schedule->day_name }}@if(!$loop->last), @endif
+                                            @endforeach
+                                        </p>
+                                        @if($this->nextScheduledDay)
+                                            <p class="text-sm text-blue-600 dark:text-blue-400 mt-2">
+                                                📌 Jadwal berikutnya: {{ $this->nextScheduledDay['day'] }} 
+                                                @if($this->nextScheduledDay['days_away'] == 1)
+                                                    (besok)
+                                                @elseif($this->nextScheduledDay['days_away'] > 1)
+                                                    ({{ $this->nextScheduledDay['days_away'] }} hari lagi)
+                                                @else
+                                                    (minggu depan)
+                                                @endif
+                                                pukul {{ $this->nextScheduledDay['time'] }}
+                                            </p>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        @elseif ($todayLog)
                             <div
                                 class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
                                 <div class="flex items-center">
