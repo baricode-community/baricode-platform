@@ -144,7 +144,7 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
 
     public function receivedHabitInvitations()
     {
-        return $this->hasMany(\App\Models\HabitInvitation::class, 'invitee_id', 'id');
+        return $this->hasMany(\App\Models\HabitInvitation::class, 'user_id', 'id');
     }
 
     public function canAccessPanel(Panel $panel): bool
