@@ -136,6 +136,14 @@ class Habit extends Model
     }
 
     /**
+     * Unlock the habit to allow modifications
+     */
+    public function unlock(): void
+    {
+        $this->update(['is_locked' => false]);
+    }
+
+    /**
      * Check if user is a participant of this habit
      */
     public function hasParticipant($userId): bool
