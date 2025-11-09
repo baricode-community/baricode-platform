@@ -16,3 +16,6 @@ Schedule::command('whatsapp-groups:send-daily-quotes')->dailyAt('15:00');
 Schedule::command('whatsapp-groups:send-daily-quotes')->dailyAt('06:00');
 
 Schedule::command('app:meet-reminder-command')->everyFiveMinutes();
+
+// Habit Tracker Reminders - Check every 5 minutes for scheduled reminders
+Schedule::command('habits:send-reminders')->everyFiveMinutes();
