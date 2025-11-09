@@ -1,4 +1,4 @@
-@extends('layouts.base')
+@extends('components.layouts.app')
 
 @section('title', 'Daily Habit Tracker - Satu Tapak')
 

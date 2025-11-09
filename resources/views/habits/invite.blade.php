@@ -1,4 +1,4 @@
-@extends('layouts.base')
+@extends('components.layouts.app')
 
 @section('title', 'Undang Teman - ' . $habit->name)
 
