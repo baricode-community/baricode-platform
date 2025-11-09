@@ -1,31 +1,22 @@
 <?php
 
-use App\Http\Controllers\HabitController;
 use Illuminate\Support\Facades\Route;
+use Livewire\Volt\Volt;
 
 Route::middleware(['auth', 'verified'])
     ->prefix('satu-tapak')
-    ->controller(HabitController::class)
     ->group(function () {
-        // Dasar
-        Route::get('/', 'index')->name('satu-tapak.index');
-        Route::get('create', 'create')->name('satu-tapak.create');
-        Route::get('{habit}', 'show')->name('satu-tapak.show');
-        Route::post('/', 'store')->name('satu-tapak.store');
-
-        // Undangan
-        Route::get('invitations', 'invitations')->name('satu-tapak.invitations.index');
-        Route::post('invitations/{invitation}/respond', 'respondInvitation')->name('satu-tapak.invitations.respond');
-
-        // Additional Habit Routes
-        Route::post('habits/{habit}/lock','lock')->name('satu-tapak.lock');
-        Route::get('habits/{habit}/invite','invite')->name('satu-tapak.invite');
-        Route::post('habits/{habit}/invite','sendInvitation')->name('satu-tapak.send-invitation');
-        Route::post('habits/{habit}/log','log')->name('satu-tapak.log');
-        Route::get('habits/{habit}/statistics','statistics')->name('satu-tapak.statistics');
-
+        // Main pages
+        Volt::route('/', 'habits.index')->name('satu-tapak.index');
+        Volt::route('create', 'habits.create')->name('satu-tapak.create');
+        Volt::route('/{habitId}', 'habits.show')->name('satu-tapak.show');
+        
+        // Invitations
+        Volt::route('invitations', 'habits.invitations')->name('satu-tapak.invitations.index');
+        
+        // Habit specific actions
+        Volt::route('/{habitId}/invite', 'habits.invite')->name('satu-tapak.invite');
+        Volt::route('/{habitId}/statistics', 'habits.statistics')->name('satu-tapak.statistics');
         // Uncomment if needed
-        // Route::get('{habit}/edit', 'edit')->name('satu-tapak.edit');
-        // Route::put('habits/{habit}', 'update')->name('satu-tapak.update');
-        // Route::delete('habits/{habit}', 'destroy')->name('satu-tapak.destroy');
+        // Volt::route('{habitId}/edit', 'habits.edit')->name('satu-tapak.edit');
     });

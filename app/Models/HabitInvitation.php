@@ -10,8 +10,8 @@ class HabitInvitation extends Model
 {
     protected $fillable = [
         'habit_id',
+        'user_id',
         'inviter_id',
-        'invitee_id',
         'token',
         'status',
         'expires_at',
@@ -70,11 +70,11 @@ class HabitInvitation extends Model
     /**
      * Relation to User (Invitee)
      */
-    public function invitee(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(\App\Models\User\User::class, 'invitee_id');
+        return $this->belongsTo(\App\Models\User\User::class, 'user_id');
     }
-
+    
     /**
      * Accept the invitation
      */
@@ -88,7 +88,7 @@ class HabitInvitation extends Model
         // Create participant record
         HabitParticipant::create([
             'habit_id' => $this->habit_id,
-            'user_id' => $this->invitee_id,
+            'user_id' => $this->user_id, // User yang diundang
             'status' => 'approved',
             'joined_at' => now(),
             'approved_at' => now(),

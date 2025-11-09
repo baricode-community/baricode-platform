@@ -200,53 +200,18 @@ class HabitController extends Controller
             abort(403, 'Unauthorized action.');
         }
 
-        $users = User::where('id', '!=', Auth::id())
-            ->whereNotIn('id', function($query) use ($habit) {
-                $query->select('user_id')
-                      ->from('habit_participants')
-                      ->where('habit_id', $habit->id);
-            })
-            ->get();
-
-        return view('habits.invite', compact('habit', 'users'));
+        return view('habits.invite', compact('habit'));
     }
 
     /**
-     * Send invitation to users
+     * Send invitation to users (Deprecated - Now handled by Livewire HabitInvite component)
      */
     public function sendInvitation(Request $request, Habit $habit)
     {
-        if ($habit->user_id !== Auth::id()) {
-            abort(403, 'Unauthorized action.');
-        }
-
-        $validated = $request->validate([
-            'user_ids' => 'required|array',
-            'user_ids.*' => 'exists:users,id',
-            'message' => 'nullable|string|max:1000',
-        ]);
-
-        foreach ($validated['user_ids'] as $userId) {
-            // Check if invitation already exists
-            $existingInvitation = HabitInvitation::where([
-                'habit_id' => $habit->id,
-                'invitee_id' => $userId,
-                'status' => 'pending'
-            ])->exists();
-
-            if (!$existingInvitation) {
-                HabitInvitation::create([
-                    'habit_id' => $habit->id,
-                    'inviter_id' => Auth::id(),
-                    'invitee_id' => $userId,
-                    'message' => $validated['message'],
-                ]);
-            }
-        }
-
-        return redirect()
-            ->route('satu-tapak.show', $habit)
-            ->with('success', 'Undangan berhasil dikirim!');
+        // This method is deprecated and replaced by Livewire component
+        // Redirect to invite page to use Livewire component instead
+        return redirect()->route('satu-tapak.invite', $habit)
+            ->with('info', 'Silakan gunakan form interaktif untuk mengirim undangan.');
     }
 
     /**

@@ -1,0 +1,116 @@
+<?php
+
+namespace App\Livewire;
+
+use Livewire\Component;
+use App\Models\Habit;
+use App\Models\User\User;
+use App\Models\HabitInvitation;
+use App\Jobs\SendHabitInvitation;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
+class HabitInvite extends Component
+{
+    public Habit $habit;
+    public string $search = '';
+    public array $selectedUsers = [];
+    public string $message = '';
+    public array $users = [];
+
+    public function mount(Habit $habit)
+    {
+        $this->habit = $habit;
+        $this->loadUsers();
+    }
+
+    public function updatedSearch()
+    {
+        $this->loadUsers();
+    }
+
+    public function loadUsers()
+    {
+        $query = User::where('id', '!=', Auth::id())
+            ->whereNotIn('id', function($subQuery) {
+                $subQuery->select('user_id')
+                         ->from('habit_participants')
+                         ->where('habit_id', $this->habit->id);
+            })
+            ->whereNotIn('id', function($subQuery) {
+                $subQuery->select('user_id')
+                         ->from('habit_invitations')
+                         ->where('habit_id', $this->habit->id)
+                         ->where('status', 'pending');
+            });
+
+        if (!empty($this->search)) {
+            $searchTerm = '%' . $this->search . '%';
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('name', 'like', $searchTerm)
+                  ->orWhere('username', 'like', $searchTerm);
+            });
+        }
+
+        $this->users = $query->get()->toArray();
+    }
+
+    public function toggleUser($userId)
+    {
+        if (in_array($userId, $this->selectedUsers)) {
+            $this->selectedUsers = array_filter($this->selectedUsers, function($id) use ($userId) {
+                return $id != $userId;
+            });
+        } else {
+            $this->selectedUsers[] = $userId;
+        }
+    }
+
+    public function sendInvitations()
+    {
+        // Validate
+        if (empty($this->selectedUsers)) {
+            session()->flash('error', 'Pilih minimal satu user untuk diundang.');
+            return;
+        }
+
+        if (strlen($this->message) > 1000) {
+            session()->flash('error', 'Pesan terlalu panjang (maksimal 1000 karakter).');
+            return;
+        }
+
+        try {
+            DB::transaction(function () {
+                foreach ($this->selectedUsers as $userId) {
+                    // Create invitation record
+                    HabitInvitation::create([
+                        'habit_id' => $this->habit->id,
+                        'user_id' => $userId,
+                        'invited_by' => Auth::id(),
+                        'message' => $this->message,
+                        'status' => 'pending',
+                    ]);
+
+                    // Queue email job
+                    SendHabitInvitation::dispatch($this->habit, $userId, $this->message);
+                }
+            });
+
+            session()->flash('success', 'Undangan berhasil dikirim ke ' . count($this->selectedUsers) . ' user.');
+            
+            // Reset form
+            $this->selectedUsers = [];
+            $this->message = '';
+            $this->search = '';
+            $this->loadUsers();
+            
+        } catch (\Exception $e) {
+            session()->flash('error', 'Terjadi kesalahan saat mengirim undangan.');
+        }
+    }
+
+    public function render()
+    {
+        return view('livewire.habit-invite');
+    }
+}
