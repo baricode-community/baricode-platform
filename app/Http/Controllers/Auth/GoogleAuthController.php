@@ -46,8 +46,12 @@ class GoogleAuthController extends Controller
             $generatedPassword = Str::random(12);
             logger()->info('Creating new user: ' . $googleUser->getEmail());
             
+            // Generate unique username
+            $username = $this->generateUniqueUsername($googleUser->getName());
+            
             $user = User::create([
                 'name' => $googleUser->getName(),
+                'username' => $username,
                 'email' => $googleUser->getEmail(),
                 'password' => Hash::make($generatedPassword),
                 'email_verified_at' => now(),
@@ -70,5 +74,50 @@ class GoogleAuthController extends Controller
             logger()->error('Google OAuth Error: ' . $e->getMessage());
             return redirect()->route('login')->with('error', 'Terjadi kesalahan saat login dengan Google. Silakan coba lagi.');
         }
+    }
+
+    /**
+     * Generate unique username from name
+     */
+    private function generateUniqueUsername(string $name): string
+    {
+        // Remove special characters and convert to lowercase
+        $baseUsername = Str::slug($name, '');
+        
+        // Ensure minimum length of 3 characters
+        if (strlen($baseUsername) < 3) {
+            $baseUsername = $baseUsername . 'usr';
+        }
+        
+        // Ensure maximum length of 30 characters
+        if (strlen($baseUsername) > 30) {
+            $baseUsername = substr($baseUsername, 0, 30);
+        }
+        
+        return $this->ensureUniqueUsername($baseUsername);
+    }
+
+    /**
+     * Ensure username is unique by adding numbers if necessary
+     */
+    private function ensureUniqueUsername(string $baseUsername): string
+    {
+        $username = $baseUsername;
+        $counter = 1;
+        
+        while (User::where('username', $username)->exists()) {
+            $suffix = (string) $counter;
+            $maxBaseLength = 30 - strlen($suffix);
+            
+            if (strlen($baseUsername) > $maxBaseLength) {
+                $username = substr($baseUsername, 0, $maxBaseLength) . $suffix;
+            } else {
+                $username = $baseUsername . $suffix;
+            }
+            
+            $counter++;
+        }
+        
+        return $username;
     }
 }
