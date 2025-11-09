@@ -9,6 +9,8 @@ use Livewire\Attributes\Layout;
 new #[Layout('components.layouts.app')] class extends Component {
     public Habit $habit;
     public bool $userIsParticipant = false;
+    public bool $userIsCreator = false;
+    public bool $canLogActivity = false;
     public ?HabitLog $todayLog = null;
     public string $logNote = '';
     public bool $isScheduledToday = false;
@@ -18,9 +20,13 @@ new #[Layout('components.layouts.app')] class extends Component {
         $this->habit = Habit::with(['creator', 'schedules', 'approvedParticipants.user', 'logs.user'])->findOrFail($habitId);
 
         $this->userIsParticipant = $this->habit->hasParticipant(Auth::id());
+        $this->userIsCreator = $this->habit->user_id === Auth::id();
         $this->isScheduledToday = $this->habit->isScheduledToday();
+        
+        // User can log activity if they are either the creator OR a participant
+        $this->canLogActivity = ($this->userIsCreator || $this->userIsParticipant) && $this->isScheduledToday;
 
-        if ($this->userIsParticipant && $this->isScheduledToday) {
+        if (($this->userIsParticipant || $this->userIsCreator) && $this->isScheduledToday) {
             $this->todayLog = HabitLog::where([
                 'habit_id' => $this->habit->id,
                 'user_id' => Auth::id(),
@@ -43,8 +49,8 @@ new #[Layout('components.layouts.app')] class extends Component {
 
     public function logActivity()
     {
-        if (!$this->userIsParticipant) {
-            session()->flash('error', 'Anda bukan peserta habit ini.');
+        if (!$this->userIsParticipant && !$this->userIsCreator) {
+            session()->flash('error', 'Anda tidak memiliki akses untuk mencatat aktivitas habit ini.');
             return;
         }
 
@@ -246,11 +252,19 @@ new #[Layout('components.layouts.app')] class extends Component {
                     @endif
                 </div>
 
-                <!-- Log Activity (only for participants) -->
-                @if ($userIsParticipant)
+                <!-- Log Activity (for creator and participants) -->
+                @if ($userIsParticipant || $userIsCreator)
                     <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
-                        <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Catat Aktivitas Hari Ini
-                        </h2>
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Catat Aktivitas Hari Ini</h2>
+                            @if($userIsCreator && !$userIsParticipant)
+                                <span class="text-xs bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 px-2 py-1 rounded-full">Pembuat</span>
+                            @elseif($userIsParticipant && !$userIsCreator)
+                                <span class="text-xs bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 px-2 py-1 rounded-full">Peserta</span>
+                            @elseif($userIsCreator && $userIsParticipant)
+                                <span class="text-xs bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 px-2 py-1 rounded-full">Pembuat & Peserta</span>
+                            @endif
+                        </div>
 
                         @if (!$isScheduledToday)
                             {{-- Not scheduled today --}}
