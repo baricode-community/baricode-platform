@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Poll;
-use App\Models\User\User;
+use App\Models\Auth\User;
 
 class PollPolicy
 {

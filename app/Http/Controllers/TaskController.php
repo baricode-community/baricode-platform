@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Task;
+use App\Models\Projects\Task;
 use App\Models\TaskAssignment;
 use App\Models\TaskSubmission;
 use Illuminate\Support\Facades\Storage;

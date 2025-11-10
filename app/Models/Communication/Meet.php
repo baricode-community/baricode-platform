@@ -1,0 +1,63 @@
+<?php
+
+namespace App\Models\Communication;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Auth\User;
+
+class Meet extends Model
+{
+    use HasFactory, SoftDeletes;
+    
+    protected $fillable = [
+        'title',
+        'youtube_link',
+        'meet_link',
+        'description',
+        'scheduled_at',
+        'is_finished'
+    ];
+    
+    protected $casts = [
+        'scheduled_at' => 'datetime',
+        'is_finished' => 'boolean',
+    ];
+    
+    /**
+     * Get the users that belong to the meet.
+     */
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'meet_user')
+                    ->withPivot('joined_at')
+                    ->withTimestamps();
+    }
+    
+    /**
+     * Get the count of participants
+     */
+    public function participantsCount()
+    {
+        return $this->users()->count();
+    }
+    
+    /**
+     * Check if user is participant
+     */
+    public function isParticipant(User $user)
+    {
+        return $this->users()->where('user_id', $user->id)->exists();
+    }
+
+    /**
+     * Get the proyek bareng that belong to the meet.
+     */
+    public function proyekBarengs()
+    {
+        return $this->belongsToMany(ProyekBareng::class, 'proyek_bareng_meets', 'meet_id', 'proyek_bareng_id')
+                    ->withPivot('description')
+                    ->withTimestamps();
+    }
+}

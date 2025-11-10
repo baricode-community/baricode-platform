@@ -1,10 +1,10 @@
 <?php
 
 use Tests\DatabaseTestCase;
-use App\Models\Course\CourseModuleLesson;
-use App\Models\Course\CourseModule;
-use App\Models\Course\Course;
-use App\Models\Course\CourseCategory;
+use App\Models\Learning\CourseModuleLesson;
+use App\Models\Learning\CourseModule;
+use App\Models\Learning\Course;
+use App\Models\Learning\CourseCategory;
 use App\Models\User\UserNote;
 use App\Models\User\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

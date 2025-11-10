@@ -2,7 +2,7 @@
 
 use Livewire\Volt\Component;
 use Livewire\Volt\Attributes\Layout;
-use App\Models\Kanboard;
+use App\Models\Projects\Kanboard;
 
 new #[Layout('layouts.app')] class extends Component {
     public $title = '';

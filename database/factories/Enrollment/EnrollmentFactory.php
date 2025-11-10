@@ -4,8 +4,8 @@ namespace Database\Factories\Enrollment;
 
 use App\Models\CourseEnrollment;
 use App\Models\Enrollment\Enrollment;
-use App\Models\User\User;
-use App\Models\Course\Course;
+use App\Models\Auth\User;
+use App\Models\Learning\Course;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

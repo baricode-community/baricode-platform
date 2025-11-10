@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Kanboard;
-use App\Models\User\User;
+use App\Models\Auth\User;
 use Illuminate\Auth\Access\Response;
 
 class KanboardPolicy

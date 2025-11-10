@@ -10,7 +10,7 @@ use Filament\Actions\EditAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Tables\Filters\SelectFilter;
-use App\Models\Course\CourseCategory;
+use App\Models\Learning\CourseCategory;
 
 class CoursesTable
 {

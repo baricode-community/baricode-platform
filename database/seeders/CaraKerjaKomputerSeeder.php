@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Course\Course;
+use App\Models\Learning\Course;
 use Illuminate\Database\Seeder;
 
 class CaraKerjaKomputerSeeder extends Seeder

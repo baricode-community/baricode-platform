@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Course\CourseModuleLesson;
-use App\Models\Course\CourseModule;
+use App\Models\Learning\CourseModuleLesson;
+use App\Models\Learning\CourseModule;
 use Illuminate\Http\Request;
 
 class CourseModuleLessonController extends Controller

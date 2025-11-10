@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-use App\Models\Enrollment\Enrollment;
+use App\Models\Learning\Enrollment;
 
 trait EnrollmentTrait
 {

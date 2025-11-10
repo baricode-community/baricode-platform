@@ -2,9 +2,9 @@
 
 use Livewire\Volt\Component;
 use Livewire\Volt\Attributes\Layout;
-use App\Models\Kanboard;
-use App\Models\KanboardCard;
-use App\Models\KanboardTodo;
+use App\Models\Projects\Kanboard;
+use App\Models\Projects\KanboardCard;
+use App\Models\Projects\KanboardTodo;
 
 new #[Layout('layouts.app')] class extends Component {
     public Kanboard $kanboard;

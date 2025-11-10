@@ -1,8 +1,8 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\Habit;
-use App\Models\HabitSchedule;
+use App\Models\Habits\Habit;
+use App\Models\Habits\HabitSchedule;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;

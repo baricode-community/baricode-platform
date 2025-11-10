@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Jobs\SendHabitReminder;
-use App\Models\Habit;
-use App\Models\HabitSchedule;
+use App\Models\Habits\Habit;
+use App\Models\Habits\HabitSchedule;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;

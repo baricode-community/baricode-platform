@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\User\User;
+use App\Models\Auth\User;
 
 class KanboardCardPolicy
 {

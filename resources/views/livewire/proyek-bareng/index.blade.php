@@ -2,7 +2,7 @@
 
 use Livewire\Volt\Component;
 use Livewire\Volt\Attributes\Layout;
-use App\Models\ProyekBareng;
+use App\Models\Projects\ProyekBareng;
 use Livewire\WithPagination;
 
 new #[Layout('layouts.app')] class extends Component {

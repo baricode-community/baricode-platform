@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Blog;
-use App\Models\User\User;
+use App\Models\Auth\User;
 
 class BlogSeeder extends Seeder
 {

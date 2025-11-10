@@ -1,9 +1,9 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\Habit;
+use App\Models\Habits\Habit;
 use App\Models\User\User;
-use App\Models\HabitInvitation;
+use App\Models\Habits\HabitInvitation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;

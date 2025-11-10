@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Course\Course;
-use App\Models\Course\CourseCategory;
+use App\Models\Learning\Course;
+use App\Models\Learning\CourseCategory;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 

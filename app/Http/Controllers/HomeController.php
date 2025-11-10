@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProyekBareng;
-use App\Models\User\User;
+use App\Models\Auth\User;
+use App\Models\Projects\ProyekBareng;
 use Illuminate\Http\Request;
-use App\Models\Course\CourseCategory;
-use App\Models\Course\Course;
+use App\Models\Learning\CourseCategory;
+use App\Models\Learning\Course;
 
 class HomeController extends Controller
 {

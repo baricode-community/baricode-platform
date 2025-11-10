@@ -1,8 +1,8 @@
 <?php
 
 use Tests\DatabaseTestCase;
-use App\Models\Course\CourseCategory;
-use App\Models\Course\Course;
+use App\Models\Learning\CourseCategory;
+use App\Models\Learning\Course;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 uses(DatabaseTestCase::class);
