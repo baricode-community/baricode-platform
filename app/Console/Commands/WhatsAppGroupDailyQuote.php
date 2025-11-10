@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\WhatsAppGroup;
+use App\Models\Communication\WhatsAppGroup;
 use App\Services\WhatsAppService;
 use Illuminate\Console\Command;
 
