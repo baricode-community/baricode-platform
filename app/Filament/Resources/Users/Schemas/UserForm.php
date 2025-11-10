@@ -22,7 +22,13 @@ class UserForm
                     ->required()
                     ->maxLength(255)
                     ->dehydrated(fn ($state) => filled($state))
-                    ->visibleOn('create')
+                    ->visibleOn('create'),
+                \Filament\Forms\Components\Select::make('roles')
+                    ->label('Role')
+                    ->multiple()
+                    ->relationship('roles', 'name')
+                    ->preload()
+                    ->required()
             ]);
     }
 }
