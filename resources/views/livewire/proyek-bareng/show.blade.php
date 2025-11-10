@@ -664,11 +664,7 @@ new #[Layout('layouts.app')] class extends Component {
                                             </a>
                                         </h4>
                                         <div class="flex items-center space-x-2">
-                                            <span
-                                                class="text-xs px-2 py-1 bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 rounded-full">
-                                                {{ $poll->created_at->format('d M') }}
-                                            </span>
-                                            @if (isset($poll->is_closed) && $poll->is_closed)
+                                            @if ($poll->isClosed())
                                                 <span
                                                     class="text-xs px-2 py-1 bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200 rounded-full flex items-center">
                                                     <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor"
