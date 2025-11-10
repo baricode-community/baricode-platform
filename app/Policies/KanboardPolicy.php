@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\Kanboard;
+use App\Models\Projects\Kanboard;
 use App\Models\Auth\User;
 use Illuminate\Auth\Access\Response;
 
