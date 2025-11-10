@@ -36,7 +36,7 @@ class HabitLog extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(\App\Models\User\User::class, 'user_id');
+        return $this->belongsTo(\App\Models\Auth\User::class, 'user_id');
     }
 
     /**
