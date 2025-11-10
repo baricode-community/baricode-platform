@@ -59,6 +59,7 @@
             </flux:navlist.group>
 
             <!-- Administration -->
+            {{ dd(auth()->user()) }}
             @if (auth()->check() && auth()->user()->hasRole('admin'))
                 <flux:navlist.group :heading="__('Admin')" class="grid">
                     <flux:navlist.item icon="shield-check" href="/admin">
