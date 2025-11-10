@@ -28,7 +28,6 @@ class UserForm
                     ->multiple()
                     ->relationship('roles', 'name')
                     ->preload()
-                    ->required()
             ]);
     }
 }
