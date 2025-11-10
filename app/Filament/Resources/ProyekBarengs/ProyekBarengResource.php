@@ -9,7 +9,7 @@ use App\Filament\Resources\ProyekBarengs\Pages\ViewProyekBareng;
 use App\Filament\Resources\ProyekBarengs\RelationManagers;
 use App\Filament\Resources\ProyekBarengs\Schemas\ProyekBarengForm;
 use App\Filament\Resources\ProyekBarengs\Tables\ProyekBarengsTable;
-use App\Models\ProyekBareng;
+use App\Models\Projects\ProyekBareng;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;

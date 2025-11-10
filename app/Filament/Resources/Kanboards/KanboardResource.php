@@ -7,7 +7,7 @@ use App\Filament\Resources\Kanboards\Pages\EditKanboard;
 use App\Filament\Resources\Kanboards\Pages\ListKanboards;
 use App\Filament\Resources\Kanboards\Schemas\KanboardForm;
 use App\Filament\Resources\Kanboards\Tables\KanboardsTable;
-use App\Models\Kanboard;
+use App\Models\Projects\Kanboard;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;

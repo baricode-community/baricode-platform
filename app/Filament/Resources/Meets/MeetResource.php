@@ -7,7 +7,7 @@ use App\Filament\Resources\Meets\Pages\EditMeet;
 use App\Filament\Resources\Meets\Pages\ListMeets;
 use App\Filament\Resources\Meets\Schemas\MeetForm;
 use App\Filament\Resources\Meets\Tables\MeetsTable;
-use App\Models\Meet;
+use App\Models\Communication\Meet;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;

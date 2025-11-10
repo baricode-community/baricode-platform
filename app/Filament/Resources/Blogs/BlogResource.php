@@ -7,7 +7,7 @@ use App\Filament\Resources\Blogs\Pages\EditBlog;
 use App\Filament\Resources\Blogs\Pages\ListBlogs;
 use App\Filament\Resources\Blogs\Schemas\BlogForm;
 use App\Filament\Resources\Blogs\Tables\BlogsTable;
-use App\Models\Blog;
+use App\Models\Content\Blog;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;

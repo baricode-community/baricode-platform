@@ -7,7 +7,7 @@ use App\Filament\Resources\Polls\Pages\EditPoll;
 use App\Filament\Resources\Polls\Pages\ListPolls;
 use App\Filament\Resources\Polls\Schemas\PollForm;
 use App\Filament\Resources\Polls\Tables\PollsTable;
-use App\Models\Poll;
+use App\Models\Content\Poll;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
