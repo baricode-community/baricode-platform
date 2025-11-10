@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Meet;
+use App\Models\Communication\Meet;
 use App\Services\WhatsAppService;
 use Illuminate\Console\Command;
 

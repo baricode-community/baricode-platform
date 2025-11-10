@@ -3,6 +3,9 @@
 namespace App\Models\Projects;
 
 use App\Models\Auth\User;
+use App\Models\Communication\Meet;
+use App\Models\Projects\Kanboard;
+use App\Models\Content\Poll;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
