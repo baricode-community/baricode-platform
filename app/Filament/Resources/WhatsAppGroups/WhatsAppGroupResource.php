@@ -7,7 +7,7 @@ use App\Filament\Resources\WhatsAppGroups\Pages\EditWhatsAppGroup;
 use App\Filament\Resources\WhatsAppGroups\Pages\ListWhatsAppGroups;
 use App\Filament\Resources\WhatsAppGroups\Schemas\WhatsAppGroupForm;
 use App\Filament\Resources\WhatsAppGroups\Tables\WhatsAppGroupsTable;
-use App\Models\WhatsAppGroup;
+use App\Models\Communication\WhatsAppGroup;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;

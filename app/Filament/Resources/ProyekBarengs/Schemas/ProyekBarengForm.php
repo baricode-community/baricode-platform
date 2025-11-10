@@ -3,9 +3,9 @@
 namespace App\Filament\Resources\ProyekBarengs\Schemas;
 
 use App\Models\Auth\User;
-use App\Models\Meet;
-use App\Models\Kanboard;
-use App\Models\Poll;
+use App\Models\Communication\Meet;
+use App\Models\Projects\Kanboard;
+use App\Models\Content\Poll;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
