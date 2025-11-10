@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\User\User;
+use App\Models\Auth\User;
 use App\Models\Meet;
 use Illuminate\Console\Command;
 use Carbon\Carbon;

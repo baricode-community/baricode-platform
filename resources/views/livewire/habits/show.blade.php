@@ -1,8 +1,8 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\Habit;
-use App\Models\HabitLog;
+use App\Models\Habits\Habit;
+use App\Models\Habits\HabitLog;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 

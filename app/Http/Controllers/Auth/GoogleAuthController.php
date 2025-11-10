@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User\User;
+use App\Models\Auth\User;
 use App\Notifications\WelcomeEmailWithPassword;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;

@@ -5,7 +5,7 @@ namespace Database\Factories\Course;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Course\Course>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Learning\Course>
  */
 class CourseFactory extends Factory
 {

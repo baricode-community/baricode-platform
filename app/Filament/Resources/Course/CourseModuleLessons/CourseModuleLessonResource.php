@@ -7,7 +7,7 @@ use App\Filament\Resources\Course\CourseModuleLessons\Pages\CreateCourseModuleLe
 use App\Filament\Resources\Course\CourseModuleLessons\Pages\EditCourseModuleLesson;
 use App\Filament\Resources\Course\CourseModuleLessons\Schemas\CourseModuleLessonForm;
 use App\Filament\Resources\Course\CourseModuleLessons\Tables\CourseModuleLessonsTable;
-use App\Models\Course\CourseModuleLesson;
+use App\Models\Learning\CourseModuleLesson;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;

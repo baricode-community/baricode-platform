@@ -2,9 +2,9 @@
 
 namespace App\Jobs;
 
-use App\Models\Habit;
-use App\Models\HabitSchedule;
-use App\Models\User\User;
+use App\Models\Habits\Habit;
+use App\Models\Habits\HabitSchedule;
+use App\Models\Auth\User;
 use App\Notifications\HabitReminderNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;

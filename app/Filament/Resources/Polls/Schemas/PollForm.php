@@ -20,7 +20,7 @@ class PollForm
                 ])->required(),
                 Select::make('user_id')
                     ->label('Dibuat Oleh')
-                    ->options(\App\Models\User\User::pluck('name', 'id'))
+                    ->options(\App\Models\Auth\User::pluck('name', 'id'))
                     ->default(fn () => auth()->id())
                     ->searchable()
                     ->required(),

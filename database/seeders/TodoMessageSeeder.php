@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\KanboardTodo;
 use App\Models\TodoMessage;
-use App\Models\User\User;
+use App\Models\Auth\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 

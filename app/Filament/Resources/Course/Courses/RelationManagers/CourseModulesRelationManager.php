@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Course\Courses\RelationManagers;
 
-use App\Models\Course\CourseModule;
+use App\Models\Learning\CourseModule;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Select;

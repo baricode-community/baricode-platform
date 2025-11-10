@@ -8,7 +8,7 @@ use App\Filament\Resources\Course\CourseCategories\Pages\EditCourseCategory;
 use App\Filament\Resources\Course\CourseCategories\RelationManagers\CoursesRelationManager;
 use App\Filament\Resources\Course\CourseCategories\Schemas\CourseCategoryForm;
 use App\Filament\Resources\Course\CourseCategories\Tables\CourseCategoriesTable;
-use App\Models\Course\CourseCategory;
+use App\Models\Learning\CourseCategory;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;

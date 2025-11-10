@@ -8,7 +8,7 @@ use Filament\Actions\EditAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Tables\Filters\SelectFilter;
-use App\Models\Course\CourseModule;
+use App\Models\Learning\CourseModule;
 
 class CourseModuleLessonsTable
 {

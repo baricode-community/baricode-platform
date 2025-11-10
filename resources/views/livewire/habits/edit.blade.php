@@ -1,7 +1,7 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\Habit;
+use App\Models\Habits\Habit;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 

@@ -2,7 +2,7 @@
 
 use Tests\DatabaseTestCase;
 use App\Models\User\User;
-use App\Models\Course\Course;
+use App\Models\Learning\Course;
 use Spatie\Permission\Models\Role;
 
 uses(DatabaseTestCase::class);

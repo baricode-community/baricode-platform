@@ -2,13 +2,13 @@
 
 namespace Database\Factories\User;
 
-use App\Models\User\UserNote;
-use App\Models\User\User;
-use App\Models\Course\CourseModuleLesson;
+use App\Models\Auth\UserNote;
+use App\Models\Auth\User;
+use App\Models\Learning\CourseModuleLesson;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User\UserNote>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Auth\UserNote>
  */
 class UserNoteFactory extends Factory
 {

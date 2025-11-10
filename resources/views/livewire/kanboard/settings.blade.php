@@ -2,8 +2,8 @@
 
 use Livewire\Volt\Component;
 use Livewire\Volt\Attributes\Layout;
-use App\Models\Kanboard;
-use App\Models\User\User;
+use App\Models\Projects\Kanboard;
+use App\Models\Auth\User;
 use Illuminate\Support\Str;
 
 new #[Layout('layouts.app')] class extends Component {

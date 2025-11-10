@@ -2,8 +2,8 @@
 
 namespace App\Traits;
 
-use App\Models\Course\Course;
-use App\Models\Enrollment\Enrollment;
+use App\Models\Learning\Course;
+use App\Models\Learning\Enrollment;
 use Illuminate\Support\Facades\DB;
 
 trait CourseTrait

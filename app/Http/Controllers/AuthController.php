@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User\User;
+use App\Models\Auth\User;
 use App\Services\WhatsAppService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;

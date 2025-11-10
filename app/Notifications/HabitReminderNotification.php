@@ -2,8 +2,8 @@
 
 namespace App\Notifications;
 
-use App\Models\Habit;
-use App\Models\HabitSchedule;
+use App\Models\Habits\Habit;
+use App\Models\Habits\HabitSchedule;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;

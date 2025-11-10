@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Meet;
-use App\Models\User\User;
+use App\Models\Communication\Meet;
+use App\Models\Auth\User;
 use Livewire\WithPagination;
 use Livewire\Volt\Component;
 use Livewire\Volt\Attributes\Layout;

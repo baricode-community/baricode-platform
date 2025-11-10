@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Course\CourseModules\RelationManagers;
 
-use App\Models\Course\CourseModuleLesson;
+use App\Models\Learning\CourseModuleLesson;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\RichEditor;
 use Filament\Resources\RelationManagers\RelationManager;

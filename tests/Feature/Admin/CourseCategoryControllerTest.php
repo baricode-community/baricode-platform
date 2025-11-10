@@ -2,8 +2,8 @@
 
 use Tests\DatabaseTestCase;
 use App\Models\User\User;
-use App\Models\Course\CourseCategory;
-use App\Models\Course\Course;
+use App\Models\Learning\CourseCategory;
+use App\Models\Learning\Course;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;

@@ -2,7 +2,7 @@
 
 use Livewire\Volt\Component;
 use Livewire\Volt\Attributes\Layout;
-use App\Models\PersonalFlashCard;
+use App\Models\Content\PersonalFlashCard;
 
 new #[Layout('layouts.app')] class extends Component {
     public bool $showAddCardModal = false;

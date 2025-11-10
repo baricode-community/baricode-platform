@@ -2,9 +2,9 @@
 
 use Tests\TestCase;
 use App\Http\Controllers\Admin\CourseModuleController;
-use App\Models\Course\CourseModule;
-use App\Models\Course\Course;
-use App\Models\Course\CourseCategory;
+use App\Models\Learning\CourseModule;
+use App\Models\Learning\Course;
+use App\Models\Learning\CourseCategory;
 use App\Models\User\User;
 use Spatie\Permission\Models\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;

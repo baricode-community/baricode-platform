@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\ProyekBareng;
 use App\Models\ProyekBarengKanboardLink;
 use App\Models\ProyekBarengUsefulLink;
-use App\Models\User\User;
+use App\Models\Auth\User;
 use App\Models\Meet;
 use App\Models\Kanboard;
 use App\Models\Poll;

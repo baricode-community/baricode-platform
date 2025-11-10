@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\CourseEnrollment;
-use App\Models\Enrollment\Enrollment;
-use App\Models\Enrollment\EnrollmentLesson;
-use App\Models\Enrollment\EnrollmentSession;
-use App\Models\Enrollment\LessonProgress;
+use App\Models\Learning\Enrollment;
+use App\Models\Learning\EnrollmentLesson;
+use App\Models\Learning\EnrollmentSession;
+use App\Models\Learning\LessonProgress;
 use App\Traits\CourseTrait;
 use Illuminate\Http\Request;
-use App\Models\Course\Course;
+use App\Models\Learning\Course;
 use App\Services\CourseService;
 use App\Http\Requests\CourseStartRequest;
 use Illuminate\Support\Facades\Gate;

@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Course\CourseCategory;
+use App\Models\Learning\CourseCategory;
 
 class CourseCategorySeeder extends Seeder
 {

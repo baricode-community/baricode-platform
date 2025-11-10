@@ -3,7 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Volt\Component;
-use App\Models\Course\CourseModuleLesson;
+use App\Models\Learning\CourseModuleLesson;
 
 new class extends Component {
     public $lesson;

@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\ProyekBarengs\Schemas;
 
-use App\Models\User\User;
+use App\Models\Auth\User;
 use App\Models\Meet;
 use App\Models\Kanboard;
 use App\Models\Poll;

@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Poll;
 
-use App\Models\Poll;
+use App\Models\Content\Poll;
 use Livewire\Component;
 
 class ListPolls extends Component
