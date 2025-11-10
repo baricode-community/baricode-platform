@@ -34,7 +34,7 @@ class HabitParticipant extends Model
      */
     public function user(): BelongsTo
     {
-        return $this->belongsTo(\App\Models\User\User::class, 'user_id');
+        return $this->belongsTo(\App\Models\Auth\User::class, 'user_id');
     }
 
     /**
@@ -42,7 +42,7 @@ class HabitParticipant extends Model
      */
     public function approver(): BelongsTo
     {
-        return $this->belongsTo(\App\Models\User\User::class, 'approved_by');
+        return $this->belongsTo(\App\Models\Auth\User::class, 'approved_by');
     }
 
     /**
