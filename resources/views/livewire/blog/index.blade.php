@@ -235,34 +235,7 @@ new #[Layout('layouts.base')] class extends Component {
             </div>
         @endif
     </div>
-
-    {{-- Stats Section --}}
-    <div class="bg-white dark:bg-gray-800 py-12 border-t border-gray-100 dark:border-gray-700">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                <div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-700">
-                    <div class="text-4xl font-extrabold text-indigo-600 dark:text-indigo-400 mb-2">
-                        {{-- Menggunakan computed property --}}
-                        {{ $this->totalPublishedBlogs }}
-                    </div>
-                    <div class="text-gray-700 dark:text-gray-300 font-medium">Artikel Published</div>
-                </div>
-                <div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-700">
-                    <div class="text-4xl font-extrabold text-indigo-600 dark:text-indigo-400 mb-2">
-                        {{ Blog::whereYear('created_at', date('Y'))->count() }}
-                    </div>
-                    <div class="text-gray-700 dark:text-gray-300 font-medium">Artikel Tahun Ini</div>
-                </div>
-                <div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-700">
-                    <div class="text-4xl font-extrabold text-indigo-600 dark:text-indigo-400 mb-2">
-                        {{ $this->totalPublishedBlogs > 0 ? number_format(Blog::published()->pluck('content')->map(fn($c) => str_word_count(strip_tags($c)))->avg(), 0) : 0 }}
-                    </div>
-                    <div class="text-gray-700 dark:text-gray-300 font-medium">Rata-rata Kata (Estimasi)</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    
     <style>
         /* Styles untuk line-clamp, perlu ditambahkan agar berfungsi */
         .line-clamp-2 {
