@@ -2,7 +2,7 @@
 
 use Livewire\Volt\Component;
 use Livewire\Attributes\Layout;
-use App\Models\Blog;
+use App\Models\Content\Blog;
 use Illuminate\Support\Facades\Storage;
 
 new #[Layout('layouts.base')] class extends Component {

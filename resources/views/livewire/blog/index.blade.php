@@ -2,7 +2,7 @@
 
 use Livewire\Volt\Component;
 use Livewire\Attributes\Layout;
-use App\Models\Blog;
+use App\Models\Content\Blog;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Computed; // Digunakan untuk Computed Property
