@@ -52,17 +52,6 @@ new #[Layout('layouts.base')] class extends Component {
     {{-- Hero Section --}}
     <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-16">
         <div class="container mx-auto px-4">
-            {{-- Breadcrumb --}}
-            <nav class="mb-8">
-                <ol class="flex items-center gap-2 text-sm opacity-75">
-                    <li><a href="{{ route('home') }}" class="hover:opacity-100">Home</a></li>
-                    <li>/</li>
-                    <li><a href="{{ route('blog.index') }}" class="hover:opacity-100">Blog</a></li>
-                    <li>/</li>
-                    <li class="opacity-100">{{ $blog->title }}</li>
-                </ol>
-            </nav>
-
             <div class="max-w-4xl">
                 <h1 class="text-3xl md:text-5xl font-bold mb-6 leading-tight">
                     {{ $blog->title }}
