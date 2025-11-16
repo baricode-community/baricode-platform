@@ -95,7 +95,27 @@ new #[Layout('layouts.base')] class extends Component {
             @endif
 
             {{-- Content --}}
-            <article class="prose prose-lg max-w-none dark:prose-invert prose-headings:text-gray-900 dark:prose-headings:text-white prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-a:text-indigo-600 dark:prose-a:text-indigo-400 prose-strong:text-gray-900 dark:prose-strong:text-white prose-code:text-indigo-600 dark:prose-code:text-indigo-400 prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800">
+            <article class="prose prose-lg max-w-none dark:prose-invert 
+                prose-headings:text-gray-900 dark:prose-headings:text-white prose-headings:font-bold
+                prose-h1:text-3xl prose-h1:mb-6 prose-h1:mt-8 prose-h1:border-b prose-h1:border-gray-200 dark:prose-h1:border-gray-700 prose-h1:pb-2
+                prose-h2:text-2xl prose-h2:mb-4 prose-h2:mt-8 prose-h2:text-indigo-600 dark:prose-h2:text-indigo-400
+                prose-h3:text-xl prose-h3:mb-3 prose-h3:mt-6 prose-h3:text-gray-800 dark:prose-h3:text-gray-200
+                prose-h4:text-lg prose-h4:mb-2 prose-h4:mt-4 prose-h4:font-semibold
+                prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-4
+                prose-a:text-indigo-600 dark:prose-a:text-indigo-400 prose-a:font-medium prose-a:no-underline hover:prose-a:underline hover:prose-a:text-indigo-800 dark:hover:prose-a:text-indigo-300
+                prose-strong:text-gray-900 dark:prose-strong:text-white prose-strong:font-bold
+                prose-em:text-gray-600 dark:prose-em:text-gray-400 prose-em:italic
+                prose-code:text-indigo-600 dark:prose-code:text-indigo-400 prose-code:bg-gray-100 dark:prose-code:bg-gray-800 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:font-mono
+                prose-pre:bg-gray-100 dark:prose-pre:bg-gray-800 prose-pre:border prose-pre:border-gray-200 dark:prose-pre:border-gray-700 prose-pre:rounded-lg prose-pre:p-4 prose-pre:overflow-x-auto
+                prose-blockquote:border-l-4 prose-blockquote:border-indigo-500 prose-blockquote:bg-indigo-50 dark:prose-blockquote:bg-indigo-900/20 prose-blockquote:pl-4 prose-blockquote:py-2 prose-blockquote:italic prose-blockquote:text-gray-700 dark:prose-blockquote:text-gray-300
+                prose-ul:list-disc prose-ul:ml-6 prose-ul:mb-4
+                prose-ol:list-decimal prose-ol:ml-6 prose-ol:mb-4
+                prose-li:mb-2 prose-li:text-gray-700 dark:prose-li:text-gray-300
+                prose-table:border-collapse prose-table:border prose-table:border-gray-300 dark:prose-table:border-gray-600 prose-table:rounded-lg prose-table:overflow-hidden
+                prose-th:bg-gray-50 dark:prose-th:bg-gray-800 prose-th:border prose-th:border-gray-300 dark:prose-th:border-gray-600 prose-th:px-4 prose-th:py-2 prose-th:text-left prose-th:font-semibold prose-th:text-gray-900 dark:prose-th:text-white
+                prose-td:border prose-td:border-gray-300 dark:prose-td:border-gray-600 prose-td:px-4 prose-td:py-2 prose-td:text-gray-700 dark:prose-td:text-gray-300
+                prose-hr:border-gray-300 dark:prose-hr:border-gray-600 prose-hr:my-8
+                prose-img:rounded-lg prose-img:shadow-md prose-img:mx-auto prose-img:max-w-full">
                 {!! \Illuminate\Support\Str::markdown($blog->content) !!}
             </article>
 
@@ -236,19 +256,191 @@ new #[Layout('layouts.base')] class extends Component {
             overflow: hidden;
         }
 
+        /* Enhanced prose styling for better content presentation */
         .prose {
             max-width: none;
         }
 
+        /* Code blocks styling */
         .prose pre {
             background-color: #f8f9fa;
-            border-radius: 0.5rem;
-            padding: 1rem;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
             overflow-x: auto;
+            border: 1px solid #e5e7eb;
+            position: relative;
         }
 
         .dark .prose pre {
             background-color: #1f2937;
+            border-color: #374151;
+        }
+
+        /* Inline code styling */
+        .prose code {
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 0.125rem 0.375rem;
+            border-radius: 0.25rem;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+
+        /* Blockquote enhanced styling */
+        .prose blockquote {
+            font-style: normal;
+            font-weight: 500;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .prose blockquote::before {
+            content: '"';
+            font-size: 3rem;
+            color: #6366f1;
+            position: absolute;
+            left: -1rem;
+            top: -0.5rem;
+            opacity: 0.5;
+        }
+
+        /* Table responsive styling */
+        .prose table {
+            width: 100%;
+            margin: 1.5rem 0;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .prose tbody tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+
+        .dark .prose tbody tr:nth-child(even) {
+            background-color: #1f2937;
+        }
+
+        /* List styling improvements */
+        .prose ul li::marker,
+        .prose ol li::marker {
+            color: #6366f1;
+            font-weight: bold;
+        }
+
+        .prose ul ul,
+        .prose ol ol,
+        .prose ul ol,
+        .prose ol ul {
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Image styling */
+        .prose img {
+            margin: 2rem auto;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            max-height: 500px;
+            object-fit: cover;
+        }
+
+        /* Responsive video embeds */
+        .prose iframe {
+            border-radius: 0.75rem;
+            margin: 1.5rem auto;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Horizontal rule styling */
+        .prose hr {
+            margin: 3rem 0;
+            border: none;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #6366f1, transparent);
+        }
+
+        /* Responsive typography */
+        @media (max-width: 640px) {
+            .prose {
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+
+            .prose h1 {
+                font-size: 1.875rem;
+            }
+
+            .prose h2 {
+                font-size: 1.5rem;
+            }
+
+            .prose h3 {
+                font-size: 1.25rem;
+            }
+
+            .prose pre {
+                padding: 1rem;
+                font-size: 0.875rem;
+            }
+
+            .prose table {
+                font-size: 0.875rem;
+            }
+
+            .prose th,
+            .prose td {
+                padding: 0.5rem;
+            }
+        }
+
+        /* Syntax highlighting placeholder (you can add Prism.js or highlight.js later) */
+        .prose .language-javascript,
+        .prose .language-php,
+        .prose .language-css,
+        .prose .language-html {
+            position: relative;
+        }
+
+        .prose .language-javascript::before,
+        .prose .language-php::before,
+        .prose .language-css::before,
+        .prose .language-html::before {
+            content: attr(class);
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: #6366f1;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        /* Focus states for accessibility */
+        .prose a:focus {
+            outline: 2px solid #6366f1;
+            outline-offset: 2px;
+            border-radius: 0.25rem;
+        }
+
+        /* Print styles */
+        @media print {
+            .prose {
+                color: black;
+            }
+
+            .prose pre {
+                background-color: #f5f5f5 !important;
+                border: 1px solid #ccc;
+            }
+
+            .prose a {
+                text-decoration: underline;
+                color: blue;
+            }
         }
     </style>
 
