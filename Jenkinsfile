@@ -6,7 +6,7 @@ pipeline {
             agent { docker { image 'composer' } }
             steps {
                 sh 'ls -a'
-                sh 'composer install'
+                sh 'composer install --ignore-platform-req=ext-intl'
             }
         }
         stage('php') {
