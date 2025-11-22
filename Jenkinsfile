@@ -1,6 +1,6 @@
 pipeline {
     agent none
-    
+
     stages {
         stage('composer') {
             agent { docker { image 'composer' } }
@@ -12,9 +12,18 @@ pipeline {
         stage('node') {
             agent { docker { image 'node:alpine3.21' } }
             steps {
-                sh 'npm --version'
-                sh 'node --version'
-                sh 'npm install'
+                sh '''
+                  # buat cache npm di dalam workspace agar tidak menulis ke /.npm (root)
+                  CACHE_DIR="${WORKSPACE}/.npm"
+                  mkdir -p "$CACHE_DIR"
+                  # pastikan dapat ditulis; chmod 0777 aman untuk direktori cache
+                  chmod 0777 "$CACHE_DIR" || true
+                  export NPM_CONFIG_CACHE="$CACHE_DIR"
+
+                  npm --version
+                  node --version
+                  npm install
+                '''
             }
         }
         stage('php') {
