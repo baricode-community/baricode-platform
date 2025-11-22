@@ -20,6 +20,7 @@ pipeline {
                   chmod 0777 "$CACHE_DIR" || true
                   export NPM_CONFIG_CACHE="$CACHE_DIR"
 
+                  rm -rf node_modules
                   npm --version
                   node --version
                   npm install
