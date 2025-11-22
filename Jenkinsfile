@@ -10,8 +10,10 @@ pipeline {
             }
         }
         stage('node') {
-            agent { docker { image 'node' } }
+            agent { docker { image 'node:alpine3.21' } }
             steps {
+                sh 'npm --version'
+                sh 'node --version'
                 sh 'npm install'
             }
         }
