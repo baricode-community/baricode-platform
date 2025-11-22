@@ -27,9 +27,9 @@
 
             <!-- Collaboration Tools -->
             <flux:navlist.group :heading="__('Collaboration')" class="grid">
-                <flux:navlist.item icon="map" :href="route('satu-tapak.index')" :current="request()->routeIs('satu-tapak.*')" wire:navigate>
+                {{-- <flux:navlist.item icon="map" :href="route('satu-tapak.index')" :current="request()->routeIs('satu-tapak.*')" wire:navigate>
                     {{ __('Satu Tapak (Beta)') }}
-                </flux:navlist.item>
+                </flux:navlist.item> --}}
                 <flux:navlist.item icon="users" :href="route('proyek-bareng.index')" :current="request()->routeIs('proyek-bareng.*')" wire:navigate>
                     {{ __('Proyek Bareng') }}
                 </flux:navlist.item>
