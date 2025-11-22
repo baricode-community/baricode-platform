@@ -185,25 +185,42 @@
             </div>
         </section>
 
-        {{-- ARTIKEL & BLOG --}}
+        {{-- VIDEO & KOMUNITAS YOUTUBE (PENGGANTI ARTIKEL & BLOG) --}}
         <section class="py-20 px-4 bg-gray-800">
             <div class="max-w-7xl mx-auto text-center">
                 <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-8">
-                    Baca <span class="text-pink-400">Artikel & Blog</span> Terbaru
+                    Video <span class="text-pink-400">Profile Kami</span>
                 </h2>
-                <p class="text-gray-300 mb-8 max-w-3xl mx-auto text-lg">
-                    Dapatkan insight, tips, dan cerita inspiratif seputar dunia ngoding dan perkembangan komunitas kami.
-                </p>
+                <div class="grid lg:grid-cols-3 gap-10 items-start">
+                    {{-- Featured Video --}}
+                    <div class="lg:col-span-2 text-left bg-gray-900 p-5 rounded-xl shadow-2xl">
+                        <h3 class="text-2xl font-bold text-white mb-4 border-l-4 border-pink-500 pl-3">
+                            Video Profile Komunitas
+                        </h3>
+                        {{-- Embed Video --}}
+                        <div class="aspect-video w-full mb-4 rounded-lg overflow-hidden shadow-xl">
+                            <iframe width="100%" height="100%"
+                                src="https://www.youtube.com/embed/TE-G5x8al5o"
+                                title="Website taunya Ini MANUSIA! Web Scraping GOKIL Anti-Blokir, BrowserAct + n8n"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                        </div>
+                    </div>
 
-                <div
-                    class="inline-block bg-yellow-500 text-gray-900 font-bold px-6 py-3 rounded-xl text-md mb-6 uppercase tracking-wider shadow-lg">
-                    <i class="fas fa-bell mr-2"></i> Segera Hadir (Platform Blog sedang dikembangkan!)
+                    {{-- Channel Profile --}}
+                    <div class="lg:col-span-1 text-center bg-gray-900 p-6 rounded-xl shadow-2xl">
+                        <h3 class="text-2xl font-bold text-white mb-4">
+                            Kanal Baricode Community
+                        </h3>
+                        <i class="fab fa-youtube text-6xl text-red-500 mb-3"></i>
+                        <p class="text-gray-300 mb-4">Channel belajar programming berbahasa Indonesia. Membahas teknik pemrograman secara umum, komputasi, dan pengolahan data.</p>
+                        <a href="https://www.youtube.com/@baricode_org" target="_blank"
+                            class="inline-flex items-center gap-2 bg-red-600 text-white font-bold py-2 px-6 rounded-full text-md transition duration-300 transform hover:scale-105 hover:bg-red-700 shadow-xl shadow-red-500/40">
+                            <i class="fas fa-external-link-alt"></i> Kunjungi Channel
+                        </a>
+                    </div>
                 </div>
-                <br>
-                <a href="{{ route('blog.index') }}" wire:navigate
-                    class="bg-gray-600 text-white font-bold py-3 px-10 rounded-full text-lg opacity-70 cursor-not-allowed shadow-xl">
-                    <i class="fas fa-external-link-alt mr-2"></i> Kunjungi Blog
-                </a>
             </div>
         </section>
 
@@ -347,10 +364,12 @@
                 </h2>
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="p-6 bg-gray-800 rounded-xl border-b-4 border-indigo-500 animate-scale-in">
+                        {{-- Menggunakan variabel Blade yang ada --}}
                         <p class="text-5xl font-extrabold text-indigo-400 mb-2">{{ $usersCount }}</p>
                         <p class="text-gray-300 font-medium">Anggota Terdaftar</p>
                     </div>
                     <div class="p-6 bg-gray-800 rounded-xl border-b-4 border-pink-500 animate-scale-in-2">
+                        {{-- Menggunakan variabel Blade yang ada --}}
                         <p class="text-5xl font-extrabold text-pink-400 mb-2">{{ $projectsCount }}</p>
                         <p class="text-gray-300 font-medium">Proyek Utama Berjalan</p>
                     </div>
