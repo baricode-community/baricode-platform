@@ -24,6 +24,7 @@ pipeline {
                   npm --version
                   node --version
                   npm install
+                  npm run build
                 '''
             }
         }
